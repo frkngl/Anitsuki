@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AnitsukiTVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="AnitsukiTVEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="AnitsukiTVModel.sysdiagrams" />
+    <EntitySet Name="TBLANIME" EntityType="AnitsukiTVModel.TBLANIME" />
+    <EntitySet Name="TBLCATEGORY" EntityType="AnitsukiTVModel.TBLCATEGORY" />
+    <EntitySet Name="TBLEPISODE" EntityType="AnitsukiTVModel.TBLEPISODE" />
+    <EntitySet Name="TBLSEASON" EntityType="AnitsukiTVModel.TBLSEASON" />
+    <AssociationSet Name="FK_TBLANIME_TBLCATEGORY" Association="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY">
+      <End Role="TBLCATEGORY" EntitySet="TBLCATEGORY" />
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODE_TBLANIME" Association="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME">
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+      <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLSEASON_TBLANIME" Association="AnitsukiTVModel.FK_TBLSEASON_TBLANIME">
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+      <End Role="TBLSEASON" EntitySet="TBLSEASON" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODE_TBLSEASON" Association="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON">
+      <End Role="TBLSEASON" EntitySet="TBLSEASON" />
+      <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TBLANIME">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CATEGORYID" Type="Int32" />
+    <Property Name="ANIMENAME" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="EDIT" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DATE" Type="DateTime" Precision="3" />
+    <Property Name="DETAIL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TYPE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BANNER" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="STATUS" Type="Boolean" />
+    <Property Name="IMDB" Type="Decimal" Precision="2" Scale="1" />
+    <NavigationProperty Name="TBLCATEGORY" Relationship="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY" FromRole="TBLANIME" ToRole="TBLCATEGORY" />
+    <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME" FromRole="TBLANIME" ToRole="TBLEPISODE" />
+    <NavigationProperty Name="TBLSEASON" Relationship="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" FromRole="TBLANIME" ToRole="TBLSEASON" />
+  </EntityType>
+  <EntityType Name="TBLCATEGORY">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CATEGORYNAME" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="STATUS" Type="Boolean" />
+    <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY" FromRole="TBLCATEGORY" ToRole="TBLANIME" />
+  </EntityType>
+  <EntityType Name="TBLEPISODE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ANIMEID" Type="Int32" />
+    <Property Name="SEASONID" Type="Int32" />
+    <Property Name="EP1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="EP2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="EP3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="EP4" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="EPINUMBER" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+    <Property Name="EPISODENAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DATE" Type="DateTime" Precision="3" />
+    <Property Name="TIME" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="BANNER" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="STATUS" Type="Boolean" />
+    <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME" FromRole="TBLEPISODE" ToRole="TBLANIME" />
+    <NavigationProperty Name="TBLSEASON" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" FromRole="TBLEPISODE" ToRole="TBLSEASON" />
+  </EntityType>
+  <EntityType Name="TBLSEASON">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ANIMEID" Type="Int32" />
+    <Property Name="SEASONNUMBER" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" FromRole="TBLSEASON" ToRole="TBLANIME" />
+    <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" FromRole="TBLSEASON" ToRole="TBLEPISODE" />
+  </EntityType>
+  <Association Name="FK_TBLANIME_TBLCATEGORY">
+    <End Type="AnitsukiTVModel.TBLCATEGORY" Role="TBLCATEGORY" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLANIME" Role="TBLANIME" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLCATEGORY">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLANIME">
+        <PropertyRef Name="CATEGORYID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODE_TBLANIME">
+    <End Type="AnitsukiTVModel.TBLANIME" Role="TBLANIME" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLEPISODE" Role="TBLEPISODE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODE">
+        <PropertyRef Name="ANIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLSEASON_TBLANIME">
+    <End Type="AnitsukiTVModel.TBLANIME" Role="TBLANIME" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLSEASON" Role="TBLSEASON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLSEASON">
+        <PropertyRef Name="ANIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODE_TBLSEASON">
+    <End Type="AnitsukiTVModel.TBLSEASON" Role="TBLSEASON" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLEPISODE" Role="TBLEPISODE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLSEASON">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODE">
+        <PropertyRef Name="SEASONID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

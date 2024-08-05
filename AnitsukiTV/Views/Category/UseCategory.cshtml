@@ -1,0 +1,225 @@
+﻿@using AnitsukiTV.Models
+@model TabeList
+
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime | Anasayfa</title>
+    <!--İOS Cihazlarda fullscreen'i etkinleştirmek için işe yarayana HTML TAG'I-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!--FONT AWESOME-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--SPLIDE CSS-->
+    <link rel="stylesheet" href="~/Anitsuki/node_modules/splidejs/splide/dist/css/splide.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Anitsuki/node_modules/splidejs/splide/dist/css/themes/splide-skyblue.min.css" type="text/css">
+    <!--SWIPER CSS-->
+    <link rel="stylesheet" href="~/Anitsuki/node_modules/swiper/swiper-bundle.min.css" type="text/css">
+    <!--BOOTSTRAP CSS-->
+    <link rel="stylesheet" href="~/Anitsuki/node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Anitsuki/node_modules/bootstrap-icons/font/bootstrap-icons.min.css" type="text/css">
+    <!--CSS-->
+    <link rel="stylesheet" href="~/Anitsuki/css/main.css" type="text/css">
+    <link rel="stylesheet" href="~/Anitsuki/css/main.css.map" type="text/css">
+    <!--TITLE IMG-->
+    <link rel="shortcut icon" href="~/Anitsuki/img/aylogo.png" />
+</head>
+
+<body>
+    <div id="loader">
+        <div id="box1">
+            <img src="~/Anitsuki/img/arisu-aris.gif">
+        </div>
+    </div>
+    <!----------------------------------------------------HEADER START---------------------------------------------------->
+    <header>
+        <div class="container-xl">
+            <div class="row">
+                <div class="logo col-2">
+                    <a href="/Home/Index"><img src="~/Anitsuki/img/logo.png"><img class="logomobile" src="~/Anitsuki/img/aylogo.png"></a>
+                </div>
+
+                <input style="display: none;" type="checkbox" id="check">
+                <label for="check" class="hamburger-btn col-1">
+                    <span></span>
+                </label>
+
+                <nav class="col-8">
+                    <ul>
+                        <li><a href="/Home/Index" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
+                        <li><a href="/Category/Index"><i class="fa-solid fa-list"></i> Animeler</a></li>
+                    </ul>
+                </nav>
+                <div class="box col-2">
+                    <div class="search">
+                        <div class="search">
+
+                        </div>
+                        <div class="user">
+                            <a href="user.html"><i class="bi bi-person"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!----------------------------------------------------HEADER END---------------------------------------------------->
+    <!----------------------------------------------------CONTENT START---------------------------------------------------->
+
+
+    <div class="content2">
+        <div class="searchcategory">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    @ViewBag.Category
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/Category/Index">Hepsi</a></li>
+                    @foreach (var x in Model.Category)
+                    {
+                        <li><a class="dropdown-item" href="/Category/UseCategory/@x.ID">@x.CATEGORYNAME</a></li>
+                    }
+                    @*<li><a class="dropdown-item" href="#">Aksiyon</a></li>
+                        <li><a class="dropdown-item" href="#">Aşçılık</a></li>
+                        <li><a class="dropdown-item" href="#">Shounen</a></li>
+                        <li><a class="dropdown-item" href="#">Doğaüstü </a></li>
+                        <li><a class="dropdown-item" href="#">Dram</a></li>
+                        <li><a class="dropdown-item" href="#">Ecchi</a></li>
+                        <li><a class="dropdown-item" href="#">Gizem</a></li>
+                        <li><a class="dropdown-item" href="#">Harem</a></li>
+                        <li><a class="dropdown-item" href="#">İsekai</a></li>
+                        <li><a class="dropdown-item" href="#">Korku</a></li>
+                        <li><a class="dropdown-item" href="#">Psikolojik</a></li>
+                        <li><a class="dropdown-item" href="#">Shoujo</a></li>
+                        <li><a class="dropdown-item" href="#">Slice of Life</a></li>
+                        <li><a class="dropdown-item" href="#">Romantik</a></li>
+                        <li><a class="dropdown-item" href="#">Komedi</a></li>
+                        <li><a class="dropdown-item" href="#">Spor</a></li>
+                        <li><a class="dropdown-item" href="#">Müzikal</a></li>*@
+                </ul>
+            </div>
+            <div class="search">
+                <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+                <input type="text" autocomplete="off" name="searchTags" id="searchTags"
+                       placeholder="Anime adını yazınız" />
+            </div>
+        </div>
+        <ul id="menuFull">
+            @foreach (var y in Model.Anime)
+            {
+                <li class="splide__slide">
+                    <a href="/AnimeDetail/Index/@y.ID">
+                        <div class="videoimg">
+                            <img src="~/IMG/@y.BANNER">
+                            <video class="video" src="~/Videos/@y.EDIT" playsinline></video>
+                        </div>
+                        <div class="text">
+                            <div class="title">
+                                @if (y.ANIMENAME.Length < 3)
+                                {
+                                    @y.ANIMENAME
+                                }
+                                else
+                                {
+                                    @y.ANIMENAME.Substring(0, 5)
+                                }
+                            </div>
+                            <div class="season">
+                                @y.DATE.Value.ToString("yyyy")
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    <!----------------------------------------------------CONTENT START---------------------------------------------------->
+    <!----------------------------------------------------FOOTER START---------------------------------------------------->
+    <footer>
+        <div class="footerimg">
+        </div>
+        <div class="detail">
+            <div class="page">
+                <div class="title">
+                    Sayfalar
+                </div>
+                <ul>
+                    <li><a href="about.html">Hakkımızda</a></li>
+                    <li><a href="privacyandpolitic.html">Gizlilik Politikası</a></li>
+                </ul>
+            </div>
+            <div class="social">
+                <div class="title">
+                    Sosyal Medyalar
+                </div>
+                <ul>
+                    <li><a href="#"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
+                    <li><a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a></li>
+                    <li><a href="#"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
+                    <li><a href="https://discord.gg/j6k56TRk"><i class="bi bi-discord"></i> Discord</a></li>
+                </ul>
+            </div>
+            <div class="contact">
+                <div class="title">
+                    İletişim
+                </div>
+                <ul>
+                    <li>info@anitsuki.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright ">
+            <img src="~/Anitsuki/img/aylogo.png">
+            <div class="text">
+                Copyright © Anitsuki 2024. Tüm hakları saklıdır.
+            </div>
+        </div>
+    </footer>
+    <!----------------------------------------------------FOOTER END---------------------------------------------------->
+</body>
+
+</html>
+<!--JQUERY JS-->
+<script src="~/Anitsuki/node_modules/jquery/dist/jquery.min.js"></script>
+<!--BOOTSTRAP JS-->
+<script src="~/Anitsuki/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!--SWIPER JS-->
+<script src="~/Anitsuki/node_modules/swiper/swiper-bundle.min.js"></script>
+<!--SPLIDE JS-->
+<script src="~/Anitsuki/node_modules/splidejs/splide/dist/js/splide.min.js"></script>
+<!--JS-->
+<script src="~/Anitsuki/js/main.js"></script>
+<script src="~/Anitsuki/js/splide.js"></script>
+
+
+<script>
+/*NAVBAR'DAKİ LİNK ACTİVE*/
+    document.querySelectorAll('nav a').forEach(link => {
+        link.classList.remove('active');
+
+        if (link.href === window.location.href) {
+            link.classList.add('active');
+        }
+    });
+    //Sayfa Yükleme Ekranı
+    window.addEventListener('load', loaderfunc);
+    function loaderfunc() {
+        document.getElementById('loader').style.display = 'none';
+    }
+    //Sayfada Aşağı boşluk tuşuna bastığında inmemeye yarayana Kod
+    document.addEventListener('keydown', function (event) {
+        if (event.code === 'Space' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'INPUT') {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    });</script>

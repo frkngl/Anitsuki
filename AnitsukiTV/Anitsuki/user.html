@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime | Anasayfa</title>
+    <!--İOS Cihazlarda fullscreen'i etkinleştirmek için işe yarayana HTML TAG'I-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!--FONT AWESOME-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--SPLIDE CSS-->
+    <link rel="stylesheet" href="node_modules/@splidejs/splide/dist/css/splide.min.css" type="text/css">
+    <link rel="stylesheet" href="node_modules/@splidejs/splide/dist/css/themes/splide-skyblue.min.css" type="text/css">
+    <!--SWIPER CSS-->
+    <link rel="stylesheet" href="node_modules/swiper/swiper-bundle.min.css" type="text/css">
+    <!--BOOTSTRAP CSS-->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.min.css" type="text/css">
+    <!--CSS-->
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css.map" type="text/css">
+    <!--TITLE IMG-->
+    <link rel="shortcut icon" href="img/aylogo.png" />
+</head>
+
+<body>
+    <div id="loader">
+        <div id="box1">
+            <img src="img/arisu-aris.gif">
+        </div>
+    </div>
+    <!----------------------------------------------------HEADER START---------------------------------------------------->
+    <header>
+        <div class="container-xl">
+            <div class="row">
+                <div class="logo col-2">
+                    <a href="index.html"><img src="img/logo.png"><img class="logomobile" src="img/aylogo.png"></a>
+                </div>
+
+                <input style="display: none;" type="checkbox" id="check">
+                <label for="check" class="hamburger-btn col-1">
+                    <span></span>
+                </label>
+
+                <nav class="col-8">
+                    <ul>
+                        <li><a href="index.html" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
+                        <li><a href="category.html"><i class="fa-solid fa-list"></i> Animeler</a></li>
+                    </ul>
+                </nav>
+                <div class="box col-2">
+                    <div class="search">
+                        <a href="category.html"><i class="bi bi-search"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!----------------------------------------------------HEADER END---------------------------------------------------->
+
+
+
+    <!----------------------------------------------------USER START---------------------------------------------------->
+    <div class="content9">
+        <div class="text">
+            <div class="box">
+                <i class="bi bi-person" style="font-size: 1.1rem;"></i> frknglww
+            </div>
+            <div class="box">
+                <a href="#"> <i class="bi bi-gear"></i> Profili Düzenle</a>
+            </div>
+        </div>
+        <div class="userdetail">
+            <img src="img/1.png">
+            <div class="detail">
+                <div class="title">
+                    <i class="bi bi-info-circle"></i> Hakkımda
+                </div>
+                <div class="des">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae aut nisi nulla hic explicabo
+                    enim eaque sint. Nostrum, iste hic tempore dolorem officia voluptate non, rerum dolorum, in eveniet
+                    accusamus labore aut! Inventore eveniet sapiente quas porro nulla mollitia quasi provident
+                    exercitationem. Magnam veritatis tempore ut sint similique reprehenderit sit?
+                </div>
+                <div class="date">
+                    <i class="bi bi-calendar"></i> Kayıt Tarihi: 20.12.2023
+                </div>
+            </div>
+        </div>
+        <div class="lastcommentfavoriteanime">
+            <div class="text">
+                <div class="title">
+                    <i class="bi bi-heart"></i> Favori Animeler
+                </div>
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+                    <input type="text" autocomplete="off" name="searchTags" id="searchTags" placeholder="Anime Arayınız" />
+                </div>
+            </div>
+            <div class="animeler">
+                <ul id="menuFull">
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B1 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B2 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B3 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B4 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                   
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B5 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B6 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                   
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B7 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                   
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B8 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                  
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B9 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B10 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B11 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B12 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B13 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B14 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                   
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B15 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B16 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                   
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B17 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B18 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="lastcommentfavoriteanime" style="margin-top: 80px !important;">
+            <div class="text">
+                <div class="title">
+                    <i class="bi bi-clock-history"></i> Sonra İzleyeceklerim
+                </div>
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+                    <input type="text" autocomplete="off" name="searchTags9" id="searchTags9" placeholder="Anime Arayınız" />
+                </div>
+            </div>
+            <div class="animeler">
+                <ul id="menuFull9">
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B1 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B2 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                   
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B3 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B4 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B5 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B6 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                   
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B7 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                   
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B8 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B9 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B10 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B11 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B12 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B13 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                   
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B14 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B15 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                   
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B16 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                   
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B17 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="detail.html">
+                            <div class="box">
+                                <div class="img">
+                                    
+                                    <img src="img/1.png">
+                                </div>
+                                <div class="detail">
+                                    <div class="title">
+                                      B18 - Karanlık Gerçek
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!----------------------------------------------------USER END---------------------------------------------------->
+
+
+
+
+
+    <!----------------------------------------------------FOOTER START---------------------------------------------------->
+    <footer>
+        <div class="footerimg">
+        </div>
+        <div class="detail">
+            <div class="page">
+                <div class="title">
+                    Sayfalar
+                </div>
+                <ul>
+                    <li><a href="about.html">Hakkımızda</a></li>
+                    <li><a href="privacyandpolitic.html">Gizlilik Politikası</a></li>
+                </ul>
+            </div>
+            <div class="social">
+                <div class="title">
+                    Sosyal Medyalar
+                </div>
+                <ul>
+                    <li><a href="#"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
+                    <li><a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a></li>
+                    <li><a href="#"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
+                    <li><a href="https://discord.gg/j6k56TRk"><i class="bi bi-discord"></i> Discord</a></li>
+                </ul>
+            </div>
+            <div class="contact">
+                <div class="title">
+                    İletişim
+                </div>
+                <ul>
+                    <li>info@anitsuki.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright ">
+            <img src="img/aylogo.png">
+            <div class="text">
+                Copyright © Anitsuki 2024. Tüm hakları saklıdır.
+            </div>
+        </div>
+    </footer>
+    <!----------------------------------------------------FOOTER END---------------------------------------------------->
+</body>
+
+</html>
+<!--JQUERY JS-->
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<!--BOOTSTRAP JS-->
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!--SWIPER JS-->
+<script src="node_modules/swiper/swiper-bundle.min.js"></script>
+<!--SPLIDE JS-->
+<script src="node_modules/@splidejs/splide/dist/js/splide.min.js"></script>
+<!--JS-->
+<script src="js/main.js"></script>
+<script src="js/splide.js"></script>
+
+
+<script>
+    /*NAVBAR'DAKİ LİNK ACTİVE*/
+    document.querySelectorAll('nav a').forEach(link => {
+        link.classList.remove('active');
+
+        if (link.href === window.location.href) {
+            link.classList.add('active');
+        }
+    });
+    //Sayfa Yükleme Ekranı
+    window.addEventListener('load', loaderfunc);
+    function loaderfunc() {
+        document.getElementById('loader').style.display = 'none';
+    }
+    //Sayfada Aşağı boşluk tuşuna bastığında inmemeye yarayana Kod
+    document.addEventListener('keydown', function (event) {
+        if (event.code === 'Space' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'INPUT') {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    });
+</script>
