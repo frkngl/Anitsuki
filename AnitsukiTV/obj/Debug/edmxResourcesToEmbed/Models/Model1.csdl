@@ -86,7 +86,7 @@
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ANIMEID" Type="Int32" />
-    <Property Name="SEASONNUMBER" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+    <Property Name="SEASONNUMBER" Type="Int32" />
     <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" FromRole="TBLSEASON" ToRole="TBLANIME" />
     <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" FromRole="TBLSEASON" ToRole="TBLEPISODE" />
   </EntityType>

@@ -143,7 +143,7 @@
                     @foreach (var l in Model.Episode.OrderByDescending(l=>l.ID).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="#">
+                            <a href="/AnimeDetail/Video/@l.ID">
                                 <div class="videoimg">
                                     <img src="~/IMG/@l.TBLANIME.BANNER">
                                     <video class="video" src="~/Videos/@l.TBLANIME.EDIT" playsinline></video>

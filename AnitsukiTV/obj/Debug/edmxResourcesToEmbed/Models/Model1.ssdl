@@ -57,7 +57,7 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ANIMEID" Type="int" />
-    <Property Name="SEASONNUMBER" Type="nchar" MaxLength="3" />
+    <Property Name="SEASONNUMBER" Type="int" />
   </EntityType>
   <Association Name="FK_TBLANIME_TBLCATEGORY">
     <End Role="TBLCATEGORY" Type="Self.TBLCATEGORY" Multiplicity="0..1" />

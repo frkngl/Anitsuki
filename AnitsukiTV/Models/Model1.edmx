@@ -62,7 +62,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ANIMEID" Type="int" />
-          <Property Name="SEASONNUMBER" Type="nchar" MaxLength="3" />
+          <Property Name="SEASONNUMBER" Type="int" />
         </EntityType>
         <Association Name="FK_TBLANIME_TBLCATEGORY">
           <End Role="TBLCATEGORY" Type="Self.TBLCATEGORY" Multiplicity="0..1" />
@@ -225,7 +225,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ANIMEID" Type="Int32" />
-          <Property Name="SEASONNUMBER" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="SEASONNUMBER" Type="Int32" />
           <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" FromRole="TBLSEASON" ToRole="TBLANIME" />
           <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" FromRole="TBLSEASON" ToRole="TBLEPISODE" />
         </EntityType>

@@ -11,5 +11,8 @@ namespace AnitsukiTV.Models
         public List<TBLANIME> Anime { get; set; }
         public List<TBLSEASON> Season { get; set; }
         public List<TBLEPISODE> Episode { get; set; }
+        public List<TBLEPISODE> OncekiBolum { get; set; }
+        public List<TBLEPISODE> SonrakiBolum { get; set; }
+
     }
 }
