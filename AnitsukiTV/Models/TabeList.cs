@@ -13,6 +13,8 @@ namespace AnitsukiTV.Models
         public List<TBLEPISODE> Episode { get; set; }
         public List<TBLEPISODE> OncekiBolum { get; set; }
         public List<TBLEPISODE> SonrakiBolum { get; set; }
+        public TBLUSER User { get; set; }
+        public List<TBLEPISODELIKE> EpisodeLike {  get; set; } 
 
     }
 }

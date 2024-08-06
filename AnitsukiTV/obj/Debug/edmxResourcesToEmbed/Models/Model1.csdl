@@ -5,7 +5,9 @@
     <EntitySet Name="TBLANIME" EntityType="AnitsukiTVModel.TBLANIME" />
     <EntitySet Name="TBLCATEGORY" EntityType="AnitsukiTVModel.TBLCATEGORY" />
     <EntitySet Name="TBLEPISODE" EntityType="AnitsukiTVModel.TBLEPISODE" />
+    <EntitySet Name="TBLEPISODELIKE" EntityType="AnitsukiTVModel.TBLEPISODELIKE" />
     <EntitySet Name="TBLSEASON" EntityType="AnitsukiTVModel.TBLSEASON" />
+    <EntitySet Name="TBLUSER" EntityType="AnitsukiTVModel.TBLUSER" />
     <AssociationSet Name="FK_TBLANIME_TBLCATEGORY" Association="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY">
       <End Role="TBLCATEGORY" EntitySet="TBLCATEGORY" />
       <End Role="TBLANIME" EntitySet="TBLANIME" />
@@ -21,6 +23,14 @@
     <AssociationSet Name="FK_TBLEPISODE_TBLSEASON" Association="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON">
       <End Role="TBLSEASON" EntitySet="TBLSEASON" />
       <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODELIKE_TBLEPISODE" Association="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLEPISODE">
+      <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+      <End Role="TBLEPISODELIKE" EntitySet="TBLEPISODELIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODELIKE_TBLUSER" Association="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLEPISODELIKE" EntitySet="TBLEPISODELIKE" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="sysdiagrams">
@@ -79,6 +89,18 @@
     <Property Name="STATUS" Type="Boolean" />
     <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME" FromRole="TBLEPISODE" ToRole="TBLANIME" />
     <NavigationProperty Name="TBLSEASON" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" FromRole="TBLEPISODE" ToRole="TBLSEASON" />
+    <NavigationProperty Name="TBLEPISODELIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLEPISODE" FromRole="TBLEPISODE" ToRole="TBLEPISODELIKE" />
+  </EntityType>
+  <EntityType Name="TBLEPISODELIKE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EPISODEID" Type="Int32" />
+    <Property Name="USERID" Type="Int32" />
+    <Property Name="LIKESTATUS" Type="Boolean" />
+    <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLEPISODE" FromRole="TBLEPISODELIKE" ToRole="TBLEPISODE" />
+    <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER" FromRole="TBLEPISODELIKE" ToRole="TBLUSER" />
   </EntityType>
   <EntityType Name="TBLSEASON">
     <Key>
@@ -89,6 +111,20 @@
     <Property Name="SEASONNUMBER" Type="Int32" />
     <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" FromRole="TBLSEASON" ToRole="TBLANIME" />
     <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" FromRole="TBLSEASON" ToRole="TBLEPISODE" />
+  </EntityType>
+  <EntityType Name="TBLUSER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PICTURE" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ABOUT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DATE" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="TBLEPISODELIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLEPISODELIKE" />
+    <Property Name="STATUS" Type="Boolean" />
   </EntityType>
   <Association Name="FK_TBLANIME_TBLCATEGORY">
     <End Type="AnitsukiTVModel.TBLCATEGORY" Role="TBLCATEGORY" Multiplicity="0..1" />
@@ -135,6 +171,30 @@
       </Principal>
       <Dependent Role="TBLEPISODE">
         <PropertyRef Name="SEASONID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODELIKE_TBLEPISODE">
+    <End Type="AnitsukiTVModel.TBLEPISODE" Role="TBLEPISODE" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLEPISODELIKE" Role="TBLEPISODELIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLEPISODE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODELIKE">
+        <PropertyRef Name="EPISODEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODELIKE_TBLUSER">
+    <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLEPISODELIKE" Role="TBLEPISODELIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODELIKE">
+        <PropertyRef Name="USERID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

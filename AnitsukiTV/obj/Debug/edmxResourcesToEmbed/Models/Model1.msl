@@ -56,11 +56,35 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TBLEPISODELIKE">
+      <EntityTypeMapping TypeName="AnitsukiTVModel.TBLEPISODELIKE">
+        <MappingFragment StoreEntitySet="TBLEPISODELIKE">
+          <ScalarProperty Name="LIKESTATUS" ColumnName="LIKESTATUS" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="EPISODEID" ColumnName="EPISODEID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="TBLSEASON">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLSEASON">
         <MappingFragment StoreEntitySet="TBLSEASON">
           <ScalarProperty Name="SEASONNUMBER" ColumnName="SEASONNUMBER" />
           <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBLUSER">
+      <EntityTypeMapping TypeName="AnitsukiTVModel.TBLUSER">
+        <MappingFragment StoreEntitySet="TBLUSER">
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="DATE" ColumnName="DATE" />
+          <ScalarProperty Name="ABOUT" ColumnName="ABOUT" />
+          <ScalarProperty Name="PICTURE" ColumnName="PICTURE" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="MAIL" ColumnName="MAIL" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

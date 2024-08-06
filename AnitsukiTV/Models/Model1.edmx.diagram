@@ -5,15 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9b3a0d16917c46f2b5bb8d8e40b75b03" Name="Diagram1">
-        <EntityTypeShape EntityType="AnitsukiTVModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="AnitsukiTVModel.TBLANIME" Width="1.5" PointX="3" PointY="2.75" />
-        <EntityTypeShape EntityType="AnitsukiTVModel.TBLCATEGORY" Width="1.5" PointX="0.75" PointY="3.625" />
-        <EntityTypeShape EntityType="AnitsukiTVModel.TBLEPISODE" Width="1.5" PointX="7.5" PointY="4.5" />
-        <EntityTypeShape EntityType="AnitsukiTVModel.TBLSEASON" Width="1.5" PointX="5.25" PointY="8.125" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.sysdiagrams" Width="1.5" PointX="0.5" PointY="7.875" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLANIME" Width="1.5" PointX="2.75" PointY="3" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLCATEGORY" Width="1.5" PointX="0.5" PointY="3.875" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLEPISODE" Width="1.5" PointX="7.25" PointY="4.75" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLEPISODELIKE" Width="1.5" PointX="9.5" PointY="5.75" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLSEASON" Width="1.5" PointX="4.5" PointY="8.875" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLUSER" Width="1.5" PointX="7.25" PointY="0.5" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" />
+        <AssociationConnector Association="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLEPISODE" />
+        <AssociationConnector Association="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -63,7 +63,19 @@
                         <a href="/Category/Index"><i class="bi bi-search"></i></a>
                     </div>
                     <div class="user">
-                        <a href="user.html"><i class="bi bi-person"></i></a>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <a href="/User/Index"><i class="bi bi-person"></i></a>
+                        }
+                        else
+                        {
+                        <a href="/LoginSignIn/Login"><i class="bi bi-person"></i></a>
+                        }
+                        
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a href="/LoginSignIn/SignOut"><i class="bi bi-box-arrow-right"></i></a>
+                        }
                     </div>
                 </div>
             </div>
