@@ -3292,7 +3292,6 @@
     <Content Include="Anitsuki\package.json" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -3402,6 +3401,7 @@
     <Content Include="Views\LoginSignIn\SignIn.cshtml" />
     <Content Include="Views\LoginSignIn\Login.cshtml" />
     <Content Include="Views\User\ProfileSetting.cshtml" />
+    <Content Include="Views\LoginSignIn\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

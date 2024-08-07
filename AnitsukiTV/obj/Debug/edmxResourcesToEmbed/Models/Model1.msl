@@ -82,6 +82,7 @@
           <ScalarProperty Name="DATE" ColumnName="DATE" />
           <ScalarProperty Name="ABOUT" ColumnName="ABOUT" />
           <ScalarProperty Name="PICTURE" ColumnName="PICTURE" />
+          <ScalarProperty Name="CONFIRMPASS" ColumnName="CONFIRMPASS" />
           <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
           <ScalarProperty Name="MAIL" ColumnName="MAIL" />
           <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />

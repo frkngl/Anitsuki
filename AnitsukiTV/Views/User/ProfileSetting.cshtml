@@ -79,7 +79,7 @@
             </div>
         </div>
         <div style="display:flex; justify-content:center; align-items:center; flex-direction:column;" class="userdetail">
-            @using(Html.BeginForm("ProfileSetting", "User",FormMethod.Post, new {enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("ProfileSetting", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <form class="form-group">
                     <div style="display:none;">
@@ -88,27 +88,45 @@
                         @Html.TextBoxFor(x => x.ID, new { @class = "form-control", @readonly = "readonly" })
                     </div>
                     <div style="margin-bottom: 30px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
-                        <img class="resim" style="margin-bottom:20px;  object-fit: cover; border: 2px solid #FF7F00; width:250px; height:250px;" src="~/IMG/@Model.PICTURE" />
+                        @if (Model.PICTURE == null)
+                        {
+                            <img class="resim" style="margin-bottom:20px;  object-fit: cover; border: 2px solid #FF7F00; width:250px; height:250px;" src="~/IMG/stockuser.png" />
+                        }
+                        else
+                        {
+                            <img class="resim" style="margin-bottom:20px;  object-fit: cover; border: 2px solid #FF7F00; width:250px; height:250px;" src="~/IMG/@Model.PICTURE" />
+                            @Html.HiddenFor(x => x.PICTURE) <!-- Add this line to preserve the existing profile picture -->
 
+                        }
                         <input style="background-color: transparent; border: 2px solid #FF7F00; color: #ffffff;" class="form-control" id="resim" type="file" onchange="$('.resim')[0].src = window.URL.createObjectURL(this.files[0])" name="UserImage" />
                     </div>
 
                     <div style="margin-bottom: 30px; display: flex; justify-content: center; flex-direction: column;">
-                        @Html.LabelFor(x => x.MAIL, new { @required = "required", @style = "color:white; font-size:1rem; font-weight:500;" })
+                        @Html.Label("E-Mail", new { @required = "required", @style = "color:white; font-size:1rem; font-weight:500;" })
                         @Html.TextBoxFor(x => x.MAIL, new { @style = "width:350px; height:40px; border-radius:10px; border:2px solid #FF7F00; background-color:transparent; color:white; outline:none; padding:5px;" })
+                        @Html.ValidationMessageFor(x => x.MAIL, "", new { @style = "color:red;" })
                     </div>
 
                     <div style="margin-bottom: 30px; display: flex; justify-content: center; flex-direction: column;">
-                        @Html.LabelFor(x => x.PASSWORD, new { @required = "required", @style = "color:white; font-size:1rem; font-weight:500;" })
-                        @Html.TextBoxFor(x => x.PASSWORD, new { @style = "width:350px; height:40px; border-radius:10px; border:2px solid #FF7F00; background-color:transparent; color:white; outline:none; padding:5px;" })
+                        @Html.Label("Şifre", new { @required = "required", @style = "color:white; font-size:1rem; font-weight:500;" })
+                        @Html.TextBoxFor(x => x.PASSWORD, new { @style = "width:350px; height:40px; border-radius:10px; border:2px solid #FF7F00; background-color:transparent; color:white; outline:none; padding:5px;", @id = "password" })
                     </div>
 
                     <div style="margin-bottom: 30px; display: flex; justify-content: center; flex-direction: column;">
-                        @Html.LabelFor(x => x.ABOUT, new { @required = "required", @style = "color:white; font-size:1rem; font-weight:500;" })
-                        @Html.TextAreaFor(x => x.ABOUT, 15, 1, new  { @style = " border-radius:10px; border:2px solid #FF7F00; background-color:transparent; color:white; outline:none; padding:5px;" })
+                        <div style="display:flex; justify-content:space-between;">
+                            @Html.Label("Şifre Tekrarı", new { @required = "required", @style = "color:white; font-size:1rem; font-weight:500;" })
+                            @Html.ValidationMessageFor(x => x.CONFIRMPASS, "", new { @style = "color:red;" })
+                        </div>
+                        @Html.TextBoxFor(x => x.CONFIRMPASS, new{@style = "width:350px;height:40px;border-radius:10px;border:2px solid #FF7F00;background-color:transparent;color:white;outline:none;padding:5px;",@id = "confirmPassword", dir = "ltr" })
                     </div>
+
+                    <div style="margin-bottom: 30px; display: flex; justify-content: center; flex-direction: column;">
+                        @Html.Label("Hakkımda", new { @required = "required", @style = "color:white; font-size:1rem; font-weight:500;" })
+                        @Html.TextAreaFor(x => x.ABOUT, 15, 1, new { @style = " border-radius:10px; border:2px solid #FF7F00; background-color:transparent; color:white; outline:none; padding:5px;" })
+                    </div>
+
                     <div style="display:flex; justify-content:center;">
-                        <button style="color: #FF7F00; border: 2px solid #FF7F00; padding:5px 10px; border-radius:10px; background-color:#000000;outline:none;">Kaydet</button>
+                        <button style="color: #FF7F00; border: 2px solid #FF7F00; padding:5px 10px; border-radius:10px; background-color:#000000;outline:none;" id="submitBtn">Kaydet</button>
                     </div>
                 </form>
             }
@@ -193,5 +211,14 @@
             event.preventDefault();
             event.stopPropagation();
         }
+    });
+    $(document).ready(function () {
+        $('#password, #confirmPassword').on('keyup', function () {
+            if ($('#password').val().trim() === '' || $('#confirmPassword').val().trim() === '') {
+                $('#submitBtn').prop('disabled', true);
+            } else {
+                $('#submitBtn').prop('disabled', false);
+            }
+        });
     });
 </script>

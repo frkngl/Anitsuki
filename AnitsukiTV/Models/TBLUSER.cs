@@ -24,6 +24,7 @@ namespace AnitsukiTV.Models
         public string USERNAME { get; set; }
         public string MAIL { get; set; }
         public string PASSWORD { get; set; }
+        public string CONFIRMPASS { get; set; }
         public string PICTURE { get; set; }
         public string ABOUT { get; set; }
         public Nullable<System.DateTime> DATE { get; set; }

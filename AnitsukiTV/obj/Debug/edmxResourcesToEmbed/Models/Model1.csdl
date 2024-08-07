@@ -120,11 +120,12 @@
     <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="MAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CONFIRMPASS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PICTURE" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="ABOUT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="DATE" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="TBLEPISODELIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLEPISODELIKE" />
     <Property Name="STATUS" Type="Boolean" />
+    <NavigationProperty Name="TBLEPISODELIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLEPISODELIKE" />
   </EntityType>
   <Association Name="FK_TBLANIME_TBLCATEGORY">
     <End Type="AnitsukiTVModel.TBLCATEGORY" Role="TBLCATEGORY" Multiplicity="0..1" />

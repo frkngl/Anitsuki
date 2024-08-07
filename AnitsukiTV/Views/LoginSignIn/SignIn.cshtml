@@ -1,4 +1,5 @@
-﻿
+﻿@model AnitsukiTV.Models.TBLUSER
+
 @{
     Layout = null;
 }
@@ -55,17 +56,18 @@
                     <span class="login100-form-title p-b-48">
                         <img src="~/Anitsuki/img/aylogo.png" width="100" />
                     </span>
-
                     <h2 style="width:100%; text-align:center; color: #ffffff;">@ViewBag.user</h2>
 
                     <div class="wrap-input100 validate-input" data-validate="Kullanıcı Adınızı Oluşturun">
                         <input style="color:#ffffff !important;" class="input100" type="text" name="USERNAME">
-                        <span style="color:#ffffff !important;" class="focus-input100" data-placeholder="UserName"></span>
+                        <span style="color:#ffffff !important;" class="focus-input100" data-placeholder="Kullanıcı Adı"></span>
+                        @Html.ValidationMessageFor(x => x.USERNAME, "", new { @style = "color:red;" })
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Mail Adresini Oluşturun">
                         <input style="color:#ffffff !important;" class="input100" type="text" name="MAIL">
                         <span style="color:#ffffff !important;" class="focus-input100" data-placeholder="Email"></span>
+                        @Html.ValidationMessageFor(x => x.MAIL, "", new { @style = "color:red;" })
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Şifrenizi Oluşturun">
@@ -73,7 +75,17 @@
                             <i style="color:#ffffff !important;" class="zmdi zmdi-eye"></i>
                         </span>
                         <input style="color:#ffffff !important;" class="input100" type="password" name="PASSWORD">
-                        <span style="color:#ffffff !important;" class="focus-input100" data-placeholder="Password"></span>
+                        <span style="color:#ffffff !important;" class="focus-input100" data-placeholder="Şifre"></span>
+                        @Html.ValidationMessageFor(x => x.PASSWORD, "", new { @style = "color:red;" })
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Şifrenizi Oluşturun">
+                        <span class="btn-show-pass">
+                            <i style="color:#ffffff !important;" class="zmdi zmdi-eye"></i>
+                        </span>
+                        <input style="color:#ffffff !important;" class="input100" type="password" name="CONFIRMPASS">
+                        <span style="color:#ffffff !important;" class="focus-input100" data-placeholder="Şifre Tekrar"></span>
+                        @Html.ValidationMessageFor(x => x.CONFIRMPASS, "", new { @style = "color:red;" })
                     </div>
 
                     <div class="container-login100-form-btn">
@@ -85,15 +97,11 @@
                         </div>
                     </div>
 
-                    <div class="text-center p-t-115">
-                        <span style="color:#ffffff; font-size:1rem;" class="txt1">
-                            Hesabınız var ise
-                        </span>
+                    <h6 style="text-align:center; margin-top:15px;"><a style="color:white; font-size:1rem;" href="/Home/Index">Anasayfa'ya dön</a></h6>
 
-                        <a style="color: #ffffff; font-size: 1rem; font-weight:600;" class="txt2" href="/LoginSignIn/Login">
-                            Giriş Yap
-                        </a>
-                    </div>
+                    <h6 style="text-align:center; margin-top:15px;"><a style="color:white; font-size:1rem;" href="/LoginSignIn/Login">Hesabınız var ise Giriş Yap</a></h6>
+
+                    
                 </form>
             </div>
         </div>
