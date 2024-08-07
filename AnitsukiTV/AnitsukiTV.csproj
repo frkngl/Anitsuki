@@ -2812,6 +2812,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="IMG\ahmet.png" />
+    <Content Include="IMG\arisu-aris.gif" />
     <Content Include="IMG\BlendS.png" />
     <Content Include="IMG\BlendS2.png" />
     <Content Include="IMG\chainsawman.png" />

@@ -62,7 +62,7 @@ namespace AnitsukiTV.Controllers
             }
             else
             {
-                if (UserImage.ContentType == "image/jpeg" || UserImage.ContentType == "image/png" || UserImage.ContentType == "image/jpg" || UserImage.ContentType == "image/jfif")
+                if (UserImage.ContentType == "image/jpeg" || UserImage.ContentType == "image/png" || UserImage.ContentType == "image/jpg" || UserImage.ContentType == "image/jfif" || UserImage.ContentType == "image/gif")
                 {
                     var file = new FileInfo(UserImage.FileName);
                     var fileName = Path.GetFileName(UserImage.FileName);
