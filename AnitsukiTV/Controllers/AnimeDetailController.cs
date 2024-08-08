@@ -43,5 +43,47 @@ namespace AnitsukiTV.Controllers
             veri.SonrakiBolum = db.TBLEPISODE.Where(x => x.ID == sonrakiBolumId).ToList();
             return View(veri);
         }
+
+        public ActionResult LikeEpisode(int id)
+        {
+            var user = HttpContext.User.Identity.Name;
+            int userId = db.TBLUSER.Where(u => u.USERNAME == user).Select(u => u.ID).FirstOrDefault();
+            var episode = db.TBLEPISODE.Find(id);
+            var like = db.TBLEPISODELIKE.FirstOrDefault(x => x.EPISODEID == id && x.USERID == userId);
+
+            if (like == null)
+            {
+                like = new TBLEPISODELIKE { EPISODEID = id, USERID = userId, LIKESTATUS = true };
+                db.TBLEPISODELIKE.Add(like);
+            }
+            else
+            {
+                // Kullanıcı zaten beğenme veya beğenmeme seçeneğini seçti, tekrar seçemez
+                return RedirectToAction("Video", new { id = id });
+            }
+            db.SaveChanges();
+            return RedirectToAction("Video", new { id = id });
+        }
+
+        public ActionResult UnlikeEpisode(int id)
+        {
+            var user = HttpContext.User.Identity.Name;
+            int userId = db.TBLUSER.Where(u => u.USERNAME == user).Select(u => u.ID).FirstOrDefault();
+            var episode = db.TBLEPISODE.Find(id);
+            var like = db.TBLEPISODELIKE.FirstOrDefault(x => x.EPISODEID == id && x.USERID == userId);
+
+            if (like == null)
+            {
+                like = new TBLEPISODELIKE { EPISODEID = id, USERID = userId, LIKESTATUS = false };
+                db.TBLEPISODELIKE.Add(like);
+            }
+            else
+            {
+                // Kullanıcı zaten beğenme veya beğenmeme seçeneğini seçti, tekrar seçemez
+                return RedirectToAction("Video", new { id = id });
+            }
+            db.SaveChanges();
+            return RedirectToAction("Video", new { id = id });
+        }
     }
 }

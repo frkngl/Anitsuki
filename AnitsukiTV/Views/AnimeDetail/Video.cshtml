@@ -135,12 +135,43 @@
                                     Beğendiniz mi?
                                 </div>
                                 <div class="likeandunlike">
-                                    <div class="like">
-                                        <i class="bi bi-hand-thumbs-up"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == true).Count()
-                                    </div>
-                                    <div class="unlike">
-                                        <i class="bi bi-hand-thumbs-down"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == false).Count()
-                                    </div>
+                                    @{ AnitsukiTVEntities db = new AnitsukiTVEntities();}
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        var userId = db.TBLUSER.Where(u => u.USERNAME == User.Identity.Name).Select(u => u.ID).FirstOrDefault();
+                                        var likeExists = y.TBLEPISODELIKE.Any(x => x.USERID == userId);
+
+                                        if (likeExists)
+                                        {
+                                            <div style="color:white; width:100px;display:flex;">
+                                                <div style="width:50%;">
+                                                    <i class="bi bi-hand-thumbs-up"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == true).Count()
+                                                </div>
+                                                <div style="width:50%;">
+                                                    <i class="bi bi-hand-thumbs-down"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == false).Count()
+                                                </div>
+                                            </div>
+                                           
+                                        }
+                                        else
+                                        {
+                                            <div class="like">
+                                                <a style="text-decoration:none; color:white;" href="/AnimeDetail/LikeEpisode/@y.ID"><i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i> @y.TBLEPISODELIKE.Where(x=>x.LIKESTATUS == true).Count()</a>
+                                            </div>
+                                            <div class="unlike">
+                                                <a style="text-decoration:none; color:white;" href="/AnimeDetail/UnlikeEpisode/@y.ID"><i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == false).Count()</a>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="like">
+                                            <a style="color:#ffffff; text-decoration:none;" href="/LoginSignIn/Login"><i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == true).Count()</a>
+                                        </div>
+                                        <div class="unlike">
+                                            <a style="color: #ffffff; text-decoration: none" href="/LoginSignIn/Login"><i style="margin-right:2px;" class="bi bi-hand-thumbs-down"> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == false).Count()</i></a>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>

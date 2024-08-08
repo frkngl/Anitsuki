@@ -73,8 +73,8 @@ namespace AnitsukiTV.Controllers
 
             if (degerler != null)
             {
-                FormsAuthentication.SignOut(); // Mevcut çerezi sil
-                FormsAuthentication.SetAuthCookie(degerler.USERNAME, true); // Yeni çerez oluştur
+                FormsAuthentication.SignOut();
+                FormsAuthentication.SetAuthCookie(degerler.USERNAME, false);
                 Session["username"] = degerler.USERNAME;
                 Session["id"] = degerler.ID;
                 return RedirectToAction("Index", "User");
