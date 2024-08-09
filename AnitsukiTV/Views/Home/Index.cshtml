@@ -59,22 +59,27 @@
                     </ul>
                 </nav>
                 <div class="box col-2">
-                    <div class="search">
+                    <div style="margin-right:-8px;" class="search">
                         <a href="/Category/Index"><i class="bi bi-search"></i></a>
                     </div>
                     <div class="user">
+                        @{ AnitsukiTVEntities db = new AnitsukiTVEntities();}
                         @if (Request.IsAuthenticated)
                         {
-                            <a href="/User/Index"><i class="bi bi-person"></i></a>
+                            var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
+                            if (currentUser != null && currentUser.PICTURE != null)
+                            {
+                               <a href="/User/Index"><img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE"></a> 
+                            }
+                            else
+                            {
+                                <a href="/User/Index"><img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png"></a>
+                            }
+                            <a href="/LoginSignIn/SignOut"><i class="bi bi-box-arrow-right"></i></a>
                         }
                         else
                         {
-                        <a href="/LoginSignIn/Login"><i class="bi bi-person"></i></a>
-                        }
-                        
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <a href="/LoginSignIn/SignOut"><i class="bi bi-box-arrow-right"></i></a>
+                            <a href="/LoginSignIn/Login"><i class="bi bi-person"></i></a>
                         }
                     </div>
                 </div>

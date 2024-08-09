@@ -54,16 +54,33 @@
 
                 <nav class="col-8">
                     <ul>
-                        <li><a href="index.html"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
-                        <li><a href="category.html"><i class="fa-solid fa-list"></i> Animeler</a></li>
+                        <li><a href="/Home/Index"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
+                        <li><a href="/Category/Index"><i class="fa-solid fa-list"></i> Animeler</a></li>
                     </ul>
                 </nav>
                 <div class="box col-2">
                     <div class="search">
-                        <a href="category.html"><i class="bi bi-search"></i></a>
+                        <a href="/Category/Index"><i class="bi bi-search"></i></a>
                     </div>
                     <div class="user">
-                        <a href="user.html"><i class="bi bi-person"></i></a>
+                        @{ AnitsukiTVEntities db = new AnitsukiTVEntities();}
+                        @if (Request.IsAuthenticated)
+                        {
+                            var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
+                            if (currentUser != null && currentUser.PICTURE != null)
+                            {
+                                <a href="/User/Index"><img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE"></a>
+                            }
+                            else
+                            {
+                                <a href="/User/Index"><img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png"></a>
+                            }
+                            <a href="/LoginSignIn/SignOut"><i class="bi bi-box-arrow-right"></i></a>
+                        }
+                        else
+                        {
+                            <a href="/LoginSignIn/Login"><i class="bi bi-person"></i></a>
+                        }
                     </div>
                 </div>
             </div>
@@ -95,8 +112,31 @@
                     <div class="des">
                         @x.DETAIL
                     </div>
-                    <div class="save">
-                        <i class="bi bi-bookmark"></i>
+                    <div style="display:flex;" class="save">
+                        <div>
+                            <a href="#" data-action="favorite" class="watchlater" onclick="addWatchLater(@Model.Anime.FirstOrDefault().ID, this)">
+                                @if (ViewBag.isWatchLater)
+                                {
+                                    <i style="color:#ffffff;" class="bi bi-clock-fill"></i>
+                                }
+                                else
+                                {
+                                    <i style="color:#ffffff;" class="bi bi-clock"></i>
+                                }
+                            </a>
+                        </div>
+                        <div>
+                            <a href="#" style="margin-left:10px;" data-action="favorite" class="favorite" onclick="addFavorite(@Model.Anime.FirstOrDefault().ID)">
+                                @if (ViewBag.IsFavorite)
+                                {
+                                    <i style="color:#ffffff;" class="bi bi-bookmark-fill"></i>
+                                }
+                                else
+                                {
+                                    <i style="color:#ffffff;" class="bi bi-bookmark"></i>
+                                }
+                            </a>
+                        </div>
                     </div>
                     <div class="likeandunlikerating">
                         <div class="rating">
@@ -423,4 +463,36 @@
             event.stopPropagation();
         }
     });
+
+    function addFavorite(animeID) {
+        $.ajax({
+            type: "POST",
+            url: "/AnimeDetail/AddFavorite",
+            data: { animeID: animeID },
+            success: function (data) {
+                if (data.success) {
+                    $(".favorite").html(data.isFavorite ? "<i style='color:#ffffff;' class='bi bi-bookmark-fill'></i>" : "<i style='color:#ffffff;' class='bi bi-bookmark'></i>");
+                } else {
+                    window.location.href = "/LoginSignIn/Login";
+                }
+            }
+        });
+    }
+
+
+
+    function addWatchLater(animeID, element) {
+        $.ajax({
+            type: "POST",
+            url: "/AnimeDetail/WatchLater",
+            data: { animeID: animeID },
+            success: function (data) {
+                if (data.success) {
+                    $(element).find("i").toggleClass("bi-clock bi-clock-fill");
+                } else {
+                    window.location.href = "/LoginSignIn/Login";
+                }
+            }
+        });
+    }
 </script>

@@ -14,14 +14,86 @@ namespace AnitsukiTV.Controllers
         AnitsukiTVEntities db = new AnitsukiTVEntities();
         TabeList veri =new TabeList();
         // GET: AnimeDetail
-        public ActionResult Index(int id, int ? sezonID)   
+        public ActionResult Index(int? id, int? sezonID)
         {
             veri.Anime = db.TBLANIME.Where(x => x.ID == id).ToList();
             veri.Season = db.TBLSEASON.Where(x => x.ANIMEID == id).ToList();
             int sezonIDValue = sezonID.HasValue ? sezonID.Value : veri.Season.FirstOrDefault()?.ID ?? 0;
-            veri.Episode = db.TBLEPISODE.Where(x=>x.SEASONID == sezonIDValue).ToList();
+            veri.Episode = db.TBLEPISODE.Where(x => x.SEASONID == sezonIDValue).ToList();
+
+            bool isFavorite = false;
+            if (Session["id"] != null)
+            {
+                int userID = (int)Session["id"];
+                var favorite = db.TBLFAVORITES.Where(x => x.USERID == userID && x.ANIMEID == id).FirstOrDefault();
+                isFavorite = favorite != null;
+            }
+            ViewBag.IsFavorite = isFavorite;
+
+            bool isWatchLater = false;
+            if (Session["id"] != null)
+            {
+                int userID = (int)Session["id"];
+                var watchlater = db.TBLWATCHLATER.Where(x => x.USERID == userID && x.ANIMEID == id).FirstOrDefault();
+                isWatchLater = watchlater != null;
+            }
+            ViewBag.isWatchLater = isWatchLater;
+
             return View(veri);
         }
+
+        [HttpPost]
+        public ActionResult AddFavorite(int animeID)
+        {
+            if (Session["id"] == null)
+            {
+                return Json(new { success = false });
+            }
+
+            int userID = (int)Session["id"];
+            var favorite = db.TBLFAVORITES.Where(x => x.USERID == userID && x.ANIMEID == animeID).FirstOrDefault();
+
+            if (favorite == null)
+            {
+                db.TBLFAVORITES.Add(new TBLFAVORITES { USERID = userID, ANIMEID = animeID });
+                db.SaveChanges();
+                return Json(new { success = true, isFavorite = true });
+            }
+            else
+            {
+                db.TBLFAVORITES.Remove(favorite);
+                db.SaveChanges();
+                return Json(new { success = true, isFavorite = false });
+            }
+        }
+
+
+
+        [HttpPost]
+        public ActionResult WatchLater(int animeID)
+        {
+            if (Session["id"] == null)
+            {
+                return Json(new { success = false });
+            }
+
+            int userID = (int)Session["id"];
+            var watchlater = db.TBLWATCHLATER.Where(x => x.USERID == userID && x.ANIMEID == animeID).FirstOrDefault();
+
+            if (watchlater == null)
+            {
+                db.TBLWATCHLATER.Add(new TBLWATCHLATER { USERID = userID, ANIMEID = animeID });
+                db.SaveChanges();
+                return Json(new { success = true, isWatchLater = true });
+            }
+            else
+            {
+                db.TBLWATCHLATER.Remove(watchlater);
+                db.SaveChanges();
+                return Json(new { success = true, isWatchLater = false });
+            }
+        }
+
         public ActionResult Video(int id)
         {
             veri.Episode = db.TBLEPISODE.Where(x => x.ID == id).ToList();

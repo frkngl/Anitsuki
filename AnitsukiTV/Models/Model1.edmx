@@ -65,6 +65,14 @@
           <Property Name="USERID" Type="int" />
           <Property Name="LIKESTATUS" Type="bit" />
         </EntityType>
+        <EntityType Name="TBLFAVORITES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USERID" Type="int" />
+          <Property Name="ANIMEID" Type="int" />
+        </EntityType>
         <EntityType Name="TBLSEASON">
           <Key>
             <PropertyRef Name="ID" />
@@ -86,6 +94,14 @@
           <Property Name="ABOUT" Type="nvarchar(max)" />
           <Property Name="DATE" Type="datetime" />
           <Property Name="STATUS" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBLWATCHLATER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USERID" Type="int" />
+          <Property Name="ANIMEID" Type="int" />
         </EntityType>
         <Association Name="FK_TBLANIME_TBLCATEGORY">
           <End Role="TBLCATEGORY" Type="Self.TBLCATEGORY" Multiplicity="0..1" />
@@ -147,6 +163,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBLFAVORITES_TBLANIME">
+          <End Role="TBLANIME" Type="Self.TBLANIME" Multiplicity="0..1" />
+          <End Role="TBLFAVORITES" Type="Self.TBLFAVORITES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLANIME">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLFAVORITES">
+              <PropertyRef Name="ANIMEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLFAVORITES_TBLUSER">
+          <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
+          <End Role="TBLFAVORITES" Type="Self.TBLFAVORITES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLUSER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLFAVORITES">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBLSEASON_TBLANIME">
           <End Role="TBLANIME" Type="Self.TBLANIME" Multiplicity="0..1" />
           <End Role="TBLSEASON" Type="Self.TBLSEASON" Multiplicity="*" />
@@ -159,14 +199,40 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBLWATCHLATER_TBLANIME">
+          <End Role="TBLANIME" Type="Self.TBLANIME" Multiplicity="0..1" />
+          <End Role="TBLWATCHLATER" Type="Self.TBLWATCHLATER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLANIME">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLWATCHLATER">
+              <PropertyRef Name="ANIMEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLWATCHLATER_TBLUSER">
+          <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
+          <End Role="TBLWATCHLATER" Type="Self.TBLWATCHLATER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLUSER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLWATCHLATER">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="AnitsukiTVModelStoreContainer">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLANIME" EntityType="Self.TBLANIME" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLCATEGORY" EntityType="Self.TBLCATEGORY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLEPISODE" EntityType="Self.TBLEPISODE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLEPISODELIKE" EntityType="Self.TBLEPISODELIKE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLFAVORITES" EntityType="Self.TBLFAVORITES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLSEASON" EntityType="Self.TBLSEASON" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLUSER" EntityType="Self.TBLUSER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLWATCHLATER" EntityType="Self.TBLWATCHLATER" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_TBLANIME_TBLCATEGORY" Association="Self.FK_TBLANIME_TBLCATEGORY">
             <End Role="TBLCATEGORY" EntitySet="TBLCATEGORY" />
             <End Role="TBLANIME" EntitySet="TBLANIME" />
@@ -187,9 +253,25 @@
             <End Role="TBLUSER" EntitySet="TBLUSER" />
             <End Role="TBLEPISODELIKE" EntitySet="TBLEPISODELIKE" />
           </AssociationSet>
+          <AssociationSet Name="FK_TBLFAVORITES_TBLANIME" Association="Self.FK_TBLFAVORITES_TBLANIME">
+            <End Role="TBLANIME" EntitySet="TBLANIME" />
+            <End Role="TBLFAVORITES" EntitySet="TBLFAVORITES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLFAVORITES_TBLUSER" Association="Self.FK_TBLFAVORITES_TBLUSER">
+            <End Role="TBLUSER" EntitySet="TBLUSER" />
+            <End Role="TBLFAVORITES" EntitySet="TBLFAVORITES" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBLSEASON_TBLANIME" Association="Self.FK_TBLSEASON_TBLANIME">
             <End Role="TBLANIME" EntitySet="TBLANIME" />
             <End Role="TBLSEASON" EntitySet="TBLSEASON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLWATCHLATER_TBLANIME" Association="Self.FK_TBLWATCHLATER_TBLANIME">
+            <End Role="TBLANIME" EntitySet="TBLANIME" />
+            <End Role="TBLWATCHLATER" EntitySet="TBLWATCHLATER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLWATCHLATER_TBLUSER" Association="Self.FK_TBLWATCHLATER_TBLUSER">
+            <End Role="TBLUSER" EntitySet="TBLUSER" />
+            <End Role="TBLWATCHLATER" EntitySet="TBLWATCHLATER" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -202,8 +284,10 @@
           <EntitySet Name="TBLCATEGORY" EntityType="AnitsukiTVModel.TBLCATEGORY" />
           <EntitySet Name="TBLEPISODE" EntityType="AnitsukiTVModel.TBLEPISODE" />
           <EntitySet Name="TBLEPISODELIKE" EntityType="AnitsukiTVModel.TBLEPISODELIKE" />
+          <EntitySet Name="TBLFAVORITES" EntityType="AnitsukiTVModel.TBLFAVORITES" />
           <EntitySet Name="TBLSEASON" EntityType="AnitsukiTVModel.TBLSEASON" />
           <EntitySet Name="TBLUSER" EntityType="AnitsukiTVModel.TBLUSER" />
+          <EntitySet Name="TBLWATCHLATER" EntityType="AnitsukiTVModel.TBLWATCHLATER" />
           <AssociationSet Name="FK_TBLANIME_TBLCATEGORY" Association="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY">
             <End Role="TBLCATEGORY" EntitySet="TBLCATEGORY" />
             <End Role="TBLANIME" EntitySet="TBLANIME" />
@@ -212,9 +296,17 @@
             <End Role="TBLANIME" EntitySet="TBLANIME" />
             <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
           </AssociationSet>
+          <AssociationSet Name="FK_TBLFAVORITES_TBLANIME" Association="AnitsukiTVModel.FK_TBLFAVORITES_TBLANIME">
+            <End Role="TBLANIME" EntitySet="TBLANIME" />
+            <End Role="TBLFAVORITES" EntitySet="TBLFAVORITES" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBLSEASON_TBLANIME" Association="AnitsukiTVModel.FK_TBLSEASON_TBLANIME">
             <End Role="TBLANIME" EntitySet="TBLANIME" />
             <End Role="TBLSEASON" EntitySet="TBLSEASON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLWATCHLATER_TBLANIME" Association="AnitsukiTVModel.FK_TBLWATCHLATER_TBLANIME">
+            <End Role="TBLANIME" EntitySet="TBLANIME" />
+            <End Role="TBLWATCHLATER" EntitySet="TBLWATCHLATER" />
           </AssociationSet>
           <AssociationSet Name="FK_TBLEPISODE_TBLSEASON" Association="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON">
             <End Role="TBLSEASON" EntitySet="TBLSEASON" />
@@ -227,6 +319,14 @@
           <AssociationSet Name="FK_TBLEPISODELIKE_TBLUSER" Association="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER">
             <End Role="TBLUSER" EntitySet="TBLUSER" />
             <End Role="TBLEPISODELIKE" EntitySet="TBLEPISODELIKE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLFAVORITES_TBLUSER" Association="AnitsukiTVModel.FK_TBLFAVORITES_TBLUSER">
+            <End Role="TBLUSER" EntitySet="TBLUSER" />
+            <End Role="TBLFAVORITES" EntitySet="TBLFAVORITES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLWATCHLATER_TBLUSER" Association="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER">
+            <End Role="TBLUSER" EntitySet="TBLUSER" />
+            <End Role="TBLWATCHLATER" EntitySet="TBLWATCHLATER" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagrams">
@@ -255,7 +355,9 @@
           <Property Name="IMDB" Type="Decimal" Precision="2" Scale="1" />
           <NavigationProperty Name="TBLCATEGORY" Relationship="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY" FromRole="TBLANIME" ToRole="TBLCATEGORY" />
           <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME" FromRole="TBLANIME" ToRole="TBLEPISODE" />
+          <NavigationProperty Name="TBLFAVORITES" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLANIME" FromRole="TBLANIME" ToRole="TBLFAVORITES" />
           <NavigationProperty Name="TBLSEASON" Relationship="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" FromRole="TBLANIME" ToRole="TBLSEASON" />
+          <NavigationProperty Name="TBLWATCHLATER" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLANIME" FromRole="TBLANIME" ToRole="TBLWATCHLATER" />
         </EntityType>
         <EntityType Name="TBLCATEGORY">
           <Key>
@@ -298,6 +400,16 @@
           <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLEPISODE" FromRole="TBLEPISODELIKE" ToRole="TBLEPISODE" />
           <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER" FromRole="TBLEPISODELIKE" ToRole="TBLUSER" />
         </EntityType>
+        <EntityType Name="TBLFAVORITES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERID" Type="Int32" />
+          <Property Name="ANIMEID" Type="Int32" />
+          <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLANIME" FromRole="TBLFAVORITES" ToRole="TBLANIME" />
+          <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLUSER" FromRole="TBLFAVORITES" ToRole="TBLUSER" />
+        </EntityType>
         <EntityType Name="TBLSEASON">
           <Key>
             <PropertyRef Name="ID" />
@@ -322,6 +434,18 @@
           <Property Name="DATE" Type="DateTime" Precision="3" />
           <Property Name="STATUS" Type="Boolean" />
           <NavigationProperty Name="TBLEPISODELIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLEPISODELIKE" />
+          <NavigationProperty Name="TBLFAVORITES" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLUSER" FromRole="TBLUSER" ToRole="TBLFAVORITES" />
+          <NavigationProperty Name="TBLWATCHLATER" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER" FromRole="TBLUSER" ToRole="TBLWATCHLATER" />
+        </EntityType>
+        <EntityType Name="TBLWATCHLATER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERID" Type="Int32" />
+          <Property Name="ANIMEID" Type="Int32" />
+          <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLANIME" FromRole="TBLWATCHLATER" ToRole="TBLANIME" />
+          <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER" FromRole="TBLWATCHLATER" ToRole="TBLUSER" />
         </EntityType>
         <Association Name="FK_TBLANIME_TBLCATEGORY">
           <End Type="AnitsukiTVModel.TBLCATEGORY" Role="TBLCATEGORY" Multiplicity="0..1" />
@@ -347,6 +471,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBLFAVORITES_TBLANIME">
+          <End Type="AnitsukiTVModel.TBLANIME" Role="TBLANIME" Multiplicity="0..1" />
+          <End Type="AnitsukiTVModel.TBLFAVORITES" Role="TBLFAVORITES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLANIME">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLFAVORITES">
+              <PropertyRef Name="ANIMEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBLSEASON_TBLANIME">
           <End Type="AnitsukiTVModel.TBLANIME" Role="TBLANIME" Multiplicity="0..1" />
           <End Type="AnitsukiTVModel.TBLSEASON" Role="TBLSEASON" Multiplicity="*" />
@@ -355,6 +491,18 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="TBLSEASON">
+              <PropertyRef Name="ANIMEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLWATCHLATER_TBLANIME">
+          <End Type="AnitsukiTVModel.TBLANIME" Role="TBLANIME" Multiplicity="0..1" />
+          <End Type="AnitsukiTVModel.TBLWATCHLATER" Role="TBLWATCHLATER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLANIME">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLWATCHLATER">
               <PropertyRef Name="ANIMEID" />
             </Dependent>
           </ReferentialConstraint>
@@ -391,6 +539,30 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="TBLEPISODELIKE">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLFAVORITES_TBLUSER">
+          <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+          <End Type="AnitsukiTVModel.TBLFAVORITES" Role="TBLFAVORITES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLUSER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLFAVORITES">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLWATCHLATER_TBLUSER">
+          <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+          <End Type="AnitsukiTVModel.TBLWATCHLATER" Role="TBLWATCHLATER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLUSER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLWATCHLATER">
               <PropertyRef Name="USERID" />
             </Dependent>
           </ReferentialConstraint>
@@ -466,6 +638,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TBLFAVORITES">
+            <EntityTypeMapping TypeName="AnitsukiTVModel.TBLFAVORITES">
+              <MappingFragment StoreEntitySet="TBLFAVORITES">
+                <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TBLSEASON">
             <EntityTypeMapping TypeName="AnitsukiTVModel.TBLSEASON">
               <MappingFragment StoreEntitySet="TBLSEASON">
@@ -486,6 +667,15 @@
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
                 <ScalarProperty Name="MAIL" ColumnName="MAIL" />
                 <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLWATCHLATER">
+            <EntityTypeMapping TypeName="AnitsukiTVModel.TBLWATCHLATER">
+              <MappingFragment StoreEntitySet="TBLWATCHLATER">
+                <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

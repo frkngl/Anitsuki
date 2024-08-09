@@ -13,10 +13,11 @@ namespace AnitsukiTV.Controllers
         TabeList veri = new TabeList();
         public ActionResult Index()
         {
-            veri.Episode=db.TBLEPISODE.ToList();
+            veri.Episode = db.TBLEPISODE.ToList();
             veri.Category = db.TBLCATEGORY.ToList();
             veri.Anime = db.TBLANIME.ToList();
             return View(veri);
         }
+
     }
 }

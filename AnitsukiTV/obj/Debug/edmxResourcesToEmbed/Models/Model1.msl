@@ -66,6 +66,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TBLFAVORITES">
+      <EntityTypeMapping TypeName="AnitsukiTVModel.TBLFAVORITES">
+        <MappingFragment StoreEntitySet="TBLFAVORITES">
+          <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="TBLSEASON">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLSEASON">
         <MappingFragment StoreEntitySet="TBLSEASON">
@@ -86,6 +95,15 @@
           <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
           <ScalarProperty Name="MAIL" ColumnName="MAIL" />
           <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBLWATCHLATER">
+      <EntityTypeMapping TypeName="AnitsukiTVModel.TBLWATCHLATER">
+        <MappingFragment StoreEntitySet="TBLWATCHLATER">
+          <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

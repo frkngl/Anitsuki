@@ -1,6 +1,7 @@
 ﻿using AnitsukiTV.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -21,11 +22,12 @@ namespace AnitsukiTV.Controllers
         {
             if (Session["id"] == null)
             {
-                return RedirectToAction("Login", "LoginSignIn"); // redirect to login page
+                return RedirectToAction("Login", "LoginSignIn");
             }
-
             int userID = (int)Session["id"];
-            veri.User = db.TBLUSER.Where(x => x.ID == userID).FirstOrDefault();
+            veri.User = db.TBLUSER?.Where(x => x.ID == userID)?.FirstOrDefault();
+            veri.Favorites = db.TBLFAVORITES.AsQueryable().Include(f => f.TBLANIME).Where(f => f.USERID == userID).ToList();
+            veri.WatchLater = db.TBLWATCHLATER.AsQueryable().Include(f => f.TBLANIME).Where(f => f.USERID == userID).ToList();
             return View(veri);
         }
 
