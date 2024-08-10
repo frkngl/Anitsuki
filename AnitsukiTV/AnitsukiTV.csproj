@@ -3419,6 +3419,7 @@
     <Content Include="Views\User\ProfileSetting.cshtml" />
     <Content Include="Views\LoginSignIn\ResetPassword.cshtml" />
     <Content Include="Views\AnimeDetail\Comments.cshtml" />
+    <Content Include="Views\AnimeDetail\LeaveComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

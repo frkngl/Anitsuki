@@ -10,78 +10,15 @@
     </div>
     <div class="comments">
         @{ string isim = "aa";}
-        @foreach (var x in Model.Where(x => x.USTID == null))
+        @if (Model.Any())
         {
-            <div class="comment1">
-                @if (x.TBLUSER.PICTURE != null)
-                {
-                    <img src="~/IMG/@x.TBLUSER.PICTURE">
-                }
-                else
-                {
-                    <img src="~/IMG/stockuser.png" />
-                }
-                <div class="detail">
-                    <div class="user">
-                        <div class="name">
-                            @x.TBLUSER.USERNAME
-                        </div>
-                        <div class="year">
-                            @x.DATE.Value.ToString("dd.MM.yyyy")
-                        </div>
-                    </div>
-                    <div class="text">
-                        @x.COMMENT
-                    </div>
-                    <div class="more">
-                        @{ isim = isim + x.ID;}
-                        <div data-bs-toggle="modal" data-bs-target="#@isim" class="reply">
-                            <i class="bi bi-reply"></i>Cevapla
-                        </div>
-                        <!-- Modal -->
-                        <div style="margin-top: 100px;" class="modal fade" id="@isim" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div style="background-color: #000000; box-shadow: 0px 0px 20px #FF7F00" class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 style="color:#ffffff;" class="modal-title fs-5" id="exampleModalLabel">Cevap Yazıyorsunuz</h1>
-                                        <button style="background-color: #ffffff; color:#ffffff;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form style="color:#ffffff;" action="/Blog/YorumCevap" method="post" class="form-group">
-                                            YORUMID
-                                            <input type="text" name="UST_ID" value="@x.ID" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
-                                            <br />
-                                            YORUM
-                                            <textarea name="YORUM" class="form-control" style="border: none; color: #ffffff; background-color: #313131; outline: solid #000000; height: 200px;"></textarea>
-                                            <br />
-                                            <div style="width:100%; display:flex; justify-content:center;">
-                                                <button style="background-color: #FF7F00; width:90px; height:40px; border-radius:20px; border:none; font-size:1rem;" type="submit">Gönder</button>
-                                            </div>
-                                            
-                                        </form>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="likeandunlike">
-                            <div class="like">
-                                <i class="bi bi-hand-thumbs-up"></i>1024
-                            </div>
-                            <div class="unlike">
-                                <i class="bi bi-hand-thumbs-down"></i>299
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            foreach (var y in Model.Where(y => y.USTID == x.ID))
+            foreach (var x in Model.Where(x => x.USTID == null))
             {
-                <div class="comment2">
-                    @if (y.TBLUSER.PICTURE != null)
+
+                <div class="comment1">
+                    @if (x.TBLUSER.PICTURE != null)
                     {
-                        <img src="~/IMG/@y.TBLUSER.PICTURE">
+                        <img src="~/IMG/@x.TBLUSER.PICTURE">
                     }
                     else
                     {
@@ -90,14 +27,14 @@
                     <div class="detail">
                         <div class="user">
                             <div class="name">
-                                @y.TBLUSER.USERNAME
+                                @x.TBLUSER.USERNAME
                             </div>
                             <div class="year">
-                                @y.DATE.Value.ToString("dd.MM.yyyy")
+                                @x.DATE.Value.ToString("dd.MM.yyyy")
                             </div>
                         </div>
                         <div class="text">
-                            @y.COMMENT
+                            @x.COMMENT
                         </div>
                         <div class="more">
                             @{ isim = isim + x.ID;}
@@ -133,17 +70,90 @@
                             </div>
                             <div class="likeandunlike">
                                 <div class="like">
-                                    <i class="bi bi-hand-thumbs-up"></i> 1024
+                                    <i class="bi bi-hand-thumbs-up"></i>1024
                                 </div>
                                 <div class="unlike">
-                                    <i class="bi bi-hand-thumbs-down"></i> 299
+                                    <i class="bi bi-hand-thumbs-down"></i>299
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            }
+                foreach (var y in Model.Where(y => y.USTID == x.ID))
+                {
+                    <div class="comment2">
+                        @if (y.TBLUSER.PICTURE != null)
+                        {
+                            <img src="~/IMG/@y.TBLUSER.PICTURE">
+                        }
+                        else
+                        {
+                            <img src="~/IMG/stockuser.png" />
+                        }
+                        <div class="detail">
+                            <div class="user">
+                                <div class="name">
+                                    @y.TBLUSER.USERNAME
+                                </div>
+                                <div class="year">
+                                    @y.DATE.Value.ToString("dd.MM.yyyy")
+                                </div>
+                            </div>
+                            <div class="text">
+                                @y.COMMENT
+                            </div>
+                            <div class="more">
+                                @{ isim = isim + x.ID;}
+                                <div data-bs-toggle="modal" data-bs-target="#@isim" class="reply">
+                                    <i class="bi bi-reply"></i>Cevapla
+                                </div>
+                                <!-- Modal -->
+                                <div style="margin-top: 100px;" class="modal fade" id="@isim" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div style="background-color: #000000; box-shadow: 0px 0px 20px #FF7F00" class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 style="color:#ffffff;" class="modal-title fs-5" id="exampleModalLabel">Cevap Yazıyorsunuz</h1>
+                                                <button style="background-color: #ffffff; color:#ffffff;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form style="color:#ffffff;" action="/Blog/YorumCevap" method="post" class="form-group">
+                                                    YORUMID
+                                                    <input type="text" name="UST_ID" value="@x.ID" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
+                                                    <br />
+                                                    YORUM
+                                                    <textarea name="YORUM" class="form-control" style="border: none; color: #ffffff; background-color: #313131; outline: solid #000000; height: 200px;"></textarea>
+                                                    <br />
+                                                    <div style="width:100%; display:flex; justify-content:center;">
+                                                        <button style="background-color: #FF7F00; width:90px; height:40px; border-radius:20px; border:none; font-size:1rem;" type="submit">Gönder</button>
+                                                    </div>
 
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="likeandunlike">
+                                    <div class="like">
+                                        <i class="bi bi-hand-thumbs-up"></i> 1024
+                                    </div>
+                                    <div class="unlike">
+                                        <i class="bi bi-hand-thumbs-down"></i> 299
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
         }
+        else
+        {
+            <h5 style="width:100%; height:200px; display:flex; align-items:center;justify-content:center; color:#ffffff;">Bu animeye henüz yorum yapılmamış</h5>
+        }
+
+        </>
     </div>
 </div>

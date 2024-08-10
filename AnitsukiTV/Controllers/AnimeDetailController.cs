@@ -51,7 +51,10 @@ namespace AnitsukiTV.Controllers
         }
 
 
-
+        public PartialViewResult LeaveComment()
+        {
+            return PartialView();
+        }
 
 
 

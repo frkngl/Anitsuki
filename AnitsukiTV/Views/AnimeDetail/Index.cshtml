@@ -187,17 +187,7 @@
                     }
                 </ul>
             </div>
-            <div class="commentplace">
-                <div class="headcomment">
-                    <div class="title">
-                        <i class="bi bi-pencil-square"></i> Düşüncelerinizi Yazın
-                    </div>
-                    <form action="#" method="get">
-                        <textarea></textarea>
-                        <button><i class="bi bi-send"></i> Gönder</button>
-                    </form>
-                </div>
-            </div>
+            @Html.Action("LeaveComment","AnimeDetail")
             @Html.Action("Comments","AnimeDetail")
         </div>
     </div>
