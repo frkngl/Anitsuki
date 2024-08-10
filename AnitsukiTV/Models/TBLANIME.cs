@@ -17,6 +17,7 @@ namespace AnitsukiTV.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBLANIME()
         {
+            this.TBLANIMECOMMENT = new HashSet<TBLANIMECOMMENT>();
             this.TBLEPISODE = new HashSet<TBLEPISODE>();
             this.TBLFAVORITES = new HashSet<TBLFAVORITES>();
             this.TBLSEASON = new HashSet<TBLSEASON>();
@@ -35,6 +36,8 @@ namespace AnitsukiTV.Models
         public Nullable<decimal> IMDB { get; set; }
     
         public virtual TBLCATEGORY TBLCATEGORY { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBLANIMECOMMENT> TBLANIMECOMMENT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBLEPISODE> TBLEPISODE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

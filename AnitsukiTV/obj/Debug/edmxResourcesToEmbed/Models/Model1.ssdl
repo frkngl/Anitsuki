@@ -25,6 +25,18 @@
     <Property Name="STATUS" Type="bit" />
     <Property Name="IMDB" Type="decimal" Precision="2" Scale="1" />
   </EntityType>
+  <EntityType Name="TBLANIMECOMMENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USERID" Type="int" />
+    <Property Name="ANIMEID" Type="int" />
+    <Property Name="COMMENT" Type="nvarchar" MaxLength="500" />
+    <Property Name="DATE" Type="datetime" />
+    <Property Name="USTID" Type="int" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
   <EntityType Name="TBLCATEGORY">
     <Key>
       <PropertyRef Name="ID" />
@@ -107,6 +119,30 @@
       </Principal>
       <Dependent Role="TBLANIME">
         <PropertyRef Name="CATEGORYID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLANIMECOMMENT_TBLANIME">
+    <End Role="TBLANIME" Type="Self.TBLANIME" Multiplicity="0..1" />
+    <End Role="TBLANIMECOMMENT" Type="Self.TBLANIMECOMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLANIMECOMMENT">
+        <PropertyRef Name="ANIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLANIMECOMMENT_TBLUSER">
+    <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
+    <End Role="TBLANIMECOMMENT" Type="Self.TBLANIMECOMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLANIMECOMMENT">
+        <PropertyRef Name="USERID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -221,6 +257,7 @@
   <EntityContainer Name="AnitsukiTVModelStoreContainer">
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLANIME" EntityType="Self.TBLANIME" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLANIMECOMMENT" EntityType="Self.TBLANIMECOMMENT" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLCATEGORY" EntityType="Self.TBLCATEGORY" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLEPISODE" EntityType="Self.TBLEPISODE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLEPISODELIKE" EntityType="Self.TBLEPISODELIKE" Schema="dbo" store:Type="Tables" />
@@ -231,6 +268,14 @@
     <AssociationSet Name="FK_TBLANIME_TBLCATEGORY" Association="Self.FK_TBLANIME_TBLCATEGORY">
       <End Role="TBLCATEGORY" EntitySet="TBLCATEGORY" />
       <End Role="TBLANIME" EntitySet="TBLANIME" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLANIMECOMMENT_TBLANIME" Association="Self.FK_TBLANIMECOMMENT_TBLANIME">
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+      <End Role="TBLANIMECOMMENT" EntitySet="TBLANIMECOMMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLANIMECOMMENT_TBLUSER" Association="Self.FK_TBLANIMECOMMENT_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLANIMECOMMENT" EntitySet="TBLANIMECOMMENT" />
     </AssociationSet>
     <AssociationSet Name="FK_TBLEPISODE_TBLANIME" Association="Self.FK_TBLEPISODE_TBLANIME">
       <End Role="TBLANIME" EntitySet="TBLANIME" />

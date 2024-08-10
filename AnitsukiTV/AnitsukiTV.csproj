@@ -163,6 +163,9 @@
     <Compile Include="Models\TBLANIME.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TBLANIMECOMMENT.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TBLCATEGORY.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -3415,6 +3418,7 @@
     <Content Include="Views\LoginSignIn\Login.cshtml" />
     <Content Include="Views\User\ProfileSetting.cshtml" />
     <Content Include="Views\LoginSignIn\ResetPassword.cshtml" />
+    <Content Include="Views\AnimeDetail\Comments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

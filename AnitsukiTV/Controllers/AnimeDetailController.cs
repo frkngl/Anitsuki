@@ -42,6 +42,28 @@ namespace AnitsukiTV.Controllers
             return View(veri);
         }
 
+
+        public PartialViewResult Comments(int id)
+        {
+            var degerler = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id && x.STATUS == true).ToList();
+            ViewBag.CommentCount = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id && x.STATUS == true).Count();
+            return PartialView(degerler);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         [HttpPost]
         public ActionResult AddFavorite(int animeID)
         {

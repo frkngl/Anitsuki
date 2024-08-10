@@ -17,6 +17,7 @@ namespace AnitsukiTV.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBLUSER()
         {
+            this.TBLANIMECOMMENT = new HashSet<TBLANIMECOMMENT>();
             this.TBLEPISODELIKE = new HashSet<TBLEPISODELIKE>();
             this.TBLFAVORITES = new HashSet<TBLFAVORITES>();
             this.TBLWATCHLATER = new HashSet<TBLWATCHLATER>();
@@ -32,6 +33,8 @@ namespace AnitsukiTV.Models
         public Nullable<System.DateTime> DATE { get; set; }
         public Nullable<bool> STATUS { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBLANIMECOMMENT> TBLANIMECOMMENT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBLEPISODELIKE> TBLEPISODELIKE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

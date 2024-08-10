@@ -28,6 +28,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TBLANIMECOMMENT">
+      <EntityTypeMapping TypeName="AnitsukiTVModel.TBLANIMECOMMENT">
+        <MappingFragment StoreEntitySet="TBLANIMECOMMENT">
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="USTID" ColumnName="USTID" />
+          <ScalarProperty Name="DATE" ColumnName="DATE" />
+          <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+          <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="TBLCATEGORY">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLCATEGORY">
         <MappingFragment StoreEntitySet="TBLCATEGORY">
