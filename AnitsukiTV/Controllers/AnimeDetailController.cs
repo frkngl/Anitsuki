@@ -51,10 +51,36 @@ namespace AnitsukiTV.Controllers
         }
 
 
-        public PartialViewResult LeaveComment()
+        public PartialViewResult LeaveComment(int ? id)
         {
+            if (id.HasValue)
+            {
+                ViewBag.deger = id.Value;
+            }
             return PartialView();
         }
+
+        [HttpPost]
+        public PartialViewResult LeaveComment(TBLANIMECOMMENT y)
+        {
+            int userId = Convert.ToInt32(Session["id"]);
+            TBLUSER user = db.TBLUSER.Find(userId);
+
+            TBLANIMECOMMENT yeni = new TBLANIMECOMMENT();
+            yeni.COMMENT = y.COMMENT;
+            yeni.ANIMEID = y.ANIMEID;
+            yeni.DATE = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            yeni.STATUS = true;
+            yeni.USTID = null;
+            yeni.USERID = userId;
+
+            db.TBLANIMECOMMENT.Add(yeni);
+            db.SaveChanges();
+
+            Response.Redirect("/AnimeDetail/Index/" + y.ANIMEID);
+            return PartialView();
+        }
+
 
 
 

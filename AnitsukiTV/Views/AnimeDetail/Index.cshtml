@@ -90,7 +90,7 @@
     <!----------------------------------------------------CONTENT START---------------------------------------------------->
     <div class="content3">
         <div class="animeabout">
-            @foreach (var x in Model.Anime.Where(x=>x.STATUS == true))
+            @foreach (var x in Model.Anime.Where(x => x.STATUS == true))
             {
                 <div class="img">
                     <img src="~/IMG/@x.BANNER">
@@ -169,7 +169,7 @@
                 <ul id="menuFull">
                     @foreach (var z in Model.Episode)
                     {
-                        <li>    
+                        <li>
                             <a href="/AnimeDetail/Video/@z.ID">
                                 <div class="box">
                                     <div class="img">
@@ -187,8 +187,15 @@
                     }
                 </ul>
             </div>
-            @Html.Action("LeaveComment","AnimeDetail")
-            @Html.Action("Comments","AnimeDetail")
+            <div class="commentplace">
+                <div class="headcomment">
+                    <div class="title">
+                        <i class="bi bi-pencil-square"></i> Düşüncelerinizi Yazın
+                    </div>
+                    @Html.Action("LeaveComment", "AnimeDetail")
+                </div>
+            </div>
+            @Html.Action("Comments", "AnimeDetail")
         </div>
     </div>
     <!----------------------------------------------------CONTENT END---------------------------------------------------->
