@@ -14,6 +14,12 @@ namespace AnitsukiTV.Models
     
     public partial class TBLANIMECOMMENT
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TBLANIMECOMMENT()
+        {
+            this.TBLANIMECOMMENTLIKE = new HashSet<TBLANIMECOMMENTLIKE>();
+        }
+    
         public int ID { get; set; }
         public Nullable<int> USERID { get; set; }
         public Nullable<int> ANIMEID { get; set; }
@@ -24,5 +30,7 @@ namespace AnitsukiTV.Models
     
         public virtual TBLANIME TBLANIME { get; set; }
         public virtual TBLUSER TBLUSER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBLANIMECOMMENTLIKE> TBLANIMECOMMENTLIKE { get; set; }
     }
 }

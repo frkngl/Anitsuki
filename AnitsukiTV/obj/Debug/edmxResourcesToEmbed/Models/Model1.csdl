@@ -59,6 +59,15 @@
       <End Role="TBLUSER" EntitySet="TBLUSER" />
       <End Role="TBLWATCHLATER" EntitySet="TBLWATCHLATER" />
     </AssociationSet>
+    <EntitySet Name="TBLANIMECOMMENTLIKE" EntityType="AnitsukiTVModel.TBLANIMECOMMENTLIKE" />
+    <AssociationSet Name="FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" Association="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT">
+      <End Role="TBLANIMECOMMENT" EntitySet="TBLANIMECOMMENT" />
+      <End Role="TBLANIMECOMMENTLIKE" EntitySet="TBLANIMECOMMENTLIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLANIMECOMMENTLIKE_TBLUSER" Association="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLANIMECOMMENTLIKE" EntitySet="TBLANIMECOMMENTLIKE" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -104,6 +113,7 @@
     <Property Name="STATUS" Type="Boolean" />
     <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLANIME" FromRole="TBLANIMECOMMENT" ToRole="TBLANIME" />
     <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLUSER" FromRole="TBLANIMECOMMENT" ToRole="TBLUSER" />
+    <NavigationProperty Name="TBLANIMECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" FromRole="TBLANIMECOMMENT" ToRole="TBLANIMECOMMENTLIKE" />
   </EntityType>
   <EntityType Name="TBLCATEGORY">
     <Key>
@@ -183,6 +193,7 @@
     <NavigationProperty Name="TBLEPISODELIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLEPISODELIKE" />
     <NavigationProperty Name="TBLFAVORITES" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLUSER" FromRole="TBLUSER" ToRole="TBLFAVORITES" />
     <NavigationProperty Name="TBLWATCHLATER" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER" FromRole="TBLUSER" ToRole="TBLWATCHLATER" />
+    <NavigationProperty Name="TBLANIMECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLANIMECOMMENTLIKE" />
   </EntityType>
   <EntityType Name="TBLWATCHLATER">
     <Key>
@@ -334,6 +345,41 @@
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="TBLWATCHLATER">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TBLANIMECOMMENTLIKE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USERID" Type="Int32" />
+    <Property Name="ANIMECOMMENTID" Type="Int32" />
+    <Property Name="STATUS" Type="Boolean" />
+    <NavigationProperty Name="TBLANIMECOMMENT" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" FromRole="TBLANIMECOMMENTLIKE" ToRole="TBLANIMECOMMENT" />
+    <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER" FromRole="TBLANIMECOMMENTLIKE" ToRole="TBLUSER" />
+  </EntityType>
+  <Association Name="FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT">
+    <End Type="AnitsukiTVModel.TBLANIMECOMMENT" Role="TBLANIMECOMMENT" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLANIMECOMMENTLIKE" Role="TBLANIMECOMMENTLIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIMECOMMENT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLANIMECOMMENTLIKE">
+        <PropertyRef Name="ANIMECOMMENTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLANIMECOMMENTLIKE_TBLUSER">
+    <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLANIMECOMMENTLIKE" Role="TBLANIMECOMMENTLIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLANIMECOMMENTLIKE">
         <PropertyRef Name="USERID" />
       </Dependent>
     </ReferentialConstraint>

@@ -17,5 +17,6 @@ namespace AnitsukiTV.Models
         public List<TBLEPISODELIKE> EpisodeLike { get; set; }
         public List<TBLFAVORITES> Favorites { get; set; }
         public List<TBLWATCHLATER> WatchLater { get; set; }
+        public List<TBLANIMECOMMENTLIKE> AnimeCommentLike { get; set; }
     }
 }

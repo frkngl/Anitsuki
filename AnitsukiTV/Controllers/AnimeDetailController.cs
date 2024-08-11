@@ -1,6 +1,7 @@
 ﻿using AnitsukiTV.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Web;
@@ -96,8 +97,47 @@ namespace AnitsukiTV.Controllers
             return RedirectToAction("Index/" + y.ANIMEID);
         }
 
+        public ActionResult LikeComment(int id)
+        {
+            var user = HttpContext.User.Identity.Name;
+            int userId = db.TBLUSER.Where(u => u.USERNAME == user).Select(u => u.ID).FirstOrDefault();
+            var comment = db.TBLANIMECOMMENT.Find(id);
+            var like = db.TBLANIMECOMMENTLIKE.FirstOrDefault(x => x.ANIMECOMMENTID == id && x.USERID == userId);
 
+            if (like == null)
+            {
+                like = new TBLANIMECOMMENTLIKE { ANIMECOMMENTID = id, USERID = userId, STATUS = true };
+                db.TBLANIMECOMMENTLIKE.Add(like);
+            }
+            else
+            {
+                like.STATUS = true;
+                db.Entry(like).State = EntityState.Modified;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index", new { id = comment.ANIMEID });
+        }
 
+        public ActionResult UnlikeComment(int id)
+        {
+            var user = HttpContext.User.Identity.Name;
+            int userId = db.TBLUSER.Where(u => u.USERNAME == user).Select(u => u.ID).FirstOrDefault();
+            var comment = db.TBLANIMECOMMENT.Find(id);
+            var like = db.TBLANIMECOMMENTLIKE.FirstOrDefault(x => x.ANIMECOMMENTID == id && x.USERID == userId);
+
+            if (like == null)
+            {
+                like = new TBLANIMECOMMENTLIKE { ANIMECOMMENTID = id, USERID = userId, STATUS = false };
+                db.TBLANIMECOMMENTLIKE.Add(like);
+            }
+            else
+            {
+                like.STATUS = false;
+                db.Entry(like).State = EntityState.Modified;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index", new { id = comment.ANIMEID });
+        }
 
 
 
@@ -159,7 +199,7 @@ namespace AnitsukiTV.Controllers
                 return Json(new { success = true, isWatchLater = false });
             }
         }
-
+          
         public ActionResult Video(int id)
         {
             veri.Episode = db.TBLEPISODE.Where(x => x.ID == id).ToList();

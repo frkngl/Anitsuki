@@ -35,5 +35,6 @@ namespace AnitsukiTV.Models
         public virtual DbSet<TBLSEASON> TBLSEASON { get; set; }
         public virtual DbSet<TBLUSER> TBLUSER { get; set; }
         public virtual DbSet<TBLWATCHLATER> TBLWATCHLATER { get; set; }
+        public virtual DbSet<TBLANIMECOMMENTLIKE> TBLANIMECOMMENTLIKE { get; set; }
     }
 }

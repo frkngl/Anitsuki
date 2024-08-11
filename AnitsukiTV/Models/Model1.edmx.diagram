@@ -27,6 +27,9 @@
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLFAVORITES_TBLUSER" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLANIMECOMMENTLIKE" Width="1.5" PointX="10.5" PointY="5.875" />
+        <AssociationConnector Association="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" />
+        <AssociationConnector Association="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
