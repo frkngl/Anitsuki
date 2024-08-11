@@ -46,6 +46,7 @@ namespace AnitsukiTV.Controllers
         public PartialViewResult Comments(int id)
         {
             var degerler = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id && x.STATUS == true).ToList();
+            ViewBag.animecom = id;
             ViewBag.CommentCount = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id && x.STATUS == true).Count();
             return PartialView(degerler);
         }
@@ -79,6 +80,20 @@ namespace AnitsukiTV.Controllers
 
             Response.Redirect("/AnimeDetail/Index/" + y.ANIMEID);
             return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult ReplyComment(TBLANIMECOMMENT y)
+        {
+            int userId = Convert.ToInt32(Session["id"]);
+            TBLUSER user = db.TBLUSER.Find(userId);
+
+            y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
+            y.STATUS = true;
+            y.TBLUSER = user;
+            db.TBLANIMECOMMENT.Add(y);
+            db.SaveChanges();
+            return RedirectToAction("Index/" + y.ANIMEID);
         }
 
 
