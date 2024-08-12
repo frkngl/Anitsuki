@@ -5,16 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9b3a0d16917c46f2b5bb8d8e40b75b03" Name="Diagram1">
-        <EntityTypeShape EntityType="AnitsukiTVModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="AnitsukiTVModel.TBLANIME" Width="1.5" PointX="3" PointY="7.5" />
-        <EntityTypeShape EntityType="AnitsukiTVModel.TBLANIMECOMMENT" Width="1.5" PointX="8.25" PointY="8.125" />
-        <EntityTypeShape EntityType="AnitsukiTVModel.TBLCATEGORY" Width="1.5" PointX="0.75" PointY="8.625" />
-        <EntityTypeShape EntityType="AnitsukiTVModel.TBLEPISODE" Width="1.5" PointX="7.5" PointY="13.875" />
-        <EntityTypeShape EntityType="AnitsukiTVModel.TBLEPISODELIKE" Width="1.5" PointX="9.75" PointY="14.75" />
-        <EntityTypeShape EntityType="AnitsukiTVModel.TBLFAVORITES" Width="1.5" PointX="5.25" PointY="5.5" />
-        <EntityTypeShape EntityType="AnitsukiTVModel.TBLSEASON" Width="1.5" PointX="5.25" PointY="22.375" />
-        <EntityTypeShape EntityType="AnitsukiTVModel.TBLUSER" Width="1.5" PointX="3" PointY="2.75" />
-        <EntityTypeShape EntityType="AnitsukiTVModel.TBLWATCHLATER" Width="1.5" PointX="5.25" PointY="8.5" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="1.5" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLANIME" Width="1.5" PointX="1.5" PointY="12.75" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLANIMECOMMENT" Width="1.5" PointX="3" PointY="8.375" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLANIMECOMMENTLIKE" Width="1.5" PointX="8.25" PointY="10.75" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLCATEGORY" Width="1.5" PointX="1.5" PointY="17.875" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLEPISODE" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLEPISODECOMMENT" Width="1.5" PointX="3" PointY="4.375" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLEPISODECOMMENTLIKE" Width="1.5" PointX="8.25" PointY="7.125" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLEPISODELIKE" Width="1.5" PointX="6" PointY="11.75" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLFAVORITES" Width="1.5" PointX="6" PointY="8.875" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLSEASON" Width="1.5" PointX="1.5" PointY="20.625" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLUSER" Width="1.5" PointX="0.75" PointY="7.875" />
+        <EntityTypeShape EntityType="AnitsukiTVModel.TBLWATCHLATER" Width="1.5" PointX="6" PointY="5.875" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLANIME" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME" />
@@ -22,14 +25,17 @@
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLWATCHLATER_TBLANIME" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLUSER" />
+        <AssociationConnector Association="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" />
+        <AssociationConnector Association="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" />
+        <AssociationConnector Association="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLEPISODE" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLEPISODE" />
+        <AssociationConnector Association="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLUSER1" />
+        <AssociationConnector Association="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT" />
+        <AssociationConnector Association="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLUSER" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLFAVORITES_TBLUSER" />
         <AssociationConnector Association="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER" />
-        <EntityTypeShape EntityType="AnitsukiTVModel.TBLANIMECOMMENTLIKE" Width="1.5" PointX="10.5" PointY="5.875" />
-        <AssociationConnector Association="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" />
-        <AssociationConnector Association="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

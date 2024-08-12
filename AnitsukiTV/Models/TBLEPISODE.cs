@@ -17,6 +17,7 @@ namespace AnitsukiTV.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBLEPISODE()
         {
+            this.TBLEPISODECOMMENT = new HashSet<TBLEPISODECOMMENT>();
             this.TBLEPISODELIKE = new HashSet<TBLEPISODELIKE>();
         }
     
@@ -36,6 +37,8 @@ namespace AnitsukiTV.Models
     
         public virtual TBLANIME TBLANIME { get; set; }
         public virtual TBLSEASON TBLSEASON { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBLEPISODECOMMENT> TBLEPISODECOMMENT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBLEPISODELIKE> TBLEPISODELIKE { get; set; }
     }

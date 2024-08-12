@@ -31,8 +31,8 @@
     <link rel="stylesheet" href="~/Anitsuki/node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="~/Anitsuki/node_modules/bootstrap-icons/font/bootstrap-icons.min.css" type="text/css">
     <!--CSS-->
-    <link rel="stylesheet" href="~/Anitsuki/css/main.css" type="text/css">
-    <link rel="stylesheet" href="~/Anitsuki/css/main.css.map" type="text/css">
+    <link rel="stylesheet" href="~/Anitsuki/css/main1.css" type="text/css">
+    <link rel="stylesheet" href="~/Anitsuki/css/main1.css.map" type="text/css">
     <link rel="stylesheet" href="~/Anitsuki/css/video.css" type="text/css">
     <!--TITLE IMG-->
     <link rel="shortcut icon" href="~/Anitsuki/img/aylogo.png" />
@@ -167,12 +167,12 @@
                                                     <i class="bi bi-hand-thumbs-down"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == false).Count()
                                                 </div>
                                             </div>
-                                           
+
                                         }
                                         else
                                         {
                                             <div class="like">
-                                                <a style="text-decoration:none; color:white;" href="/AnimeDetail/LikeEpisode/@y.ID"><i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i> @y.TBLEPISODELIKE.Where(x=>x.LIKESTATUS == true).Count()</a>
+                                                <a style="text-decoration:none; color:white;" href="/AnimeDetail/LikeEpisode/@y.ID"><i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == true).Count()</a>
                                             </div>
                                             <div class="unlike">
                                                 <a style="text-decoration:none; color:white;" href="/AnimeDetail/UnlikeEpisode/@y.ID"><i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == false).Count()</a>
@@ -198,199 +198,11 @@
                         <div class="title">
                             <i class="bi bi-pencil-square"></i> Düşüncelerinizi Yazın
                         </div>
-                        <form action="#" method="get">
-                            <textarea></textarea>
-                            <button><i class="bi bi-send"></i> Gönder</button>
-                        </form>
+                        @Html.Action("LeaveComment1", "AnimeDetail")
+
                     </div>
                 </div>
-                <div class="commentboxes">
-                    <div class="title">
-                        <i class="bi bi-chat"></i> 30 Yorum
-                    </div>
-                    <div class="comments">
-                        <div class="comment1">
-                            <img src="~/IMG/arisu-aris.gif">
-                            <div class="detail">
-                                <div class="user">
-                                    <div class="name">
-                                        BABAPRO
-                                    </div>
-                                    <div class="year">
-                                        12.12.2023
-                                    </div>
-                                </div>
-                                <div class="text">
-                                    Dubbing a blonde loli who is older and more powerful than she looks? Call Monica
-                                    Rial.
-                                </div>
-                                <div class="more">
-                                    <div class="reply">
-                                        <i class="bi bi-reply"></i>Cevapla
-                                    </div>
-                                    <div class="likeandunlike">
-                                        <div class="like">
-                                            <i class="bi bi-hand-thumbs-up"></i>1024
-                                        </div>
-                                        <div class="unlike">
-                                            <i class="bi bi-hand-thumbs-down"></i>299
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment2">
-                            <img src="~/Anitsuki/img/1.png">
-                            <div class="detail">
-                                <div class="user">
-                                    <div class="name">
-                                        BABAPRO
-                                    </div>
-                                    <div class="year">
-                                        12.12.2023
-                                    </div>
-                                </div>
-                                <div class="text">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. At totam exercitationem
-                                    iure quia tempora suscipit illum adipisci voluptatum? Aspernatur, perspiciatis.
-                                </div>
-                                <div class="more">
-                                    <div class="reply">
-                                        <i class="bi bi-reply"></i> Cevapla
-                                    </div>
-                                    <div class="likeandunlike">
-                                        <div class="like">
-                                            <i class="bi bi-hand-thumbs-up"></i> 1024
-                                        </div>
-                                        <div class="unlike">
-                                            <i class="bi bi-hand-thumbs-down"></i> 299
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment1">
-                            <img src="~/Anitsuki/img/1.png">
-                            <div class="detail">
-                                <div class="user">
-                                    <div class="name">
-                                        BABAPRO
-                                    </div>
-                                    <div class="year">
-                                        12.12.2023
-                                    </div>
-                                </div>
-                                <div class="text">
-                                    Dubbing a blonde loli who is older and more powerful than she looks? Call Monica
-                                    Rial.
-                                </div>
-                                <div class="more">
-                                    <div class="reply">
-                                        <i class="bi bi-reply"></i>Cevapla
-                                    </div>
-                                    <div class="likeandunlike">
-                                        <div class="like">
-                                            <i class="bi bi-hand-thumbs-up"></i>1024
-                                        </div>
-                                        <div class="unlike">
-                                            <i class="bi bi-hand-thumbs-down"></i>299
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment2">
-                            <img src="~/Anitsuki/img/1.png">
-                            <div class="detail">
-                                <div class="user">
-                                    <div class="name">
-                                        BABAPRO
-                                    </div>
-                                    <div class="year">
-                                        12.12.2023
-                                    </div>
-                                </div>
-                                <div class="text">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. At totam exercitationem
-                                    iure quia tempora suscipit illum adipisci voluptatum? Aspernatur, perspiciatis.
-                                </div>
-                                <div class="more">
-                                    <div class="reply">
-                                        <i class="bi bi-reply"></i> Cevapla
-                                    </div>
-                                    <div class="likeandunlike">
-                                        <div class="like">
-                                            <i class="bi bi-hand-thumbs-up"></i> 1024
-                                        </div>
-                                        <div class="unlike">
-                                            <i class="bi bi-hand-thumbs-down"></i> 299
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment2">
-                            <img src="~/Anitsuki/img/1.png">
-                            <div class="detail">
-                                <div class="user">
-                                    <div class="name">
-                                        BABAPRO
-                                    </div>
-                                    <div class="year">
-                                        12.12.2023
-                                    </div>
-                                </div>
-                                <div class="text">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. At totam exercitationem
-                                    iure quia tempora suscipit illum adipisci voluptatum? Aspernatur, perspiciatis.
-                                </div>
-                                <div class="more">
-                                    <div class="reply">
-                                        <i class="bi bi-reply"></i> Cevapla
-                                    </div>
-                                    <div class="likeandunlike">
-                                        <div class="like">
-                                            <i class="bi bi-hand-thumbs-up"></i> 1024
-                                        </div>
-                                        <div class="unlike">
-                                            <i class="bi bi-hand-thumbs-down"></i> 299
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment1">
-                            <img src="~/Anitsuki/img/1.png">
-                            <div class="detail">
-                                <div class="user">
-                                    <div class="name">
-                                        BABAPRO
-                                    </div>
-                                    <div class="year">
-                                        12.12.2023
-                                    </div>
-                                </div>
-                                <div class="text">
-                                    Dubbing a blonde loli who is older and more powerful than she looks? Call Monica
-                                    Rial.
-                                </div>
-                                <div class="more">
-                                    <div class="reply">
-                                        <i class="bi bi-reply"></i>Cevapla
-                                    </div>
-                                    <div class="likeandunlike">
-                                        <div class="like">
-                                            <i class="bi bi-hand-thumbs-up"></i>1024
-                                        </div>
-                                        <div class="unlike">
-                                            <i class="bi bi-hand-thumbs-down"></i>299
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @Html.Action("Comments1", "AnimeDetail")
             </div>
             <div class="nextandprevepisode">
                 @{

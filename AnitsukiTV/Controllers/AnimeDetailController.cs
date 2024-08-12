@@ -43,7 +43,6 @@ namespace AnitsukiTV.Controllers
             return View(veri);
         }
 
-
         public PartialViewResult Comments(int id)
         {
             var degerler = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id && x.STATUS == true).ToList();
@@ -51,7 +50,6 @@ namespace AnitsukiTV.Controllers
             ViewBag.CommentCount = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id && x.STATUS == true).Count();
             return PartialView(degerler);
         }
-
 
         public PartialViewResult LeaveComment(int ? id)
         {
@@ -139,15 +137,6 @@ namespace AnitsukiTV.Controllers
             return RedirectToAction("Index", new { id = comment.ANIMEID });
         }
 
-
-
-
-
-
-
-
-
-
         [HttpPost]
         public ActionResult AddFavorite(int animeID)
         {
@@ -172,8 +161,6 @@ namespace AnitsukiTV.Controllers
                 return Json(new { success = true, isFavorite = false });
             }
         }
-
-
 
         [HttpPost]
         public ActionResult WatchLater(int animeID)
@@ -200,6 +187,13 @@ namespace AnitsukiTV.Controllers
             }
         }
           
+
+
+
+
+
+
+
         public ActionResult Video(int id)
         {
             veri.Episode = db.TBLEPISODE.Where(x => x.ID == id).ToList();
@@ -221,6 +215,116 @@ namespace AnitsukiTV.Controllers
             veri.SonrakiBolum = db.TBLEPISODE.Where(x => x.ID == sonrakiBolumId).ToList();
             return View(veri);
         }
+
+        public PartialViewResult Comments1(int id)
+        {
+            var degerler = db.TBLEPISODECOMMENT.Where(x => x.EPISODEID == id && x.STATUS == true).ToList();
+            ViewBag.animecom = id;
+            ViewBag.CommentCount = db.TBLEPISODECOMMENT.Where(x => x.EPISODEID == id && x.STATUS == true).Count();
+            return PartialView(degerler);
+        }
+        
+
+
+        public ActionResult LikeComment1(int id)
+        {
+            var user = HttpContext.User.Identity.Name;
+            int userId = db.TBLUSER.Where(u => u.USERNAME == user).Select(u => u.ID).FirstOrDefault();
+            var comment = db.TBLEPISODECOMMENT.Find(id);
+            var like = db.TBLEPISODECOMMENTLIKE.FirstOrDefault(x => x.EPISODECOMMENTID == id && x.USERID == userId);
+
+            if (like == null)
+            {
+                like = new TBLEPISODECOMMENTLIKE { EPISODECOMMENTID = id, USERID = userId, STATUS = true };
+                db.TBLEPISODECOMMENTLIKE.Add(like);
+            }
+            else
+            {
+                like.STATUS = true;
+                db.Entry(like).State = EntityState.Modified;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Video", new { id = comment.EPISODEID });
+        }
+
+
+
+        public ActionResult UnlikeComment1(int id)
+        {
+            var user = HttpContext.User.Identity.Name;
+            int userId = db.TBLUSER.Where(u => u.USERNAME == user).Select(u => u.ID).FirstOrDefault();
+            var comment = db.TBLEPISODECOMMENT.Find(id);
+            var like = db.TBLEPISODECOMMENTLIKE.FirstOrDefault(x => x.EPISODECOMMENTID == id && x.USERID == userId);
+
+            if (like == null)
+            {
+                like = new TBLEPISODECOMMENTLIKE { EPISODECOMMENTID = id, USERID = userId, STATUS = false };
+                db.TBLEPISODECOMMENTLIKE.Add(like);
+            }
+            else
+            {
+                like.STATUS = false;
+                db.Entry(like).State = EntityState.Modified;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Video", new { id = comment.EPISODEID });
+        }
+
+
+
+
+        public PartialViewResult LeaveComment1(int? id)
+        {
+            if (id.HasValue)
+            {
+                ViewBag.deger = id.Value;
+            }
+            return PartialView();
+        }
+
+        [HttpPost]
+        public PartialViewResult LeaveComment1(TBLEPISODECOMMENT y)
+        {
+            int userId = Convert.ToInt32(Session["id"]);
+            TBLUSER user = db.TBLUSER.Find(userId);
+
+            TBLEPISODECOMMENT yeni = new TBLEPISODECOMMENT();
+            yeni.COMMENT = y.COMMENT;
+            yeni.EPISODEID = y.EPISODEID;
+            yeni.DATE = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            yeni.STATUS = true;
+            yeni.USTID = null;
+            yeni.USERID = userId;
+
+            db.TBLEPISODECOMMENT.Add(yeni);
+            db.SaveChanges();
+
+            Response.Redirect("/AnimeDetail/Video/" + y.EPISODEID);
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult ReplyComment1(TBLEPISODECOMMENT y)
+        {
+            int userId = Convert.ToInt32(Session["id"]);
+            TBLUSER user = db.TBLUSER.Find(userId);
+
+            y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
+            y.STATUS = true;
+            y.TBLUSER = user;
+            db.TBLEPISODECOMMENT.Add(y);
+            db.SaveChanges();
+            return RedirectToAction("Video/" + y.EPISODEID);
+        }
+
+
+
+
+
+
+
+
+
 
         public ActionResult LikeEpisode(int id)
         {

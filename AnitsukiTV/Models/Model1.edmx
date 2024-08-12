@@ -77,6 +77,27 @@
           <Property Name="BANNER" Type="nvarchar" MaxLength="250" />
           <Property Name="STATUS" Type="bit" />
         </EntityType>
+        <EntityType Name="TBLEPISODECOMMENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USERID" Type="int" />
+          <Property Name="EPISODEID" Type="int" />
+          <Property Name="COMMENT" Type="nvarchar" MaxLength="500" />
+          <Property Name="DATE" Type="datetime" />
+          <Property Name="USTID" Type="int" />
+          <Property Name="STATUS" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBLEPISODECOMMENTLIKE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USERID" Type="int" />
+          <Property Name="EPISODECOMMENTID" Type="int" />
+          <Property Name="STATUS" Type="bit" />
+        </EntityType>
         <EntityType Name="TBLEPISODELIKE">
           <Key>
             <PropertyRef Name="ID" />
@@ -208,6 +229,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBLEPISODECOMMENT_TBLEPISODE">
+          <End Role="TBLEPISODE" Type="Self.TBLEPISODE" Multiplicity="0..1" />
+          <End Role="TBLEPISODECOMMENT" Type="Self.TBLEPISODECOMMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLEPISODE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLEPISODECOMMENT">
+              <PropertyRef Name="EPISODEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLEPISODECOMMENT_TBLUSER1">
+          <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
+          <End Role="TBLEPISODECOMMENT" Type="Self.TBLEPISODECOMMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLUSER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLEPISODECOMMENT">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT">
+          <End Role="TBLEPISODECOMMENT" Type="Self.TBLEPISODECOMMENT" Multiplicity="0..1" />
+          <End Role="TBLEPISODECOMMENTLIKE" Type="Self.TBLEPISODECOMMENTLIKE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLEPISODECOMMENT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLEPISODECOMMENTLIKE">
+              <PropertyRef Name="EPISODECOMMENTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLEPISODECOMMENTLIKE_TBLUSER">
+          <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
+          <End Role="TBLEPISODECOMMENTLIKE" Type="Self.TBLEPISODECOMMENTLIKE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLUSER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLEPISODECOMMENTLIKE">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBLEPISODELIKE_TBLEPISODE">
           <End Role="TBLEPISODE" Type="Self.TBLEPISODE" Multiplicity="0..1" />
           <End Role="TBLEPISODELIKE" Type="Self.TBLEPISODELIKE" Multiplicity="*" />
@@ -299,6 +368,8 @@
           <EntitySet Name="TBLANIMECOMMENTLIKE" EntityType="Self.TBLANIMECOMMENTLIKE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLCATEGORY" EntityType="Self.TBLCATEGORY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLEPISODE" EntityType="Self.TBLEPISODE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLEPISODECOMMENT" EntityType="Self.TBLEPISODECOMMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLEPISODECOMMENTLIKE" EntityType="Self.TBLEPISODECOMMENTLIKE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLEPISODELIKE" EntityType="Self.TBLEPISODELIKE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLFAVORITES" EntityType="Self.TBLFAVORITES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLSEASON" EntityType="Self.TBLSEASON" Schema="dbo" store:Type="Tables" />
@@ -331,6 +402,22 @@
           <AssociationSet Name="FK_TBLEPISODE_TBLSEASON" Association="Self.FK_TBLEPISODE_TBLSEASON">
             <End Role="TBLSEASON" EntitySet="TBLSEASON" />
             <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLEPISODE" Association="Self.FK_TBLEPISODECOMMENT_TBLEPISODE">
+            <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+            <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLUSER1" Association="Self.FK_TBLEPISODECOMMENT_TBLUSER1">
+            <End Role="TBLUSER" EntitySet="TBLUSER" />
+            <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT" Association="Self.FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT">
+            <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
+            <End Role="TBLEPISODECOMMENTLIKE" EntitySet="TBLEPISODECOMMENTLIKE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLEPISODECOMMENTLIKE_TBLUSER" Association="Self.FK_TBLEPISODECOMMENTLIKE_TBLUSER">
+            <End Role="TBLUSER" EntitySet="TBLUSER" />
+            <End Role="TBLEPISODECOMMENTLIKE" EntitySet="TBLEPISODECOMMENTLIKE" />
           </AssociationSet>
           <AssociationSet Name="FK_TBLEPISODELIKE_TBLEPISODE" Association="Self.FK_TBLEPISODELIKE_TBLEPISODE">
             <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
@@ -369,8 +456,11 @@
           <EntitySet Name="sysdiagrams" EntityType="AnitsukiTVModel.sysdiagrams" />
           <EntitySet Name="TBLANIME" EntityType="AnitsukiTVModel.TBLANIME" />
           <EntitySet Name="TBLANIMECOMMENT" EntityType="AnitsukiTVModel.TBLANIMECOMMENT" />
+          <EntitySet Name="TBLANIMECOMMENTLIKE" EntityType="AnitsukiTVModel.TBLANIMECOMMENTLIKE" />
           <EntitySet Name="TBLCATEGORY" EntityType="AnitsukiTVModel.TBLCATEGORY" />
           <EntitySet Name="TBLEPISODE" EntityType="AnitsukiTVModel.TBLEPISODE" />
+          <EntitySet Name="TBLEPISODECOMMENT" EntityType="AnitsukiTVModel.TBLEPISODECOMMENT" />
+          <EntitySet Name="TBLEPISODECOMMENTLIKE" EntityType="AnitsukiTVModel.TBLEPISODECOMMENTLIKE" />
           <EntitySet Name="TBLEPISODELIKE" EntityType="AnitsukiTVModel.TBLEPISODELIKE" />
           <EntitySet Name="TBLFAVORITES" EntityType="AnitsukiTVModel.TBLFAVORITES" />
           <EntitySet Name="TBLSEASON" EntityType="AnitsukiTVModel.TBLSEASON" />
@@ -404,13 +494,37 @@
             <End Role="TBLUSER" EntitySet="TBLUSER" />
             <End Role="TBLANIMECOMMENT" EntitySet="TBLANIMECOMMENT" />
           </AssociationSet>
+          <AssociationSet Name="FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" Association="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT">
+            <End Role="TBLANIMECOMMENT" EntitySet="TBLANIMECOMMENT" />
+            <End Role="TBLANIMECOMMENTLIKE" EntitySet="TBLANIMECOMMENTLIKE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLANIMECOMMENTLIKE_TBLUSER" Association="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER">
+            <End Role="TBLUSER" EntitySet="TBLUSER" />
+            <End Role="TBLANIMECOMMENTLIKE" EntitySet="TBLANIMECOMMENTLIKE" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBLEPISODE_TBLSEASON" Association="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON">
             <End Role="TBLSEASON" EntitySet="TBLSEASON" />
             <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
           </AssociationSet>
+          <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLEPISODE" Association="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLEPISODE">
+            <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+            <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBLEPISODELIKE_TBLEPISODE" Association="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLEPISODE">
             <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
             <End Role="TBLEPISODELIKE" EntitySet="TBLEPISODELIKE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLUSER1" Association="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLUSER1">
+            <End Role="TBLUSER" EntitySet="TBLUSER" />
+            <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT" Association="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT">
+            <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
+            <End Role="TBLEPISODECOMMENTLIKE" EntitySet="TBLEPISODECOMMENTLIKE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLEPISODECOMMENTLIKE_TBLUSER" Association="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLUSER">
+            <End Role="TBLUSER" EntitySet="TBLUSER" />
+            <End Role="TBLEPISODECOMMENTLIKE" EntitySet="TBLEPISODECOMMENTLIKE" />
           </AssociationSet>
           <AssociationSet Name="FK_TBLEPISODELIKE_TBLUSER" Association="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER">
             <End Role="TBLUSER" EntitySet="TBLUSER" />
@@ -423,15 +537,6 @@
           <AssociationSet Name="FK_TBLWATCHLATER_TBLUSER" Association="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER">
             <End Role="TBLUSER" EntitySet="TBLUSER" />
             <End Role="TBLWATCHLATER" EntitySet="TBLWATCHLATER" />
-          </AssociationSet>
-          <EntitySet Name="TBLANIMECOMMENTLIKE" EntityType="AnitsukiTVModel.TBLANIMECOMMENTLIKE" />
-          <AssociationSet Name="FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" Association="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT">
-            <End Role="TBLANIMECOMMENT" EntitySet="TBLANIMECOMMENT" />
-            <End Role="TBLANIMECOMMENTLIKE" EntitySet="TBLANIMECOMMENTLIKE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TBLANIMECOMMENTLIKE_TBLUSER" Association="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER">
-            <End Role="TBLUSER" EntitySet="TBLUSER" />
-            <End Role="TBLANIMECOMMENTLIKE" EntitySet="TBLANIMECOMMENTLIKE" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagrams">
@@ -480,6 +585,17 @@
           <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLUSER" FromRole="TBLANIMECOMMENT" ToRole="TBLUSER" />
           <NavigationProperty Name="TBLANIMECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" FromRole="TBLANIMECOMMENT" ToRole="TBLANIMECOMMENTLIKE" />
         </EntityType>
+        <EntityType Name="TBLANIMECOMMENTLIKE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERID" Type="Int32" />
+          <Property Name="ANIMECOMMENTID" Type="Int32" />
+          <Property Name="STATUS" Type="Boolean" />
+          <NavigationProperty Name="TBLANIMECOMMENT" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" FromRole="TBLANIMECOMMENTLIKE" ToRole="TBLANIMECOMMENT" />
+          <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER" FromRole="TBLANIMECOMMENTLIKE" ToRole="TBLUSER" />
+        </EntityType>
         <EntityType Name="TBLCATEGORY">
           <Key>
             <PropertyRef Name="ID" />
@@ -508,7 +624,34 @@
           <Property Name="STATUS" Type="Boolean" />
           <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME" FromRole="TBLEPISODE" ToRole="TBLANIME" />
           <NavigationProperty Name="TBLSEASON" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" FromRole="TBLEPISODE" ToRole="TBLSEASON" />
+          <NavigationProperty Name="TBLEPISODECOMMENT" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLEPISODE" FromRole="TBLEPISODE" ToRole="TBLEPISODECOMMENT" />
           <NavigationProperty Name="TBLEPISODELIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLEPISODE" FromRole="TBLEPISODE" ToRole="TBLEPISODELIKE" />
+        </EntityType>
+        <EntityType Name="TBLEPISODECOMMENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERID" Type="Int32" />
+          <Property Name="EPISODEID" Type="Int32" />
+          <Property Name="COMMENT" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DATE" Type="DateTime" Precision="3" />
+          <Property Name="USTID" Type="Int32" />
+          <Property Name="STATUS" Type="Boolean" />
+          <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLEPISODE" FromRole="TBLEPISODECOMMENT" ToRole="TBLEPISODE" />
+          <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLUSER1" FromRole="TBLEPISODECOMMENT" ToRole="TBLUSER" />
+          <NavigationProperty Name="TBLEPISODECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT" FromRole="TBLEPISODECOMMENT" ToRole="TBLEPISODECOMMENTLIKE" />
+        </EntityType>
+        <EntityType Name="TBLEPISODECOMMENTLIKE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERID" Type="Int32" />
+          <Property Name="EPISODECOMMENTID" Type="Int32" />
+          <Property Name="STATUS" Type="Boolean" />
+          <NavigationProperty Name="TBLEPISODECOMMENT" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT" FromRole="TBLEPISODECOMMENTLIKE" ToRole="TBLEPISODECOMMENT" />
+          <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLUSER" FromRole="TBLEPISODECOMMENTLIKE" ToRole="TBLUSER" />
         </EntityType>
         <EntityType Name="TBLEPISODELIKE">
           <Key>
@@ -555,10 +698,12 @@
           <Property Name="DATE" Type="DateTime" Precision="3" />
           <Property Name="STATUS" Type="Boolean" />
           <NavigationProperty Name="TBLANIMECOMMENT" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLUSER" FromRole="TBLUSER" ToRole="TBLANIMECOMMENT" />
+          <NavigationProperty Name="TBLANIMECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLANIMECOMMENTLIKE" />
+          <NavigationProperty Name="TBLEPISODECOMMENT" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLUSER1" FromRole="TBLUSER" ToRole="TBLEPISODECOMMENT" />
+          <NavigationProperty Name="TBLEPISODECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLEPISODECOMMENTLIKE" />
           <NavigationProperty Name="TBLEPISODELIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLEPISODELIKE" />
           <NavigationProperty Name="TBLFAVORITES" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLUSER" FromRole="TBLUSER" ToRole="TBLFAVORITES" />
           <NavigationProperty Name="TBLWATCHLATER" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER" FromRole="TBLUSER" ToRole="TBLWATCHLATER" />
-          <NavigationProperty Name="TBLANIMECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLANIMECOMMENTLIKE" />
         </EntityType>
         <EntityType Name="TBLWATCHLATER">
           <Key>
@@ -654,6 +799,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT">
+          <End Type="AnitsukiTVModel.TBLANIMECOMMENT" Role="TBLANIMECOMMENT" Multiplicity="0..1" />
+          <End Type="AnitsukiTVModel.TBLANIMECOMMENTLIKE" Role="TBLANIMECOMMENTLIKE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLANIMECOMMENT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLANIMECOMMENTLIKE">
+              <PropertyRef Name="ANIMECOMMENTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLANIMECOMMENTLIKE_TBLUSER">
+          <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+          <End Type="AnitsukiTVModel.TBLANIMECOMMENTLIKE" Role="TBLANIMECOMMENTLIKE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLUSER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLANIMECOMMENTLIKE">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBLEPISODE_TBLSEASON">
           <End Type="AnitsukiTVModel.TBLSEASON" Role="TBLSEASON" Multiplicity="0..1" />
           <End Type="AnitsukiTVModel.TBLEPISODE" Role="TBLEPISODE" Multiplicity="*" />
@@ -666,6 +835,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBLEPISODECOMMENT_TBLEPISODE">
+          <End Type="AnitsukiTVModel.TBLEPISODE" Role="TBLEPISODE" Multiplicity="0..1" />
+          <End Type="AnitsukiTVModel.TBLEPISODECOMMENT" Role="TBLEPISODECOMMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLEPISODE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLEPISODECOMMENT">
+              <PropertyRef Name="EPISODEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBLEPISODELIKE_TBLEPISODE">
           <End Type="AnitsukiTVModel.TBLEPISODE" Role="TBLEPISODE" Multiplicity="0..1" />
           <End Type="AnitsukiTVModel.TBLEPISODELIKE" Role="TBLEPISODELIKE" Multiplicity="*" />
@@ -675,6 +856,42 @@
             </Principal>
             <Dependent Role="TBLEPISODELIKE">
               <PropertyRef Name="EPISODEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLEPISODECOMMENT_TBLUSER1">
+          <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+          <End Type="AnitsukiTVModel.TBLEPISODECOMMENT" Role="TBLEPISODECOMMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLUSER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLEPISODECOMMENT">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT">
+          <End Type="AnitsukiTVModel.TBLEPISODECOMMENT" Role="TBLEPISODECOMMENT" Multiplicity="0..1" />
+          <End Type="AnitsukiTVModel.TBLEPISODECOMMENTLIKE" Role="TBLEPISODECOMMENTLIKE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLEPISODECOMMENT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLEPISODECOMMENTLIKE">
+              <PropertyRef Name="EPISODECOMMENTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLEPISODECOMMENTLIKE_TBLUSER">
+          <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+          <End Type="AnitsukiTVModel.TBLEPISODECOMMENTLIKE" Role="TBLEPISODECOMMENTLIKE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLUSER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLEPISODECOMMENTLIKE">
+              <PropertyRef Name="USERID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -710,41 +927,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="TBLWATCHLATER">
-              <PropertyRef Name="USERID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="TBLANIMECOMMENTLIKE">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="USERID" Type="Int32" />
-          <Property Name="ANIMECOMMENTID" Type="Int32" />
-          <Property Name="STATUS" Type="Boolean" />
-          <NavigationProperty Name="TBLANIMECOMMENT" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" FromRole="TBLANIMECOMMENTLIKE" ToRole="TBLANIMECOMMENT" />
-          <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER" FromRole="TBLANIMECOMMENTLIKE" ToRole="TBLUSER" />
-        </EntityType>
-        <Association Name="FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT">
-          <End Type="AnitsukiTVModel.TBLANIMECOMMENT" Role="TBLANIMECOMMENT" Multiplicity="0..1" />
-          <End Type="AnitsukiTVModel.TBLANIMECOMMENTLIKE" Role="TBLANIMECOMMENTLIKE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBLANIMECOMMENT">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TBLANIMECOMMENTLIKE">
-              <PropertyRef Name="ANIMECOMMENTID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBLANIMECOMMENTLIKE_TBLUSER">
-          <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
-          <End Type="AnitsukiTVModel.TBLANIMECOMMENTLIKE" Role="TBLANIMECOMMENTLIKE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBLUSER">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TBLANIMECOMMENTLIKE">
               <PropertyRef Name="USERID" />
             </Dependent>
           </ReferentialConstraint>
@@ -795,6 +977,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TBLANIMECOMMENTLIKE">
+            <EntityTypeMapping TypeName="AnitsukiTVModel.TBLANIMECOMMENTLIKE">
+              <MappingFragment StoreEntitySet="TBLANIMECOMMENTLIKE">
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="ANIMECOMMENTID" ColumnName="ANIMECOMMENTID" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TBLCATEGORY">
             <EntityTypeMapping TypeName="AnitsukiTVModel.TBLCATEGORY">
               <MappingFragment StoreEntitySet="TBLCATEGORY">
@@ -819,6 +1011,29 @@
                 <ScalarProperty Name="EP1" ColumnName="EP1" />
                 <ScalarProperty Name="SEASONID" ColumnName="SEASONID" />
                 <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLEPISODECOMMENT">
+            <EntityTypeMapping TypeName="AnitsukiTVModel.TBLEPISODECOMMENT">
+              <MappingFragment StoreEntitySet="TBLEPISODECOMMENT">
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="USTID" ColumnName="USTID" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+                <ScalarProperty Name="EPISODEID" ColumnName="EPISODEID" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLEPISODECOMMENTLIKE">
+            <EntityTypeMapping TypeName="AnitsukiTVModel.TBLEPISODECOMMENTLIKE">
+              <MappingFragment StoreEntitySet="TBLEPISODECOMMENTLIKE">
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="EPISODECOMMENTID" ColumnName="EPISODECOMMENTID" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -870,16 +1085,6 @@
             <EntityTypeMapping TypeName="AnitsukiTVModel.TBLWATCHLATER">
               <MappingFragment StoreEntitySet="TBLWATCHLATER">
                 <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
-                <ScalarProperty Name="USERID" ColumnName="USERID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBLANIMECOMMENTLIKE">
-            <EntityTypeMapping TypeName="AnitsukiTVModel.TBLANIMECOMMENTLIKE">
-              <MappingFragment StoreEntitySet="TBLANIMECOMMENTLIKE">
-                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
-                <ScalarProperty Name="ANIMECOMMENTID" ColumnName="ANIMECOMMENTID" />
                 <ScalarProperty Name="USERID" ColumnName="USERID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

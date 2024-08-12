@@ -72,6 +72,27 @@
     <Property Name="BANNER" Type="nvarchar" MaxLength="250" />
     <Property Name="STATUS" Type="bit" />
   </EntityType>
+  <EntityType Name="TBLEPISODECOMMENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USERID" Type="int" />
+    <Property Name="EPISODEID" Type="int" />
+    <Property Name="COMMENT" Type="nvarchar" MaxLength="500" />
+    <Property Name="DATE" Type="datetime" />
+    <Property Name="USTID" Type="int" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBLEPISODECOMMENTLIKE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USERID" Type="int" />
+    <Property Name="EPISODECOMMENTID" Type="int" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
   <EntityType Name="TBLEPISODELIKE">
     <Key>
       <PropertyRef Name="ID" />
@@ -203,6 +224,54 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_TBLEPISODECOMMENT_TBLEPISODE">
+    <End Role="TBLEPISODE" Type="Self.TBLEPISODE" Multiplicity="0..1" />
+    <End Role="TBLEPISODECOMMENT" Type="Self.TBLEPISODECOMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLEPISODE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODECOMMENT">
+        <PropertyRef Name="EPISODEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODECOMMENT_TBLUSER1">
+    <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
+    <End Role="TBLEPISODECOMMENT" Type="Self.TBLEPISODECOMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODECOMMENT">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT">
+    <End Role="TBLEPISODECOMMENT" Type="Self.TBLEPISODECOMMENT" Multiplicity="0..1" />
+    <End Role="TBLEPISODECOMMENTLIKE" Type="Self.TBLEPISODECOMMENTLIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLEPISODECOMMENT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODECOMMENTLIKE">
+        <PropertyRef Name="EPISODECOMMENTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODECOMMENTLIKE_TBLUSER">
+    <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
+    <End Role="TBLEPISODECOMMENTLIKE" Type="Self.TBLEPISODECOMMENTLIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODECOMMENTLIKE">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_TBLEPISODELIKE_TBLEPISODE">
     <End Role="TBLEPISODE" Type="Self.TBLEPISODE" Multiplicity="0..1" />
     <End Role="TBLEPISODELIKE" Type="Self.TBLEPISODELIKE" Multiplicity="*" />
@@ -294,6 +363,8 @@
     <EntitySet Name="TBLANIMECOMMENTLIKE" EntityType="Self.TBLANIMECOMMENTLIKE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLCATEGORY" EntityType="Self.TBLCATEGORY" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLEPISODE" EntityType="Self.TBLEPISODE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLEPISODECOMMENT" EntityType="Self.TBLEPISODECOMMENT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLEPISODECOMMENTLIKE" EntityType="Self.TBLEPISODECOMMENTLIKE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLEPISODELIKE" EntityType="Self.TBLEPISODELIKE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLFAVORITES" EntityType="Self.TBLFAVORITES" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLSEASON" EntityType="Self.TBLSEASON" Schema="dbo" store:Type="Tables" />
@@ -326,6 +397,22 @@
     <AssociationSet Name="FK_TBLEPISODE_TBLSEASON" Association="Self.FK_TBLEPISODE_TBLSEASON">
       <End Role="TBLSEASON" EntitySet="TBLSEASON" />
       <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLEPISODE" Association="Self.FK_TBLEPISODECOMMENT_TBLEPISODE">
+      <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+      <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLUSER1" Association="Self.FK_TBLEPISODECOMMENT_TBLUSER1">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT" Association="Self.FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT">
+      <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
+      <End Role="TBLEPISODECOMMENTLIKE" EntitySet="TBLEPISODECOMMENTLIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODECOMMENTLIKE_TBLUSER" Association="Self.FK_TBLEPISODECOMMENTLIKE_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLEPISODECOMMENTLIKE" EntitySet="TBLEPISODECOMMENTLIKE" />
     </AssociationSet>
     <AssociationSet Name="FK_TBLEPISODELIKE_TBLEPISODE" Association="Self.FK_TBLEPISODELIKE_TBLEPISODE">
       <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />

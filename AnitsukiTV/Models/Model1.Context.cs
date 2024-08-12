@@ -28,13 +28,15 @@ namespace AnitsukiTV.Models
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TBLANIME> TBLANIME { get; set; }
         public virtual DbSet<TBLANIMECOMMENT> TBLANIMECOMMENT { get; set; }
+        public virtual DbSet<TBLANIMECOMMENTLIKE> TBLANIMECOMMENTLIKE { get; set; }
         public virtual DbSet<TBLCATEGORY> TBLCATEGORY { get; set; }
         public virtual DbSet<TBLEPISODE> TBLEPISODE { get; set; }
+        public virtual DbSet<TBLEPISODECOMMENT> TBLEPISODECOMMENT { get; set; }
+        public virtual DbSet<TBLEPISODECOMMENTLIKE> TBLEPISODECOMMENTLIKE { get; set; }
         public virtual DbSet<TBLEPISODELIKE> TBLEPISODELIKE { get; set; }
         public virtual DbSet<TBLFAVORITES> TBLFAVORITES { get; set; }
         public virtual DbSet<TBLSEASON> TBLSEASON { get; set; }
         public virtual DbSet<TBLUSER> TBLUSER { get; set; }
         public virtual DbSet<TBLWATCHLATER> TBLWATCHLATER { get; set; }
-        public virtual DbSet<TBLANIMECOMMENTLIKE> TBLANIMECOMMENTLIKE { get; set; }
     }
 }

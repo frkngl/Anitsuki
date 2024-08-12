@@ -18,10 +18,12 @@ namespace AnitsukiTV.Models
         public TBLUSER()
         {
             this.TBLANIMECOMMENT = new HashSet<TBLANIMECOMMENT>();
+            this.TBLANIMECOMMENTLIKE = new HashSet<TBLANIMECOMMENTLIKE>();
+            this.TBLEPISODECOMMENT = new HashSet<TBLEPISODECOMMENT>();
+            this.TBLEPISODECOMMENTLIKE = new HashSet<TBLEPISODECOMMENTLIKE>();
             this.TBLEPISODELIKE = new HashSet<TBLEPISODELIKE>();
             this.TBLFAVORITES = new HashSet<TBLFAVORITES>();
             this.TBLWATCHLATER = new HashSet<TBLWATCHLATER>();
-            this.TBLANIMECOMMENTLIKE = new HashSet<TBLANIMECOMMENTLIKE>();
         }
     
         public int ID { get; set; }
@@ -37,12 +39,16 @@ namespace AnitsukiTV.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBLANIMECOMMENT> TBLANIMECOMMENT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBLANIMECOMMENTLIKE> TBLANIMECOMMENTLIKE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBLEPISODECOMMENT> TBLEPISODECOMMENT { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBLEPISODECOMMENTLIKE> TBLEPISODECOMMENTLIKE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBLEPISODELIKE> TBLEPISODELIKE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBLFAVORITES> TBLFAVORITES { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBLWATCHLATER> TBLWATCHLATER { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBLANIMECOMMENTLIKE> TBLANIMECOMMENTLIKE { get; set; }
     }
 }

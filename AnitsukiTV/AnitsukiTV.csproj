@@ -175,6 +175,12 @@
     <Compile Include="Models\TBLEPISODE.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TBLEPISODECOMMENT.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TBLEPISODECOMMENTLIKE.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TBLEPISODELIKE.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -196,7 +202,7 @@
     <Content Include="Anitsuki\about.html" />
     <Content Include="Anitsuki\animedetail.html" />
     <Content Include="Anitsuki\category.html" />
-    <Content Include="Anitsuki\css\main.css" />
+    <Content Include="Anitsuki\css\main1.css" />
     <Content Include="Anitsuki\css\video.css" />
     <Content Include="Anitsuki\detail.html" />
     <Content Include="Anitsuki\img\1.png" />
@@ -2910,8 +2916,8 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Anitsuki\css\main.css.map" />
-    <Content Include="Anitsuki\css\main.scss" />
+    <Content Include="Anitsuki\css\main1.css.map" />
+    <Content Include="Anitsuki\css\main1.scss" />
     <Content Include="Anitsuki\node_modules\popperjs\core\dist\cjs\enums.js.flow" />
     <Content Include="Anitsuki\node_modules\popperjs\core\dist\cjs\enums.js.map" />
     <Content Include="Anitsuki\node_modules\popperjs\core\dist\cjs\popper-base.js.flow" />
@@ -3423,10 +3429,11 @@
     <Content Include="Views\LoginSignIn\ResetPassword.cshtml" />
     <Content Include="Views\AnimeDetail\Comments.cshtml" />
     <Content Include="Views\AnimeDetail\LeaveComment.cshtml" />
+    <Content Include="Views\AnimeDetail\Comments1.cshtml" />
+    <Content Include="Views\AnimeDetail\LeaveComment1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\VideoAnime\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

@@ -41,6 +41,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TBLANIMECOMMENTLIKE">
+      <EntityTypeMapping TypeName="AnitsukiTVModel.TBLANIMECOMMENTLIKE">
+        <MappingFragment StoreEntitySet="TBLANIMECOMMENTLIKE">
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="ANIMECOMMENTID" ColumnName="ANIMECOMMENTID" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="TBLCATEGORY">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLCATEGORY">
         <MappingFragment StoreEntitySet="TBLCATEGORY">
@@ -65,6 +75,29 @@
           <ScalarProperty Name="EP1" ColumnName="EP1" />
           <ScalarProperty Name="SEASONID" ColumnName="SEASONID" />
           <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBLEPISODECOMMENT">
+      <EntityTypeMapping TypeName="AnitsukiTVModel.TBLEPISODECOMMENT">
+        <MappingFragment StoreEntitySet="TBLEPISODECOMMENT">
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="USTID" ColumnName="USTID" />
+          <ScalarProperty Name="DATE" ColumnName="DATE" />
+          <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+          <ScalarProperty Name="EPISODEID" ColumnName="EPISODEID" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBLEPISODECOMMENTLIKE">
+      <EntityTypeMapping TypeName="AnitsukiTVModel.TBLEPISODECOMMENTLIKE">
+        <MappingFragment StoreEntitySet="TBLEPISODECOMMENTLIKE">
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="EPISODECOMMENTID" ColumnName="EPISODECOMMENTID" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -116,16 +149,6 @@
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLWATCHLATER">
         <MappingFragment StoreEntitySet="TBLWATCHLATER">
           <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
-          <ScalarProperty Name="USERID" ColumnName="USERID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="TBLANIMECOMMENTLIKE">
-      <EntityTypeMapping TypeName="AnitsukiTVModel.TBLANIMECOMMENTLIKE">
-        <MappingFragment StoreEntitySet="TBLANIMECOMMENTLIKE">
-          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
-          <ScalarProperty Name="ANIMECOMMENTID" ColumnName="ANIMECOMMENTID" />
           <ScalarProperty Name="USERID" ColumnName="USERID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
