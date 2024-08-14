@@ -108,10 +108,13 @@
                     }
                 </ul>
             </div>
-            <div class="search">
+            <div style="margin-right:10px;" class="search">
                 <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                 <input type="text" autocomplete="off" name="searchTags" id="searchTags"
                        placeholder="Anime adını yazınız" />
+            </div>
+            <div style="color:#ffffff; font-size:1.1rem; display:flex;align-items:center; justify-content:center;">
+                <i style="margin-right:5px;" class="bi bi-tv"></i> @Model.Anime.Count()
             </div>
         </div>
         <ul id="menuFull">

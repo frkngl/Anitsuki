@@ -63,30 +63,38 @@ namespace AnitsukiTV.Controllers
 
 
 
-        [HttpGet]
-        public ActionResult Login()
-        {
-            return View();
-        }
+         [HttpGet]
+         public ActionResult Login()
+         {
+             return View();
+         }
 
-        [HttpPost]
-        public ActionResult Login(TBLUSER user)
-        {
-            var degerler = db.TBLUSER.Where(x => x.USERNAME == user.USERNAME && x.PASSWORD == user.PASSWORD).FirstOrDefault();
-            if (degerler != null)
-            {
-                FormsAuthentication.SetAuthCookie(degerler.USERNAME, true);
-                Session["username"] = degerler.USERNAME;
-                Session["id"] = degerler.ID;
-                return RedirectToAction("Index", "User");
-            }
-            else
-            {
-                TempData["error"] = "Kullanıcı adınızı veya şifrenizi hatalı girdiniz!";
-            }
-
-            return View();
-        }
+         [HttpPost]
+         public ActionResult Login(TBLUSER user)
+         {
+             var degerler = db.TBLUSER.Where(x => x.USERNAME == user.USERNAME && x.PASSWORD == user.PASSWORD && x.STATUS == true).FirstOrDefault();
+             if (degerler != null)
+             {
+                 FormsAuthentication.SetAuthCookie(degerler.USERNAME, true);
+                 Session["username"] = degerler.USERNAME;
+                 Session["id"] = degerler.ID;
+                 return RedirectToAction("Index", "User");
+             }
+             else
+             {
+                 var userStatus = db.TBLUSER.Where(x => x.USERNAME == user.USERNAME && x.PASSWORD == user.PASSWORD).FirstOrDefault();
+                 if (userStatus != null && userStatus.STATUS == false)
+                 {
+                       TempData["error"] = "Hesabınız askıya alınmıştır";
+                       return RedirectToAction("Login");
+                 }
+                 else
+                 {
+                       TempData["error2"] = "Kullanıcı adınızı veya şifrenizi hatalı girdiniz!";
+                 }
+             }
+                 return View();
+         }
 
 
 

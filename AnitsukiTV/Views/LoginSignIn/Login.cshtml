@@ -115,10 +115,36 @@
 <script src="~/Scripts/toastr.min.js"></script>
 <script src="~/Scripts/jquery-3.7.0.min.js"></script>
 
-@if (TempData["error"] != null)
+@if (TempData["error2"] != null)
 {
     <script type="text/javascript">
         toastr["error"]("Kullanıcı adınızı veya şifrenizi hatalı girdiniz!", "Hatalı Giriş")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+
+@if (TempData["error"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("Hesabınız askıya alınmıştır!", "Death Note")
 
         toastr.options = {
             "closeButton": false,
