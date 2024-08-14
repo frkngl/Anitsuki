@@ -2831,6 +2831,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -3382,6 +3384,8 @@
     <Content Include="Login\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
     <Content Include="Login\vendor\bootstrap\css\bootstrap.css.map" />
     <Content Include="Login\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -3393,6 +3397,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Videos\ChaninsawMan.mp4" />
     <Content Include="Videos\anime9.mp4" />
     <Content Include="Videos\BlendS.mp4" />

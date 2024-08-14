@@ -24,7 +24,9 @@
     <link rel="stylesheet" href="~/Anitsuki/node_modules/swiper/swiper-bundle.min.css" type="text/css">
     <!--BOOTSTRAP CSS-->
     <link rel="stylesheet" href="~/Anitsuki/node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="~/Anitsuki/node_modules/bootstrap-icons/font/bootstrap-icons.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Anitsuki/node_modules/bootstrap-icons/font/bootstrap-icons.min.css" type="text/css">,
+    <!--TOASTR CSS-->
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
     <!--CSS-->
     <link rel="stylesheet" href="~/Anitsuki/css/main1.css" type="text/css">
     <link rel="stylesheet" href="~/Anitsuki/css/main1.css.map" type="text/css">
@@ -95,16 +97,15 @@
                         else
                         {
                             <img class="resim" style="margin-bottom:20px;  object-fit: cover; border: 2px solid #FF7F00; width:250px; height:250px;" src="~/IMG/@Model.PICTURE" />
-                            @Html.HiddenFor(x => x.PICTURE) <!-- Add this line to preserve the existing profile picture -->
+                            @Html.HiddenFor(x => x.PICTURE)
 
                         }
-                        <input style="background-color: transparent; border: 2px solid #FF7F00; color: #ffffff;" class="form-control" id="resim" type="file" onchange="$('.resim')[0].src = window.URL.createObjectURL(this.files[0])" name="UserImage" />
+                        <input style="background-color: transparent; border: 2px solid #FF7F00; color: #ffffff;" class="form-control" id="resim" type="file" accept=".jpg, .jpeg, .png, .gif" onchange="$('.resim')[0].src = window.URL.createObjectURL(this.files[0])" name="UserImage" />
                     </div>
 
                     <div style="margin-bottom: 30px; display: flex; justify-content: center; flex-direction: column;">
                         @Html.Label("E-Mail", new { @required = "required", @style = "color:white; font-size:1rem; font-weight:500;" })
                         @Html.TextBoxFor(x => x.MAIL, new { @style = "width:350px; height:40px; border-radius:10px; border:2px solid #FF7F00; background-color:transparent; color:white; outline:none; padding:5px;" })
-                        @Html.ValidationMessageFor(x => x.MAIL, "", new { @style = "color:red;" })
                     </div>
 
                     <div style="margin-bottom: 30px; display: flex; justify-content: center; flex-direction: column;">
@@ -117,7 +118,7 @@
                             @Html.Label("Şifre Tekrarı", new { @required = "required", @style = "color:white; font-size:1rem; font-weight:500;" })
                             @Html.ValidationMessageFor(x => x.CONFIRMPASS, "", new { @style = "color:red;" })
                         </div>
-                        @Html.TextBoxFor(x => x.CONFIRMPASS, new{@style = "width:350px;height:40px;border-radius:10px;border:2px solid #FF7F00;background-color:transparent;color:white;outline:none;padding:5px;",@id = "confirmPassword", dir = "ltr" })
+                        @Html.TextBoxFor(x => x.CONFIRMPASS, new { @style = "width:350px;height:40px;border-radius:10px;border:2px solid #FF7F00;background-color:transparent;color:white;outline:none;padding:5px;", @id = "confirmPassword", dir = "ltr" })
                     </div>
 
                     <div style="margin-bottom: 30px; display: flex; justify-content: center; flex-direction: column;">
@@ -186,12 +187,15 @@
 <script src="~/Anitsuki/node_modules/swiper/swiper-bundle.min.js"></script>
 <!--SPLIDE JS-->
 <script src="~/Anitsuki/node_modules/splidejs/splide/dist/js/splide.min.js"></script>
+<!--TOASTR JS-->
+<script src="~/Scripts/toastr.min.js"></script>
 <!--JS-->
 <script src="~/Anitsuki/js/main.js"></script>
 <script src="~/Anitsuki/js/splide.js"></script>
 
 
 <script>
+
     /*NAVBAR'DAKİ LİNK ACTİVE*/
     document.querySelectorAll('nav a').forEach(link => {
         link.classList.remove('active');
@@ -200,11 +204,13 @@
             link.classList.add('active');
         }
     });
+
     //Sayfa Yükleme Ekranı
     window.addEventListener('load', loaderfunc);
     function loaderfunc() {
         document.getElementById('loader').style.display = 'none';
     }
+
     //Sayfada Aşağı boşluk tuşuna bastığında inmemeye yarayana Kod
     document.addEventListener('keydown', function (event) {
         if (event.code === 'Space' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'INPUT') {
@@ -212,6 +218,7 @@
             event.stopPropagation();
         }
     });
+
     $(document).ready(function () {
         $('#password, #confirmPassword').on('keyup', function () {
             if ($('#password').val().trim() === '' || $('#confirmPassword').val().trim() === '') {
@@ -221,4 +228,192 @@
             }
         });
     });
+
+    $('#resim').on('change', function () {
+        var file = this.files[0];
+        var fileSize = file.size;
+        if (fileSize > 15 * 1024 * 1024) {
+            alert("Lütfen 15 MB'den küçük bir dosya seçiniz!!!");
+            this.value = '';
+        } else {
+            $('.resim')[0].src = window.URL.createObjectURL(file);
+        }
+    });
+
 </script>
+
+
+@if (TempData["success"] != null)
+{
+    <script type="text/javascript">
+        toastr["success"]("Başarıyla Güncellenmiştir!", "Güncelleme")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["error"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("Lütfen geçerli bir Mail adresi giriniz! Örnek: abc@ornek.com", "Hatalı Giriş")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["error2"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("Lütfen Mail alanınızı boş bırakmayınız!", "Hatalı Giriş")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["error3"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("Lütfen resim formatında bir dosya seçiniz! Örnek a.jpg, a.jpeg, a.gif !", "Format türü yanlış")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["error4"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("Şifreler aynı değil!", "Şifre uyuşmazlığı")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["error5"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("Lütfen 15 MB'den küçük bir dosya seçiniz!", "Boyut aşımı")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["error6"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("Mail adresi kullanımda!", "Mail adres hatası")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}

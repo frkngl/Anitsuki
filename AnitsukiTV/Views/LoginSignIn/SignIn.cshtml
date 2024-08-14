@@ -61,13 +61,11 @@
                     <div class="wrap-input100 validate-input" data-validate="Kullanıcı Adınızı Oluşturun">
                         <input style="color:#ffffff !important;" class="input100" type="text" name="USERNAME">
                         <span style="color:#ffffff !important;" class="focus-input100" data-placeholder="Kullanıcı Adı"></span>
-                        @Html.ValidationMessageFor(x => x.USERNAME, "", new { @style = "color:red;" })
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Mail Adresini Oluşturun">
                         <input style="color:#ffffff !important;" class="input100" type="text" name="MAIL">
                         <span style="color:#ffffff !important;" class="focus-input100" data-placeholder="Email"></span>
-                        @Html.ValidationMessageFor(x => x.MAIL, "", new { @style = "color:red;" })
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Şifrenizi Oluşturun">
@@ -76,7 +74,6 @@
                         </span>
                         <input style="color:#ffffff !important;" class="input100" type="password" name="PASSWORD">
                         <span style="color:#ffffff !important;" class="focus-input100" data-placeholder="Şifre"></span>
-                        @Html.ValidationMessageFor(x => x.PASSWORD, "", new { @style = "color:red;" })
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Şifrenizi Oluşturun">
@@ -85,7 +82,6 @@
                         </span>
                         <input style="color:#ffffff !important;" class="input100" type="password" name="CONFIRMPASS">
                         <span style="color:#ffffff !important;" class="focus-input100" data-placeholder="Şifre Tekrar"></span>
-                        @Html.ValidationMessageFor(x => x.CONFIRMPASS, "", new { @style = "color:red;" })
                     </div>
 
                     <div class="container-login100-form-btn">
@@ -101,7 +97,7 @@
 
                     <h6 style="text-align:center; margin-top:15px;"><a style="color:white; font-size:1rem;" href="/LoginSignIn/Login">Hesabınız var ise Giriş Yap</a></h6>
 
-                    
+
                 </form>
             </div>
         </div>
@@ -129,3 +125,109 @@
 
 </body>
 </html>
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<script src="~/Scripts/toastr.min.js"></script>
+<script src="~/Scripts/jquery-3.7.0.min.js"></script>
+
+
+
+@if (TempData["add"] != null)
+{
+    <script type="text/javascript">
+        toastr["success"]("Kayıt işlemi başarılı giriş sayfasından, giriş yapabilirsiniz", "Yeni Kayıt")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+
+@if (TempData["error"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("Kullanıcı Adı kullanımda!", "Kullanıcı Adı hatası")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["error2"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("Mail adresi kullanımda!", "Mail adres hatası")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["error3"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("Şifreler aynı değil!", "Şifre hatası")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}

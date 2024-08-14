@@ -59,8 +59,12 @@
 
                 <nav class="col-8">
                     <ul>
-                        <li><a href="/Home/Index"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
-                        <li><a href="/Category/Index"><i class="fa-solid fa-list"></i> Animeler</a></li>
+                        <li>
+                            <a href="/Home/Index"><i class="fa-solid fa-house"></i> Anasayfa</a>
+                        </li>
+                        <li>
+                            <a href="/Category/Index"><i class="fa-solid fa-list"></i> Animeler</a>
+                        </li>
                     </ul>
                 </nav>
                 <div class="box col-2">
@@ -139,7 +143,8 @@
                                 <a href="/AnimeDetail/Index/@y.ANIMEID">@y.TBLANIME.ANIMENAME </a>
                             </div>
                             <div class="episodename">
-                                <span>S.@y.TBLSEASON.SEASONNUMBER</span> - <span>B.@y.EPINUMBER</span> @y.EPISODENAME
+                                <span>S.@y.TBLSEASON.SEASONNUMBER</span> -
+                                <span>B.@y.EPINUMBER</span> @y.EPISODENAME
                             </div>
                             <div class="time">
                                 <i class="bi bi-clock"></i> @y.TIME
@@ -219,7 +224,8 @@
                                         <img src="~/IMG/@episode.BANNER">
                                         <div class="animedetail">
                                             <div class="episodename">
-                                                <span>S.@episode.TBLSEASON.SEASONNUMBER</span> - <span>B.@episode.EPINUMBER</span> @episode.EPISODENAME
+                                                <span>S.@episode.TBLSEASON.SEASONNUMBER</span> -
+                                                <span>B.@episode.EPINUMBER</span> @episode.EPISODENAME
                                             </div>
                                             <div class="time">
                                                 <i class="bi bi-clock"></i> @episode.TIME
@@ -233,6 +239,14 @@
                             }
                         </div>
                     }
+                    else
+                    {
+                        <div class="prev">
+                            <div class="title">
+                                <i class="bi bi-eye"></i> İlk bölümdesiniz
+                            </div>
+                        </div>
+                    }
                 }
 
                 @{
@@ -240,7 +254,8 @@
                     {
                         <div class="next">
                             <div class="title">
-                                Sonraki Bölüm <i class="bi bi-arrow-right"></i>
+                                Sonraki Bölüm
+                                <i class="bi bi-arrow-right"></i>
                             </div>
                             @foreach (var episode in Model.SonrakiBolum)
                             {
@@ -249,7 +264,8 @@
                                         <img src="~/IMG/@episode.BANNER">
                                         <div class="animedetail">
                                             <div class="episodename">
-                                                <span>S.@episode.TBLSEASON.SEASONNUMBER</span> - <span>B.@episode.EPINUMBER</span> @episode.EPISODENAME
+                                                <span>S.@episode.TBLSEASON.SEASONNUMBER</span> -
+                                                <span>B.@episode.EPINUMBER</span> @episode.EPISODENAME
                                             </div>
                                             <div class="time">
                                                 <i class="bi bi-clock"></i> @episode.TIME
@@ -261,6 +277,15 @@
                                     </div>
                                 </a>
                             }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="next">
+                            <div class="title">
+                                Güncel Bölümdesiniz
+                                <i class="bi bi-check2"></i>
+                            </div>
                         </div>
                     }
                 }
@@ -278,8 +303,12 @@
                     Sayfalar
                 </div>
                 <ul>
-                    <li><a href="about.html">Hakkımızda</a></li>
-                    <li><a href="privacyandpolitic.html">Gizlilik Politikası</a></li>
+                    <li>
+                        <a href="about.html">Hakkımızda</a>
+                    </li>
+                    <li>
+                        <a href="privacyandpolitic.html">Gizlilik Politikası</a>
+                    </li>
                 </ul>
             </div>
             <div class="social">
@@ -287,10 +316,18 @@
                     Sosyal Medyalar
                 </div>
                 <ul>
-                    <li><a href="#"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
-                    <li><a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a></li>
-                    <li><a href="#"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
-                    <li><a href="https://discord.gg/j6k56TRk"><i class="bi bi-discord"></i> Discord</a></li>
+                    <li>
+                        <a href="#"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a>
+                    </li>
+                    <li>
+                        <a href="https://discord.gg/j6k56TRk"><i class="bi bi-discord"></i> Discord</a>
+                    </li>
                 </ul>
             </div>
             <div class="contact">

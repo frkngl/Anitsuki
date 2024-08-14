@@ -47,47 +47,64 @@ namespace AnitsukiTV.Controllers
             int userID = (int)Session["id"];
             var UserUpdate = db.TBLUSER.Find(userID);
 
-            user.ABOUT = user.ABOUT.Trim();
-            user.MAIL = user.MAIL.Trim();
-            user.PASSWORD = user.PASSWORD.Trim();
-            user.CONFIRMPASS = user.CONFIRMPASS.Trim();
-
-            string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-            if (!Regex.IsMatch(user.MAIL, emailPattern))
+            if (UserImage != null && UserImage.ContentLength > 0)
             {
-                ModelState.AddModelError("MAIL", "Lütfen geçerli bir e-posta adresi giriniz!");
+                string fileExtension = Path.GetExtension(UserImage.FileName).ToLower();
+
+                if (fileExtension != ".jpg" && fileExtension != ".jpeg" && fileExtension != ".png" && fileExtension != ".gif")
+                {
+                    TempData["error3"] = "Lütfen resim formatında bir dosya seçiniz! Örnek a.jpg, a.jpeg, a.gif ve a.png !";
+                    return View(user);
+                }
+
+                if (UserImage.ContentLength > 15 * 1024 * 1024) // 15 MB
+                {
+                    TempData["error5"] = "Lütfen 15 MB'den küçük bir dosya seçiniz!";
+                    return View(user);
+                }
+
+                var file = new FileInfo(UserImage.FileName);
+                var fileName = Path.GetFileName(UserImage.FileName);
+                fileName = Guid.NewGuid().ToString() + file.Extension;
+                var path = Path.Combine(Server.MapPath("~/IMG/"), fileName);
+
+                WebImage Websize = new WebImage(UserImage.InputStream);
+                if (Websize.Width > 1000)
+                    Websize.Resize(800, 800);
+                Websize.Save(path);
+                TempData["UploadedImage"] = fileName;
+                UserUpdate.PICTURE = fileName;
             }
 
-            if (UserImage == null || UserImage.ContentLength == 0)
+            if (string.IsNullOrWhiteSpace(user.MAIL))
             {
-                UserUpdate.PICTURE = UserUpdate.PICTURE;
+                TempData["error2"] = "Lütfen Mail alanınızı boş bırakmayınız!";
+                return View(user);
             }
             else
             {
-                if (UserImage.ContentType == "image/jpeg" || UserImage.ContentType == "image/png" || UserImage.ContentType == "image/jpg" || UserImage.ContentType == "image/jfif" || UserImage.ContentType == "image/gif")
+                user.MAIL = user.MAIL.Trim();
+                string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+                if (!Regex.IsMatch(user.MAIL, emailPattern))
                 {
-                    var file = new FileInfo(UserImage.FileName);
-                    var fileName = Path.GetFileName(UserImage.FileName);
-                    fileName = Guid.NewGuid().ToString() + file.Extension;
-                    var path = Path.Combine(Server.MapPath("~/IMG/"), fileName);
-
-                    WebImage Websize = new WebImage(UserImage.InputStream);
-                    if (Websize.Width > 1000)
-                        Websize.Resize(800, 800);
-                    Websize.Save(path);
-                    TempData["UploadedImage"] = fileName;
-                    UserUpdate.PICTURE = fileName;
+                    TempData["error"] = "Lütfen geçerli bir Mail adresi giriniz!";
+                    return View(user);
                 }
-                else
+
+                var existingUser = db.TBLUSER.FirstOrDefault(u => u.MAIL == user.MAIL && u.ID != userID);
+                if (existingUser != null)
                 {
-                    TempData["hata"] = "Lütfen resim formatında bir dosya seçiniz !!!";
+                    TempData["error6"] = "Mail adresi kullanımda!";
+                    return View(user);
                 }
             }
+
             if (!string.IsNullOrWhiteSpace(user.PASSWORD))
             {
                 if (user.PASSWORD != user.CONFIRMPASS)
                 {
-                    ModelState.AddModelError("CONFIRMPASS", "Şifreler aynı değil !!!");
+                    TempData["error4"] = "Şifreler aynı değil!";
+                    ModelState.AddModelError("PASSWORD", "Şifreler aynı değil!");
                 }
                 else
                 {
@@ -96,15 +113,29 @@ namespace AnitsukiTV.Controllers
                     ModelState.Remove("CONFIRMPASS");
                 }
             }
-            UserUpdate.ABOUT = user.ABOUT;
+            if (string.IsNullOrWhiteSpace(user.ABOUT))
+            {
+                UserUpdate.ABOUT = null;
+            }
+            else
+            {
+                UserUpdate.ABOUT = user.ABOUT;
+            }
+
             UserUpdate.MAIL = user.MAIL;
             if (ModelState.IsValid)
             {
                 db.SaveChanges();
-                TempData["Guncelle"] = "Başarıyla Güncellenmiştir !!!";
+                TempData["success"] = "Başarıyla Güncellenmiştir!";
                 return RedirectToAction("ProfileSetting");
             }
             return View(user);
+        }
+
+        bool IsValidImageType(string contentType)
+        {
+            string[] validTypes = { "image/jpeg", "image/png", "image/jpg", "image/jfif", "image/gif" };
+            return validTypes.Contains(contentType);
         }
     }
 }

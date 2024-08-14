@@ -49,13 +49,14 @@
         <div style="background-color:#313131 !important;" class="container-login100">
             <div style="background-color:#000000 !important;" class="wrap-login100">
                 <form class="login100-form validate-form" method="post">
-                    <div><span style="color:#ffffff !important;" class="login100-form-title p-b-26">
-                        Giriş
-                    </span></div>
+                    <div>
+                        <span style="color:#ffffff !important;" class="login100-form-title p-b-26">
+                            Giriş
+                        </span>
+                    </div>
                     <span class="login100-form-title p-b-48">
                         <img src="~/Anitsuki/img/aylogo.png" width="100" />
                     </span>
-                    <h5 style="text-align:center; margin-bottom:25px; color:white;">@ViewBag.hata</h5>
                     <div class="wrap-input100 validate-input" data-validate="Mail Adresini Giriniz">
                         <input style="color:#ffffff !important;" class="input100" type="text" name="USERNAME">
                         <span style="color:#ffffff !important;" class="focus-input100" data-placeholder="Kullanıcı Adı"></span>
@@ -81,7 +82,7 @@
                     <h6 style="text-align:center; margin-top:30px;"><a style="color:white; font-size:1rem;" href="/LoginSignIn/ResetPassword">Şifremi Unutdum</a></h6>
                     <h6 style="text-align:center; margin-top:15px;"><a style="color:white; font-size:1rem;" href="/Home/Index">Anasayfa'ya dön</a></h6>
                     <h6 style="text-align:center; margin-top:15px;"><a style="color:white; font-size:1rem;" href="/LoginSignIn/SignIn"> Hesabınız yok ise Kayıt Ol</a></h6>
-                    
+
                 </form>
             </div>
         </div>
@@ -109,3 +110,32 @@
 
 </body>
 </html>
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<script src="~/Scripts/toastr.min.js"></script>
+<script src="~/Scripts/jquery-3.7.0.min.js"></script>
+
+@if (TempData["error"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("Kullanıcı adınızı veya şifrenizi hatalı girdiniz!", "Hatalı Giriş")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}

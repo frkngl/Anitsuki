@@ -152,13 +152,13 @@ namespace AnitsukiTV.Controllers
             {
                 db.TBLFAVORITES.Add(new TBLFAVORITES { USERID = userID, ANIMEID = animeID });
                 db.SaveChanges();
-                return Json(new { success = true, isFavorite = true });
+                return Json(new { success = true, isFavorite = true, message = "Anime favorilere eklendi" });
             }
             else
             {
                 db.TBLFAVORITES.Remove(favorite);
                 db.SaveChanges();
-                return Json(new { success = true, isFavorite = false });
+                return Json(new { success = true, isFavorite = false, message = "Anime favorilerden çıkarıldı" });
             }
         }
 
@@ -177,16 +177,16 @@ namespace AnitsukiTV.Controllers
             {
                 db.TBLWATCHLATER.Add(new TBLWATCHLATER { USERID = userID, ANIMEID = animeID });
                 db.SaveChanges();
-                return Json(new { success = true, isWatchLater = true });
+                return Json(new { success = true, isWatchLater = true, message = "Anime izleme listesine eklendi" });
             }
             else
             {
                 db.TBLWATCHLATER.Remove(watchlater);
                 db.SaveChanges();
-                return Json(new { success = true, isWatchLater = false });
+                return Json(new { success = true, isWatchLater = false, message = "Anime izleme listesinden çıkarıldı" });
             }
         }
-          
+
 
 
 

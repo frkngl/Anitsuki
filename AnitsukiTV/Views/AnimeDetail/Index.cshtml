@@ -26,6 +26,8 @@
     <!--BOOTSTRAP CSS-->
     <link rel="stylesheet" href="~/Anitsuki/node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="~/Anitsuki/node_modules/bootstrap-icons/font/bootstrap-icons.min.css" type="text/css">
+    <!--TOASTR CSS-->
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
     <!--CSS-->
     <link rel="stylesheet" href="~/Anitsuki/css/main1.css" type="text/css">
     <link rel="stylesheet" href="~/Anitsuki/css/main1.css.map" type="text/css">
@@ -126,14 +128,14 @@
                             </a>
                         </div>
                         <div>
-                            <a href="#" style="margin-left:10px;" data-action="favorite" class="favorite" onclick="addFavorite(@Model.Anime.FirstOrDefault().ID)">
+                            <a href="#" style="margin-left:10px;" data-action="favorite" class="favorite" onclick="addFavorite(@Model.Anime.FirstOrDefault().ID, this)">
                                 @if (ViewBag.IsFavorite)
                                 {
-                                    <i style="color:#ffffff;" class="bi bi-bookmark-fill"></i>
+                                    <i style="color:#ffffff;" class="bi bi-heart-fill"></i>
                                 }
                                 else
                                 {
-                                    <i style="color:#ffffff;" class="bi bi-bookmark"></i>
+                                    <i style="color:#ffffff;" class="bi bi-heart"></i>
                                 }
                             </a>
                         </div>
@@ -252,6 +254,8 @@
 <script src="~/Anitsuki/node_modules/swiper/swiper-bundle.min.js"></script>
 <!--SPLIDE JS-->
 <script src="~/Anitsuki/node_modules/splidejs/splide/dist/js/splide.min.js"></script>
+<!--TOASTR JS-->
+<script src="~/Scripts/toastr.min.js"></script>
 <!--JS-->
 <script src="~/Anitsuki/js/main.js"></script>
 <script src="~/Anitsuki/js/splide.js"></script>
@@ -278,14 +282,19 @@
         }
     });
 
-    function addFavorite(animeID) {
+    function addFavorite(animeID, elem) {
         $.ajax({
             type: "POST",
             url: "/AnimeDetail/AddFavorite",
             data: { animeID: animeID },
             success: function (data) {
                 if (data.success) {
-                    $(".favorite").html(data.isFavorite ? "<i style='color:#ffffff;' class='bi bi-bookmark-fill'></i>" : "<i style='color:#ffffff;' class='bi bi-bookmark'></i>");
+                    $(elem).html(data.isFavorite ? "<i style='color:#ffffff;' class='bi bi-heart-fill'></i>" : "<i style='color:#ffffff;' class='bi bi-heart'></i>");
+                    if (data.isFavorite) {
+                        toastr["success"](data.message, "Ekleme işlemi");
+                    } else {
+                        toastr["error"](data.message, "Çıkarma işlemi");
+                    }
                 } else {
                     window.location.href = "/LoginSignIn/Login";
                 }
@@ -303,6 +312,11 @@
             success: function (data) {
                 if (data.success) {
                     $(element).find("i").toggleClass("bi-clock bi-clock-fill");
+                    if (data.isWatchLater) {
+                        toastr["success"](data.message, "Ekleme işlemi");
+                    } else {
+                        toastr["error"](data.message, "Çıkarma işlemi");
+                    }
                 } else {
                     window.location.href = "/LoginSignIn/Login";
                 }
@@ -310,3 +324,4 @@
         });
     }
 </script>
+

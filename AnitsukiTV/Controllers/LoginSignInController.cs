@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -32,29 +34,29 @@ namespace AnitsukiTV.Controllers
             user.STATUS = true;
             user.DATE = Convert.ToDateTime(DateTime.Now.ToShortDateString());
 
-            if (user.PASSWORD != user.CONFIRMPASS)
+            var UserName = db.TBLUSER.FirstOrDefault(u => u.USERNAME == user.USERNAME);
+            if (UserName != null)
             {
-                ModelState.AddModelError("CONFIRMPASS", "Şifreler aynı değil!");
+                TempData["error"] = "Kullanıcı Adı kullanımda";
                 return View(useradd);
             }
 
             var UserMail = db.TBLUSER.FirstOrDefault(u => u.MAIL == user.MAIL);
             if (UserMail != null)
             {
-                ModelState.AddModelError("MAIL", "Mail kullanımda!");
+                TempData["error2"] = "Mail adresi kullanımda";
                 return View(useradd);
             }
 
-            var UserName = db.TBLUSER.FirstOrDefault(u => u.USERNAME == user.USERNAME);
-            if (UserName != null)
+            if (user.PASSWORD != user.CONFIRMPASS)
             {
-                ModelState.AddModelError("USERNAME", "Kullanıcı Adı kullanımda!");
+                TempData["error3"] = "Şifreler aynı değil";
                 return View(useradd);
             }
 
             db.TBLUSER.Add(user);
             db.SaveChanges();
-            TempData["add"] = "Kayıt işlemi başarılı giriş sayfasından giriş yapabilirsiniz";
+            TempData["add"] = "Kayıt işlemi başarılı giriş sayfasından, giriş yapabilirsiniz";
             return RedirectToAction("SignIn");
         }
 
@@ -66,22 +68,21 @@ namespace AnitsukiTV.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Login(TBLUSER user)
         {
-            var degerler = db.TBLUSER.FirstOrDefault(x => x.USERNAME == user.USERNAME && x.PASSWORD == user.PASSWORD);
-
+            var degerler = db.TBLUSER.Where(x => x.USERNAME == user.USERNAME && x.PASSWORD == user.PASSWORD).FirstOrDefault();
             if (degerler != null)
             {
-                FormsAuthentication.SignOut();
-                FormsAuthentication.SetAuthCookie(degerler.USERNAME, false);
+                FormsAuthentication.SetAuthCookie(degerler.USERNAME, true);
                 Session["username"] = degerler.USERNAME;
                 Session["id"] = degerler.ID;
                 return RedirectToAction("Index", "User");
             }
             else
             {
-                ViewBag.hata = "Kullanıcı Adınızı ve Şifrenizi kontrol ediniz!";
+                TempData["error"] = "Kullanıcı adınızı veya şifrenizi hatalı girdiniz!";
             }
 
             return View();
@@ -131,13 +132,12 @@ namespace AnitsukiTV.Controllers
                 {
                     smtpClient.Send(mail);
                 }
-
-                ViewBag.message = "Geçici şifreniz mail adresinize gönderildi.";
+                TempData["success"] = "Kayıtlı mail adresinize geçici mail gönderilmiştir";
                 return View();
             }
             else
             {
-                ViewBag.hata = "Kayıtlı mail adresi bulunamadı!";
+                TempData["error"] = "Kayıtlı mail adresiniz bulunamadı!";
                 return View();
             }
         }
@@ -147,22 +147,7 @@ namespace AnitsukiTV.Controllers
         public ActionResult SignOut()
         {
             FormsAuthentication.SignOut();
-            Session.Abandon();
             Session.Clear();
-
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            Response.Cache.SetExpires(DateTime.Now.AddSeconds(-1));
-            Response.Cache.SetNoStore();
-
-            // Çerezleri silin
-            var cookies = Request.Cookies;
-            foreach (string cookieName in cookies.AllKeys)
-            {
-                HttpCookie httpCookie = Response.Cookies.Get(cookieName);
-                httpCookie.Expires = DateTime.Now.AddDays(-1);
-                Response.Cookies.Set(httpCookie);
-            }
-
             return RedirectToAction("Index", "Home");
         }
     }
