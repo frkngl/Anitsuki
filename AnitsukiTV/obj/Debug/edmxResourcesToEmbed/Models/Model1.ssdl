@@ -117,6 +117,7 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ANIMEID" Type="int" />
     <Property Name="SEASONNUMBER" Type="int" />
+    <Property Name="SEASONNAME" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="TBLUSER">
     <Key>

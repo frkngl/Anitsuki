@@ -157,12 +157,20 @@
                 <div class="dropdown">
                     <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                        Sezonlar
+                        @ViewBag.Season
                     </button>
                     <ul class="dropdown-menu">
                         @foreach (var y in Model.Season)
                         {
-                            <li><a class="dropdown-item" href="/AnimeDetail/Index/@Model.Anime.FirstOrDefault().ID?sezonID=@(y.ID)">@y.SEASONNUMBER Sezon</a></li>
+                            if (y.SEASONNAME == null)
+                            {
+                                <li><a class="dropdown-item" href="/AnimeDetail/Index/@Model.Anime.FirstOrDefault().ID?sezonID=@(y.ID)">@y.SEASONNUMBER Sezon</a></li>
+                            }
+                            else
+                            {
+                                <li><a class="dropdown-item" href="/AnimeDetail/Index/@Model.Anime.FirstOrDefault().ID?sezonID=@(y.ID)">@y.SEASONNAME</a></li>
+                            }
+
                         }
                     </ul>
                 </div>

@@ -122,6 +122,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ANIMEID" Type="int" />
           <Property Name="SEASONNUMBER" Type="int" />
+          <Property Name="SEASONNAME" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="TBLUSER">
           <Key>
@@ -681,6 +682,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ANIMEID" Type="Int32" />
           <Property Name="SEASONNUMBER" Type="Int32" />
+          <Property Name="SEASONNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" FromRole="TBLSEASON" ToRole="TBLANIME" />
           <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" FromRole="TBLSEASON" ToRole="TBLEPISODE" />
         </EntityType>
@@ -1060,6 +1062,7 @@
           <EntitySetMapping Name="TBLSEASON">
             <EntityTypeMapping TypeName="AnitsukiTVModel.TBLSEASON">
               <MappingFragment StoreEntitySet="TBLSEASON">
+                <ScalarProperty Name="SEASONNAME" ColumnName="SEASONNAME" />
                 <ScalarProperty Name="SEASONNUMBER" ColumnName="SEASONNUMBER" />
                 <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

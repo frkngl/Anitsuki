@@ -1,12 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\frkng\\Desktop\\Visual Studio\\",
+  "WorkspaceRootPath": "C:\\Users\\frkng\\Desktop\\GitHub\\",
   "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 1,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": -1,
+          "Children": []
+        }
+      ]
     }
   ]
 }

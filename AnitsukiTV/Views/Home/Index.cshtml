@@ -69,7 +69,7 @@
                             var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
                             if (currentUser != null && currentUser.PICTURE != null)
                             {
-                               <a href="/User/Index"><img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE"></a> 
+                                <a href="/User/Index"><img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE"></a>
                             }
                             else
                             {
@@ -157,7 +157,7 @@
         <div class="splide" id="splide1">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var l in Model.Episode.OrderByDescending(l=>l.ID).Take(12))
+                    @foreach (var l in Model.Episode.OrderByDescending(l => l.ID).Take(12))
                     {
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Video/@l.ID">
@@ -190,10 +190,88 @@
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
+                <i class="bi bi-patch-plus"></i> Yeni Gelen Animeler
+            </div>
+        </div>
+        <div class="splide" id="splide11">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    @foreach (var l in Model.Anime.OrderByDescending(l => l.ID).Take(12))
+                    {
+                        <li class="splide__slide">
+                            <a href="/AnimeDetail/Index/@l.ID">
+                                <div class="videoimg">
+                                    <img src="~/IMG/@l.BANNER">
+                                    <video class="video" src="~/Videos/@l.EDIT" playsinline></video>
+                                </div>
+                                <div class="text">
+                                    <div class="title">
+                                        @if (l.ANIMENAME.Length < 3)
+                                        {
+                                            @l.ANIMENAME
+                                        }
+                                        else
+                                        {
+                                            @l.ANIMENAME.Substring(0, 5)
+                                        }
+                                    </div>
+                                    <div class="season">
+                                        @l.DATE.Value.ToString("yyyy")
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="category1" id="category2">
+        <div class="text">
+            <div class="title">
+                <i class="bi bi-award"></i> IMDb Top 12 Animeler
+            </div>
+        </div>
+        <div class="splide" id="splide10">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    @foreach (var l in Model.Anime.OrderByDescending(l => l.IMDB).Take(12))
+                    {
+                        <li class="splide__slide">
+                            <a href="/AnimeDetail/Index/@l.ID">
+                                <div class="videoimg">
+                                    <img src="~/IMG/@l.BANNER">
+                                    <video class="video" src="~/Videos/@l.EDIT" playsinline></video>
+                                </div>
+                                <div class="text">
+                                    <div class="title">
+                                        @if (l.ANIMENAME.Length < 3)
+                                        {
+                                            @l.ANIMENAME
+                                        }
+                                        else
+                                        {
+                                            @l.ANIMENAME.Substring(0, 5)
+                                        }
+                                    </div>
+                                    <div class="season">
+                                        @l.IMDB
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="category1" id="category2">
+        <div class="text">
+            <div class="title">
                 <i class="fa-solid fa-list"></i> Shounen Animeler
             </div>
             <div class="all">
-                @foreach (var f in Model.Category.Where(i=>i.ID == 1))
+                @foreach (var f in Model.Category.Where(i => i.ID == 1))
                 {
                     <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
                 }
@@ -218,7 +296,7 @@
                                         }
                                         else
                                         {
-                                             @x.ANIMENAME.Substring(0, 5)  
+                                            @x.ANIMENAME.Substring(0, 5)
                                         }
                                     </div>
                                     <div class="season">
@@ -264,7 +342,7 @@
                                         }
                                         else
                                         {
-                                             @y.ANIMENAME.Substring(0, 5)  
+                                            @y.ANIMENAME.Substring(0, 5)
                                         }
                                     </div>
                                     <div class="season">
@@ -309,7 +387,7 @@
                                         }
                                         else
                                         {
-                                             @z.ANIMENAME.Substring(0, 5)  
+                                            @z.ANIMENAME.Substring(0, 5)
                                         }
                                     </div>
                                     <div class="season">
@@ -338,7 +416,7 @@
         <div class="splide" id="splide5">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var q in Model.Anime.Where(i=>i.CATEGORYID == 4 && i.STATUS == true).OrderBy(q => Guid.NewGuid()).Take(12))
+                    @foreach (var q in Model.Anime.Where(i => i.CATEGORYID == 4 && i.STATUS == true).OrderBy(q => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@q.ID">
@@ -354,7 +432,7 @@
                                         }
                                         else
                                         {
-                                             @q.ANIMENAME.Substring(0, 5)  
+                                            @q.ANIMENAME.Substring(0, 5)
                                         }
                                     </div>
                                     <div class="season">
@@ -399,7 +477,7 @@
                                         }
                                         else
                                         {
-                                            @w.ANIMENAME.Substring(0, 5)  
+                                            @w.ANIMENAME.Substring(0, 5)
                                         }
                                     </div>
                                     <div class="season">
@@ -428,7 +506,7 @@
         <div class="splide" id="splide7">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var e in Model.Anime.Where(i=>i.CATEGORYID == 6 && i.STATUS == true).OrderBy(e => Guid.NewGuid()).Take(12))
+                    @foreach (var e in Model.Anime.Where(i => i.CATEGORYID == 6 && i.STATUS == true).OrderBy(e => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@e.ID">
@@ -444,7 +522,7 @@
                                         }
                                         else
                                         {
-                                            @e.ANIMENAME.Substring(0, 5)  
+                                            @e.ANIMENAME.Substring(0, 5)
                                         }
                                     </div>
                                     <div class="season">
@@ -473,7 +551,7 @@
         <div class="splide" id="splide8">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var r in Model.Anime.Where(i=>i.CATEGORYID == 7 && i.STATUS == true).OrderBy(r=>Guid.NewGuid()).Take(12))
+                    @foreach (var r in Model.Anime.Where(i => i.CATEGORYID == 7 && i.STATUS == true).OrderBy(r => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@r.ID">
@@ -489,7 +567,7 @@
                                         }
                                         else
                                         {
-                                             @r.ANIMENAME.Substring(0, 5)  
+                                            @r.ANIMENAME.Substring(0, 5)
                                         }
                                     </div>
                                     <div class="season">

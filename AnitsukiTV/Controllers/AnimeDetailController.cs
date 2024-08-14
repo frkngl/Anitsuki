@@ -17,10 +17,14 @@ namespace AnitsukiTV.Controllers
         // GET: AnimeDetail
         public ActionResult Index(int? id, int? sezonID)
         {
+            var degerler = db.TBLSEASON.FirstOrDefault(x => x.SEASONNUMBER == id);
             veri.Anime = db.TBLANIME.Where(x => x.ID == id).ToList();
             veri.Season = db.TBLSEASON.Where(x => x.ANIMEID == id).ToList();
             int sezonIDValue = sezonID.HasValue ? sezonID.Value : veri.Season.FirstOrDefault()?.ID ?? 0;
             veri.Episode = db.TBLEPISODE.Where(x => x.SEASONID == sezonIDValue).ToList();
+
+            var selectedSeason = db.TBLSEASON.FirstOrDefault(x => x.ID == sezonIDValue);
+            ViewBag.Season = selectedSeason?.SEASONNAME ?? $"{selectedSeason?.SEASONNUMBER} Sezon";
 
             bool isFavorite = false;
             if (Session["id"] != null)

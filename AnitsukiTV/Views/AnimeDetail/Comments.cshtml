@@ -2017,40 +2017,40 @@
                                                                                                                                     }
                                                                                                                                     <!-- Modal -->
                                                                                                                                     @GenerateModal(m.ID, n.TBLUSER.USERNAME, ViewBag.animecom)
-                                                                                                                                <div class="likeandunlike">
-                                                                                                                                    @if (User.Identity.IsAuthenticated)
-                                                                                                                                    {
-                                                                                                                                        var userID = db.TBLUSER.Where(ğ => ğ.USERNAME == User.Identity.Name).Select(ğ => ğ.ID).FirstOrDefault();
-                                                                                                                                        var likeExist = m.TBLANIMECOMMENTLIKE.Any(ğ => ğ.USERID == userID);
-                                                                                                                                        if (likeExist)
+                                                                                                                                    <div class="likeandunlike">
+                                                                                                                                        @if (User.Identity.IsAuthenticated)
                                                                                                                                         {
-                                                                                                                                            <div class="like">
-                                                                                                                                                <a style="text-decoration:none; cursor:default; color:white;"><i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i> @m.TBLANIMECOMMENTLIKE.Where(ğ => ğ.STATUS == true).Count()</a>
-                                                                                                                                            </div>
-                                                                                                                                            <div class="unlike">
-                                                                                                                                                <a style="text-decoration:none; cursor:default; color:white;"><i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>@m.TBLANIMECOMMENTLIKE.Where(ğ => ğ.STATUS == false).Count()</a>
-                                                                                                                                            </div>
+                                                                                                                                            var userID = db.TBLUSER.Where(ğ => ğ.USERNAME == User.Identity.Name).Select(ğ => ğ.ID).FirstOrDefault();
+                                                                                                                                            var likeExist = m.TBLANIMECOMMENTLIKE.Any(ğ => ğ.USERID == userID);
+                                                                                                                                            if (likeExist)
+                                                                                                                                            {
+                                                                                                                                                <div class="like">
+                                                                                                                                                    <a style="text-decoration:none; cursor:default; color:white;"><i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i> @m.TBLANIMECOMMENTLIKE.Where(ğ => ğ.STATUS == true).Count()</a>
+                                                                                                                                                </div>
+                                                                                                                                                <div class="unlike">
+                                                                                                                                                    <a style="text-decoration:none; cursor:default; color:white;"><i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>@m.TBLANIMECOMMENTLIKE.Where(ğ => ğ.STATUS == false).Count()</a>
+                                                                                                                                                </div>
+                                                                                                                                            }
+                                                                                                                                            else
+                                                                                                                                            {
+                                                                                                                                                <div class="like">
+                                                                                                                                                    <a style="text-decoration:none; color:white;" href="/AnimeDetail/LikeComment/@m.ID"><i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i> @m.TBLANIMECOMMENTLIKE.Where(ğ => ğ.STATUS == true).Count()</a>
+                                                                                                                                                </div>
+                                                                                                                                                <div class="unlike">
+                                                                                                                                                    <a style="text-decoration:none; color:white;" href="/AnimeDetail/UnlikeComment/@m.ID"><i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>@m.TBLANIMECOMMENTLIKE.Where(ğ => ğ.STATUS == false).Count()</a>
+                                                                                                                                                </div>
+                                                                                                                                            }
                                                                                                                                         }
                                                                                                                                         else
                                                                                                                                         {
                                                                                                                                             <div class="like">
-                                                                                                                                                <a style="text-decoration:none; color:white;" href="/AnimeDetail/LikeComment/@m.ID"><i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i> @m.TBLANIMECOMMENTLIKE.Where(ğ => ğ.STATUS == true).Count()</a>
+                                                                                                                                                <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login"><i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i> @m.TBLANIMECOMMENTLIKE.Where(ğ => ğ.STATUS == true).Count()</a>
                                                                                                                                             </div>
                                                                                                                                             <div class="unlike">
-                                                                                                                                                <a style="text-decoration:none; color:white;" href="/AnimeDetail/UnlikeComment/@m.ID"><i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>@m.TBLANIMECOMMENTLIKE.Where(ğ => ğ.STATUS == false).Count()</a>
+                                                                                                                                                <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login"><i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>@m.TBLANIMECOMMENTLIKE.Where(ğ => ğ.STATUS == false).Count()</a>
                                                                                                                                             </div>
                                                                                                                                         }
-                                                                                                                                    }
-                                                                                                                                    else
-                                                                                                                                    {
-                                                                                                                                        <div class="like">
-                                                                                                                                            <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login"><i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i> @m.TBLANIMECOMMENTLIKE.Where(ğ => ğ.STATUS == true).Count()</a>
-                                                                                                                                        </div>
-                                                                                                                                        <div class="unlike">
-                                                                                                                                            <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login"><i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>@m.TBLANIMECOMMENTLIKE.Where(ğ => ğ.STATUS == false).Count()</a>
-                                                                                                                                        </div>
-                                                                                                                                    }
-                                                                                                                                </div>
+                                                                                                                                    </div>
                                                                                                                                 </div>
                                                                                                                             </div>
                                                                                                                         </div>
@@ -2087,8 +2087,6 @@
         {
             <p style="width:100%; height:200px; display:flex; font-size:1.1rem; align-items:center;justify-content:center; color:#ffffff;">Bu animeye henüz yorum yapılmamış</p>
         }
-
-        </>
     </div>
 </div>
 
