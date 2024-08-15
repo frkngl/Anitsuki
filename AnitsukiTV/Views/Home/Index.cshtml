@@ -90,51 +90,21 @@
     <!----------------------------------------------------SWIPER START---------------------------------------------------->
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <img src="~/Anitsuki/img/1.png">
-                <div class="inside">
-                    <div class="title">
-                        SOLO LEVELİNG
+            @foreach (var ğ in Model.Anime.Where(x=>x.ADMINSTATUS == true).Take(5))
+            {
+                <div class="swiper-slide">
+                    <img src="~/IMG/@ğ.BIGBANNER">
+                    <div class="inside">
+                        <div class="title">
+                            @ğ.ANIMENAME
+                        </div>
+                        <div class="des">
+                            @ğ.DETAIL
+                        </div>
+                        <a class="btn" href="/AnimeDetail/Video/@ğ.ID"><i class="fa-solid fa-play"></i></a>
                     </div>
-                    <div class="des">
-                        On yıl önce insanların dünyasında büyü ve canavarların diyarını bağlayan bir "Kapı" beliriverdi.
-                        Belli bir süre sonrasında bu "Kapı"ların içinden korkunç canavarlar çıkmaya başladı.
-
-
-                    </div>
-                    <a class="btn" href="#"><i class="fa-solid fa-play"></i></a>
                 </div>
-            </div>
-            <div class="swiper-slide">
-                <img src="~/Anitsuki/img/2.png">
-                <div class="inside">
-                    <div class="title">
-                        NABER MÜDÜR
-                    </div>
-                    <div class="des">
-                        On yıl önce insanların dünyasında büyü ve canavarların diyarını bağlayan bir "Kapı" beliriverdi.
-                        Belli bir süre sonrasında bu "Kapı"ların içinden korkunç canavarlar çıkmaya başladı.
-
-
-                    </div>
-                    <a class="btn" href="#"><i class="fa-solid fa-play"></i></a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <img src="~/Anitsuki/img/3.png">
-                <div class="inside">
-                    <div class="title">
-                        AĞLAMA OYNA
-                    </div>
-                    <div class="des">
-                        On yıl önce insanların dünyasında büyü ve canavarların diyarını bağlayan bir "Kapı" beliriverdi.
-                        Belli bir süre sonrasında bu "Kapı"ların içinden korkunç canavarlar çıkmaya başladı.
-
-
-                    </div>
-                    <a class="btn" href="#"><i class="fa-solid fa-play"></i></a>
-                </div>
-            </div>
+            }
         </div>
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
@@ -638,7 +608,7 @@
                 </div>
                 <ul>
                     <li><a href="about.html">Hakkımızda</a></li>
-                    <li><a href="privacyandpolitic.html">Gizlilik Politikası</a></li>
+                    <li><a href="/Home/PrivacyPolicy">Gizlilik Politikası</a></li>
                 </ul>
             </div>
             <div class="social">
@@ -646,9 +616,9 @@
                     Sosyal Medyalar
                 </div>
                 <ul>
-                    <li><a href="#"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
-                    <li><a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a></li>
-                    <li><a href="#"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
+                    <li><a href="https://www.youtube.com/channel/UC3AfwO_XmAvYEtw6FWZXZcw"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
+                    @*<li><a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a></li>*@
+                    <li><a href="https://www.instagram.com/anitsukitv/"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
                     <li><a href="https://discord.gg/j6k56TRk"><i class="bi bi-discord"></i> Discord</a></li>
                 </ul>
             </div>

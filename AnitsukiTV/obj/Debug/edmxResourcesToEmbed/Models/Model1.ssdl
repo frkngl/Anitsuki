@@ -24,6 +24,8 @@
     <Property Name="BANNER" Type="nvarchar" MaxLength="500" />
     <Property Name="STATUS" Type="bit" />
     <Property Name="IMDB" Type="decimal" Precision="2" Scale="1" />
+    <Property Name="ADMINSTATUS" Type="bit" />
+    <Property Name="BIGBANNER" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="TBLANIMECOMMENT">
     <Key>

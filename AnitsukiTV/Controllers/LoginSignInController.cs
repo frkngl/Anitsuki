@@ -63,13 +63,13 @@ namespace AnitsukiTV.Controllers
 
 
 
-         [HttpGet]
-         public ActionResult Login()
-         {
-             return View();
-         }
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
 
-         [HttpPost]
+        [HttpPost]
          public ActionResult Login(TBLUSER user)
          {
              var degerler = db.TBLUSER.Where(x => x.USERNAME == user.USERNAME && x.PASSWORD == user.PASSWORD && x.STATUS == true).FirstOrDefault();
@@ -86,7 +86,7 @@ namespace AnitsukiTV.Controllers
                  if (userStatus != null && userStatus.STATUS == false)
                  {
                        TempData["error"] = "Hesabınız askıya alınmıştır";
-                       return RedirectToAction("Login");
+                       return RedirectToAction("Login","LoginSignIn");
                  }
                  else
                  {
@@ -156,7 +156,7 @@ namespace AnitsukiTV.Controllers
         {
             FormsAuthentication.SignOut();
             Session.Clear();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index","Home");
         }
     }
 }

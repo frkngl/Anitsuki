@@ -29,6 +29,8 @@
           <Property Name="BANNER" Type="nvarchar" MaxLength="500" />
           <Property Name="STATUS" Type="bit" />
           <Property Name="IMDB" Type="decimal" Precision="2" Scale="1" />
+          <Property Name="ADMINSTATUS" Type="bit" />
+          <Property Name="BIGBANNER" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="TBLANIMECOMMENT">
           <Key>
@@ -564,12 +566,14 @@
           <Property Name="BANNER" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="STATUS" Type="Boolean" />
           <Property Name="IMDB" Type="Decimal" Precision="2" Scale="1" />
+          <Property Name="ADMINSTATUS" Type="Boolean" />
           <NavigationProperty Name="TBLCATEGORY" Relationship="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY" FromRole="TBLANIME" ToRole="TBLCATEGORY" />
           <NavigationProperty Name="TBLANIMECOMMENT" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLANIME" FromRole="TBLANIME" ToRole="TBLANIMECOMMENT" />
           <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME" FromRole="TBLANIME" ToRole="TBLEPISODE" />
           <NavigationProperty Name="TBLFAVORITES" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLANIME" FromRole="TBLANIME" ToRole="TBLFAVORITES" />
           <NavigationProperty Name="TBLSEASON" Relationship="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" FromRole="TBLANIME" ToRole="TBLSEASON" />
           <NavigationProperty Name="TBLWATCHLATER" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLANIME" FromRole="TBLANIME" ToRole="TBLWATCHLATER" />
+          <Property Name="BIGBANNER" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TBLANIMECOMMENT">
           <Key>
@@ -953,6 +957,8 @@
           <EntitySetMapping Name="TBLANIME">
             <EntityTypeMapping TypeName="AnitsukiTVModel.TBLANIME">
               <MappingFragment StoreEntitySet="TBLANIME">
+                <ScalarProperty Name="BIGBANNER" ColumnName="BIGBANNER" />
+                <ScalarProperty Name="ADMINSTATUS" ColumnName="ADMINSTATUS" />
                 <ScalarProperty Name="IMDB" ColumnName="IMDB" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="BANNER" ColumnName="BANNER" />

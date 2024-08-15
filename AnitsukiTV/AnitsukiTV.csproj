@@ -2836,6 +2836,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="IMG\1234.jpg" />
     <Content Include="IMG\ahmet.png" />
     <Content Include="IMG\arisu-aris.gif" />
     <Content Include="IMG\BlendS.png" />
@@ -2869,6 +2870,7 @@
     <Content Include="Login\fonts\iconic\css\material-design-iconic-font.css" />
     <Content Include="Login\fonts\iconic\css\material-design-iconic-font.min.css" />
     <Content Include="Login\fonts\iconic\fonts\Material-Design-Iconic-Font.svg" />
+    <Content Include="Login\images\aylogo.png" />
     <Content Include="Login\images\icons\favicon.ico" />
     <Content Include="Login\index.html" />
     <Content Include="Login\js\main.js" />
@@ -3437,6 +3439,8 @@
     <Content Include="Views\AnimeDetail\LeaveComment.cshtml" />
     <Content Include="Views\AnimeDetail\Comments1.cshtml" />
     <Content Include="Views\AnimeDetail\LeaveComment1.cshtml" />
+    <Content Include="Views\Home\PrivacyPolicy.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

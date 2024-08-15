@@ -34,6 +34,8 @@ namespace AnitsukiTV.Models
         public string BANNER { get; set; }
         public Nullable<bool> STATUS { get; set; }
         public Nullable<decimal> IMDB { get; set; }
+        public Nullable<bool> ADMINSTATUS { get; set; }
+        public string BIGBANNER { get; set; }
     
         public virtual TBLCATEGORY TBLCATEGORY { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

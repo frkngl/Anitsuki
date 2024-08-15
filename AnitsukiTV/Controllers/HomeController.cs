@@ -18,6 +18,13 @@ namespace AnitsukiTV.Controllers
             veri.Anime = db.TBLANIME.ToList();
             return View(veri);
         }
-
+        public ActionResult PrivacyPolicy()
+        {
+            return View();
+        }
+        public ActionResult About()
+        {
+            return View();
+        }
     }
 }
