@@ -51,7 +51,7 @@ namespace AnitsukiTV.Controllers
         {
             var degerler = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id && x.STATUS == true).ToList();
             ViewBag.animecom = id;
-            ViewBag.CommentCount = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id && x.STATUS == true).Count();
+            ViewBag.CommentCount = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id && x.STATUS == true).Take(1000).Count();
             return PartialView(degerler);
         }
 
@@ -222,9 +222,9 @@ namespace AnitsukiTV.Controllers
 
         public PartialViewResult Comments1(int id)
         {
-            var degerler = db.TBLEPISODECOMMENT.Where(x => x.EPISODEID == id && x.STATUS == true).ToList();
+            var degerler = db.TBLEPISODECOMMENT.Where(x => x.EPISODEID == id && x.STATUS == true).OrderByDescending(x => x.DATE).ToList();
             ViewBag.animecom = id;
-            ViewBag.CommentCount = db.TBLEPISODECOMMENT.Where(x => x.EPISODEID == id && x.STATUS == true).Count();
+            ViewBag.CommentCount = db.TBLEPISODECOMMENT.Where(x => x.EPISODEID == id && x.STATUS == true).Take(1000).Count();
             return PartialView(degerler);
         }
         

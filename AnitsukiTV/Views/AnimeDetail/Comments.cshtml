@@ -46,7 +46,7 @@
         @{ string isim = "aa";}
         @if (Model.Any())
         {
-            foreach (var x in Model.Where(x => x.USTID == null))
+            foreach (var x in Model.Where(x => x.USTID == null).Take(200).OrderByDescending(x => x.ID))
             {
 
                 <div class="comment1">
