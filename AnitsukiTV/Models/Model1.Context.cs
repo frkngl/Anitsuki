@@ -26,6 +26,8 @@ namespace AnitsukiTV.Models
         }
     
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<TBLADMIN> TBLADMIN { get; set; }
+        public virtual DbSet<TBLADMINROLE> TBLADMINROLE { get; set; }
         public virtual DbSet<TBLANIME> TBLANIME { get; set; }
         public virtual DbSet<TBLANIMECOMMENT> TBLANIMECOMMENT { get; set; }
         public virtual DbSet<TBLANIMECOMMENTLIKE> TBLANIMECOMMENTLIKE { get; set; }

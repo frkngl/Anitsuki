@@ -2,6 +2,8 @@
 <Schema Namespace="AnitsukiTVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="AnitsukiTVEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="sysdiagrams" EntityType="AnitsukiTVModel.sysdiagrams" />
+    <EntitySet Name="TBLADMIN" EntityType="AnitsukiTVModel.TBLADMIN" />
+    <EntitySet Name="TBLADMINROLE" EntityType="AnitsukiTVModel.TBLADMINROLE" />
     <EntitySet Name="TBLANIME" EntityType="AnitsukiTVModel.TBLANIME" />
     <EntitySet Name="TBLANIMECOMMENT" EntityType="AnitsukiTVModel.TBLANIMECOMMENT" />
     <EntitySet Name="TBLANIMECOMMENTLIKE" EntityType="AnitsukiTVModel.TBLANIMECOMMENTLIKE" />
@@ -14,6 +16,10 @@
     <EntitySet Name="TBLSEASON" EntityType="AnitsukiTVModel.TBLSEASON" />
     <EntitySet Name="TBLUSER" EntityType="AnitsukiTVModel.TBLUSER" />
     <EntitySet Name="TBLWATCHLATER" EntityType="AnitsukiTVModel.TBLWATCHLATER" />
+    <AssociationSet Name="FK_TBLADMIN_TBLADMINROLE" Association="AnitsukiTVModel.FK_TBLADMIN_TBLADMINROLE">
+      <End Role="TBLADMINROLE" EntitySet="TBLADMINROLE" />
+      <End Role="TBLADMIN" EntitySet="TBLADMIN" />
+    </AssociationSet>
     <AssociationSet Name="FK_TBLANIME_TBLCATEGORY" Association="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY">
       <End Role="TBLCATEGORY" EntitySet="TBLCATEGORY" />
       <End Role="TBLANIME" EntitySet="TBLANIME" />
@@ -97,6 +103,25 @@
     <Property Name="version" Type="Int32" />
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
+  <EntityType Name="TBLADMIN">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ADMINROLEID" Type="Int32" />
+    <NavigationProperty Name="TBLADMINROLE" Relationship="AnitsukiTVModel.FK_TBLADMIN_TBLADMINROLE" FromRole="TBLADMIN" ToRole="TBLADMINROLE" />
+    <Property Name="STATUS" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TBLADMINROLE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ROLENAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TBLADMIN" Relationship="AnitsukiTVModel.FK_TBLADMIN_TBLADMINROLE" FromRole="TBLADMINROLE" ToRole="TBLADMIN" />
+  </EntityType>
   <EntityType Name="TBLANIME">
     <Key>
       <PropertyRef Name="ID" />
@@ -112,13 +137,13 @@
     <Property Name="STATUS" Type="Boolean" />
     <Property Name="IMDB" Type="Decimal" Precision="2" Scale="1" />
     <Property Name="ADMINSTATUS" Type="Boolean" />
+    <Property Name="BIGBANNER" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="TBLCATEGORY" Relationship="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY" FromRole="TBLANIME" ToRole="TBLCATEGORY" />
     <NavigationProperty Name="TBLANIMECOMMENT" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLANIME" FromRole="TBLANIME" ToRole="TBLANIMECOMMENT" />
     <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME" FromRole="TBLANIME" ToRole="TBLEPISODE" />
     <NavigationProperty Name="TBLFAVORITES" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLANIME" FromRole="TBLANIME" ToRole="TBLFAVORITES" />
     <NavigationProperty Name="TBLSEASON" Relationship="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" FromRole="TBLANIME" ToRole="TBLSEASON" />
     <NavigationProperty Name="TBLWATCHLATER" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLANIME" FromRole="TBLANIME" ToRole="TBLWATCHLATER" />
-    <Property Name="BIGBANNER" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="TBLANIMECOMMENT">
     <Key>
@@ -266,6 +291,18 @@
     <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLANIME" FromRole="TBLWATCHLATER" ToRole="TBLANIME" />
     <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER" FromRole="TBLWATCHLATER" ToRole="TBLUSER" />
   </EntityType>
+  <Association Name="FK_TBLADMIN_TBLADMINROLE">
+    <End Type="AnitsukiTVModel.TBLADMINROLE" Role="TBLADMINROLE" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLADMIN" Role="TBLADMIN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLADMINROLE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLADMIN">
+        <PropertyRef Name="ADMINROLEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_TBLANIME_TBLCATEGORY">
     <End Type="AnitsukiTVModel.TBLCATEGORY" Role="TBLCATEGORY" Multiplicity="0..1" />
     <End Type="AnitsukiTVModel.TBLANIME" Role="TBLANIME" Multiplicity="*" />

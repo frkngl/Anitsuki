@@ -10,6 +10,23 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
+  <EntityType Name="TBLADMIN">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USERNAME" Type="nvarchar" MaxLength="50" />
+    <Property Name="PASSWORD" Type="nvarchar" MaxLength="50" />
+    <Property Name="ADMINROLEID" Type="int" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBLADMINROLE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ROLENAME" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="TBLANIME">
     <Key>
       <PropertyRef Name="ID" />
@@ -143,6 +160,18 @@
     <Property Name="USERID" Type="int" />
     <Property Name="ANIMEID" Type="int" />
   </EntityType>
+  <Association Name="FK_TBLADMIN_TBLADMINROLE">
+    <End Role="TBLADMINROLE" Type="Self.TBLADMINROLE" Multiplicity="0..1" />
+    <End Role="TBLADMIN" Type="Self.TBLADMIN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLADMINROLE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLADMIN">
+        <PropertyRef Name="ADMINROLEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_TBLANIME_TBLCATEGORY">
     <End Role="TBLCATEGORY" Type="Self.TBLCATEGORY" Multiplicity="0..1" />
     <End Role="TBLANIME" Type="Self.TBLANIME" Multiplicity="*" />
@@ -361,6 +390,8 @@
   </Association>
   <EntityContainer Name="AnitsukiTVModelStoreContainer">
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLADMIN" EntityType="Self.TBLADMIN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLADMINROLE" EntityType="Self.TBLADMINROLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLANIME" EntityType="Self.TBLANIME" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLANIMECOMMENT" EntityType="Self.TBLANIMECOMMENT" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLANIMECOMMENTLIKE" EntityType="Self.TBLANIMECOMMENTLIKE" Schema="dbo" store:Type="Tables" />
@@ -373,6 +404,10 @@
     <EntitySet Name="TBLSEASON" EntityType="Self.TBLSEASON" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLUSER" EntityType="Self.TBLUSER" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLWATCHLATER" EntityType="Self.TBLWATCHLATER" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_TBLADMIN_TBLADMINROLE" Association="Self.FK_TBLADMIN_TBLADMINROLE">
+      <End Role="TBLADMINROLE" EntitySet="TBLADMINROLE" />
+      <End Role="TBLADMIN" EntitySet="TBLADMIN" />
+    </AssociationSet>
     <AssociationSet Name="FK_TBLANIME_TBLCATEGORY" Association="Self.FK_TBLANIME_TBLCATEGORY">
       <End Role="TBLCATEGORY" EntitySet="TBLCATEGORY" />
       <End Role="TBLANIME" EntitySet="TBLANIME" />

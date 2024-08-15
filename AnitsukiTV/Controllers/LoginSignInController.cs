@@ -70,31 +70,44 @@ namespace AnitsukiTV.Controllers
         }
 
         [HttpPost]
-         public ActionResult Login(TBLUSER user)
-         {
-             var degerler = db.TBLUSER.Where(x => x.USERNAME == user.USERNAME && x.PASSWORD == user.PASSWORD && x.STATUS == true).FirstOrDefault();
-             if (degerler != null)
-             {
-                 FormsAuthentication.SetAuthCookie(degerler.USERNAME, true);
-                 Session["username"] = degerler.USERNAME;
-                 Session["id"] = degerler.ID;
-                 return RedirectToAction("Index", "User");
-             }
-             else
-             {
-                 var userStatus = db.TBLUSER.Where(x => x.USERNAME == user.USERNAME && x.PASSWORD == user.PASSWORD).FirstOrDefault();
-                 if (userStatus != null && userStatus.STATUS == false)
-                 {
-                       TempData["error"] = "Hesabınız askıya alınmıştır";
-                       return RedirectToAction("Login","LoginSignIn");
-                 }
-                 else
-                 {
-                       TempData["error2"] = "Kullanıcı adınızı veya şifrenizi hatalı girdiniz!";
-                 }
-             }
-                 return View();
-         }
+        public ActionResult Login(string username, string password)
+        {
+            var admin = db.TBLADMIN.Where(x => x.USERNAME == username && x.PASSWORD == password && x.STATUS == true).FirstOrDefault();
+            if (admin != null)
+            {
+                FormsAuthentication.SetAuthCookie(admin.USERNAME, true);
+                Session["username"] = admin.USERNAME;
+                Session["id"] = admin.ID;
+                return RedirectToAction("Index", "LanetlerKralıAdmin"); // Yönetici paneline yönlendir
+            }
+            else
+            {
+                // Kullanıcı olup olmadığını kontrol et
+                var user = db.TBLUSER.Where(x => x.USERNAME == username && x.PASSWORD == password && x.STATUS == true).FirstOrDefault();
+                if (user != null)
+                {
+                    FormsAuthentication.SetAuthCookie(user.USERNAME, true);
+                    Session["username"] = user.USERNAME;
+                    Session["id"] = user.ID;
+                    return RedirectToAction("Index", "User"); // Kullanıcı paneline yönlendir
+                }
+                else
+                {
+                    // Geçersiz giriş denemelerini işle
+                    var userStatus = db.TBLUSER.Where(x => x.USERNAME == username && x.PASSWORD == password).FirstOrDefault();
+                    if (userStatus != null && userStatus.STATUS == false)
+                    {
+                        TempData["error"] = "Hesabınız askıya alınmıştır";
+                        return RedirectToAction("Login", "LoginSignIn");
+                    }
+                    else
+                    {
+                        TempData["error2"] = "Kullanıcı adınızı veya şifrenizi hatalı girdiniz!";
+                    }
+                }
+            }
+            return View();
+        }
 
 
 
@@ -150,6 +163,12 @@ namespace AnitsukiTV.Controllers
             }
         }
 
+        public ActionResult LockOut()
+        {
+            FormsAuthentication.SignOut();
+            Session.Clear();
+            return RedirectToAction("Login", "LoginSignIn");
+        }
 
 
         public ActionResult SignOut()

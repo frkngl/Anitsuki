@@ -12,6 +12,25 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TBLADMIN">
+      <EntityTypeMapping TypeName="AnitsukiTVModel.TBLADMIN">
+        <MappingFragment StoreEntitySet="TBLADMIN">
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="ADMINROLEID" ColumnName="ADMINROLEID" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBLADMINROLE">
+      <EntityTypeMapping TypeName="AnitsukiTVModel.TBLADMINROLE">
+        <MappingFragment StoreEntitySet="TBLADMINROLE">
+          <ScalarProperty Name="ROLENAME" ColumnName="ROLENAME" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="TBLANIME">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLANIME">
         <MappingFragment StoreEntitySet="TBLANIME">
