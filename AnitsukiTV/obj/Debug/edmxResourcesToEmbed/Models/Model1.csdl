@@ -111,8 +111,9 @@
     <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ADMINROLEID" Type="Int32" />
-    <NavigationProperty Name="TBLADMINROLE" Relationship="AnitsukiTVModel.FK_TBLADMIN_TBLADMINROLE" FromRole="TBLADMIN" ToRole="TBLADMINROLE" />
     <Property Name="STATUS" Type="Boolean" />
+    <Property Name="DATE" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="TBLADMINROLE" Relationship="AnitsukiTVModel.FK_TBLADMIN_TBLADMINROLE" FromRole="TBLADMIN" ToRole="TBLADMINROLE" />
   </EntityType>
   <EntityType Name="TBLADMINROLE">
     <Key>

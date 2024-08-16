@@ -15,6 +15,7 @@
     <EntitySetMapping Name="TBLADMIN">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLADMIN">
         <MappingFragment StoreEntitySet="TBLADMIN">
+          <ScalarProperty Name="DATE" ColumnName="DATE" />
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
           <ScalarProperty Name="ADMINROLEID" ColumnName="ADMINROLEID" />
           <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />

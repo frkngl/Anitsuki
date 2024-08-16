@@ -77,6 +77,7 @@ namespace AnitsukiTV.Controllers
             {
                 FormsAuthentication.SetAuthCookie(admin.USERNAME, true);
                 Session["username"] = admin.USERNAME;
+                Session["role"] = admin.TBLADMINROLE.ID;
                 Session["id"] = admin.ID;
                 return RedirectToAction("Index", "LanetlerKralıAdmin"); // Yönetici paneline yönlendir
             }

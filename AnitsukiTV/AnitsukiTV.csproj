@@ -4344,6 +4344,12 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\Index.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\Admin.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\AddAdmin.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\UpdateAdmin.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\AdminRole.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\AddRole.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\UpdateRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

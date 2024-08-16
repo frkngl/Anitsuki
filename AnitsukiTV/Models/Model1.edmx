@@ -24,6 +24,7 @@
           <Property Name="PASSWORD" Type="nvarchar" MaxLength="50" />
           <Property Name="ADMINROLEID" Type="int" />
           <Property Name="STATUS" Type="bit" />
+          <Property Name="DATE" Type="datetime" />
         </EntityType>
         <EntityType Name="TBLADMINROLE">
           <Key>
@@ -601,8 +602,9 @@
           <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ADMINROLEID" Type="Int32" />
-          <NavigationProperty Name="TBLADMINROLE" Relationship="AnitsukiTVModel.FK_TBLADMIN_TBLADMINROLE" FromRole="TBLADMIN" ToRole="TBLADMINROLE" />
           <Property Name="STATUS" Type="Boolean" />
+          <Property Name="DATE" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TBLADMINROLE" Relationship="AnitsukiTVModel.FK_TBLADMIN_TBLADMINROLE" FromRole="TBLADMIN" ToRole="TBLADMINROLE" />
         </EntityType>
         <EntityType Name="TBLADMINROLE">
           <Key>
@@ -1029,6 +1031,7 @@
           <EntitySetMapping Name="TBLADMIN">
             <EntityTypeMapping TypeName="AnitsukiTVModel.TBLADMIN">
               <MappingFragment StoreEntitySet="TBLADMIN">
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="ADMINROLEID" ColumnName="ADMINROLEID" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />

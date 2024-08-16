@@ -19,6 +19,7 @@
     <Property Name="PASSWORD" Type="nvarchar" MaxLength="50" />
     <Property Name="ADMINROLEID" Type="int" />
     <Property Name="STATUS" Type="bit" />
+    <Property Name="DATE" Type="datetime" />
   </EntityType>
   <EntityType Name="TBLADMINROLE">
     <Key>

@@ -1,0 +1,31 @@
+﻿@model AnitsukiTV.Models.TBLADMIN
+@{
+    ViewBag.Title = "UpdateAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("AdminSave", "LanetlerKralıAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <form class="forms-sample">
+        <div class="form-group">
+            <label for="exampleInputName1">ID</label>
+            @Html.TextBoxFor(x => x.ID, new { @style = "width:100%; border:1px solid #000000;", @readonly = "readonly" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail3">Kullanıcı Adı</label>
+            @Html.TextBoxFor(x=>x.USERNAME, new { @style = "width:100%; border:1px solid #000000;"})
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail3">Kullanıcı Adı</label>
+            @Html.TextBoxFor(x => x.PASSWORD, new { @style = "width:100%; border:1px solid #000000;" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail3">Kullanıcı Adı</label>
+            @Html.TextBoxFor(x => x.ADMINROLEID, new { @style = "width:100%; border:1px solid #000000;" })
+        </div>
+        <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+        <button class="btn btn-light">Cancel</button>
+    </form>
+
+}
+

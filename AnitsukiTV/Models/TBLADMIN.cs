@@ -19,6 +19,7 @@ namespace AnitsukiTV.Models
         public string PASSWORD { get; set; }
         public Nullable<int> ADMINROLEID { get; set; }
         public Nullable<bool> STATUS { get; set; }
+        public Nullable<System.DateTime> DATE { get; set; }
     
         public virtual TBLADMINROLE TBLADMINROLE { get; set; }
     }
