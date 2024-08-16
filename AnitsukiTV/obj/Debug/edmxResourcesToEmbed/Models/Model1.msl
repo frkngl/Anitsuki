@@ -146,6 +146,7 @@
     <EntitySetMapping Name="TBLSEASON">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLSEASON">
         <MappingFragment StoreEntitySet="TBLSEASON">
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
           <ScalarProperty Name="SEASONNAME" ColumnName="SEASONNAME" />
           <ScalarProperty Name="SEASONNUMBER" ColumnName="SEASONNUMBER" />
           <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />

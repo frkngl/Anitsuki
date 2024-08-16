@@ -258,6 +258,7 @@
     <Property Name="ANIMEID" Type="Int32" />
     <Property Name="SEASONNUMBER" Type="Int32" />
     <Property Name="SEASONNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="STATUS" Type="Boolean" />
     <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" FromRole="TBLSEASON" ToRole="TBLANIME" />
     <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" FromRole="TBLSEASON" ToRole="TBLEPISODE" />
   </EntityType>

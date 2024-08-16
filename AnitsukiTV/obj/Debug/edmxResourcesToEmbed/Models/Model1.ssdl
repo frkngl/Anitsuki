@@ -138,6 +138,7 @@
     <Property Name="ANIMEID" Type="int" />
     <Property Name="SEASONNUMBER" Type="int" />
     <Property Name="SEASONNAME" Type="nvarchar" MaxLength="100" />
+    <Property Name="STATUS" Type="bit" />
   </EntityType>
   <EntityType Name="TBLUSER">
     <Key>

@@ -200,7 +200,7 @@ namespace AnitsukiTV.Controllers
 
         public ActionResult Video(int id)
         {
-            veri.Episode = db.TBLEPISODE.Where(x => x.ID == id).ToList();
+            veri.Episode = db.TBLEPISODE.Where(x => x.ID == id && x.STATUS == true).ToList();
             int animeId = veri.Episode.FirstOrDefault()?.TBLANIME?.ID ?? 0;
             int sezonNumarası = veri.Episode.FirstOrDefault()?.TBLSEASON?.SEASONNUMBER ?? 0;
             int oncekiBolumId = db.TBLEPISODE.Where(x => x.TBLANIME.ID == animeId && x.TBLSEASON.SEASONNUMBER == sezonNumarası && x.ID < id) .OrderByDescending(x => x.ID).FirstOrDefault()?.ID ?? 0;

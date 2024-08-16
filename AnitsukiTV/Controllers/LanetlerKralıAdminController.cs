@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -390,6 +391,91 @@ namespace AnitsukiTV.Controllers
         {
             var degerler = db.TBLANIME.Where(x=>x.ID == id).ToList();
             return View(degerler);
+        }
+
+
+        public ActionResult Season(string anime)
+        {
+            var degerler = from a in db.TBLSEASON select a;
+            if (!string.IsNullOrEmpty(anime))
+            {
+                degerler = degerler.Where(x => x.TBLANIME.ANIMENAME.ToLower().Contains(anime.ToLower()));
+            }
+            return View(degerler.ToList());
+        }
+
+        [HttpGet]
+        public ActionResult AddSeason()
+        {
+            ViewBag.Anime = db.TBLANIME.ToList();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddSeason(TBLSEASON add)
+        {
+            TBLSEASON season = new TBLSEASON();
+            season.ANIMEID = add.ANIMEID;
+            season.SEASONNUMBER = add.SEASONNUMBER;
+            season.SEASONNAME = add.SEASONNAME;
+            season.STATUS = true;
+            db.TBLSEASON.Add(season);
+            db.SaveChanges();
+            TempData["success"] = "Eklendi";
+            return RedirectToAction("Season");
+        }
+
+
+        public ActionResult UpdateSeason(int id)
+        {
+            var FindSeason = db.TBLSEASON.Find(id);
+            ViewBag.Anime = db.TBLANIME.ToList();
+            return View("UpdateSeason", FindSeason);
+        }
+
+        public ActionResult SeasonSave(TBLSEASON sea)
+        {
+            var updateseason = db.TBLSEASON.Find(sea.ID);
+            updateseason.ANIMEID = sea.ANIMEID;
+            updateseason.SEASONNUMBER = sea.SEASONNUMBER;
+            updateseason.SEASONNAME = sea.SEASONNAME;
+            db.SaveChanges();
+            TempData["success"] = "Güncellendi";
+            return RedirectToAction("Season");
+        }
+
+        public ActionResult ActivePassive3(int id)
+        {
+            var AdminActivePassive = db.TBLSEASON.Find(id);
+            if (AdminActivePassive.STATUS == true)
+            {
+                AdminActivePassive.STATUS = false;
+            }
+            else
+            {
+                AdminActivePassive.STATUS = true;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Season");
+        }
+
+        public ActionResult Deleteee(int id)
+        {
+            var seasonfind = db.TBLSEASON.Find(id);
+            db.TBLSEASON.Remove(seasonfind);
+            db.SaveChanges();
+            TempData["error"] = "Sezon başarıyla silindi";
+            return RedirectToAction("Season");
+        }
+
+
+        public ActionResult Episode(string episode)
+        {
+            var degerler = from a in db.TBLEPISODE select a;
+            if (!string.IsNullOrEmpty(episode))
+            {
+                degerler = degerler.Where(x => x.EPISODENAME.ToLower().Contains(episode.ToLower()));
+            }
+            return View(degerler.ToList());
         }
     }
 }

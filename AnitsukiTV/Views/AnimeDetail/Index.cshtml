@@ -163,7 +163,7 @@
                         @ViewBag.Season
                     </button>
                     <ul class="dropdown-menu">
-                        @foreach (var y in Model.Season)
+                        @foreach (var y in Model.Season.Where(y=>y.STATUS == true))
                         {
                             if (y.SEASONNAME == null)
                             {
@@ -180,7 +180,7 @@
             </div>
             <div class="episode">
                 <ul id="menuFull">
-                    @foreach (var z in Model.Episode)
+                    @foreach (var z in Model.Episode.Where(z=>z.STATUS == true))
                     {
                         <li>
                             <a href="/AnimeDetail/Video/@z.ID">
