@@ -90,7 +90,7 @@
     <!----------------------------------------------------SWIPER START---------------------------------------------------->
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
-            @foreach (var ğ in Model.Anime.Where(x=>x.ADMINSTATUS == true).Take(5))
+            @foreach (var ğ in Model.Anime.Where(x=>x.ADMINSTATUS == true))
             {
                 <div class="swiper-slide">
                     <img src="~/IMG/@ğ.BIGBANNER">
@@ -101,7 +101,7 @@
                         <div class="des">
                             @ğ.DETAIL
                         </div>
-                        <a class="btn" href="/AnimeDetail/Video/@ğ.ID"><i class="fa-solid fa-play"></i></a>
+                        <a class="btn" href="/AnimeDetail/Index/@ğ.ID"><i class="fa-solid fa-play"></i></a>
                     </div>
                 </div>
             }

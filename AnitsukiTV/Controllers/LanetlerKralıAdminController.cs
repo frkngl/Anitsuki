@@ -183,6 +183,7 @@ namespace AnitsukiTV.Controllers
         [HttpGet]
         public ActionResult AddAnime()
         {
+            ViewBag.Categories = db.TBLCATEGORY.ToList();
             return View();
         }
 
@@ -242,6 +243,7 @@ namespace AnitsukiTV.Controllers
         public ActionResult UpdateAnime(int id)
         {
             var FindAnime = db.TBLANIME.Find(id);
+            ViewBag.Categories = db.TBLCATEGORY.ToList();
             return View("UpdateAnime", FindAnime);
         }
 
