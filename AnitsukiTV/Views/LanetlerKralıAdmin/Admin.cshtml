@@ -45,7 +45,7 @@
                                         <a href="/LanetlerKralıAdmin/ActivePassive/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
                                     }
                                 </td>
-                                <td>@Html.ActionLink("Sil", "Sil", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Admini silmek istediğinize emin misiniz?');" })</td>
+                                <td>@Html.ActionLink("Sil", "Delete", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Admini silmek istediğinize emin misiniz?');" })</td>
                             </tr>
                         }
                     </tbody>

@@ -1,0 +1,58 @@
+﻿@using AnitsukiTV.Models
+@model List<TBLANIME>
+@{
+    ViewBag.Title = "AnimeDetail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@foreach (var x in Model)
+{
+    <div class="form-group">
+        <label for="exampleInputName1">ID</label>
+        <textarea style="width:100%; height:30px;" readonly>@x.ID</textarea>
+    </div>
+    <div style="width:100%; height:auto; display:flex; align-items:center;justify-content:space-around;" class="form-group">
+        <div>
+            <label>Resim</label>
+            <br />
+            <img width="250" height="400" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" src="~/IMG/@x.BANNER" />
+        </div>
+        <div>
+            <label for="exampleInputPassword4">Büyük Banner</label><br />
+            <img width="400" height="250" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" src="~/IMG/@x.BIGBANNER" />
+        </div>
+        <div>
+            <label for="exampleInputPassword4">Edit</label><br />
+            <video style="object-fit:cover;" width="250" height="400" controls src="~/Videos/@x.EDIT"></video>
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword4">Kategori</label><br />
+        <textarea style="width:100%; height:30px;" readonly>@x.TBLCATEGORY.CATEGORYNAME</textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword4">Tür</label><br />
+        <textarea style="width:100%; height:30px;" readonly>@x.TYPE</textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">Anime Adı</label><br />
+        <textarea style="width:100%; height:30px;" readonly>@x.ANIMENAME</textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">IMDb</label><br />
+        <textarea style="width:100%; height:30px;" readonly>@x.IMDB</textarea>
+    </div>
+    <div class="form-group">
+        
+    </div>
+    
+    <div class="form-group">
+        <label for="exampleInputEmail3">Açıklama</label><br />
+        <textarea style="width:100%; height:200px;" readonly>@x.DETAIL</textarea>
+    </div>
+}
+<a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/Anime">Geri Dön</a>
+
+

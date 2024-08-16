@@ -1,0 +1,51 @@
+﻿@model AnitsukiTV.Models.TBLANIME
+
+@{
+    ViewBag.Title = "AddAnime";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/Scripts/jquery-3.7.0.slim.min.js"></script>
+
+@using (Html.BeginForm("AddAnime", "LanetlerKralıAdmin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <form class="forms-sample">
+        <div class="form-group">
+            <label>Resim Yükleme</label>
+            <br />
+            <img class="resim" width="250" height="250" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover; border-radius:50%;" />
+            <input class="form-control" id="resim" type="file" onchange="$('.resim')[0].src = window.URL.createObjectURL(this.files[0])" name="Image" required />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword4">Kategori</label><br />
+            @Html.TextBoxFor(x => x.CATEGORYID, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword4">Tür</label><br />
+            @Html.TextBoxFor(x => x.TYPE, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">Anime Adı</label><br />
+            @Html.TextBoxFor(x => x.ANIMENAME, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">IMDb</label><br />
+            @Html.TextBoxFor(x => x.IMDB, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword4">Büyük Banner</label>
+            <input type="file" name="Banner" class=" form-control" />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword4">Edit</label>
+            <input type="file" name="Video" class=" form-control" />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail3">Açıklama</label><br />
+            @Html.TextAreaFor(x => x.DETAIL, 10, 2, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+        </div>
+        <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+        <a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/Anime">Vazgeç</a>
+    </form>
+
+}
+

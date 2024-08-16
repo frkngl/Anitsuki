@@ -121,7 +121,7 @@
                 <ul id="menuFull">
                     @if (Model.Favorites.Any())
                     {
-                        foreach (var s in Model.Favorites)
+                        foreach (var s in Model.Favorites.Where(s=>s.TBLANIME.STATUS == true))
                         {
                             <li>
                                 <a href="/AnimeDetail/Index/@s.ANIMEID">
@@ -164,7 +164,7 @@
                 <ul id="menuFull9">
                     @if (Model.WatchLater.Any())
                     {
-                        foreach (var i in Model.WatchLater)
+                        foreach (var i in Model.WatchLater.Where(s => s.TBLANIME.STATUS == true))
                         {
                             <li>
                                 <a href="/AnimeDetail/Index/@i.ANIMEID">

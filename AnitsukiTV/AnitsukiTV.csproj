@@ -4350,6 +4350,13 @@
     <Content Include="Views\LanetlerKralıAdmin\AdminRole.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\AddRole.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\UpdateRole.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\Anime.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\AddAnime.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\Category.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\AddCategory.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\UpdateCategory.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\UpdateAnime.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\AnimeDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
