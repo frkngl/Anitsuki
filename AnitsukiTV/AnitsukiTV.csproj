@@ -52,6 +52,12 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -3638,6 +3644,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\css\select2.css" />
     <Content Include="Content\css\select2.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
@@ -4424,6 +4431,12 @@
     <Content Include="Views\LanetlerKralıAdmin\Season.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\AddSeason.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\UpdateSeason.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\AddEpisode.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\UpdateEpisode.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\EpisodeDetail.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\Users.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\UpdateUser.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\UserDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

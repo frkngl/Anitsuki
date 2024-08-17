@@ -247,3 +247,7 @@ C:\Users\frkng\Desktop\GitHub\AnitsukiTV\obj\Debug\AnitsukiTV.csproj.CoreCompile
 C:\Users\frkng\Desktop\GitHub\AnitsukiTV\obj\Debug\AnitsukiTV.csproj.Up2Date
 C:\Users\frkng\Desktop\GitHub\AnitsukiTV\obj\Debug\AnitsukiTV.dll
 C:\Users\frkng\Desktop\GitHub\AnitsukiTV\obj\Debug\AnitsukiTV.pdb
+C:\Users\frkng\Desktop\GitHub\AnitsukiTV\bin\PagedList.dll
+C:\Users\frkng\Desktop\GitHub\AnitsukiTV\bin\PagedList.Mvc.dll
+C:\Users\frkng\Desktop\GitHub\AnitsukiTV\bin\PagedList.xml
+C:\Users\frkng\Desktop\GitHub\AnitsukiTV\bin\PagedList.Mvc.xml

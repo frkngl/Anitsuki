@@ -33,7 +33,7 @@
             <select id="anime-dropdown" name="ANIMEID" required>
                 @foreach (var anime in ViewBag.Anime)
                 {
-                    <option value="@anime.ID">@anime.ANIMENAME</option>
+                    <option value="@anime.ID" @(ViewBag.SelectedAnimeId == anime.ID ? "selected" : "")>@anime.ANIMENAME</option>
                 }
             </select>
         </div>

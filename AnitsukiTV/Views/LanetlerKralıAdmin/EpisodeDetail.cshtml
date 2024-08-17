@@ -1,0 +1,76 @@
+﻿@using AnitsukiTV.Models
+@model List<TBLEPISODE>
+@{
+    ViewBag.Title = "EpisodeDetail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@foreach (var x in Model)
+{
+    <div class="form-group">
+        <label for="exampleInputName1">ID</label>
+        <textarea style="width:100%; height:30px;" readonly>@x.ID</textarea>
+    </div>
+    <div style="width:100%; height:auto; display:flex; align-items:center;justify-content:space-around;" class="form-group">
+        <div>
+            <label>Resim</label>
+            <br />
+            <img width="400" height="250" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" src="~/IMG/@x.BANNER" />
+        </div>
+        <div>
+            <div>
+                <label for="exampleInputPassword4">360</label><br />
+                <video style="object-fit:cover;" width="400" height="250" controls src="~/Videos/@x.EP1"></video>
+            </div>
+            <div>
+                <label for="exampleInputPassword4">720</label><br />
+                <video style="object-fit:cover;" width="400" height="250" controls src="~/Videos/@x.EP3"></video>
+            </div>
+        </div>
+        <div>
+            <div>
+                <label for="exampleInputPassword4">480</label><br />
+                <video style="object-fit:cover;" width="400" height="250" controls src="~/Videos/@x.EP2"></video>
+            </div>
+            <div>
+                <label for="exampleInputPassword4">1080</label><br />
+                <video style="object-fit:cover;" width="400" height="250" controls src="~/Videos/@x.EP4"></video>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword4">Anime</label><br />
+        <textarea style="width:100%; height:30px;" readonly>@x.TBLANIME.ANIMENAME</textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword4">Sezon</label><br />
+        <textarea style="width:100%; height:30px;" readonly>
+        @if (x.TBLSEASON.SEASONNAME != null)
+        {
+            @x.TBLSEASON.SEASONNAME
+        }
+         else
+        {
+            @x.TBLSEASON.SEASONNUMBER
+        }
+        </textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">Bölümün Sayısı</label><br />
+        <textarea style="width:100%; height:30px;" readonly>@x.EPINUMBER</textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">Bölümün Adı</label><br />
+        <textarea style="width:100%; height:30px;" readonly>@x.EPISODENAME</textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">Yayın Tarihi</label><br />
+        <textarea style="width:100%; height:30px;" readonly>@x.DATE.Value.ToString("dd.MM.yyyy")</textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">Video Süresi</label><br />
+        <textarea style="width:100%; height:30px;" readonly>@x.TIME</textarea>
+    </div>
+}
+<a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/Episode">Geri Dön</a>
+

@@ -103,7 +103,7 @@
                     }
                 </div>
                 <div class="date">
-                    <i class="bi bi-calendar"></i> Kayıt Tarihi: @Model.User.DATE.Value.ToString("dd.MM.yyyy") <i style="margin-left:10px;" class="bi bi-heart"></i>:@Model.Favorites.Count()  <i style="margin-left:10px;" class="bi bi-clock-history"></i>:@Model.WatchLater.Count()
+                    <i class="bi bi-calendar"></i> Kayıt Tarihi: @Model.User.DATE.Value.ToString("dd.MM.yyyy") <i style="margin-left:10px;" class="bi bi-heart"></i>:@Model.Favorites.Where(x=>x.TBLANIME.STATUS == true).Count()  <i style="margin-left:10px;" class="bi bi-clock-history"></i>:@Model.WatchLater.Where(x=>x.TBLANIME.STATUS == true).Count()
                 </div>
             </div>
         </div>

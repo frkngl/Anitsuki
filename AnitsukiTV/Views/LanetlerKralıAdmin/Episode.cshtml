@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 </nav>
-                <h4 class="card-title"><a class="btn btn-primary" href="/LanetlerKralıAdmin/AddAnime">Anime Ekle</a></h4>
+                <h4 class="card-title"><a class="btn btn-primary" href="/LanetlerKralıAdmin/AddEpisode">Anime Ekle</a></h4>
                 <p class="card-description">
                     Animeler
                 </p>
@@ -74,7 +74,7 @@
                                     }
                                 </td>
                                 <td>@Html.ActionLink("Sil", "Deleteeee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Bölümü silmek istediğinize emin misiniz?');" })</td>
-                                <td><a style="color:#ffffff;" href="/LanetlerKralıAdmin/AnimeDetail/@x.ID" class="btn btn-light">Detay</a></td>
+                                <td><a style="color:#ffffff;" href="/LanetlerKralıAdmin/EpisodeDetail/@x.ID" class="btn btn-light">Detay</a></td>
                             </tr>
                         }
                     </tbody>

@@ -1,5 +1,5 @@
 ﻿@using AnitsukiTV.Models
-@model List<TBLANIME> 
+@model PagedList.IPagedList<TBLANIME> 
 @{
     ViewBag.Title = "Anime";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -38,7 +38,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var x in Model.OrderByDescending(x=>x.ID))
+                        @foreach (var x in Model)
                         {
                             <tr>
                                 <td>@x.ID</td>
@@ -76,4 +76,33 @@
         </div>
     </div>
 </div>
+<div style="width:100%; display:flex; justify-content:center;">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Anime", new { anime = ViewBag.Anime, p = ViewBag.CurrentPage - 1 })" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = 1; i <= ViewBag.PageCount; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Anime", new { anime = ViewBag.Anime, p = i })">@i</a>
+                </li>
+            }
+            @if (ViewBag.CurrentPage < ViewBag.PageCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Anime", new { anime = ViewBag.Anime, p = ViewBag.CurrentPage + 1 })" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
 

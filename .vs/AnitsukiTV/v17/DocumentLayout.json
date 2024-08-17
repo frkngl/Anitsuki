@@ -3,40 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\frkng\\Desktop\\GitHub\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|c:\\users\\frkng\\desktop\\github\\anitsukitv\\views\\lanetlerkral\u0131admin\\episode.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|solutionrelative:anitsukitv\\views\\lanetlerkral\u0131admin\\episode.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|c:\\users\\frkng\\desktop\\github\\anitsukitv\\controllers\\lanetlerkral\u0131admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|solutionrelative:anitsukitv\\controllers\\lanetlerkral\u0131admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|c:\\users\\frkng\\desktop\\github\\anitsukitv\\views\\lanetlerkral\u0131admin\\season.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|solutionrelative:anitsukitv\\views\\lanetlerkral\u0131admin\\season.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|c:\\users\\frkng\\desktop\\github\\anitsukitv\\views\\lanetlerkral\u0131admin\\anime.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|solutionrelative:anitsukitv\\views\\lanetlerkral\u0131admin\\anime.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|c:\\users\\frkng\\desktop\\github\\anitsukitv\\views\\lanetlerkral\u0131admin\\addseason.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|solutionrelative:anitsukitv\\views\\lanetlerkral\u0131admin\\addseason.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|c:\\users\\frkng\\desktop\\github\\anitsukitv\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|solutionrelative:anitsukitv\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|c:\\users\\frkng\\desktop\\github\\anitsukitv\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|solutionrelative:anitsukitv\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|c:\\users\\frkng\\desktop\\github\\anitsukitv\\views\\lanetlerkral\u0131admin\\updateseason.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|solutionrelative:anitsukitv\\views\\lanetlerkral\u0131admin\\updateseason.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|c:\\users\\frkng\\desktop\\github\\anitsukitv\\views\\lanetlerkral\u0131admin\\updatecategory.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|solutionrelative:anitsukitv\\views\\lanetlerkral\u0131admin\\updatecategory.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -51,118 +23,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Episode.cshtml",
-              "DocumentMoniker": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\Episode.cshtml",
-              "RelativeDocumentMoniker": "AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\Episode.cshtml",
-              "ToolTip": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\Episode.cshtml",
-              "RelativeToolTip": "AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\Episode.cshtml",
-              "ViewState": "AQIAABUAAAAAAAAAAAAAAB4AAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-08-16T22:42:31.299Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Anime.cshtml",
-              "DocumentMoniker": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\Anime.cshtml",
-              "RelativeDocumentMoniker": "AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\Anime.cshtml",
-              "ToolTip": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\Anime.cshtml",
-              "RelativeToolTip": "AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\Anime.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-08-16T22:36:31.903Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Season.cshtml",
-              "DocumentMoniker": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\Season.cshtml",
-              "RelativeDocumentMoniker": "AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\Season.cshtml",
-              "ToolTip": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\Season.cshtml",
-              "RelativeToolTip": "AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\Season.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAADUAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-08-16T22:31:04.028Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AddSeason.cshtml",
-              "DocumentMoniker": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\AddSeason.cshtml",
-              "RelativeDocumentMoniker": "AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\AddSeason.cshtml",
-              "ToolTip": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\AddSeason.cshtml",
-              "RelativeToolTip": "AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\AddSeason.cshtml",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAACEAAAA1AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-08-16T22:28:54.836Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "UpdateCategory.cshtml",
-              "DocumentMoniker": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\UpdateCategory.cshtml",
-              "RelativeDocumentMoniker": "AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\UpdateCategory.cshtml",
-              "ToolTip": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\UpdateCategory.cshtml",
-              "RelativeToolTip": "AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\UpdateCategory.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-08-16T22:27:30.119Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "UpdateSeason.cshtml",
-              "DocumentMoniker": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\UpdateSeason.cshtml",
-              "RelativeDocumentMoniker": "AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\UpdateSeason.cshtml",
-              "ToolTip": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\UpdateSeason.cshtml",
-              "RelativeToolTip": "AnitsukiTV\\Views\\LanetlerKral\u0131Admin\\UpdateSeason.cshtml",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAwwBgAAAAbAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-08-16T22:26:58.39Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LanetlerKral\u0131AdminController.cs",
-              "DocumentMoniker": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Controllers\\LanetlerKral\u0131AdminController.cs",
-              "RelativeDocumentMoniker": "AnitsukiTV\\Controllers\\LanetlerKral\u0131AdminController.cs",
-              "ToolTip": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Controllers\\LanetlerKral\u0131AdminController.cs",
-              "RelativeToolTip": "AnitsukiTV\\Controllers\\LanetlerKral\u0131AdminController.cs",
-              "ViewState": "AQIAAMYBAAAAAAAAAAAiwNYBAAAyAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-16T22:24:39.042Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "AnitsukiTV\\Views\\Home\\Index.cshtml",
               "ToolTip": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Views\\Home\\Index.cshtml",
               "RelativeToolTip": "AnitsukiTV\\Views\\Home\\Index.cshtml",
-              "ViewState": "AQIAABgAAAAAAAAAAAAAACgAAAAKAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-08-16T22:24:33.67Z",
+              "WhenOpened": "2024-08-17T17:52:21.113Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "AnitsukiTV\\Controllers\\HomeController.cs",
               "ToolTip": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\Controllers\\HomeController.cs",
               "RelativeToolTip": "AnitsukiTV\\Controllers\\HomeController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAnAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-16T22:24:31.52Z",
+              "WhenOpened": "2024-08-17T17:52:18.135Z",
               "EditorCaption": ""
             }
           ]

@@ -45,12 +45,13 @@
         <textarea style="width:100%; height:30px;" readonly>@x.IMDB</textarea>
     </div>
     <div class="form-group">
-        
+        <label for="exampleInputName1">Yayın Tarihi</label><br />
+        <textarea style="width:100%; height:30px;" readonly>@x.DATE.Value.ToString("dd.MM.yyyy")</textarea>
     </div>
     
     <div class="form-group">
         <label for="exampleInputEmail3">Açıklama</label><br />
-        <textarea style="width:100%; height:200px;" readonly>@x.DETAIL</textarea>
+        <textarea style="width:51%; height:200px;" readonly>@x.DETAIL</textarea>
     </div>
 }
 <a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/Anime">Geri Dön</a>
