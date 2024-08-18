@@ -1,0 +1,99 @@
+﻿@using AnitsukiTV.Models
+@model PagedList.IPagedList<TBLEPISODECOMMENT>
+@{
+    ViewBag.Title = "EpisodeComment";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div style="position:relative;" class="card-body">
+                <nav style="position:absolute; right:0;" class="navbar navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <form action="@Url.Action("EpisodeComment", "LanetlerKralıAdmin")" class="d-flex" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Search" name="Comment" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Ara</button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+                <p class="card-description">
+                    Kullanıcılar
+                </p>
+                <table style="margin-top:50px;" class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>KULLANICI ADI</th>
+                            <th>ANIME</th>
+                            <th>BÖLÜM</th>
+                            <th>MESAJ</th>
+                            <th>Güncelle</th>
+                            <th>Durum</th>
+                            <th>Sil</th>
+                            <th>Detay</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model.OrderByDescending(x => x.ID))
+                        {
+                            <tr>
+                                <td>@x.ID</td>
+                                <td>@x.TBLUSER.USERNAME</td>
+                                <td>@x.TBLEPISODE.TBLANIME.ANIMENAME</td>
+                                <td>@x.TBLEPISODE.EPISODENAME</td>
+                                <td><div style="width: 300px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.COMMENT</div></td>
+                                <td><a class="btn btn-warning" href="/LanetlerKralıAdmin/UpdateEpisodeComment/@x.ID">Güncelle</a></td>
+                                <td>
+                                    @if (x.STATUS == true)
+                                    {
+                                        <a href="/LanetlerKralıAdmin/ActivePassive7/@x.ID" class="btn btn-success btn-sm">Aktif</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/LanetlerKralıAdmin/ActivePassive7/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
+                                    }
+                                </td>
+                                <td>@Html.ActionLink("Sil", "Deleteeeeeee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Yorumu silmek istediğinize emin misiniz?');" })</td>
+                                <td><a style="color:#ffffff;" href="/LanetlerKralıAdmin/EpisodeCommentDetaıl/@x.ID" class="btn btn-light">Detay</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="width:100%; display:flex; justify-content:center;">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("EpisodeComment", new { Comment = ViewBag.Comment, p = ViewBag.CurrentPage - 1 })" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = 1; i <= ViewBag.PageCount; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("EpisodeComment", new { Comment = ViewBag.Comment, p = i })">@i</a>
+                </li>
+            }
+            @if (ViewBag.CurrentPage < ViewBag.PageCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("EpisodeComment", new { Comment = ViewBag.Comment, p = ViewBag.CurrentPage + 1 })" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
+

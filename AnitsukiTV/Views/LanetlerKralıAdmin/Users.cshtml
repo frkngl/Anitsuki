@@ -1,5 +1,5 @@
 ﻿@using AnitsukiTV.Models
-@model List<TBLUSER> 
+@model PagedList.IPagedList<TBLUSER> 
 @{
     ViewBag.Title = "Users";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -72,5 +72,35 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<div style="width:100%; display:flex; justify-content:center;">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Users", new { user = ViewBag.User, p = ViewBag.CurrentPage - 1 })" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = 1; i <= ViewBag.PageCount; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Users", new { user = ViewBag.User, p = i })">@i</a>
+                </li>
+            }
+            @if (ViewBag.CurrentPage < ViewBag.PageCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Users", new { user = ViewBag.User, p = ViewBag.CurrentPage + 1 })" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
 </div>
 

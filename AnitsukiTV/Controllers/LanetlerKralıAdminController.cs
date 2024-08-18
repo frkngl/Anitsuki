@@ -406,14 +406,20 @@ namespace AnitsukiTV.Controllers
         }
 
 
-        public ActionResult Season(string anime)
+        public ActionResult Season(string anime, int p = 1)
         {
             var degerler = from a in db.TBLSEASON select a;
             if (!string.IsNullOrEmpty(anime))
             {
                 degerler = degerler.Where(x => x.TBLANIME.ANIMENAME.ToLower().Contains(anime.ToLower()));
             }
-            return View(degerler.ToList());
+            var pageSize = 50;
+            var paginatedResults = degerler.OrderByDescending(x => x.ID).Skip((p - 1) * pageSize).Take(pageSize).ToList();
+            var pagedList = new StaticPagedList<TBLSEASON>(paginatedResults, p, pageSize, degerler.Count());
+            ViewBag.PageCount = (int)Math.Ceiling(degerler.Count() / (double)pageSize);
+            ViewBag.CurrentPage = p;
+            ViewBag.Anime = anime;
+            return View(pagedList);
         }
 
         [HttpGet]
@@ -481,16 +487,22 @@ namespace AnitsukiTV.Controllers
         }
 
 
-        
 
-        public ActionResult Episode(string episode)
+
+        public ActionResult Episode(string episode, int p = 1)
         {
             var degerler = from a in db.TBLEPISODE select a;
             if (!string.IsNullOrEmpty(episode))
             {
                 degerler = degerler.Where(x => x.TBLANIME.ANIMENAME.ToLower().Contains(episode.ToLower()));
             }
-            return View(degerler.ToList());
+            var pageSize = 50;
+            var paginatedResults = degerler.OrderByDescending(x => x.ID).Skip((p - 1) * pageSize).Take(pageSize).ToList();
+            var pagedList = new StaticPagedList<TBLEPISODE>(paginatedResults, p, pageSize, degerler.Count());
+            ViewBag.PageCount = (int)Math.Ceiling(degerler.Count() / (double)pageSize);
+            ViewBag.CurrentPage = p;
+            ViewBag.Episode = episode;
+            return View(pagedList);
         }
 
 
@@ -724,14 +736,20 @@ namespace AnitsukiTV.Controllers
             return View(degerler);
         }
 
-        public ActionResult Users(string user)
+        public ActionResult Users(string user, int p = 1)
         {
             var degerler = from a in db.TBLUSER select a;
             if (!string.IsNullOrEmpty(user))
             {
                 degerler = degerler.Where(x => x.USERNAME.ToLower().Contains(user.ToLower()));
             }
-            return View(degerler.ToList());
+            var pageSize = 50;
+            var paginatedResults = degerler.OrderByDescending(x => x.ID).Skip((p - 1) * pageSize).Take(pageSize).ToList();
+            var pagedList = new StaticPagedList<TBLUSER>(paginatedResults, p, pageSize, degerler.Count());
+            ViewBag.PageCount = (int)Math.Ceiling(degerler.Count() / (double)pageSize);
+            ViewBag.CurrentPage = p;
+            ViewBag.User = user;
+            return View(pagedList);
         }
 
 
@@ -783,14 +801,20 @@ namespace AnitsukiTV.Controllers
             return View(degerler);
         }
 
-        public ActionResult AnimeComment(string Comment)
+        public ActionResult AnimeComment(string Comment, int p = 1)
         {
             var degerler = from a in db.TBLANIMECOMMENT select a;
             if (!string.IsNullOrEmpty(Comment))
             {
                 degerler = degerler.Where(x => x.TBLUSER.USERNAME.ToLower().Contains(Comment.ToLower()));
             }
-            return View(degerler.ToList());
+            var pageSize = 50;
+            var paginatedResults = degerler.OrderByDescending(x => x.ID).Skip((p - 1) * pageSize).Take(pageSize).ToList();
+            var pagedList = new StaticPagedList<TBLANIMECOMMENT>(paginatedResults, p, pageSize, degerler.Count());
+            ViewBag.PageCount = (int)Math.Ceiling(degerler.Count() / (double)pageSize);
+            ViewBag.CurrentPage = p;
+            ViewBag.Comment = Comment;
+            return View(pagedList);
         }
 
         public ActionResult UpdateComment(int id)
@@ -836,6 +860,70 @@ namespace AnitsukiTV.Controllers
         public ActionResult AnımeCommentDetaıl(int id)
         {
             var degerler = db.TBLANIMECOMMENT.Where(x => x.ID == id).ToList();
+            return View(degerler);
+        }
+
+
+
+        public ActionResult EpisodeComment(string Comment, int p = 1)
+        {
+            var degerler = from a in db.TBLEPISODECOMMENT select a;
+            if (!string.IsNullOrEmpty(Comment))
+            {
+                degerler = degerler.Where(x => x.TBLUSER.USERNAME.ToLower().Contains(Comment.ToLower()));
+            }
+            var pageSize = 50;
+            var paginatedResults = degerler.OrderByDescending(x => x.ID).Skip((p - 1) * pageSize).Take(pageSize).ToList();
+            var pagedList = new StaticPagedList<TBLEPISODECOMMENT>(paginatedResults, p, pageSize, degerler.Count());
+            ViewBag.PageCount = (int)Math.Ceiling(degerler.Count() / (double)pageSize);
+            ViewBag.CurrentPage = p;
+            ViewBag.Comment = Comment;
+            return View(pagedList);
+        }
+
+        public ActionResult UpdateEpisodeComment(int id)
+        {
+            var FindComment = db.TBLEPISODECOMMENT.Find(id);
+            return View("UpdateEpisodeComment", FindComment);
+        }
+
+        [HttpPost]
+        public ActionResult EpisodeCommentSave(TBLEPISODECOMMENT update)
+        {
+            var updatecomment = db.TBLEPISODECOMMENT.Find(update.ID);
+            updatecomment.COMMENT = update.COMMENT;
+            db.SaveChanges();
+            TempData["success"] = "Success";
+            return RedirectToAction("EpisodeComment");
+        }
+
+        public ActionResult ActivePassive7(int id)
+        {
+            var AdminActivePassive = db.TBLEPISODECOMMENT.Find(id);
+            if (AdminActivePassive.STATUS == true)
+            {
+                AdminActivePassive.STATUS = false;
+            }
+            else
+            {
+                AdminActivePassive.STATUS = true;
+            }
+            db.SaveChanges();
+            return RedirectToAction("EpisodeComment");
+        }
+
+        public ActionResult Deleteeeeeee(int id)
+        {
+            var animecomment = db.TBLEPISODECOMMENT.Find(id);
+            db.TBLEPISODECOMMENT.Remove(animecomment);
+            db.SaveChanges();
+            TempData["error"] = "Kullanıcı başarıyla silindi";
+            return RedirectToAction("EpisodeComment");
+        }
+
+        public ActionResult EpisodeCommentDetaıl(int id)
+        {
+            var degerler = db.TBLEPISODECOMMENT.Where(x => x.ID == id).ToList();
             return View(degerler);
         }
     }

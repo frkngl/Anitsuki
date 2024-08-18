@@ -4440,6 +4440,9 @@
     <Content Include="Views\LanetlerKralıAdmin\AnimeComment.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\UpdateComment.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\AnımeCommentDetaıl.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\EpisodeComment.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\UpdateEpisodeComment.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\EpisodeCommentDetaıl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,5 +1,5 @@
 ﻿@using AnitsukiTV.Models
-@model List<TBLEPISODE>
+@model PagedList.IPagedList<TBLEPISODE>
 @{
     ViewBag.Title = "Episode";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -84,6 +84,33 @@
     </div>
 </div>
 
-
+<div style="width:100%; display:flex; justify-content:center;">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Episode", new { episode = ViewBag.Episode, p = ViewBag.CurrentPage - 1 })" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = 1; i <= ViewBag.PageCount; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Episode", new { episode = ViewBag.Episode, p = i })">@i</a>
+                </li>
+            }
+            @if (ViewBag.CurrentPage < ViewBag.PageCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Episode", new { episode = ViewBag.Episode, p = ViewBag.CurrentPage + 1 })" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
 
 
