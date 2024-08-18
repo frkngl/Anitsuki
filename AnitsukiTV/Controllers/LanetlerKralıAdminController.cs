@@ -120,6 +120,7 @@ namespace AnitsukiTV.Controllers
             return View("UpdateRole", FindRole);
         }
 
+
         public ActionResult RoleSave(TBLADMINROLE role)
         {
             var updaterole = db.TBLADMINROLE.Find(role.ID);
@@ -137,11 +138,14 @@ namespace AnitsukiTV.Controllers
             return View(degerler);
         }
 
+
         [HttpGet]
         public ActionResult AddCategory()
         {
             return View();
         }
+
+
         [HttpPost]
         public ActionResult AddCategory(TBLCATEGORY add)
         {
@@ -779,5 +783,60 @@ namespace AnitsukiTV.Controllers
             return View(degerler);
         }
 
+        public ActionResult AnimeComment(string Comment)
+        {
+            var degerler = from a in db.TBLANIMECOMMENT select a;
+            if (!string.IsNullOrEmpty(Comment))
+            {
+                degerler = degerler.Where(x => x.TBLUSER.USERNAME.ToLower().Contains(Comment.ToLower()));
+            }
+            return View(degerler.ToList());
+        }
+
+        public ActionResult UpdateComment(int id)
+        {
+            var FindComment = db.TBLANIMECOMMENT.Find(id);
+            return View("UpdateComment", FindComment);
+        }
+
+        [HttpPost]
+        public ActionResult CommentSave(TBLANIMECOMMENT update)
+        {
+            var updatecomment = db.TBLANIMECOMMENT.Find(update.ID);
+            updatecomment.COMMENT = update.COMMENT;
+            db.SaveChanges();
+            TempData["success"] = "Success";
+            return RedirectToAction("AnimeComment");
+        }
+
+        public ActionResult ActivePassive6(int id)
+        {
+            var AdminActivePassive = db.TBLANIMECOMMENT.Find(id);
+            if (AdminActivePassive.STATUS == true)
+            {
+                AdminActivePassive.STATUS = false;
+            }
+            else
+            {
+                AdminActivePassive.STATUS = true;
+            }
+            db.SaveChanges();
+            return RedirectToAction("AnimeComment");
+        }
+
+        public ActionResult Deleteeeeee(int id)
+        {
+            var animecomment = db.TBLANIMECOMMENT.Find(id);
+            db.TBLANIMECOMMENT.Remove(animecomment);
+            db.SaveChanges();
+            TempData["error"] = "Kullanıcı başarıyla silindi";
+            return RedirectToAction("AnimeComment");
+        }
+
+        public ActionResult AnımeCommentDetaıl(int id)
+        {
+            var degerler = db.TBLANIMECOMMENT.Where(x => x.ID == id).ToList();
+            return View(degerler);
+        }
     }
 }

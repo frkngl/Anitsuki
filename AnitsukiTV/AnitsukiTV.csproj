@@ -4437,6 +4437,9 @@
     <Content Include="Views\LanetlerKralıAdmin\Users.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\UpdateUser.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\UserDetail.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\AnimeComment.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\UpdateComment.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\AnımeCommentDetaıl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

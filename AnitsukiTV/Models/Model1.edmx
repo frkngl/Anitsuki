@@ -57,7 +57,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="USERID" Type="int" />
           <Property Name="ANIMEID" Type="int" />
-          <Property Name="COMMENT" Type="nvarchar" MaxLength="500" />
+          <Property Name="COMMENT" Type="nvarchar" MaxLength="2000" />
           <Property Name="DATE" Type="datetime" />
           <Property Name="USTID" Type="int" />
           <Property Name="STATUS" Type="bit" />
@@ -104,7 +104,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="USERID" Type="int" />
           <Property Name="EPISODEID" Type="int" />
-          <Property Name="COMMENT" Type="nvarchar" MaxLength="500" />
+          <Property Name="COMMENT" Type="nvarchar" MaxLength="2000" />
           <Property Name="DATE" Type="datetime" />
           <Property Name="USTID" Type="int" />
           <Property Name="STATUS" Type="bit" />
@@ -645,7 +645,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="USERID" Type="Int32" />
           <Property Name="ANIMEID" Type="Int32" />
-          <Property Name="COMMENT" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="COMMENT" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="DATE" Type="DateTime" Precision="3" />
           <Property Name="USTID" Type="Int32" />
           <Property Name="STATUS" Type="Boolean" />
@@ -702,7 +702,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="USERID" Type="Int32" />
           <Property Name="EPISODEID" Type="Int32" />
-          <Property Name="COMMENT" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="COMMENT" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="DATE" Type="DateTime" Precision="3" />
           <Property Name="USTID" Type="Int32" />
           <Property Name="STATUS" Type="Boolean" />

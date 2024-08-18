@@ -52,7 +52,7 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="USERID" Type="int" />
     <Property Name="ANIMEID" Type="int" />
-    <Property Name="COMMENT" Type="nvarchar" MaxLength="500" />
+    <Property Name="COMMENT" Type="nvarchar" MaxLength="2000" />
     <Property Name="DATE" Type="datetime" />
     <Property Name="USTID" Type="int" />
     <Property Name="STATUS" Type="bit" />
@@ -99,7 +99,7 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="USERID" Type="int" />
     <Property Name="EPISODEID" Type="int" />
-    <Property Name="COMMENT" Type="nvarchar" MaxLength="500" />
+    <Property Name="COMMENT" Type="nvarchar" MaxLength="2000" />
     <Property Name="DATE" Type="datetime" />
     <Property Name="USTID" Type="int" />
     <Property Name="STATUS" Type="bit" />
