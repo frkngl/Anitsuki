@@ -209,6 +209,7 @@
     <Compile Include="Models\TBLWATCHLATER.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VideoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1032,7 +1033,7 @@
     <Content Include="Anitsuki\img\poster.png" />
     <Content Include="Anitsuki\img\postermobil.png" />
     <Content Include="Anitsuki\index.html" />
-    <Content Include="Anitsuki\js\main.js" />
+    <Content Include="Anitsuki\js\main1.js" />
     <Content Include="Anitsuki\js\splide.js" />
     <Content Include="Anitsuki\js\video.js" />
     <Content Include="Anitsuki\Login.html" />

@@ -12,12 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        @foreach (var ğ in Model.Episode)
-        {
-            @ğ.TBLANIME.ANIMENAME @ğ.TBLSEASON.SEASONNUMBER @ğ.EPINUMBER
-        }
-    </title>
+    <title>@Model.VideoInfo.AnimeTitle @Model.VideoInfo.SeasonNumber. Sezon @Model.VideoInfo.EpisodeNumber. Bölüm izle - Anitsuki</title>
     <!--İOS Cihazlarda fullscreen'i etkinleştirmek için işe yarayana HTML TAG'I-->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <!--FONT AWESOME-->
@@ -112,7 +107,7 @@
                 </span>
             </div>
             <video preload="metadata" class="main-video" playsinline>
-                @foreach (var x in Model.Episode)
+                @foreach (var x in Model.VideoInfo.Episode)
                 {
                     if (x.EP1 != null)
                     {
@@ -131,16 +126,12 @@
                         <source src="~/Videos/@x.EP4" size="1080" type="video/mp4">
                     }
                 }
-
-
-
-
             </video>
         </div>
         <div class="head">
             <div class="episodeandcomment">
                 <div class="episodetail">
-                    @foreach (var y in Model.Episode)
+                    @foreach (var y in Model.VideoInfo.Episode)
                     {
                         <img src="~/IMG/@y.BANNER">
                         <div class="detail">
@@ -216,13 +207,13 @@
             </div>
             <div class="nextandprevepisode">
                 @{
-                    if (Model.OncekiBolum != null && Model.OncekiBolum.Any())
+                    if (Model.VideoInfo.OncekiBolum != null && Model.VideoInfo.OncekiBolum.Any())
                     {
                         <div class="prev">
                             <div class="title">
                                 <i class="bi bi-arrow-left"></i> Önceki Bölüm
                             </div>
-                            @foreach (var episode in Model.OncekiBolum)
+                            @foreach (var episode in Model.VideoInfo.OncekiBolum)
                             {
                                 <a href="@Url.Action("Video", "AnimeDetail", new { id = episode.ID })">
                                     <div class="box">
@@ -255,14 +246,14 @@
                 }
 
                 @{
-                    if (Model.SonrakiBolum != null && Model.SonrakiBolum.Any())
+                    if (Model.VideoInfo.SonrakiBolum != null && Model.VideoInfo.SonrakiBolum.Any())
                     {
                         <div class="next">
                             <div class="title">
                                 Sonraki Bölüm
                                 <i class="bi bi-arrow-right"></i>
                             </div>
-                            @foreach (var episode in Model.SonrakiBolum)
+                            @foreach (var episode in Model.VideoInfo.SonrakiBolum)
                             {
                                 <a href="@Url.Action("Video", "AnimeDetail", new { id = episode.ID })">
                                     <div class="box">
@@ -352,6 +343,7 @@
 <!--SPLIDE JS-->
 <script src="~/Anitsuki/node_modules/splidejs/splide/dist/js/splide.min.js"></script>
 <!--JS-->
+<script src="~/Anitsuki/js/main1.js"></script>
 <script src="~/Anitsuki/js/video.js"></script>
 <script src="~/Anitsuki/js/splide.js"></script>
 

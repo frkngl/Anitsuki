@@ -17,12 +17,15 @@ namespace AnitsukiTV.Controllers
         // GET: AnimeDetail
         public ActionResult Index(int? id, int? sezonID)
         {
+            var degerler2 = db.TBLANIME.FirstOrDefault(x => x.ID == id);
+            ViewBag.anime = degerler2?.ANIMENAME;
+
             var degerler = db.TBLSEASON.FirstOrDefault(x => x.SEASONNUMBER == id);
             veri.Anime = db.TBLANIME.Where(x => x.ID == id).ToList();
             veri.Season = db.TBLSEASON.Where(x => x.ANIMEID == id).ToList();
             int sezonIDValue = sezonID.HasValue ? sezonID.Value : veri.Season.FirstOrDefault()?.ID ?? 0;
             veri.Episode = db.TBLEPISODE.Where(x => x.SEASONID == sezonIDValue).ToList();
-
+            
             var selectedSeason = db.TBLSEASON.FirstOrDefault(x => x.ID == sezonIDValue);
             ViewBag.Season = selectedSeason?.SEASONNAME ?? $"{selectedSeason?.SEASONNUMBER} Sezon";
 
@@ -191,34 +194,52 @@ namespace AnitsukiTV.Controllers
             }
         }
 
-
-
-
-
-
-
-
         public ActionResult Video(int id)
         {
             veri.Episode = db.TBLEPISODE.Where(x => x.ID == id && x.STATUS == true).ToList();
             int animeId = veri.Episode.FirstOrDefault()?.TBLANIME?.ID ?? 0;
             int sezonNumarası = veri.Episode.FirstOrDefault()?.TBLSEASON?.SEASONNUMBER ?? 0;
-            int oncekiBolumId = db.TBLEPISODE.Where(x => x.TBLANIME.ID == animeId && x.TBLSEASON.SEASONNUMBER == sezonNumarası && x.ID < id) .OrderByDescending(x => x.ID).FirstOrDefault()?.ID ?? 0;
+            int oncekiBolumId = db.TBLEPISODE.Where(x => x.TBLANIME.ID == animeId && x.TBLSEASON.SEASONNUMBER == sezonNumarası && x.ID < id).OrderByDescending(x => x.ID).FirstOrDefault()?.ID ?? 0;
             if (oncekiBolumId == 0)
             {
                 int oncekiSezonNumarası = sezonNumarası - 1;
-                oncekiBolumId = db.TBLEPISODE .Where(x => x.TBLANIME.ID == animeId && x.TBLSEASON.SEASONNUMBER == oncekiSezonNumarası).OrderByDescending(x => x.ID).FirstOrDefault()?.ID ?? 0;
+                oncekiBolumId = db.TBLEPISODE.Where(x => x.TBLANIME.ID == animeId && x.TBLSEASON.SEASONNUMBER == oncekiSezonNumarası).OrderByDescending(x => x.ID).FirstOrDefault()?.ID ?? 0;
             }
             veri.OncekiBolum = db.TBLEPISODE.Where(x => x.ID == oncekiBolumId).ToList();
-            int sonrakiBolumId = db.TBLEPISODE .Where(x => x.TBLANIME.ID == animeId && x.TBLSEASON.SEASONNUMBER == sezonNumarası && x.ID > id) .OrderBy(x => x.ID).FirstOrDefault()?.ID ?? 0;
+            int sonrakiBolumId = db.TBLEPISODE.Where(x => x.TBLANIME.ID == animeId && x.TBLSEASON.SEASONNUMBER == sezonNumarası && x.ID > id).OrderBy(x => x.ID).FirstOrDefault()?.ID ?? 0;
             if (sonrakiBolumId == 0)
             {
                 int sonrakiSezonNumarası = sezonNumarası + 1;
-                sonrakiBolumId = db.TBLEPISODE.Where(x => x.TBLANIME.ID == animeId && x.TBLSEASON.SEASONNUMBER == sonrakiSezonNumarası).OrderBy(x => x.ID) .FirstOrDefault()?.ID ?? 0;
+                sonrakiBolumId = db.TBLEPISODE.Where(x => x.TBLANIME.ID == animeId && x.TBLSEASON.SEASONNUMBER == sonrakiSezonNumarası).OrderBy(x => x.ID).FirstOrDefault()?.ID ?? 0;
             }
             veri.SonrakiBolum = db.TBLEPISODE.Where(x => x.ID == sonrakiBolumId).ToList();
-            return View(veri);
+
+            var tabeList = new TabeList
+            {
+                // ... existing properties ...
+                VideoInfo = new VideoViewModel
+                {
+                    Episode = veri.Episode,
+                    AnimeTitle = veri.Episode.FirstOrDefault()?.TBLANIME?.ANIMENAME,
+                    SeasonNumber = veri.Episode.FirstOrDefault()?.TBLSEASON?.SEASONNUMBER ?? 0,
+                    EpisodeNumber = int.Parse(veri.Episode.FirstOrDefault()?.EPINUMBER ?? "0"),
+                    OncekiBolum = veri.OncekiBolum,
+                    SonrakiBolum = veri.SonrakiBolum
+                }
+            };
+
+            return View(tabeList);
         }
+
+
+
+
+
+
+
+
+
+
 
         public PartialViewResult Comments1(int id)
         {
