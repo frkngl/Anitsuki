@@ -20,9 +20,9 @@
                         </div>
                     </div>
                 </nav>
-                <h4 class="card-title"><a class="btn btn-primary" href="/LanetlerKralıAdmin/AddEpisode">Anime Ekle</a></h4>
+                <h4 class="card-title"><a class="btn btn-primary" href="/LanetlerKralıAdmin/AddEpisode">Bölüm Ekle</a></h4>
                 <p class="card-description">
-                    Animeler
+                    Bölümler
                 </p>
                 <table class="table">
                     <thead>
@@ -35,7 +35,10 @@
                             <th>BOLUM ADI</th>
                             <th>Guncelle</th>
                             <th>Durum</th>
-                            <th>Sil</th>
+                            @if (Session["role"].Equals(1))
+                            {
+                                <th>Sil</th>
+                            }
                             <th>Detay</th>
                         </tr>
                     </thead>
@@ -44,7 +47,7 @@
                         {
                             <tr>
                                 <td>@x.ID</td>
-                                <td><img style="width:100px; height:100px; object-fit:cover;" src="~/IMG/@x.BANNER" /></td>
+                                <td><img style="width:150px; height:100px; object-fit:cover; border-radius:0%;" src="~/IMG/@x.BANNER" /></td>
                                 <td>@x.TBLANIME.ANIMENAME</td>
                                 <td>
                                     @if (x.TBLSEASON.SEASONNAME != null)
@@ -73,7 +76,10 @@
                                         <a href="/LanetlerKralıAdmin/ActivePassive4/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
                                     }
                                 </td>
-                                <td>@Html.ActionLink("Sil", "Deleteeee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Bölümü silmek istediğinize emin misiniz?');" })</td>
+                                @if (Session["role"].Equals(1))
+                                {
+                                    <td>@Html.ActionLink("Sil", "Deleteeee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Bölümü silmek istediğinize emin misiniz?');" })</td>
+                                }
                                 <td><a style="color:#ffffff;" href="/LanetlerKralıAdmin/EpisodeDetail/@x.ID" class="btn btn-light">Detay</a></td>
                             </tr>
                         }

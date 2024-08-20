@@ -11,6 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Anitsuki - Türkçe Altyazılı Anime İzle</title>
     <meta name="description" content="anime izle,en popüler ücretsiz olarak anitsuki.com'da izleyin" />
     <meta name="language" content="Turkish" />
@@ -18,8 +19,15 @@
     <meta name="location" content="türkiye, tr, turkey" />
     <meta name="robots" content="noarchive" />
     <meta name="apple-mobile-web-app-title" content="anitsuki">
-    <!--İOS Cihazlarda fullscreen'i etkinleştirmek için işe yarayana HTML TAG'I-->
+    <meta name="theme-color" content="#000000" />
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta property="og:title" content="anitsuki - anime izle" />
+    <meta property="og:url" content="https://anitsuki.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="anime izle,en popüler ücretsiz olarak anitsuki.com'da izleyin" />
+    <meta name="robots" content="max-image-preview:large" />
     <!--FONT AWESOME-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
@@ -96,7 +104,7 @@
     <!----------------------------------------------------SWIPER START---------------------------------------------------->
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
-            @foreach (var ğ in Model.Anime.Where(x=>x.ADMINSTATUS == true))
+            @foreach (var ğ in Model.Anime.Where(x => x.ADMINSTATUS == true))
             {
                 <div class="swiper-slide">
                     <img src="~/IMG/@ğ.BIGBANNER">
@@ -104,7 +112,7 @@
                         <div class="title">
                             @ğ.ANIMENAME
                         </div>
-                        <div class="des">
+                        <div style="overflow-wrap: break-word; overflow: auto; white-space: normal;" class="des">
                             @ğ.DETAIL
                         </div>
                         <a class="btn" href="/AnimeDetail/Index/@ğ.ID"><i class="fa-solid fa-play"></i></a>
@@ -142,17 +150,10 @@
                                     <video class="video" src="~/Videos/@l.TBLANIME.EDIT" playsinline></video>
                                 </div>
                                 <div class="text">
-                                    <div class="title">
-                                        @if (l.TBLANIME.ANIMENAME.Length < 3)
-                                        {
-                                            @l.TBLANIME.ANIMENAME
-                                        }
-                                        else
-                                        {
-                                            @l.TBLANIME.ANIMENAME.Substring(0, 5)
-                                        }
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @l.TBLANIME.ANIMENAME
                                     </div>
-                                    <div class="season">
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
                                         S.@l.TBLSEASON.SEASONNUMBER B.@l.EPINUMBER
                                     </div>
                                 </div>
@@ -169,7 +170,7 @@
                 <i class="bi bi-patch-plus"></i> Yeni Gelen Animeler
             </div>
         </div>
-        <div class="splide" id="splide11">
+        <div class="splide" id="splide2">
             <div class="splide__track">
                 <ul class="splide__list">
                     @foreach (var l in Model.Anime.Where(l => l.STATUS == true).OrderByDescending(l => l.ID).Take(12))
@@ -181,17 +182,10 @@
                                     <video class="video" src="~/Videos/@l.EDIT" playsinline></video>
                                 </div>
                                 <div class="text">
-                                    <div class="title">
-                                        @if (l.ANIMENAME.Length < 3)
-                                        {
-                                            @l.ANIMENAME
-                                        }
-                                        else
-                                        {
-                                            @l.ANIMENAME.Substring(0, 5)
-                                        }
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @l.ANIMENAME
                                     </div>
-                                    <div class="season">
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
                                         @l.DATE.Value.ToString("yyyy")
                                     </div>
                                 </div>
@@ -208,7 +202,7 @@
                 <i class="bi bi-award"></i> IMDb Top 12 Animeler
             </div>
         </div>
-        <div class="splide" id="splide10">
+        <div class="splide" id="splide3">
             <div class="splide__track">
                 <ul class="splide__list">
                     @foreach (var l in Model.Anime.Where(l => l.STATUS == true).OrderByDescending(l => l.IMDB).Take(12))
@@ -220,17 +214,10 @@
                                     <video class="video" src="~/Videos/@l.EDIT" playsinline></video>
                                 </div>
                                 <div class="text">
-                                    <div class="title">
-                                        @if (l.ANIMENAME.Length < 3)
-                                        {
-                                            @l.ANIMENAME
-                                        }
-                                        else
-                                        {
-                                            @l.ANIMENAME.Substring(0, 5)
-                                        }
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @l.ANIMENAME
                                     </div>
-                                    <div class="season">
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
                                         @l.IMDB
                                     </div>
                                 </div>
@@ -253,7 +240,7 @@
                 }
             </div>
         </div>
-        <div class="splide" id="splide2">
+        <div class="splide" id="splide4">
             <div class="splide__track">
                 <ul class="splide__list">
                     @foreach (var x in Model.Anime.Where(i => i.CATEGORYID == 1 && i.STATUS == true).OrderBy(x => Guid.NewGuid()).Take(12))
@@ -265,17 +252,10 @@
                                     <video class="video" src="~/Videos/@x.EDIT" playsinline></video>
                                 </div>
                                 <div class="text">
-                                    <div class="title">
-                                        @if (x.ANIMENAME.Length < 3)
-                                        {
-                                            @x.ANIMENAME
-                                        }
-                                        else
-                                        {
-                                            @x.ANIMENAME.Substring(0, 5)
-                                        }
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @x.ANIMENAME
                                     </div>
-                                    <div class="season">
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
                                         @x.DATE.Value.ToString("yyyy")
                                     </div>
                                 </div>
@@ -290,7 +270,7 @@
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
-                <i class="fa-solid fa-list"></i> Ecchi Animeler
+                <i class="fa-solid fa-list"></i> Seinen Animeler
             </div>
             <div class="all">
                 @foreach (var f in Model.Category.Where(i => i.ID == 2))
@@ -299,7 +279,7 @@
                 }
             </div>
         </div>
-        <div class="splide" id="splide3">
+        <div class="splide" id="splide5">
             <div class="splide__track">
                 <ul class="splide__list">
                     @foreach (var y in Model.Anime.Where(i => i.CATEGORYID == 2 && i.STATUS == true).OrderBy(y => Guid.NewGuid()).Take(12))
@@ -311,18 +291,87 @@
                                     <video class="video" src="~/Videos/@y.EDIT" playsinline></video>
                                 </div>
                                 <div class="text">
-                                    <div class="title">
-                                        @if (y.ANIMENAME.Length < 5)
-                                        {
-                                            @y.ANIMENAME
-                                        }
-                                        else
-                                        {
-                                            @y.ANIMENAME.Substring(0, 5)
-                                        }
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @y.ANIMENAME
                                     </div>
-                                    <div class="season">
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
                                         @y.DATE.Value.ToString("yyyy")
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="category1" id="category2">
+        <div class="text">
+            <div class="title">
+                <i class="fa-solid fa-list"></i> Shoujo Animeler
+            </div>
+            <div class="all">
+                @foreach (var f in Model.Category.Where(i => i.ID == 3))
+                {
+                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
+                }
+            </div>
+        </div>
+        <div class="splide" id="splide6">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    @foreach (var z in Model.Anime.Where(i => i.CATEGORYID == 3 && i.STATUS == true).OrderBy(z => Guid.NewGuid()).Take(12))
+                    {
+                        <li class="splide__slide">
+                            <a href="/AnimeDetail/Index/@z.ID">
+                                <div class="videoimg">
+                                    <img src="~/IMG/@z.BANNER">
+                                    <video class="video" src="~/Videos/@z.EDIT" playsinline></video>
+                                </div>
+                                <div class="text">
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @z.ANIMENAME
+                                    </div>
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
+                                        @z.DATE.Value.ToString("yyyy")
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="category1" id="category2">
+        <div class="text">
+            <div class="title">
+                <i class="fa-solid fa-list"></i> Josei Animeler
+            </div>
+            <div class="all">
+                @foreach (var f in Model.Category.Where(i => i.ID == 4))
+                {
+                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
+                }
+            </div>
+        </div>
+        <div class="splide" id="splide7">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    @foreach (var q in Model.Anime.Where(i => i.CATEGORYID == 4 && i.STATUS == true).OrderBy(q => Guid.NewGuid()).Take(12))
+                    {
+                        <li class="splide__slide">
+                            <a href="/AnimeDetail/Index/@q.ID">
+                                <div class="videoimg">
+                                    <img src="~/IMG/@q.BANNER">
+                                    <video class="video" src="~/Videos/@q.EDIT" playsinline></video>
+                                </div>
+                                <div class="text">
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @q.ANIMENAME
+                                    </div>
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
+                                        @q.DATE.Value.ToString("yyyy")
                                     </div>
                                 </div>
                             </a>
@@ -338,36 +387,219 @@
                 <i class="fa-solid fa-list"></i> Isekai Animeler
             </div>
             <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 3))
+                @foreach (var f in Model.Category.Where(i => i.ID == 5))
                 {
                     <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
                 }
             </div>
         </div>
-        <div class="splide" id="splide4">
+        <div class="splide" id="splide8">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var z in Model.Anime.Where(i => i.CATEGORYID == 3 && i.STATUS == true).OrderBy(z => Guid.NewGuid()).Take(12))
+                    @foreach (var w in Model.Anime.Where(i => i.CATEGORYID == 5 && i.STATUS == true).OrderBy(w => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@z.ID">
+                            <a href="/AnimeDetail/Index/@w.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@z.BANNER">
-                                    <video class="video" src="~/Videos/@z.EDIT" playsinline></video>
+                                    <img src="~/IMG/@w.BANNER">
+                                    <video class="video" src="~/Videos/@w.EDIT" playsinline></video>
                                 </div>
                                 <div class="text">
-                                    <div class="title">
-                                        @if (z.ANIMENAME.Length < 5)
-                                        {
-                                            @z.ANIMENAME
-                                        }
-                                        else
-                                        {
-                                            @z.ANIMENAME.Substring(0, 5)
-                                        }
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @w.ANIMENAME
                                     </div>
-                                    <div class="season">
-                                        @z.DATE.Value.ToString("yyyy")
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
+                                        @w.DATE.Value.ToString("yyyy")
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="category1" id="category2">
+        <div class="text">
+            <div class="title">
+                <i class="fa-solid fa-list"></i> Demantia Animeler
+            </div>
+            <div class="all">
+                @foreach (var f in Model.Category.Where(i => i.ID == 6))
+                {
+                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
+                }
+            </div>
+        </div>
+        <div class="splide" id="splide9">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    @foreach (var e in Model.Anime.Where(i => i.CATEGORYID == 6 && i.STATUS == true).OrderBy(e => Guid.NewGuid()).Take(12))
+                    {
+                        <li class="splide__slide">
+                            <a href="/AnimeDetail/Index/@e.ID">
+                                <div class="videoimg">
+                                    <img src="~/IMG/@e.BANNER">
+                                    <video class="video" src="~/Videos/@e.EDIT" playsinline></video>
+                                </div>
+                                <div class="text">
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @e.ANIMENAME
+                                    </div>
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
+                                        @e.DATE.Value.ToString("yyyy")
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="category1" id="category2">
+        <div class="text">
+            <div class="title">
+                <i class="fa-solid fa-list"></i> Mecha  Animeler
+            </div>
+            <div class="all">
+                @foreach (var f in Model.Category.Where(i => i.ID == 7))
+                {
+                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
+                }
+            </div>
+        </div>
+        <div class="splide" id="splide10">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    @foreach (var r in Model.Anime.Where(i => i.CATEGORYID == 7 && i.STATUS == true).OrderBy(r => Guid.NewGuid()).Take(12))
+                    {
+                        <li class="splide__slide">
+                            <a href="/AnimeDetail/Index/@r.ID">
+                                <div class="videoimg">
+                                    <img src="~/IMG/@r.BANNER">
+                                    <video class="video" src="~/Videos/@r.EDIT" playsinline></video>
+                                </div>
+                                <div class="text">
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @r.ANIMENAME
+                                    </div>
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
+                                        @r.DATE.Value.ToString("yyyy")
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="category1" id="category2">
+        <div class="text">
+            <div class="title">
+                <i class="fa-solid fa-list"></i> Ecchi Animeler
+            </div>
+            <div class="all">
+                @foreach (var f in Model.Category.Where(i => i.ID == 8))
+                {
+                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
+                }
+            </div>
+        </div>
+        <div class="splide" id="splide11">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 8 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
+                    {
+                        <li class="splide__slide">
+                            <a href="/AnimeDetail/Index/@t.ID">
+                                <div class="videoimg">
+                                    <img src="~/IMG/@t.BANNER">
+                                    <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                </div>
+                                <div class="text">
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @t.ANIMENAME
+                                    </div>
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
+                                        @t.DATE.Value.ToString("yyyy")
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="category1" id="category2">
+        <div class="text">
+            <div class="title">
+                <i class="fa-solid fa-list"></i> Gore Animeler
+            </div>
+            <div class="all">
+                @foreach (var f in Model.Category.Where(i => i.ID == 9))
+                {
+                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
+                }
+            </div>
+        </div>
+        <div class="splide" id="splide12">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 9 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
+                    {
+                        <li class="splide__slide">
+                            <a href="/AnimeDetail/Index/@t.ID">
+                                <div class="videoimg">
+                                    <img src="~/IMG/@t.BANNER">
+                                    <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                </div>
+                                <div class="text">
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @t.ANIMENAME
+                                    </div>
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
+                                        @t.DATE.Value.ToString("yyyy")
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="category1" id="category2">
+        <div class="text">
+            <div class="title">
+                <i class="fa-solid fa-list"></i> CGDCT Animeler
+            </div>
+            <div class="all">
+                @foreach (var f in Model.Category.Where(i => i.ID == 10))
+                {
+                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
+                }
+            </div>
+        </div>
+        <div class="splide" id="splide13">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 10 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
+                    {
+                        <li class="splide__slide">
+                            <a href="/AnimeDetail/Index/@t.ID">
+                                <div class="videoimg">
+                                    <img src="~/IMG/@t.BANNER">
+                                    <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                </div>
+                                <div class="text">
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @t.ANIMENAME
+                                    </div>
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
+                                        @t.DATE.Value.ToString("yyyy")
                                     </div>
                                 </div>
                             </a>
@@ -383,196 +615,16 @@
                 <i class="fa-solid fa-list"></i> Slice of Life Animeler
             </div>
             <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 4))
+                @foreach (var f in Model.Category.Where(i => i.ID == 11))
                 {
                     <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
                 }
             </div>
         </div>
-        <div class="splide" id="splide5">
+        <div class="splide" id="splide14">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var q in Model.Anime.Where(i => i.CATEGORYID == 4 && i.STATUS == true).OrderBy(q => Guid.NewGuid()).Take(12))
-                    {
-                        <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@q.ID">
-                                <div class="videoimg">
-                                    <img src="~/IMG/@q.BANNER">
-                                    <video class="video" src="~/Videos/@q.EDIT" playsinline></video>
-                                </div>
-                                <div class="text">
-                                    <div class="title">
-                                        @if (q.ANIMENAME.Length < 5)
-                                        {
-                                            @q.ANIMENAME
-                                        }
-                                        else
-                                        {
-                                            @q.ANIMENAME.Substring(0, 5)
-                                        }
-                                    </div>
-                                    <div class="season">
-                                        @q.DATE.Value.ToString("yyyy")
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="category1" id="category2">
-        <div class="text">
-            <div class="title">
-                <i class="fa-solid fa-list"></i> Mecha Animeler
-            </div>
-            <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 5))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
-            </div>
-        </div>
-        <div class="splide" id="splide6">
-            <div class="splide__track">
-                <ul class="splide__list">
-                    @foreach (var w in Model.Anime.Where(i => i.CATEGORYID == 5 && i.STATUS == true).OrderBy(w => Guid.NewGuid()).Take(12))
-                    {
-                        <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@w.ID">
-                                <div class="videoimg">
-                                    <img src="~/IMG/@w.BANNER">
-                                    <video class="video" src="~/Videos/@w.EDIT" playsinline></video>
-                                </div>
-                                <div class="text">
-                                    <div class="title">
-                                        @if (w.ANIMENAME.Length < 5)
-                                        {
-                                            @w.ANIMENAME
-                                        }
-                                        else
-                                        {
-                                            @w.ANIMENAME.Substring(0, 5)
-                                        }
-                                    </div>
-                                    <div class="season">
-                                        @w.DATE.Value.ToString("yyyy")
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="category1" id="category2">
-        <div class="text">
-            <div class="title">
-                <i class="fa-solid fa-list"></i> Shoujo  Animeler
-            </div>
-            <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 6))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
-            </div>
-        </div>
-        <div class="splide" id="splide7">
-            <div class="splide__track">
-                <ul class="splide__list">
-                    @foreach (var e in Model.Anime.Where(i => i.CATEGORYID == 6 && i.STATUS == true).OrderBy(e => Guid.NewGuid()).Take(12))
-                    {
-                        <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@e.ID">
-                                <div class="videoimg">
-                                    <img src="~/IMG/@e.BANNER">
-                                    <video class="video" src="~/Videos/@e.EDIT" playsinline></video>
-                                </div>
-                                <div class="text">
-                                    <div class="title">
-                                        @if (e.ANIMENAME.Length < 5)
-                                        {
-                                            @e.ANIMENAME
-                                        }
-                                        else
-                                        {
-                                            @e.ANIMENAME.Substring(0, 5)
-                                        }
-                                    </div>
-                                    <div class="season">
-                                        @e.DATE.Value.ToString("yyyy")
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="category1" id="category2">
-        <div class="text">
-            <div class="title">
-                <i class="fa-solid fa-list"></i> Harem  Animeler
-            </div>
-            <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 7))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
-            </div>
-        </div>
-        <div class="splide" id="splide8">
-            <div class="splide__track">
-                <ul class="splide__list">
-                    @foreach (var r in Model.Anime.Where(i => i.CATEGORYID == 7 && i.STATUS == true).OrderBy(r => Guid.NewGuid()).Take(12))
-                    {
-                        <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@r.ID">
-                                <div class="videoimg">
-                                    <img src="~/IMG/@r.BANNER">
-                                    <video class="video" src="~/Videos/@r.EDIT" playsinline></video>
-                                </div>
-                                <div class="text">
-                                    <div class="title">
-                                        @if (r.ANIMENAME.Length < 5)
-                                        {
-                                            @r.ANIMENAME
-                                        }
-                                        else
-                                        {
-                                            @r.ANIMENAME.Substring(0, 5)
-                                        }
-                                    </div>
-                                    <div class="season">
-                                        @r.DATE.Value.ToString("yyyy")
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="category1" id="category2">
-        <div class="text">
-            <div class="title">
-                <i class="fa-solid fa-list"></i> Seinen Animeler
-            </div>
-            <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 8))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
-            </div>
-        </div>
-        <div class="splide" id="splide9">
-            <div class="splide__track">
-                <ul class="splide__list">
-                    @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 8 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
+                    @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 11 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@t.ID">
@@ -581,17 +633,48 @@
                                     <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
                                 </div>
                                 <div class="text">
-                                    <div class="title">
-                                        @if (t.ANIMENAME.Length < 5)
-                                        {
-                                            @t.ANIMENAME
-                                        }
-                                        else
-                                        {
-                                            @t.ANIMENAME.Substring(0, 5)
-                                        }
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @t.ANIMENAME
                                     </div>
-                                    <div class="season">
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
+                                        @t.DATE.Value.ToString("yyyy")
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="category1" id="category2">
+        <div class="text">
+            <div class="title">
+                <i class="fa-solid fa-list"></i> Romantizm Animeler
+            </div>
+            <div class="all">
+                @foreach (var f in Model.Category.Where(i => i.ID == 12))
+                {
+                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
+                }
+            </div>
+        </div>
+        <div class="splide" id="splide15">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 12 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
+                    {
+                        <li class="splide__slide">
+                            <a href="/AnimeDetail/Index/@t.ID">
+                                <div class="videoimg">
+                                    <img src="~/IMG/@t.BANNER">
+                                    <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                </div>
+                                <div class="text">
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @t.ANIMENAME
+                                    </div>
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
                                         @t.DATE.Value.ToString("yyyy")
                                     </div>
                                 </div>

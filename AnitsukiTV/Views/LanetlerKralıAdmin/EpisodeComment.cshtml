@@ -20,7 +20,7 @@
                     </div>
                 </nav>
                 <p class="card-description">
-                    Kullanıcılar
+                    Anime Bölüm Yorumları
                 </p>
                 <table style="margin-top:50px;" class="table">
                     <thead>
@@ -32,7 +32,10 @@
                             <th>MESAJ</th>
                             <th>Güncelle</th>
                             <th>Durum</th>
-                            <th>Sil</th>
+                            @if (Session["role"].Equals(1))
+                            {
+                                <th>Sil</th>
+                            }
                             <th>Detay</th>
                         </tr>
                     </thead>
@@ -56,7 +59,10 @@
                                         <a href="/LanetlerKralıAdmin/ActivePassive7/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
                                     }
                                 </td>
-                                <td>@Html.ActionLink("Sil", "Deleteeeeeee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Yorumu silmek istediğinize emin misiniz?');" })</td>
+                                @if (Session["role"].Equals(1))
+                                {
+                                    <td>@Html.ActionLink("Sil", "Deleteeeeeee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Yorumu silmek istediğinize emin misiniz?');" })</td>
+                                }
                                 <td><a style="color:#ffffff;" href="/LanetlerKralıAdmin/EpisodeCommentDetaıl/@x.ID" class="btn btn-light">Detay</a></td>
                             </tr>
                         }

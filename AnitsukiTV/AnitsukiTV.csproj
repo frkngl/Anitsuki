@@ -3657,7 +3657,6 @@
     <Content Include="IMG\BlendS.png" />
     <Content Include="IMG\BlendS2.png" />
     <Content Include="IMG\chainsawman.png" />
-    <Content Include="IMG\ChaninsawMan2.png" />
     <Content Include="IMG\EyeOff.svg" />
     <Content Include="IMG\Eye.svg" />
     <Content Include="IMG\jujutsukaisen.png" />
@@ -3671,11 +3670,11 @@
     <Content Include="IMG\ShikanokoNokonokoKoshitantanMal.png" />
     <Content Include="IMG\shikanokonokonokokoshitantanmal2.png" />
     <Content Include="IMG\stockuser.png" />
-    <Content Include="IMG\sukuna.png" />
     <Content Include="IMG\TaktOp.png" />
     <Content Include="IMG\TaktOp2.png" />
     <Content Include="IMG\Wotakoi.png" />
     <Content Include="IMG\wotakoi2.png" />
+    <Content Include="IMG\LoginBackground.png" />
     <Content Include="Login\css\main.css" />
     <Content Include="Login\css\util.css" />
     <Content Include="Login\fonts\font-awesome-4.7.0\css\font-awesome.css" />

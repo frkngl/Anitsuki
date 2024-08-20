@@ -26,6 +26,8 @@ namespace AnitsukiTV.Controllers
             }
             int userID = (int)Session["id"];
             veri.User = db.TBLUSER?.Where(x => x.ID == userID)?.FirstOrDefault();
+            var degerler = db.TBLUSER?.Where(x => x.ID == userID)?.FirstOrDefault();
+            ViewBag.user = degerler.USERNAME;
             veri.Favorites = db.TBLFAVORITES.AsQueryable().Include(f => f.TBLANIME).Where(f => f.USERID == userID).ToList();
             veri.WatchLater = db.TBLWATCHLATER.AsQueryable().Include(f => f.TBLANIME).Where(f => f.USERID == userID).ToList();
             return View(veri);
@@ -69,8 +71,8 @@ namespace AnitsukiTV.Controllers
                 var path = Path.Combine(Server.MapPath("~/IMG/"), fileName);
 
                 WebImage Websize = new WebImage(UserImage.InputStream);
-                if (Websize.Width > 1000)
-                    Websize.Resize(800, 800);
+                if (Websize.Width > 250)
+                    Websize.Resize(250, 250);
                 Websize.Save(path);
                 TempData["UploadedImage"] = fileName;
                 UserUpdate.PICTURE = fileName;

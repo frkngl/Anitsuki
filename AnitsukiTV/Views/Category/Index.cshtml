@@ -11,9 +11,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Animeler - Anitsuki</title>
-    <!--İOS Cihazlarda fullscreen'i etkinleştirmek için işe yarayana HTML TAG'I-->
+    <meta name="description" content="Animeler, anime izle, türkanime, türk anime tv, tranimeizle, türkçe anime izle" />
+    <meta content="tr" http-equiv="Content-Language" />
+    <meta name="language" content="Turkish" />
+    <meta name="geo.placename" content="Turkey" />
+    <meta name="location" content="türkiye, tr, turkey" />
+    <meta name="robots" content="noarchive" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="anitsuki">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta property="og:title" content="Animeler - anitsuki" />
+    <meta property="og:url" content="https://anitsuki.com/Category/Index" />
+    <meta property="og:description" content="Animeler" />
+    <meta name="robots" content="max-image-preview:large" />
     <!--FONT AWESOME-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
@@ -112,7 +126,7 @@
             <div style="color:#ffffff; font-size:1.1rem; display:flex;align-items:center; justify-content:center;">
                 <i style="margin-right:5px;" class="bi bi-tv"></i> @Model.Anime.Where(x=>x.STATUS == true).Count()
             </div>
-        </div>  
+        </div>
         <ul id="menuFull">
             @foreach (var y in Model.Anime.Where(x=>x.STATUS == true))
             {
@@ -190,34 +204,35 @@
 </html>
 <!--JQUERY JS-->
 <script src="~/Anitsuki/node_modules/jquery/dist/jquery.min.js"></script>
-<!--BOOTSTRAP JS-->
-<script src="~/Anitsuki/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<!--SWIPER JS-->
-<script src="~/Anitsuki/node_modules/swiper/swiper-bundle.min.js"></script>
-<!--SPLIDE JS-->
-<script src="~/Anitsuki/node_modules/splidejs/splide/dist/js/splide.min.js"></script>
-<!--JS-->
-<script src="~/Anitsuki/js/main1.js"></script>
-<script src="~/Anitsuki/js/splide.js"></script>
+    <!--BOOTSTRAP JS-->
+    <script src="~/Anitsuki/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!--SWIPER JS-->
+    <script src="~/Anitsuki/node_modules/swiper/swiper-bundle.min.js"></script>
+    <!--SPLIDE JS-->
+    <script src="~/Anitsuki/node_modules/splidejs/splide/dist/js/splide.min.js"></script>
+    <!--JS-->
+    <script src="~/Anitsuki/js/main1.js"></script>
+    <script src="~/Anitsuki/js/splide.js"></script>
 
 
-<script>/*NAVBAR'DAKİ LİNK ACTİVE*/
-    document.querySelectorAll('nav a').forEach(link => {
-        link.classList.remove('active');
+    <script>
+    /*NAVBAR'DAKİ LİNK ACTİVE*/
+        document.querySelectorAll('nav a').forEach(link => {
+            link.classList.remove('active');
 
-        if (link.href === window.location.href) {
-            link.classList.add('active');
+            if (link.href === window.location.href) {
+                link.classList.add('active');
+            }
+        });
+        //Sayfa Yükleme Ekranı
+        window.addEventListener('load', loaderfunc);
+        function loaderfunc() {
+            document.getElementById('loader').style.display = 'none';
         }
-    });
-    //Sayfa Yükleme Ekranı
-    window.addEventListener('load', loaderfunc);
-    function loaderfunc() {
-        document.getElementById('loader').style.display = 'none';
-    }
-    //Sayfada Aşağı boşluk tuşuna bastığında inmemeye yarayana Kod
-    document.addEventListener('keydown', function (event) {
-        if (event.code === 'Space' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'INPUT') {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    });</script>
+        //Sayfada Aşağı boşluk tuşuna bastığında inmemeye yarayana Kod
+        document.addEventListener('keydown', function (event) {
+            if (event.code === 'Space' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'INPUT') {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        });</script>

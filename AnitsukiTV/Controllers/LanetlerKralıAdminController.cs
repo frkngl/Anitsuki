@@ -216,7 +216,7 @@ namespace AnitsukiTV.Controllers
 
                     if (rr.Width > 1000)
 
-                        rr.Resize(800, 800);
+                        rr.Resize(1000, 1000);
                     rr.Save(path);
 
                     TBLANIME anime = new TBLANIME();
@@ -233,7 +233,7 @@ namespace AnitsukiTV.Controllers
                     anime.BIGBANNER = Banner.FileName.ToString();
 
                     anime.CATEGORYID = add.CATEGORYID;
-                    anime.DATE = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                    anime.DATE = add.DATE;
 
                     string yol2 = Path.Combine("~/Videos/" + Video.FileName);
                     Video.SaveAs(Server.MapPath(yol2));
@@ -283,7 +283,7 @@ namespace AnitsukiTV.Controllers
                     {
                         WebImage rr = new WebImage(Image.InputStream);
                         if (rr.Width > 1000)
-                            rr.Resize(800, 800);
+                            rr.Resize(1000, 1000);
                         rr.Save(path);
                         updateanime1.BANNER = fileName;
                     }
@@ -352,6 +352,7 @@ namespace AnitsukiTV.Controllers
             updateanime1.DETAIL = update.DETAIL;
             updateanime1.TYPE = update.TYPE;
             updateanime1.IMDB = update.IMDB;
+            updateanime1.DATE = update.DATE;
 
             db.SaveChanges();
             TempData["success"] = "Success";
@@ -435,7 +436,7 @@ namespace AnitsukiTV.Controllers
             season.ANIMEID = add.ANIMEID;
             season.SEASONNUMBER = add.SEASONNUMBER;
             season.SEASONNAME = add.SEASONNAME;
-            season.STATUS = true;
+            season.STATUS = false;
             db.TBLSEASON.Add(season);
             db.SaveChanges();
             TempData["success"] = "Eklendi";
@@ -530,7 +531,7 @@ namespace AnitsukiTV.Controllers
 
                     if (rr.Width > 1000)
 
-                        rr.Resize(800, 800);
+                        rr.Resize(1000, 1000);
                     rr.Save(path);
 
                     TBLEPISODE episode = new TBLEPISODE();
@@ -617,7 +618,7 @@ namespace AnitsukiTV.Controllers
                     {
                         WebImage rr = new WebImage(Image.InputStream);
                         if (rr.Width > 1000)
-                            rr.Resize(800, 800);
+                            rr.Resize(1000, 1000);
                         rr.Save(path);
                         updateepisode.BANNER = fileName;
                     }

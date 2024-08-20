@@ -1,5 +1,5 @@
 ﻿@using AnitsukiTV.Models
-@model PagedList.IPagedList<TBLUSER> 
+@model PagedList.IPagedList<TBLUSER>
 @{
     ViewBag.Title = "Users";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -31,7 +31,10 @@
                             <th>TARIH</th>
                             <th>Güncelle</th>
                             <th>Durum</th>
-                            <th>Sil</th>
+                            @if (Session["role"].Equals(1))
+                            {
+                                <th>Sil</th>
+                            }
                             <th>Detay</th>
                         </tr>
                     </thead>
@@ -63,7 +66,10 @@
                                         <a href="/LanetlerKralıAdmin/ActivePassive5/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
                                     }
                                 </td>
-                                <td>@Html.ActionLink("Sil", "Deleteeeee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Kullanıcıyı silmek istediğinize emin misiniz?');" })</td>
+                                @if (Session["role"].Equals(1))
+                                {
+                                    <td>@Html.ActionLink("Sil", "Deleteeeee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Kullanıcıyı silmek istediğinize emin misiniz?');" })</td>
+                                }
                                 <td><a style="color:#ffffff;" href="/LanetlerKralıAdmin/UserDetail/@x.ID" class="btn btn-light">Detay</a></td>
                             </tr>
                         }

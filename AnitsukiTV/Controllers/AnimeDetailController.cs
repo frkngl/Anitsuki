@@ -194,6 +194,9 @@ namespace AnitsukiTV.Controllers
             }
         }
 
+
+
+
         public ActionResult Video(int id)
         {
             veri.Episode = db.TBLEPISODE.Where(x => x.ID == id && x.STATUS == true).ToList();
@@ -230,16 +233,6 @@ namespace AnitsukiTV.Controllers
 
             return View(tabeList);
         }
-
-
-
-
-
-
-
-
-
-
 
         public PartialViewResult Comments1(int id)
         {

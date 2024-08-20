@@ -32,8 +32,14 @@
                             <th>TARIH</th>
                             <th>Güncelle</th>
                             <th>Durum</th>
-                            <th>Sil</th>
-                            <th>Slider</th>
+                            @if (Session["role"].Equals(1))
+                            {
+                                <th>Sil</th>
+                            }
+                            @if (Session["role"].Equals(1))
+                            {
+                                <th>Slider</th>
+                            }
                             <th>Detay</th>
                         </tr>
                     </thead>
@@ -42,9 +48,9 @@
                         {
                             <tr>
                                 <td>@x.ID</td>
-                                <td><img style="width:100px; height:100px; object-fit:cover;" src="~/IMG/@x.BANNER" /></td>
+                                <td><img style="width:100px; height:150px; border-radius:0%; object-fit:cover;" src="~/IMG/@x.BANNER" /></td>
                                 <td>@x.ANIMENAME</td>
-                                <td>@x.DATE.Value.ToString("dd.MM.yyyy")</td>
+                                <td>@x.DATE.Value.ToString("yyyy")</td>
                                 <td><a class="btn btn-warning" href="/LanetlerKralıAdmin/UpdateAnime/@x.ID">Güncelle</a></td>
                                 <td>
                                     @if (x.STATUS == true)
@@ -56,17 +62,23 @@
                                         <a href="/LanetlerKralıAdmin/ActivePassive1/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
                                     }
                                 </td>
-                                <td>@Html.ActionLink("Sil", "Deletee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Animeyi silmek istediğinize emin misiniz?');" })</td>
-                                <td>
-                                    @if (x.ADMINSTATUS == true)
-                                    {
-                                        <a href="/LanetlerKralıAdmin/ActivePassive2/@x.ID" class="btn btn-success btn-sm">Aktif</a>
-                                    }
-                                    else
-                                    {
-                                        <a href="/LanetlerKralıAdmin/ActivePassive2/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
-                                    }
-                                </td>
+                                @if (Session["role"].Equals(1))
+                                {
+                                    <td>@Html.ActionLink("Sil", "Deletee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Animeyi silmek istediğinize emin misiniz?');" })</td>
+                                }
+                                @if (Session["role"].Equals(1))
+                                {
+                                    <td>
+                                        @if (x.ADMINSTATUS == true)
+                                        {
+                                            <a href="/LanetlerKralıAdmin/ActivePassive2/@x.ID" class="btn btn-success btn-sm">Aktif</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="/LanetlerKralıAdmin/ActivePassive2/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
+                                        }
+                                    </td>
+                                }
                                 <td><a style="color:#ffffff;" href="/LanetlerKralıAdmin/AnimeDetail/@x.ID" class="btn btn-light">Detay</a></td>
                             </tr>
                         }

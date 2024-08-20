@@ -43,30 +43,15 @@
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                             <div class="nav-profile-img">
-                                <img src="~/Admin/assets/images/faces/face28.png" alt="image">
+                                <img style="object-fit:cover;" src="~/Anitsuki/img/aylogo.png" alt="image">
                             </div>
                             <div class="nav-profile-text">
-                                <p class="mb-1 text-black">Admin</p>
+                                <p class="mb-1 text-black">@Session["username"]</p>
                             </div>
                         </a>
                         <div class="dropdown-menu navbar-dropdown dropdown-menu-right p-0 border-0 font-size-sm" aria-labelledby="profileDropdown" data-x-placement="bottom-end">
-                            <div class="p-3 text-center bg-primary">
-                                <img class="img-avatar img-avatar48 img-avatar-thumb" src="assets/images/faces/face28.png" alt="">
-                            </div>
+                            
                             <div class="p-2">
-                                <h5 class="dropdown-header text-uppercase pl-2 text-dark">Kullanıcı Ayrları</h5>
-
-                                <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="#">
-                                    <span>Profil</span>
-                                    <span class="p-0">
-                                        <span class="badge badge-success">1</span>
-                                        <i class="mdi mdi-account-outline ml-1"></i>
-                                    </span>
-                                </a>
-                                <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                                    <span>Ayarlar</span>
-                                    <i class="mdi mdi-settings"></i>
-                                </a>
                                 <div role="separator" class="dropdown-divider"></div>
                                 <h5 class="dropdown-header text-uppercase  pl-2 text-dark mt-2">İşlemler</h5>
                                 <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="/LoginSignIn/LockOut">
@@ -184,12 +169,6 @@
                         else if (role == 3)
                         {
                             <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/Category">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Kategori</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="/LanetlerKralıAdmin/Anime">
                                     <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
                                     <span class="menu-title">Anime</span>
@@ -209,15 +188,6 @@
                             </li>
                         }
                     }
-
-                    <li class="nav-item sidebar-user-actions">
-                        <div class="sidebar-user-menu">
-                            <a href="#" class="nav-link">
-                                <i class="mdi mdi-settings menu-icon"></i>
-                                <span class="menu-title">Ayarlar</span>
-                            </a>
-                        </div>
-                    </li>
 
                     <li class="nav-item sidebar-user-actions">
                         <div class="sidebar-user-menu">
