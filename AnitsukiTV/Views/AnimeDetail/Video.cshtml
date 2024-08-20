@@ -64,7 +64,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="logo col-2">
-                    <a href="/Home/Index"><img src="~/Anitsuki/img/logo.png"><img class="logomobile" src="~/Anitsuki/img/aylogo.png"></a>
+                    <a href="/Home/Index"><img src="~/Anitsuki/img/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/Anitsuki/img/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
                 </div>
 
                 <input style="display: none;" type="checkbox" id="check">
@@ -115,8 +115,8 @@
     <div class="content">
         <div class="videoplayer" tabindex="0">
             <div class="postervideo">
-                <img class="poster" src="~/Anitsuki/img/poster.png" />
-                <img class="postermobil" src="~/Anitsuki/img/postermobil.png">
+                <img class="poster" src="~/Anitsuki/img/poster.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"/>
+                <img class="postermobil" src="~/Anitsuki/img/postermobil.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                 <span class="material-symbols-outlined posterbtn">
                     play_circle
                 </span>
@@ -148,7 +148,7 @@
                 <div class="episodetail">
                     @foreach (var y in Model.VideoInfo.Episode)
                     {
-                        <img src="~/IMG/@y.BANNER">
+                        <img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                         <div class="detail">
                             <div class="title">
                                 <a href="/AnimeDetail/Index/@y.ANIMEID">@y.TBLANIME.ANIMENAME </a>
@@ -232,7 +232,7 @@
                             {
                                 <a href="@Url.Action("Video", "AnimeDetail", new { id = episode.ID })">
                                     <div class="box">
-                                        <img src="~/IMG/@episode.BANNER">
+                                        <img src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                                         <div class="animedetail">
                                             <div class="episodename">
                                                 <span>S.@episode.TBLSEASON.SEASONNUMBER</span> -
@@ -272,7 +272,7 @@
                             {
                                 <a href="@Url.Action("Video", "AnimeDetail", new { id = episode.ID })">
                                     <div class="box">
-                                        <img src="~/IMG/@episode.BANNER">
+                                        <img src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                                         <div class="animedetail">
                                             <div class="episodename">
                                                 <span>S.@episode.TBLSEASON.SEASONNUMBER</span> -
@@ -339,7 +339,7 @@
             </div>
         </div>
         <div class="copyright ">
-            <img src="~/Anitsuki/img/aylogo.png">
+            <img src="~/Anitsuki/img/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
             <div class="text">
                 Copyright © Anitsuki 2024. Tüm hakları saklıdır.
             </div>

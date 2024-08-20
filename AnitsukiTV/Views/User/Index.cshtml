@@ -56,7 +56,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="logo col-2">
-                    <a href="/Home/Index"><img src="~/Anitsuki/img/logo.png"><img class="logomobile" src="~/Anitsuki/img/aylogo.png"></a>
+                    <a href="/Home/Index"><img src="~/Anitsuki/img/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/Anitsuki/img/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
                 </div>
 
                 <input style="display: none;" type="checkbox" id="check">
@@ -105,7 +105,7 @@
                 <div class="title">
                     <i class="bi bi-info-circle"></i> Hakkımda
                 </div>
-                <div class="des">
+                <div style="overflow-wrap: break-word; overflow: auto; white-space: normal;" class="des">
                     @if (Model.User.ABOUT == null)
                     {
                         <h6>Kullanıcı hakkında daha bilgi paylaşmamış</h6>
@@ -140,7 +140,7 @@
                                 <a href="/AnimeDetail/Index/@s.ANIMEID">
                                     <div class="box">
                                         <div class="img">
-                                            <img src="~/IMG/@s.TBLANIME.BANNER">
+                                            <img src="~/IMG/@s.TBLANIME.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                                         </div>
                                         <div class="detail">
                                             <div class="title">
@@ -183,7 +183,7 @@
                                 <a href="/AnimeDetail/Index/@i.ANIMEID">
                                     <div class="box">
                                         <div class="img">
-                                            <img src="~/IMG/@i.TBLANIME.BANNER">
+                                            <img src="~/IMG/@i.TBLANIME.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                                         </div>
                                         <div class="detail">
                                             <div class="title">
@@ -242,7 +242,7 @@
             </div>
         </div>
         <div class="copyright ">
-            <img src="~/Anitsuki/img/aylogo.png">
+            <img src="~/Anitsuki/img/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
             <div class="text">
                 Copyright © Anitsuki 2024. Tüm hakları saklıdır.
             </div>

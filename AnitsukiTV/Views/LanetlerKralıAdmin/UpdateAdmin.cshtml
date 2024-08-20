@@ -16,15 +16,15 @@
             @Html.TextBoxFor(x=>x.USERNAME, new { @style = "width:100%; border:1px solid #000000;"})
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail3">Kullanıcı Adı</label>
+            <label for="exampleInputEmail3">Şifresi</label>
             @Html.TextBoxFor(x => x.PASSWORD, new { @style = "width:100%; border:1px solid #000000;" })
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail3">Kullanıcı Adı</label>
+            <label for="exampleInputEmail3">Admin Rolü</label>
             @Html.TextBoxFor(x => x.ADMINROLEID, new { @style = "width:100%; border:1px solid #000000;" })
         </div>
         <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
-        <button class="btn btn-light">Cancel</button>
+        <a style="color:#ffffff;" href="/LanetlerKralıAdmin/Admin" class="btn btn-light">Vazgeç</a>
     </form>
 
 }

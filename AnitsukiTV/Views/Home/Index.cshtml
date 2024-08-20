@@ -58,7 +58,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="logo col-2">
-                    <a href="/Home/Index"><img src="~/Anitsuki/img/logo.png"><img class="logomobile" src="~/Anitsuki/img/aylogo.png"></a>
+                    <a href="/Home/Index"><img src="~/Anitsuki/img/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/Anitsuki/img/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
                 </div>
 
                 <input style="display: none;" type="checkbox" id="check">
@@ -107,7 +107,7 @@
             @foreach (var ğ in Model.Anime.Where(x => x.ADMINSTATUS == true))
             {
                 <div class="swiper-slide">
-                    <img src="~/IMG/@ğ.BIGBANNER">
+                    <img src="~/IMG/@ğ.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                     <div class="inside">
                         <div class="title">
                             @ğ.ANIMENAME
@@ -146,8 +146,16 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Video/@l.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@l.TBLANIME.BANNER">
-                                    <video class="video" src="~/Videos/@l.TBLANIME.EDIT" playsinline></video>
+                                    <img src="~/IMG/@l.TBLANIME.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    @if (l.TBLANIME.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@l.TBLANIME.EDIT" playsinline></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/nosignal.mp4" playsinline></video>
+                                    }
+
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -178,8 +186,15 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@l.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@l.BANNER">
-                                    <video class="video" src="~/Videos/@l.EDIT" playsinline></video>
+                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    @if (l.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@l.EDIT" playsinline></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/nosignal.mp4" playsinline></video>
+                                    }
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -210,8 +225,15 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@l.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@l.BANNER">
-                                    <video class="video" src="~/Videos/@l.EDIT" playsinline></video>
+                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    @if (l.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@l.EDIT" playsinline></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/nosignal.mp4" playsinline></video>
+                                    }
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -248,8 +270,15 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@x.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@x.BANNER">
-                                    <video class="video" src="~/Videos/@x.EDIT" playsinline></video>
+                                    <img src="~/IMG/@x.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    @if (x.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@x.EDIT" playsinline></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/nosignal.mp4" playsinline></video>
+                                    }
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -287,8 +316,15 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@y.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@y.BANNER">
-                                    <video class="video" src="~/Videos/@y.EDIT" playsinline></video>
+                                    <img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    @if (y.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@y.EDIT" playsinline></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/nosignal.mp4" playsinline></video>
+                                    }
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -325,8 +361,15 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@z.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@z.BANNER">
-                                    <video class="video" src="~/Videos/@z.EDIT" playsinline></video>
+                                    <img src="~/IMG/@z.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    @if (z.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@z.EDIT" playsinline></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/nosignal.mp4" playsinline></video>
+                                    }
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -363,8 +406,15 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@q.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@q.BANNER">
-                                    <video class="video" src="~/Videos/@q.EDIT" playsinline></video>
+                                    <img src="~/IMG/@q.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    @if (q.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@q.EDIT" playsinline></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/nosignal.mp4" playsinline></video>
+                                    }
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -401,8 +451,15 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@w.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@w.BANNER">
-                                    <video class="video" src="~/Videos/@w.EDIT" playsinline></video>
+                                    <img src="~/IMG/@w.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    @if (w.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@w.EDIT" playsinline></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/nosignal.mp4" playsinline></video>
+                                    }
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -439,8 +496,15 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@e.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@e.BANNER">
-                                    <video class="video" src="~/Videos/@e.EDIT" playsinline></video>
+                                    <img src="~/IMG/@e.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    @if (e.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@e.EDIT" playsinline></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/nosignal.mp4" playsinline></video>
+                                    }
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -477,8 +541,15 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@r.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@r.BANNER">
-                                    <video class="video" src="~/Videos/@r.EDIT" playsinline></video>
+                                    <img src="~/IMG/@r.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    @if (r.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@r.EDIT" playsinline></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/nosignal.mp4" playsinline></video>
+                                    }
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -515,8 +586,15 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@t.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@t.BANNER">
-                                    <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    @if (t.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/nosignal.mp4" playsinline></video>
+                                    }
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -553,8 +631,15 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@t.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@t.BANNER">
-                                    <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    @if (t.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/nosignal.mp4" playsinline></video>
+                                    }
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -591,8 +676,15 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@t.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@t.BANNER">
-                                    <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    @if (t.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/nosignal.mp4" playsinline></video>
+                                    }
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -629,8 +721,15 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@t.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@t.BANNER">
-                                    <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    @if (t.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/nosignal.mp4" playsinline></video>
+                                    }
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -667,8 +766,15 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@t.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@t.BANNER">
-                                    <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    @if (t.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/nosignal.mp4" playsinline></video>
+                                    }
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -721,7 +827,7 @@
             </div>
         </div>
         <div class="copyright ">
-            <img src="~/Anitsuki/img/aylogo.png">
+            <img src="~/Anitsuki/img/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
             <div class="text">
                 Copyright © Anitsuki 2024. Tüm hakları saklıdır.
             </div>

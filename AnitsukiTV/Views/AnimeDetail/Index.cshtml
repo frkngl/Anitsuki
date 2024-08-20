@@ -62,7 +62,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="logo col-2">
-                    <a href="/Home/Index"><img src="~/Anitsuki/img/logo.png"><img class="logomobile" src="~/Anitsuki/img/aylogo.png"></a>
+                    <a href="/Home/Index"><img src="~/Anitsuki/img/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/Anitsuki/img/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
                 </div>
 
                 <input style="display: none;" type="checkbox" id="check">
@@ -111,7 +111,7 @@
             @foreach (var x in Model.Anime.Where(x => x.STATUS == true))
             {
                 <div class="img">
-                    <img src="~/IMG/@x.BANNER">
+                    <img src="~/IMG/@x.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                 </div>
                 <div class="detail">
                     <div class="title">
@@ -122,7 +122,7 @@
                         <i class="bi bi-play-circle"></i> Toplam Bölüm: @x.TBLEPISODE.Count()
                     </div>
                     <div class="year">
-                        <i class="bi bi-calendar"></i> Yapım Yılı:  @x.DATE.Value.ToString("dd.MM.yyyy")
+                        <i class="bi bi-calendar"></i> Yapım Yılı:  @x.DATE.Value.ToString("yyyy")
                     </div>
                     <div class="type">
                         <i class="bi bi-ticket"></i> Tür: @x.TBLCATEGORY.CATEGORYNAME, @x.TYPE
@@ -200,7 +200,7 @@
                                 <div class="box">
                                     <div class="img">
                                         <i class="bi bi-play-circle"></i>
-                                        <img src="~/IMG/@z.BANNER">
+                                        <img src="~/IMG/@z.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                                     </div>
                                     <div class="detail">
                                         <div class="title">
@@ -260,7 +260,7 @@
             </div>
         </div>
         <div class="copyright ">
-            <img src="~/Anitsuki/img/aylogo.png">
+            <img src="~/Anitsuki/img/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
             <div class="text">
                 Copyright © Anitsuki 2024. Tüm hakları saklıdır.
             </div>
