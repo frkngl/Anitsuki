@@ -203,59 +203,72 @@ namespace AnitsukiTV.Controllers
         [HttpPost]
         public ActionResult AddAnime(TBLANIME add, HttpPostedFileBase Image, HttpPostedFileBase Banner, HttpPostedFileBase Video)
         {
+            TBLANIME anime = new TBLANIME();
+            anime.ANIMENAME = add.ANIMENAME;
+            anime.DETAIL = add.DETAIL;
+            anime.IMDB = add.IMDB;
+            anime.STATUS = false;
+            anime.ADMINSTATUS = false;
+            anime.TYPE = add.TYPE;
+            anime.DATE = add.DATE;
+            anime.CATEGORYID = add.CATEGORYID;
+
             if (Image != null && Image.ContentLength > 0)
             {
-                if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/jfif")
-                {
-                    var file = new FileInfo(Image.FileName);
-                    var fileName = Path.GetFileName(Image.FileName);
-                    fileName = Guid.NewGuid().ToString() + file.Extension;
-                    var path = Path.Combine(Server.MapPath("~/IMG/"), fileName);
+                // Resim yükleme ve anime.BANNER ayarla
+                var file = new FileInfo(Image.FileName);
+                var fileName = Path.GetFileName(Image.FileName);
+                fileName = Guid.NewGuid().ToString() + file.Extension;
+                var path = Path.Combine(Server.MapPath("~/IMG/"), fileName);
 
-                    WebImage rr = new WebImage(Image.InputStream);
+                WebImage rr = new WebImage(Image.InputStream);
 
-                    if (rr.Width > 1000)
+                if (rr.Width > 1000)
+                    rr.Resize(1000, 1000);
+                rr.Save(path);
 
-                        rr.Resize(1000, 1000);
-                    rr.Save(path);
-
-                    TBLANIME anime = new TBLANIME();
-                    anime.ANIMENAME = add.ANIMENAME;
-                    anime.DETAIL = add.DETAIL;
-                    anime.IMDB = add.IMDB;
-                    anime.STATUS = false;
-                    anime.ADMINSTATUS = false;
-                    anime.TYPE = add.TYPE;
-                    anime.BANNER = fileName;
-
-                    string yol = Path.Combine("~/IMG/" + Banner.FileName);
-                    Banner.SaveAs(Server.MapPath(yol));
-                    anime.BIGBANNER = Banner.FileName.ToString();
-
-                    anime.CATEGORYID = add.CATEGORYID;
-                    anime.DATE = add.DATE;
-
-                    string yol2 = Path.Combine("~/Videos/" + Video.FileName);
-                    Video.SaveAs(Server.MapPath(yol2));
-                    anime.EDIT = Video.FileName.ToString();
-
-                    db.TBLANIME.Add(anime);
-                    db.SaveChanges();
-                    TempData["add"] = "success";
-                    return RedirectToAction("Anime");
-                }
-                else
-                {
-                    TempData["error"] = "error";
-                    return View();
-                }
+                anime.BANNER = fileName;
             }
-            return View();
+            else
+            {
+                anime.BANNER = null;
+            }
+
+            if (Banner != null && Banner.ContentLength > 0)
+            {
+                // Banner yükleme ve anime.BIGBANNER ayarla
+                string yol = Path.Combine("~/IMG/" + Banner.FileName);
+                Banner.SaveAs(Server.MapPath(yol));
+                anime.BIGBANNER = Banner.FileName.ToString();
+            }
+            else
+            {
+                anime.BIGBANNER = null;
+            }
+
+            if (Video != null && Video.ContentLength > 0)
+            {
+                // Video yükleme ve anime.EDIT ayarla
+                string videoYol = Path.Combine("~/Videos/" + Video.FileName);
+                Video.SaveAs(Server.MapPath(videoYol));
+                anime.EDIT = Video.FileName.ToString();
+            }
+            else
+            {
+                anime.EDIT = null;
+            }
+
+            db.TBLANIME.Add(anime);
+            db.SaveChanges();
+            TempData["add"] = "success";
+            return RedirectToAction("Anime");
         }
 
         public ActionResult UpdateAnime(int id)
         {
             var FindAnime = db.TBLANIME.Find(id);
+            var category = db.TBLCATEGORY.Find(FindAnime.CATEGORYID);
+            ViewBag.CategoryName = db.TBLCATEGORY.Find(FindAnime.CATEGORYID)?.CATEGORYNAME;
             ViewBag.Categories = db.TBLCATEGORY.ToList();
             return View("UpdateAnime", FindAnime);
         }

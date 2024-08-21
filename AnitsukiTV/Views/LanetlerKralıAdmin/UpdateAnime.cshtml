@@ -34,7 +34,7 @@
     </div>
     <div class="form-group">
         <label for="exampleInputPassword4">Kategori</label><br />
-        @Html.DropDownListFor(x => x.CATEGORYID, new SelectList(ViewBag.Categories, "ID", "CATEGORYNAME"), "Kategori Seçiniz", new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+        @Html.DropDownListFor(x => x.CATEGORYID, new SelectList(ViewBag.Categories, "ID", "CATEGORYNAME", Model.CATEGORYID), new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
     </div>
     <div class="form-group">
         <label for="exampleInputPassword4">Tür</label><br />

@@ -26,32 +26,24 @@
     <meta property="og:type" content="website" />
     <meta property="og:description" content="anime izle,en popüler ücretsiz olarak anitsuki.com'da izleyin" />
     <meta name="robots" content="max-image-preview:large" />
-    <!--FONT AWESOME-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!--SPLIDE CSS-->
     <link rel="stylesheet" href="~/splidejs/splide/dist/css/splide.min.css" type="text/css">
     <link rel="stylesheet" href="~/splidejs/splide/dist/css/themes/splide-skyblue.min.css" type="text/css">
-    <!--SWIPER CSS-->
     <link rel="stylesheet" href="~/swiper/swiper-bundle.min.css" type="text/css">
-    <!--BOOTSTRAP CSS-->
     <link rel="stylesheet" href="~/bootstrap/dist/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="~/bootstrap-icons/font/bootstrap-icons.min.css" type="text/css">
-    <!--CSS-->
     <link rel="stylesheet" href="~/Anitsuki/css/main.css" type="text/css">
     <link rel="stylesheet" href="~/Anitsuki/css/main.css.map" type="text/css">
-    <!--TITLE IMG-->
     <link rel="shortcut icon" href="~/Anitsuki/img/aylogo.png" />
 </head>
-
 <body>
     <div id="loader">
         <div id="box1">
             <img src="~/Anitsuki/img/arisu-aris.gif">
         </div>
     </div>
-    <!----------------------------------------------------HEADER START---------------------------------------------------->
     <header>
         <div class="container-xl">
             <div class="row">
@@ -81,8 +73,6 @@
             </div>
         </div>
     </header>
-    <!----------------------------------------------------HEADER END---------------------------------------------------->
-    <!----------------------------------------------------USER START---------------------------------------------------->
     <div class="content9">
         <div class="text">
             <div class="box">
@@ -206,8 +196,6 @@
             </div>
         </div>
     </div>
-    <!----------------------------------------------------USER END---------------------------------------------------->
-    <!----------------------------------------------------FOOTER START---------------------------------------------------->
     <footer>
         <div class="footerimg">
         </div>
@@ -248,25 +236,15 @@
             </div>
         </div>
     </footer>
-    <!----------------------------------------------------FOOTER END---------------------------------------------------->
 </body>
-
 </html>
-<!--JQUERY JS-->
 <script src="~/jquery/dist/jquery.min.js"></script>
-<!--BOOTSTRAP JS-->
 <script src="~/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<!--SWIPER JS-->
 <script src="~/swiper/swiper-bundle.min.js"></script>
-<!--SPLIDE JS-->
 <script src="~/splidejs/splide/dist/js/splide.min.js"></script>
-<!--JS-->
 <script src="~/Anitsuki/js/main1.js"></script>
 <script src="~/Anitsuki/js/splide.js"></script>
-
-
 <script>
-    /*NAVBAR'DAKİ LİNK ACTİVE*/
     document.querySelectorAll('nav a').forEach(link => {
         link.classList.remove('active');
 
@@ -274,19 +252,16 @@
             link.classList.add('active');
         }
     });
-    //Sayfa Yükleme Ekranı
     window.addEventListener('load', loaderfunc);
     function loaderfunc() {
         document.getElementById('loader').style.display = 'none';
     }
-    //Sayfada Aşağı boşluk tuşuna bastığında inmemeye yarayana Kod
     document.addEventListener('keydown', function (event) {
         if (event.code === 'Space' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'INPUT') {
             event.preventDefault();
             event.stopPropagation();
         }
     });
-
     window.history.forward();
     function noBack() {
         window.history.forward();

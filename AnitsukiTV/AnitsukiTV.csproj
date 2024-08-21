@@ -1037,6 +1037,7 @@
     <Content Include="Anitsuki\js\splide.js" />
     <Content Include="Anitsuki\js\video.js" />
     <Content Include="Anitsuki\Login.html" />
+    <Content Include="IMG\LoginBackground.png" />
     <Content Include="popperjs\core\dist\cjs\enums.js" />
     <Content Include="popperjs\core\dist\cjs\popper-base.js" />
     <Content Include="popperjs\core\dist\cjs\popper-lite.js" />
