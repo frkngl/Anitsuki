@@ -19,17 +19,17 @@
             <label>Resim Yükleme</label>
             <br />
             <img class="resim" width="250" height="400" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" src="~/IMG/@Model.BANNER" />
-            <input class="form-control" id="resim" type="file" onchange="$('.resim')[0].src = window.URL.createObjectURL(this.files[0])" name="Image" />
+            <input class="form-control" id="resim" accept=".jpg, .jpeg, .png" type="file" onchange="$('.resim')[0].src = window.URL.createObjectURL(this.files[0])" name="Image" />
         </div>
         <div>
             <label for="exampleInputPassword4">Büyük Banner</label><br />
             <img class="banner" width="400" height="250" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" src="~/IMG/@Model.BIGBANNER" />
-            <input class="form-control" id="resim" type="file" onchange="$('.banner')[0].src = window.URL.createObjectURL(this.files[0])" name="Banner" />
+            <input class="form-control" id="resim" accept=".jpg, .jpeg, .png" type="file" onchange="$('.banner')[0].src = window.URL.createObjectURL(this.files[0])" name="Banner" />
         </div>
         <div>
             <label for="exampleInputPassword4">Edit</label><br />
             <video style="width:250px; height:400px; object-fit:cover;" controls class="video" src="~/Videos/@Model.EDIT"></video>
-            <input type="file" id="resim" class=" form-control" onchange="$('.video')[0].src = window.URL.createObjectURL(this.files[0])" name="Video" />
+            <input type="file" id="resim" accept=".mp4" class=" form-control" onchange="$('.video')[0].src = window.URL.createObjectURL(this.files[0])" name="Video" />
         </div>
     </div>
     <div class="form-group">
