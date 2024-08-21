@@ -1,0 +1,51 @@
+﻿@using AnitsukiTV.Models
+@model List<TBLEPISODECOMMENT>
+
+@{
+    ViewBag.Title = "EpisodeCommentDetaıl";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@foreach (var x in Model)
+{
+    <div style="width:100%; display:flex;justify-content:center;" class="form-group">
+        <label>Resim</label>
+        <br />
+        @if (x.TBLUSER.PICTURE != null)
+        {
+            <img width="300" height="300" ; style=" border-radius:50%;  object-fit:cover;" src="~/IMG/@x.TBLUSER.PICTURE" />
+        }
+        else
+        {
+            <img width="300" height="300" ; style=" border-radius:50%;  object-fit:cover;" src="~/IMG/stockuser.png" />
+        }
+
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">ID</label>
+        <textarea style="width:100%; height:30px;" readonly>@x.ID</textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword4">Kullanıcı Adı</label><br />
+        <textarea style="width:100%; height:30px;" readonly>@x.TBLUSER.USERNAME</textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword4">Anime</label><br />
+        <textarea style="width:100%; height:30px;" readonly>@x.TBLEPISODE.TBLANIME.ANIMENAME</textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword4">Bölüm</label><br />
+        <textarea style="width:100%; height:30px;" readonly>@x.TBLEPISODE.EPISODENAME</textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">Kayıt Tarihi</label><br />
+        <textarea style="width:100%; height:30px;" readonly>@x.DATE.Value.ToString("dd.MM.yyyy")</textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">Hakkında</label><br />
+        <textarea style="width:100%; height:300px;" readonly>@x.COMMENT</textarea>
+    </div>
+}
+<a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/AnimeComment">Geri Dön</a>
+
+

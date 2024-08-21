@@ -1,0 +1,122 @@
+﻿@using AnitsukiTV.Models
+@model PagedList.IPagedList<TBLEPISODE>
+@{
+    ViewBag.Title = "Episode";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div style="position:relative;" class="card-body">
+                <nav style="position:absolute; right:0;" class="navbar navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <form action="@Url.Action("Episode", "LanetlerKralıAdmin")" class="d-flex" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Anime Ara" name="episode" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Ara</button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+                <h4 class="card-title"><a class="btn btn-primary" href="/LanetlerKralıAdmin/AddEpisode">Bölüm Ekle</a></h4>
+                <p class="card-description">
+                    Bölümler
+                </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>RESIM</th>
+                            <th>ANIME ADI</th>
+                            <th>SEZON SAYISI / ISMI</th>
+                            <th>BOLUM SAYISI</th>
+                            <th>BOLUM ADI</th>
+                            <th>Guncelle</th>
+                            <th>Durum</th>
+                            @if (Session["role"].Equals(1))
+                            {
+                                <th>Sil</th>
+                            }
+                            <th>Detay</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model.OrderByDescending(x => x.ID))
+                        {
+                            <tr>
+                                <td>@x.ID</td>
+                                <td><img style="width:150px; height:100px; object-fit:cover; border-radius:0%;" src="~/IMG/@x.BANNER" /></td>
+                                <td>@x.TBLANIME.ANIMENAME</td>
+                                <td>
+                                    @if (x.TBLSEASON.SEASONNAME != null)
+                                    {
+                                        @x.TBLSEASON.SEASONNAME
+                                    }
+                                    else
+                                    {
+                                        @x.TBLSEASON.SEASONNUMBER
+                                    }
+                                </td>
+                                <td>
+                                    @x.EPINUMBER
+                                </td>
+                                <td>
+                                    @x.EPISODENAME
+                                </td>
+                                <td><a class="btn btn-warning" href="/LanetlerKralıAdmin/UpdateEpisode/@x.ID">Güncelle</a></td>
+                                <td>
+                                    @if (x.STATUS == true)
+                                    {
+                                        <a href="/LanetlerKralıAdmin/ActivePassive4/@x.ID" class="btn btn-success btn-sm">Aktif</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/LanetlerKralıAdmin/ActivePassive4/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
+                                    }
+                                </td>
+                                @if (Session["role"].Equals(1))
+                                {
+                                    <td>@Html.ActionLink("Sil", "Deleteeee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Bölümü silmek istediğinize emin misiniz?');" })</td>
+                                }
+                                <td><a style="color:#ffffff;" href="/LanetlerKralıAdmin/EpisodeDetail/@x.ID" class="btn btn-light">Detay</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="width:100%; display:flex; justify-content:center;">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Episode", new { episode = ViewBag.Episode, p = ViewBag.CurrentPage - 1 })" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = 1; i <= ViewBag.PageCount; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Episode", new { episode = ViewBag.Episode, p = i })">@i</a>
+                </li>
+            }
+            @if (ViewBag.CurrentPage < ViewBag.PageCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Episode", new { episode = ViewBag.Episode, p = ViewBag.CurrentPage + 1 })" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
+

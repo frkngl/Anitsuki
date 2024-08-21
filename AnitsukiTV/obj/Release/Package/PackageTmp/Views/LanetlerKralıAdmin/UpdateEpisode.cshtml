@@ -1,0 +1,130 @@
+﻿@model AnitsukiTV.Models.TBLEPISODE
+@{
+    ViewBag.Title = "UpdateEpisode";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.7.0.slim.min.js"></script>
+
+<style>
+    #anime-search {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    #anime-dropdown {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #000000;
+        border-radius: 5px;
+    }
+
+        #anime-dropdown option {
+            display: block;
+        }
+</style>
+
+
+
+
+
+
+@using (Html.BeginForm("EpisodeSave", "LanetlerKralıAdmin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        <label for="exampleInputName1">ID</label>
+        @Html.TextBoxFor(x => x.ID, new { @style = "width:100%; border:1px solid #000000;", @readonly = "readonly" })
+    </div>
+    <div style="width:100%; height:auto; display:flex; align-items:center;justify-content:space-around;" class="form-group">
+        <div>
+            <label for="exampleInputPassword4">Banner</label><br />
+            <img class="banner" width="400" height="250" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" src="~/IMG/@Model.BANNER" />
+            <input class="form-control" id="resim" type="file" onchange="$('.banner')[0].src = window.URL.createObjectURL(this.files[0])" name="Banner" />
+        </div>
+        <div>
+            <div style="margin-bottom:10px;">
+                <label for="exampleInputPassword4">360</label><br />
+                <video width="400" height="250" style="object-fit:cover;" controls class="video" src="~/Videos/@Model.EP1"></video>
+                <input type="file" id="resim" class=" form-control" onchange="$('.video')[0].src = window.URL.createObjectURL(this.files[0])" name="Video" />
+            </div>
+            <div>
+                <label for="exampleInputPassword4">720</label><br />
+                <video width="400" height="250" style="object-fit:cover;" controls class="video2" src="~/Videos/@Model.EP3"></video>
+                <input type="file" id="resim" class=" form-control" onchange="$('.video2')[0].src = window.URL.createObjectURL(this.files[0])" name="Video2" />
+            </div>
+        </div>
+        <div>
+            <div style="margin-bottom:10px;">
+                <label for="exampleInputPassword4">480</label><br />
+                <video width="400" height="250" style="object-fit:cover;" controls class="video3" src="~/Videos/@Model.EP2"></video>
+                <input type="file" id="resim" class=" form-control" onchange="$('.video3')[0].src = window.URL.createObjectURL(this.files[0])" name="Video3" />
+            </div>
+            <div>
+                <label for="exampleInputPassword4">1080</label><br />
+                <video width="400" height="250" style="object-fit:cover;" controls class="video4" src="~/Videos/@Model.EP4"></video>
+                <input type="file" id="resim" class=" form-control" onchange="$('.video4')[0].src = window.URL.createObjectURL(this.files[0])" name="Video4" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword4">Anime Adı</label><br />
+        <input type="text" id="anime-search" placeholder="Anime Ara">
+        <select id="anime-dropdown" name="ANIMEID" required>
+            @foreach (var anime in ViewBag.Anime)
+            {
+                if (anime.ID == ViewBag.SelectedAnimeId)
+                {
+                    <option value="@anime.ID" selected>@anime.ANIMENAME</option>
+                }
+                else
+                {
+                    <option value="@anime.ID">@anime.ANIMENAME</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword4">Sezon ID</label><br />
+        @Html.TextBoxFor(x => x.SEASONID, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">Bölüm Sayısı</label><br />
+        @Html.TextBoxFor(x => x.EPINUMBER, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">Bölüm İsmi</label><br />
+        @Html.TextBoxFor(x => x.EPISODENAME, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail3">Açıklama</label><br />
+        @Html.TextBoxFor(x => x.TIME, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+    </div>
+    <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+    <a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/Anime">Vazgeç</a>
+}
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var animeList = document.getElementById("anime-dropdown");
+        var searchInput = document.getElementById("anime-search");
+
+        searchInput.addEventListener("input", function () {
+            var searchTerm = searchInput.value.toLowerCase();
+            for (var i = 0; i < animeList.options.length; i++) {
+                var option = animeList.options[i];
+                var optionText = option.text.toLowerCase();
+                if (optionText.indexOf(searchTerm) === -1) {
+                    option.style.display = "none";
+                } else {
+                    option.style.display = "block";
+                }
+            }
+        });
+    });
+</script>
+

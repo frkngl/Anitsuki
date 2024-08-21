@@ -1,0 +1,524 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AnitsukiTVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="AnitsukiTVEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="AnitsukiTVModel.sysdiagrams" />
+    <EntitySet Name="TBLADMIN" EntityType="AnitsukiTVModel.TBLADMIN" />
+    <EntitySet Name="TBLADMINROLE" EntityType="AnitsukiTVModel.TBLADMINROLE" />
+    <EntitySet Name="TBLANIME" EntityType="AnitsukiTVModel.TBLANIME" />
+    <EntitySet Name="TBLANIMECOMMENT" EntityType="AnitsukiTVModel.TBLANIMECOMMENT" />
+    <EntitySet Name="TBLANIMECOMMENTLIKE" EntityType="AnitsukiTVModel.TBLANIMECOMMENTLIKE" />
+    <EntitySet Name="TBLCATEGORY" EntityType="AnitsukiTVModel.TBLCATEGORY" />
+    <EntitySet Name="TBLEPISODE" EntityType="AnitsukiTVModel.TBLEPISODE" />
+    <EntitySet Name="TBLEPISODECOMMENT" EntityType="AnitsukiTVModel.TBLEPISODECOMMENT" />
+    <EntitySet Name="TBLEPISODECOMMENTLIKE" EntityType="AnitsukiTVModel.TBLEPISODECOMMENTLIKE" />
+    <EntitySet Name="TBLEPISODELIKE" EntityType="AnitsukiTVModel.TBLEPISODELIKE" />
+    <EntitySet Name="TBLFAVORITES" EntityType="AnitsukiTVModel.TBLFAVORITES" />
+    <EntitySet Name="TBLSEASON" EntityType="AnitsukiTVModel.TBLSEASON" />
+    <EntitySet Name="TBLUSER" EntityType="AnitsukiTVModel.TBLUSER" />
+    <EntitySet Name="TBLWATCHLATER" EntityType="AnitsukiTVModel.TBLWATCHLATER" />
+    <AssociationSet Name="FK_TBLADMIN_TBLADMINROLE" Association="AnitsukiTVModel.FK_TBLADMIN_TBLADMINROLE">
+      <End Role="TBLADMINROLE" EntitySet="TBLADMINROLE" />
+      <End Role="TBLADMIN" EntitySet="TBLADMIN" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLANIME_TBLCATEGORY" Association="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY">
+      <End Role="TBLCATEGORY" EntitySet="TBLCATEGORY" />
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLANIMECOMMENT_TBLANIME" Association="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLANIME">
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+      <End Role="TBLANIMECOMMENT" EntitySet="TBLANIMECOMMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODE_TBLANIME" Association="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME">
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+      <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLFAVORITES_TBLANIME" Association="AnitsukiTVModel.FK_TBLFAVORITES_TBLANIME">
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+      <End Role="TBLFAVORITES" EntitySet="TBLFAVORITES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLSEASON_TBLANIME" Association="AnitsukiTVModel.FK_TBLSEASON_TBLANIME">
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+      <End Role="TBLSEASON" EntitySet="TBLSEASON" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLWATCHLATER_TBLANIME" Association="AnitsukiTVModel.FK_TBLWATCHLATER_TBLANIME">
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+      <End Role="TBLWATCHLATER" EntitySet="TBLWATCHLATER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLANIMECOMMENT_TBLUSER" Association="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLANIMECOMMENT" EntitySet="TBLANIMECOMMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" Association="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT">
+      <End Role="TBLANIMECOMMENT" EntitySet="TBLANIMECOMMENT" />
+      <End Role="TBLANIMECOMMENTLIKE" EntitySet="TBLANIMECOMMENTLIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLANIMECOMMENTLIKE_TBLUSER" Association="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLANIMECOMMENTLIKE" EntitySet="TBLANIMECOMMENTLIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODE_TBLSEASON" Association="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON">
+      <End Role="TBLSEASON" EntitySet="TBLSEASON" />
+      <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLEPISODE" Association="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLEPISODE">
+      <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+      <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODELIKE_TBLEPISODE" Association="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLEPISODE">
+      <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+      <End Role="TBLEPISODELIKE" EntitySet="TBLEPISODELIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLUSER1" Association="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLUSER1">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT" Association="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT">
+      <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
+      <End Role="TBLEPISODECOMMENTLIKE" EntitySet="TBLEPISODECOMMENTLIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODECOMMENTLIKE_TBLUSER" Association="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLEPISODECOMMENTLIKE" EntitySet="TBLEPISODECOMMENTLIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODELIKE_TBLUSER" Association="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLEPISODELIKE" EntitySet="TBLEPISODELIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLFAVORITES_TBLUSER" Association="AnitsukiTVModel.FK_TBLFAVORITES_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLFAVORITES" EntitySet="TBLFAVORITES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLWATCHLATER_TBLUSER" Association="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLWATCHLATER" EntitySet="TBLWATCHLATER" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TBLADMIN">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ADMINROLEID" Type="Int32" />
+    <Property Name="STATUS" Type="Boolean" />
+    <Property Name="DATE" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="TBLADMINROLE" Relationship="AnitsukiTVModel.FK_TBLADMIN_TBLADMINROLE" FromRole="TBLADMIN" ToRole="TBLADMINROLE" />
+  </EntityType>
+  <EntityType Name="TBLADMINROLE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ROLENAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TBLADMIN" Relationship="AnitsukiTVModel.FK_TBLADMIN_TBLADMINROLE" FromRole="TBLADMINROLE" ToRole="TBLADMIN" />
+  </EntityType>
+  <EntityType Name="TBLANIME">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CATEGORYID" Type="Int32" />
+    <Property Name="ANIMENAME" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="EDIT" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DATE" Type="DateTime" Precision="3" />
+    <Property Name="DETAIL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TYPE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BANNER" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="STATUS" Type="Boolean" />
+    <Property Name="IMDB" Type="Decimal" Precision="2" Scale="1" />
+    <Property Name="ADMINSTATUS" Type="Boolean" />
+    <Property Name="BIGBANNER" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TBLCATEGORY" Relationship="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY" FromRole="TBLANIME" ToRole="TBLCATEGORY" />
+    <NavigationProperty Name="TBLANIMECOMMENT" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLANIME" FromRole="TBLANIME" ToRole="TBLANIMECOMMENT" />
+    <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME" FromRole="TBLANIME" ToRole="TBLEPISODE" />
+    <NavigationProperty Name="TBLFAVORITES" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLANIME" FromRole="TBLANIME" ToRole="TBLFAVORITES" />
+    <NavigationProperty Name="TBLSEASON" Relationship="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" FromRole="TBLANIME" ToRole="TBLSEASON" />
+    <NavigationProperty Name="TBLWATCHLATER" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLANIME" FromRole="TBLANIME" ToRole="TBLWATCHLATER" />
+  </EntityType>
+  <EntityType Name="TBLANIMECOMMENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USERID" Type="Int32" />
+    <Property Name="ANIMEID" Type="Int32" />
+    <Property Name="COMMENT" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="DATE" Type="DateTime" Precision="3" />
+    <Property Name="USTID" Type="Int32" />
+    <Property Name="STATUS" Type="Boolean" />
+    <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLANIME" FromRole="TBLANIMECOMMENT" ToRole="TBLANIME" />
+    <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLUSER" FromRole="TBLANIMECOMMENT" ToRole="TBLUSER" />
+    <NavigationProperty Name="TBLANIMECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" FromRole="TBLANIMECOMMENT" ToRole="TBLANIMECOMMENTLIKE" />
+  </EntityType>
+  <EntityType Name="TBLANIMECOMMENTLIKE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USERID" Type="Int32" />
+    <Property Name="ANIMECOMMENTID" Type="Int32" />
+    <Property Name="STATUS" Type="Boolean" />
+    <NavigationProperty Name="TBLANIMECOMMENT" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" FromRole="TBLANIMECOMMENTLIKE" ToRole="TBLANIMECOMMENT" />
+    <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER" FromRole="TBLANIMECOMMENTLIKE" ToRole="TBLUSER" />
+  </EntityType>
+  <EntityType Name="TBLCATEGORY">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CATEGORYNAME" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="STATUS" Type="Boolean" />
+    <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY" FromRole="TBLCATEGORY" ToRole="TBLANIME" />
+  </EntityType>
+  <EntityType Name="TBLEPISODE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ANIMEID" Type="Int32" />
+    <Property Name="SEASONID" Type="Int32" />
+    <Property Name="EP1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="EP2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="EP3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="EP4" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="EPINUMBER" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+    <Property Name="EPISODENAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DATE" Type="DateTime" Precision="3" />
+    <Property Name="TIME" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="BANNER" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="STATUS" Type="Boolean" />
+    <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME" FromRole="TBLEPISODE" ToRole="TBLANIME" />
+    <NavigationProperty Name="TBLSEASON" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" FromRole="TBLEPISODE" ToRole="TBLSEASON" />
+    <NavigationProperty Name="TBLEPISODECOMMENT" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLEPISODE" FromRole="TBLEPISODE" ToRole="TBLEPISODECOMMENT" />
+    <NavigationProperty Name="TBLEPISODELIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLEPISODE" FromRole="TBLEPISODE" ToRole="TBLEPISODELIKE" />
+  </EntityType>
+  <EntityType Name="TBLEPISODECOMMENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USERID" Type="Int32" />
+    <Property Name="EPISODEID" Type="Int32" />
+    <Property Name="COMMENT" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="DATE" Type="DateTime" Precision="3" />
+    <Property Name="USTID" Type="Int32" />
+    <Property Name="STATUS" Type="Boolean" />
+    <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLEPISODE" FromRole="TBLEPISODECOMMENT" ToRole="TBLEPISODE" />
+    <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLUSER1" FromRole="TBLEPISODECOMMENT" ToRole="TBLUSER" />
+    <NavigationProperty Name="TBLEPISODECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT" FromRole="TBLEPISODECOMMENT" ToRole="TBLEPISODECOMMENTLIKE" />
+  </EntityType>
+  <EntityType Name="TBLEPISODECOMMENTLIKE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USERID" Type="Int32" />
+    <Property Name="EPISODECOMMENTID" Type="Int32" />
+    <Property Name="STATUS" Type="Boolean" />
+    <NavigationProperty Name="TBLEPISODECOMMENT" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT" FromRole="TBLEPISODECOMMENTLIKE" ToRole="TBLEPISODECOMMENT" />
+    <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLUSER" FromRole="TBLEPISODECOMMENTLIKE" ToRole="TBLUSER" />
+  </EntityType>
+  <EntityType Name="TBLEPISODELIKE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EPISODEID" Type="Int32" />
+    <Property Name="USERID" Type="Int32" />
+    <Property Name="LIKESTATUS" Type="Boolean" />
+    <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLEPISODE" FromRole="TBLEPISODELIKE" ToRole="TBLEPISODE" />
+    <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER" FromRole="TBLEPISODELIKE" ToRole="TBLUSER" />
+  </EntityType>
+  <EntityType Name="TBLFAVORITES">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USERID" Type="Int32" />
+    <Property Name="ANIMEID" Type="Int32" />
+    <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLANIME" FromRole="TBLFAVORITES" ToRole="TBLANIME" />
+    <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLUSER" FromRole="TBLFAVORITES" ToRole="TBLUSER" />
+  </EntityType>
+  <EntityType Name="TBLSEASON">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ANIMEID" Type="Int32" />
+    <Property Name="SEASONNUMBER" Type="Int32" />
+    <Property Name="SEASONNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="STATUS" Type="Boolean" />
+    <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" FromRole="TBLSEASON" ToRole="TBLANIME" />
+    <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" FromRole="TBLSEASON" ToRole="TBLEPISODE" />
+  </EntityType>
+  <EntityType Name="TBLUSER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CONFIRMPASS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PICTURE" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ABOUT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Boolean" />
+    <NavigationProperty Name="TBLANIMECOMMENT" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLUSER" FromRole="TBLUSER" ToRole="TBLANIMECOMMENT" />
+    <NavigationProperty Name="TBLANIMECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLANIMECOMMENTLIKE" />
+    <NavigationProperty Name="TBLEPISODECOMMENT" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLUSER1" FromRole="TBLUSER" ToRole="TBLEPISODECOMMENT" />
+    <NavigationProperty Name="TBLEPISODECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLEPISODECOMMENTLIKE" />
+    <NavigationProperty Name="TBLEPISODELIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLEPISODELIKE" />
+    <NavigationProperty Name="TBLFAVORITES" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLUSER" FromRole="TBLUSER" ToRole="TBLFAVORITES" />
+    <NavigationProperty Name="TBLWATCHLATER" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER" FromRole="TBLUSER" ToRole="TBLWATCHLATER" />
+  </EntityType>
+  <EntityType Name="TBLWATCHLATER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USERID" Type="Int32" />
+    <Property Name="ANIMEID" Type="Int32" />
+    <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLANIME" FromRole="TBLWATCHLATER" ToRole="TBLANIME" />
+    <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER" FromRole="TBLWATCHLATER" ToRole="TBLUSER" />
+  </EntityType>
+  <Association Name="FK_TBLADMIN_TBLADMINROLE">
+    <End Type="AnitsukiTVModel.TBLADMINROLE" Role="TBLADMINROLE" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLADMIN" Role="TBLADMIN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLADMINROLE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLADMIN">
+        <PropertyRef Name="ADMINROLEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLANIME_TBLCATEGORY">
+    <End Type="AnitsukiTVModel.TBLCATEGORY" Role="TBLCATEGORY" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLANIME" Role="TBLANIME" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLCATEGORY">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLANIME">
+        <PropertyRef Name="CATEGORYID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLANIMECOMMENT_TBLANIME">
+    <End Type="AnitsukiTVModel.TBLANIME" Role="TBLANIME" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLANIMECOMMENT" Role="TBLANIMECOMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLANIMECOMMENT">
+        <PropertyRef Name="ANIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODE_TBLANIME">
+    <End Type="AnitsukiTVModel.TBLANIME" Role="TBLANIME" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLEPISODE" Role="TBLEPISODE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODE">
+        <PropertyRef Name="ANIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLFAVORITES_TBLANIME">
+    <End Type="AnitsukiTVModel.TBLANIME" Role="TBLANIME" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLFAVORITES" Role="TBLFAVORITES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLFAVORITES">
+        <PropertyRef Name="ANIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLSEASON_TBLANIME">
+    <End Type="AnitsukiTVModel.TBLANIME" Role="TBLANIME" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLSEASON" Role="TBLSEASON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLSEASON">
+        <PropertyRef Name="ANIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLWATCHLATER_TBLANIME">
+    <End Type="AnitsukiTVModel.TBLANIME" Role="TBLANIME" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLWATCHLATER" Role="TBLWATCHLATER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLWATCHLATER">
+        <PropertyRef Name="ANIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLANIMECOMMENT_TBLUSER">
+    <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLANIMECOMMENT" Role="TBLANIMECOMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLANIMECOMMENT">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT">
+    <End Type="AnitsukiTVModel.TBLANIMECOMMENT" Role="TBLANIMECOMMENT" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLANIMECOMMENTLIKE" Role="TBLANIMECOMMENTLIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIMECOMMENT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLANIMECOMMENTLIKE">
+        <PropertyRef Name="ANIMECOMMENTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLANIMECOMMENTLIKE_TBLUSER">
+    <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLANIMECOMMENTLIKE" Role="TBLANIMECOMMENTLIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLANIMECOMMENTLIKE">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODE_TBLSEASON">
+    <End Type="AnitsukiTVModel.TBLSEASON" Role="TBLSEASON" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLEPISODE" Role="TBLEPISODE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLSEASON">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODE">
+        <PropertyRef Name="SEASONID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODECOMMENT_TBLEPISODE">
+    <End Type="AnitsukiTVModel.TBLEPISODE" Role="TBLEPISODE" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLEPISODECOMMENT" Role="TBLEPISODECOMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLEPISODE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODECOMMENT">
+        <PropertyRef Name="EPISODEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODELIKE_TBLEPISODE">
+    <End Type="AnitsukiTVModel.TBLEPISODE" Role="TBLEPISODE" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLEPISODELIKE" Role="TBLEPISODELIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLEPISODE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODELIKE">
+        <PropertyRef Name="EPISODEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODECOMMENT_TBLUSER1">
+    <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLEPISODECOMMENT" Role="TBLEPISODECOMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODECOMMENT">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT">
+    <End Type="AnitsukiTVModel.TBLEPISODECOMMENT" Role="TBLEPISODECOMMENT" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLEPISODECOMMENTLIKE" Role="TBLEPISODECOMMENTLIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLEPISODECOMMENT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODECOMMENTLIKE">
+        <PropertyRef Name="EPISODECOMMENTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODECOMMENTLIKE_TBLUSER">
+    <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLEPISODECOMMENTLIKE" Role="TBLEPISODECOMMENTLIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODECOMMENTLIKE">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODELIKE_TBLUSER">
+    <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLEPISODELIKE" Role="TBLEPISODELIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODELIKE">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLFAVORITES_TBLUSER">
+    <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLFAVORITES" Role="TBLFAVORITES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLFAVORITES">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLWATCHLATER_TBLUSER">
+    <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLWATCHLATER" Role="TBLWATCHLATER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLWATCHLATER">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

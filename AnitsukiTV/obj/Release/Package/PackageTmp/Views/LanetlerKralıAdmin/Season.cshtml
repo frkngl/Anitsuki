@@ -1,0 +1,105 @@
+﻿@using AnitsukiTV.Models
+@model PagedList.IPagedList<TBLSEASON>
+
+
+@{
+    ViewBag.Title = "Season";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <nav style="position:absolute; right:0;" class="navbar navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <form action="@Url.Action("Season", "LanetlerKralıAdmin")" class="d-flex" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Anime Ara" name="anime" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Ara</button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+                <h4 class="card-title"><a class="btn btn-primary" href="/LanetlerKralıAdmin/AddSeason">Sezon Ekle</a></h4>
+                <p class="card-description">
+                    Sezonlar
+                </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Anime Adı</th>
+                            <th>Sezon Numarası</th>
+                            <th>Sezon İsmi</th>
+                            <th>Güncelle</th>
+                            <th>Durum</th>
+                            @if (Session["role"].Equals(1))
+                            {
+                                <th>Sil</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model.OrderByDescending(x => x.ID))
+                        {
+                            <tr>
+                                <td>@x.ID</td>
+                                <td>@x.TBLANIME.ANIMENAME</td>
+                                <td>@x.SEASONNUMBER Sezon</td>
+                                <td>@x.SEASONNAME</td>
+                                <td><a class="btn btn-warning" href="/LanetlerKralıAdmin/UpdateSeason/@x.ID">Güncelle</a></td>
+                                <td>
+                                    @if (x.STATUS == true)
+                                    {
+                                        <a href="/LanetlerKralıAdmin/ActivePassive3/@x.ID" class="btn btn-success btn-sm">Aktif</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/LanetlerKralıAdmin/ActivePassive3/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
+                                    }
+                                </td>
+                                @if (Session["role"].Equals(1))
+                                {
+                                    <td>@Html.ActionLink("Sil", "Deleteee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Sezonu silmek istediğinize emin misiniz?');" })</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="width:100%; display:flex; justify-content:center;">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Season", new { anime = ViewBag.Anime, p = ViewBag.CurrentPage - 1 })" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = 1; i <= ViewBag.PageCount; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Season", new { anime = ViewBag.Anime, p = i })">@i</a>
+                </li>
+            }
+            @if (ViewBag.CurrentPage < ViewBag.PageCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Season", new { anime = ViewBag.Anime, p = ViewBag.CurrentPage + 1 })" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
+
+

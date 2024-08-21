@@ -1,0 +1,62 @@
+﻿@model AnitsukiTV.Models.TBLANIME
+@{
+    ViewBag.Title = "UpdateAnime";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<script src="~/Scripts/jquery-3.7.0.slim.min.js"></script>
+
+
+@using (Html.BeginForm("AnimeSave", "LanetlerKralıAdmin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        <label for="exampleInputName1">ID</label>
+        @Html.TextBoxFor(x => x.ID, new { @style = "width:100%; border:1px solid #000000;", @readonly = "readonly" })
+    </div>
+    <div style="width:100%; height:auto; display:flex; align-items:center;justify-content:space-around;" class="form-group">
+        <div>
+            <label>Resim Yükleme</label>
+            <br />
+            <img class="resim" width="250" height="400" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" src="~/IMG/@Model.BANNER" />
+            <input class="form-control" id="resim" type="file" onchange="$('.resim')[0].src = window.URL.createObjectURL(this.files[0])" name="Image" />
+        </div>
+        <div>
+            <label for="exampleInputPassword4">Büyük Banner</label><br />
+            <img class="banner" width="400" height="250" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" src="~/IMG/@Model.BIGBANNER" />
+            <input class="form-control" id="resim" type="file" onchange="$('.banner')[0].src = window.URL.createObjectURL(this.files[0])" name="Banner" />
+        </div>
+        <div>
+            <label for="exampleInputPassword4">Edit</label><br />
+            <video style="width:250px; height:400px; object-fit:cover;" controls class="video" src="~/Videos/@Model.EDIT"></video>
+            <input type="file" id="resim" class=" form-control" onchange="$('.video')[0].src = window.URL.createObjectURL(this.files[0])" name="Video" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword4">Kategori</label><br />
+        @Html.DropDownListFor(x => x.CATEGORYID, new SelectList(ViewBag.Categories, "ID", "CATEGORYNAME"), "Kategori Seçiniz", new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword4">Tür</label><br />
+        @Html.TextBoxFor(x => x.TYPE, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">Anime Adı</label><br />
+        @Html.TextBoxFor(x => x.ANIMENAME, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">IMDb</label><br />
+        @Html.TextBoxFor(x => x.IMDB, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">Yayın Yılı => Örnek (2020-12-12)</label><br />
+        @Html.TextBoxFor(x => x.DATE, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail3">Açıklama</label><br />
+        @Html.TextAreaFor(x => x.DETAIL, 10, 2, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+    </div>
+    <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+    <a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/Anime">Vazgeç</a>
+}
+

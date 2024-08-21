@@ -1,0 +1,25 @@
+﻿@model AnitsukiTV.Models.TBLADMINROLE
+@{
+    ViewBag.Title = "UpdateRole";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("RoleSave", "LanetlerKralıAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <form class="forms-sample">
+        <div class="form-group">
+            <label for="exampleInputName1">ID</label>
+            @Html.TextBoxFor(x => x.ID, new { @style = "width:100%; border:1px solid #000000;", @readonly = "readonly" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail3">Admin Role</label>
+            @Html.TextBoxFor(x => x.ROLENAME, new { @style = "width:100%; border:1px solid #000000;" })
+        </div>
+        <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+        <a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/AdminRole">Vazgeç</a>
+    </form>
+
+}
+
+
+

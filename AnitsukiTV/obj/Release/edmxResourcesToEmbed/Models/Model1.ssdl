@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AnitsukiTVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TBLADMIN">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USERNAME" Type="nvarchar" MaxLength="50" />
+    <Property Name="PASSWORD" Type="nvarchar" MaxLength="50" />
+    <Property Name="ADMINROLEID" Type="int" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="DATE" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBLADMINROLE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ROLENAME" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TBLANIME">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CATEGORYID" Type="int" />
+    <Property Name="ANIMENAME" Type="nvarchar" MaxLength="150" />
+    <Property Name="EDIT" Type="nvarchar" MaxLength="500" />
+    <Property Name="DATE" Type="datetime" />
+    <Property Name="DETAIL" Type="nvarchar(max)" />
+    <Property Name="TYPE" Type="nvarchar" MaxLength="100" />
+    <Property Name="BANNER" Type="nvarchar" MaxLength="500" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="IMDB" Type="decimal" Precision="2" Scale="1" />
+    <Property Name="ADMINSTATUS" Type="bit" />
+    <Property Name="BIGBANNER" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="TBLANIMECOMMENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USERID" Type="int" />
+    <Property Name="ANIMEID" Type="int" />
+    <Property Name="COMMENT" Type="nvarchar" MaxLength="2000" />
+    <Property Name="DATE" Type="datetime" />
+    <Property Name="USTID" Type="int" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBLANIMECOMMENTLIKE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USERID" Type="int" />
+    <Property Name="ANIMECOMMENTID" Type="int" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBLCATEGORY">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CATEGORYNAME" Type="nvarchar" MaxLength="30" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBLEPISODE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ANIMEID" Type="int" />
+    <Property Name="SEASONID" Type="int" />
+    <Property Name="EP1" Type="nvarchar" MaxLength="500" />
+    <Property Name="EP2" Type="nvarchar" MaxLength="500" />
+    <Property Name="EP3" Type="nvarchar" MaxLength="500" />
+    <Property Name="EP4" Type="nvarchar" MaxLength="500" />
+    <Property Name="EPINUMBER" Type="nchar" MaxLength="3" />
+    <Property Name="EPISODENAME" Type="nvarchar" MaxLength="100" />
+    <Property Name="DATE" Type="datetime" />
+    <Property Name="TIME" Type="nvarchar" MaxLength="10" />
+    <Property Name="BANNER" Type="nvarchar" MaxLength="250" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBLEPISODECOMMENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USERID" Type="int" />
+    <Property Name="EPISODEID" Type="int" />
+    <Property Name="COMMENT" Type="nvarchar" MaxLength="2000" />
+    <Property Name="DATE" Type="datetime" />
+    <Property Name="USTID" Type="int" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBLEPISODECOMMENTLIKE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USERID" Type="int" />
+    <Property Name="EPISODECOMMENTID" Type="int" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBLEPISODELIKE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EPISODEID" Type="int" />
+    <Property Name="USERID" Type="int" />
+    <Property Name="LIKESTATUS" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBLFAVORITES">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USERID" Type="int" />
+    <Property Name="ANIMEID" Type="int" />
+  </EntityType>
+  <EntityType Name="TBLSEASON">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ANIMEID" Type="int" />
+    <Property Name="SEASONNUMBER" Type="int" />
+    <Property Name="SEASONNAME" Type="nvarchar" MaxLength="100" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBLUSER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USERNAME" Type="nvarchar" MaxLength="50" />
+    <Property Name="MAIL" Type="nvarchar" MaxLength="100" />
+    <Property Name="PASSWORD" Type="nvarchar" MaxLength="50" />
+    <Property Name="CONFIRMPASS" Type="nvarchar" MaxLength="50" />
+    <Property Name="PICTURE" Type="nvarchar" MaxLength="200" />
+    <Property Name="ABOUT" Type="nvarchar(max)" />
+    <Property Name="DATE" Type="datetime" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBLWATCHLATER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USERID" Type="int" />
+    <Property Name="ANIMEID" Type="int" />
+  </EntityType>
+  <Association Name="FK_TBLADMIN_TBLADMINROLE">
+    <End Role="TBLADMINROLE" Type="Self.TBLADMINROLE" Multiplicity="0..1" />
+    <End Role="TBLADMIN" Type="Self.TBLADMIN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLADMINROLE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLADMIN">
+        <PropertyRef Name="ADMINROLEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLANIME_TBLCATEGORY">
+    <End Role="TBLCATEGORY" Type="Self.TBLCATEGORY" Multiplicity="0..1" />
+    <End Role="TBLANIME" Type="Self.TBLANIME" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLCATEGORY">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLANIME">
+        <PropertyRef Name="CATEGORYID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLANIMECOMMENT_TBLANIME">
+    <End Role="TBLANIME" Type="Self.TBLANIME" Multiplicity="0..1" />
+    <End Role="TBLANIMECOMMENT" Type="Self.TBLANIMECOMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLANIMECOMMENT">
+        <PropertyRef Name="ANIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLANIMECOMMENT_TBLUSER">
+    <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
+    <End Role="TBLANIMECOMMENT" Type="Self.TBLANIMECOMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLANIMECOMMENT">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT">
+    <End Role="TBLANIMECOMMENT" Type="Self.TBLANIMECOMMENT" Multiplicity="0..1" />
+    <End Role="TBLANIMECOMMENTLIKE" Type="Self.TBLANIMECOMMENTLIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIMECOMMENT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLANIMECOMMENTLIKE">
+        <PropertyRef Name="ANIMECOMMENTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLANIMECOMMENTLIKE_TBLUSER">
+    <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
+    <End Role="TBLANIMECOMMENTLIKE" Type="Self.TBLANIMECOMMENTLIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLANIMECOMMENTLIKE">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODE_TBLANIME">
+    <End Role="TBLANIME" Type="Self.TBLANIME" Multiplicity="0..1" />
+    <End Role="TBLEPISODE" Type="Self.TBLEPISODE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODE">
+        <PropertyRef Name="ANIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODE_TBLSEASON">
+    <End Role="TBLSEASON" Type="Self.TBLSEASON" Multiplicity="0..1" />
+    <End Role="TBLEPISODE" Type="Self.TBLEPISODE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLSEASON">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODE">
+        <PropertyRef Name="SEASONID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODECOMMENT_TBLEPISODE">
+    <End Role="TBLEPISODE" Type="Self.TBLEPISODE" Multiplicity="0..1" />
+    <End Role="TBLEPISODECOMMENT" Type="Self.TBLEPISODECOMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLEPISODE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODECOMMENT">
+        <PropertyRef Name="EPISODEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODECOMMENT_TBLUSER1">
+    <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
+    <End Role="TBLEPISODECOMMENT" Type="Self.TBLEPISODECOMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODECOMMENT">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT">
+    <End Role="TBLEPISODECOMMENT" Type="Self.TBLEPISODECOMMENT" Multiplicity="0..1" />
+    <End Role="TBLEPISODECOMMENTLIKE" Type="Self.TBLEPISODECOMMENTLIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLEPISODECOMMENT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODECOMMENTLIKE">
+        <PropertyRef Name="EPISODECOMMENTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODECOMMENTLIKE_TBLUSER">
+    <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
+    <End Role="TBLEPISODECOMMENTLIKE" Type="Self.TBLEPISODECOMMENTLIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODECOMMENTLIKE">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODELIKE_TBLEPISODE">
+    <End Role="TBLEPISODE" Type="Self.TBLEPISODE" Multiplicity="0..1" />
+    <End Role="TBLEPISODELIKE" Type="Self.TBLEPISODELIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLEPISODE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODELIKE">
+        <PropertyRef Name="EPISODEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLEPISODELIKE_TBLUSER">
+    <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
+    <End Role="TBLEPISODELIKE" Type="Self.TBLEPISODELIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLEPISODELIKE">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLFAVORITES_TBLANIME">
+    <End Role="TBLANIME" Type="Self.TBLANIME" Multiplicity="0..1" />
+    <End Role="TBLFAVORITES" Type="Self.TBLFAVORITES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLFAVORITES">
+        <PropertyRef Name="ANIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLFAVORITES_TBLUSER">
+    <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
+    <End Role="TBLFAVORITES" Type="Self.TBLFAVORITES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLFAVORITES">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLSEASON_TBLANIME">
+    <End Role="TBLANIME" Type="Self.TBLANIME" Multiplicity="0..1" />
+    <End Role="TBLSEASON" Type="Self.TBLSEASON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLSEASON">
+        <PropertyRef Name="ANIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLWATCHLATER_TBLANIME">
+    <End Role="TBLANIME" Type="Self.TBLANIME" Multiplicity="0..1" />
+    <End Role="TBLWATCHLATER" Type="Self.TBLWATCHLATER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLWATCHLATER">
+        <PropertyRef Name="ANIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLWATCHLATER_TBLUSER">
+    <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
+    <End Role="TBLWATCHLATER" Type="Self.TBLWATCHLATER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLWATCHLATER">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AnitsukiTVModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLADMIN" EntityType="Self.TBLADMIN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLADMINROLE" EntityType="Self.TBLADMINROLE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLANIME" EntityType="Self.TBLANIME" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLANIMECOMMENT" EntityType="Self.TBLANIMECOMMENT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLANIMECOMMENTLIKE" EntityType="Self.TBLANIMECOMMENTLIKE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLCATEGORY" EntityType="Self.TBLCATEGORY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLEPISODE" EntityType="Self.TBLEPISODE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLEPISODECOMMENT" EntityType="Self.TBLEPISODECOMMENT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLEPISODECOMMENTLIKE" EntityType="Self.TBLEPISODECOMMENTLIKE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLEPISODELIKE" EntityType="Self.TBLEPISODELIKE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLFAVORITES" EntityType="Self.TBLFAVORITES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLSEASON" EntityType="Self.TBLSEASON" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLUSER" EntityType="Self.TBLUSER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLWATCHLATER" EntityType="Self.TBLWATCHLATER" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_TBLADMIN_TBLADMINROLE" Association="Self.FK_TBLADMIN_TBLADMINROLE">
+      <End Role="TBLADMINROLE" EntitySet="TBLADMINROLE" />
+      <End Role="TBLADMIN" EntitySet="TBLADMIN" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLANIME_TBLCATEGORY" Association="Self.FK_TBLANIME_TBLCATEGORY">
+      <End Role="TBLCATEGORY" EntitySet="TBLCATEGORY" />
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLANIMECOMMENT_TBLANIME" Association="Self.FK_TBLANIMECOMMENT_TBLANIME">
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+      <End Role="TBLANIMECOMMENT" EntitySet="TBLANIMECOMMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLANIMECOMMENT_TBLUSER" Association="Self.FK_TBLANIMECOMMENT_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLANIMECOMMENT" EntitySet="TBLANIMECOMMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" Association="Self.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT">
+      <End Role="TBLANIMECOMMENT" EntitySet="TBLANIMECOMMENT" />
+      <End Role="TBLANIMECOMMENTLIKE" EntitySet="TBLANIMECOMMENTLIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLANIMECOMMENTLIKE_TBLUSER" Association="Self.FK_TBLANIMECOMMENTLIKE_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLANIMECOMMENTLIKE" EntitySet="TBLANIMECOMMENTLIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODE_TBLANIME" Association="Self.FK_TBLEPISODE_TBLANIME">
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+      <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODE_TBLSEASON" Association="Self.FK_TBLEPISODE_TBLSEASON">
+      <End Role="TBLSEASON" EntitySet="TBLSEASON" />
+      <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLEPISODE" Association="Self.FK_TBLEPISODECOMMENT_TBLEPISODE">
+      <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+      <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLUSER1" Association="Self.FK_TBLEPISODECOMMENT_TBLUSER1">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT" Association="Self.FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT">
+      <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
+      <End Role="TBLEPISODECOMMENTLIKE" EntitySet="TBLEPISODECOMMENTLIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODECOMMENTLIKE_TBLUSER" Association="Self.FK_TBLEPISODECOMMENTLIKE_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLEPISODECOMMENTLIKE" EntitySet="TBLEPISODECOMMENTLIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODELIKE_TBLEPISODE" Association="Self.FK_TBLEPISODELIKE_TBLEPISODE">
+      <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+      <End Role="TBLEPISODELIKE" EntitySet="TBLEPISODELIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLEPISODELIKE_TBLUSER" Association="Self.FK_TBLEPISODELIKE_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLEPISODELIKE" EntitySet="TBLEPISODELIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLFAVORITES_TBLANIME" Association="Self.FK_TBLFAVORITES_TBLANIME">
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+      <End Role="TBLFAVORITES" EntitySet="TBLFAVORITES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLFAVORITES_TBLUSER" Association="Self.FK_TBLFAVORITES_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLFAVORITES" EntitySet="TBLFAVORITES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLSEASON_TBLANIME" Association="Self.FK_TBLSEASON_TBLANIME">
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+      <End Role="TBLSEASON" EntitySet="TBLSEASON" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLWATCHLATER_TBLANIME" Association="Self.FK_TBLWATCHLATER_TBLANIME">
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+      <End Role="TBLWATCHLATER" EntitySet="TBLWATCHLATER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLWATCHLATER_TBLUSER" Association="Self.FK_TBLWATCHLATER_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLWATCHLATER" EntitySet="TBLWATCHLATER" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

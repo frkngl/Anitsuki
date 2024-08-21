@@ -1,0 +1,87 @@
+﻿@model AnitsukiTV.Models.TBLSEASON
+
+@{
+    ViewBag.Title = "UpdateSeason";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    #anime-search {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    #anime-dropdown {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #000000;
+        border-radius: 5px;
+    }
+
+        #anime-dropdown option {
+            display: block;
+        }
+</style>
+
+@using (Html.BeginForm("SeasonSave", "LanetlerKralıAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <form class="forms-sample">
+        <div class="form-group">
+            <label for="exampleInputName1">ID</label>
+            @Html.TextBoxFor(x => x.ID, new { @style = "width:100%; border:1px solid #000000;", @readonly = "readonly" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword4">Anime Adı</label><br />
+            <input type="text" id="anime-search" placeholder="Anime Ara">
+            <select id="anime-dropdown" name="ANIMEID" required>
+                @foreach (var anime in ViewBag.Anime)
+                {
+                    if (anime.ID == ViewBag.SelectedAnimeId)
+                    {
+                        <option value="@anime.ID" selected>@anime.ANIMENAME</option>
+                    }
+                    else
+                    {
+                        <option value="@anime.ID">@anime.ANIMENAME</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail3">Sezon Numarası</label>
+            @Html.TextBoxFor(x => x.SEASONNUMBER, new { @style = "width:100%; border:1px solid #000000;" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail3">Sezon Adı</label>
+            @Html.TextBoxFor(x => x.SEASONNAME, new { @style = "width:100%; border:1px solid #000000;" })
+        </div>
+        <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+        <a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/Season">Vazgeç</a>
+    </form>
+
+}
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var animeList = document.getElementById("anime-dropdown");
+        var searchInput = document.getElementById("anime-search");
+
+        searchInput.addEventListener("input", function () {
+            var searchTerm = searchInput.value.toLowerCase();
+            for (var i = 0; i < animeList.options.length; i++) {
+                var option = animeList.options[i];
+                var optionText = option.text.toLowerCase();
+                if (optionText.indexOf(searchTerm) === -1) {
+                    option.style.display = "none";
+                } else {
+                    option.style.display = "block";
+                }
+            }
+        });
+    });
+</script>
+
