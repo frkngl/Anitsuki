@@ -71,8 +71,8 @@ namespace AnitsukiTV.Controllers
                 var path = Path.Combine(Server.MapPath("~/IMG/"), fileName);
 
                 WebImage Websize = new WebImage(UserImage.InputStream);
-                if (Websize.Width > 250)
-                    Websize.Resize(250, 250);
+                if (Websize.Width > 750)
+                    Websize.Resize(750, 750);
                 Websize.Save(path);
                 TempData["UploadedImage"] = fileName;
                 UserUpdate.PICTURE = fileName;

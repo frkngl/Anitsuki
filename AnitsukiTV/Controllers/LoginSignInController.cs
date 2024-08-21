@@ -140,7 +140,7 @@ namespace AnitsukiTV.Controllers
                 mail.From = new MailAddress("info@anitsuki.com", "Anitsuki");
                 mail.To.Add(trimmedEmail);
                 mail.Subject = "Şifre Sıfırlama";
-                mail.Body = $"Geçici şifreniz: {tempPassword}";
+                mail.Body = $"Geçici şifreniz:{tempPassword}";
 
                 using (var smtpClient = new SmtpClient
                 {
