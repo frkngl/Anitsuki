@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\frkng\Desktop\Publish</_PublishTargetUrl>
-    <History>True|2024-08-23T10:12:44.7070532Z||;True|2024-08-22T19:23:15.4177405+03:00||;True|2024-08-22T19:17:21.8008721+03:00||;</History>
+    <History>True|2024-08-23T14:44:17.7579741Z||;True|2024-08-23T13:12:44.7070532+03:00||;True|2024-08-22T19:23:15.4177405+03:00||;True|2024-08-22T19:17:21.8008721+03:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -2785,10 +2785,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>08/22/2024 17:14:46</publishTime>
     </File>
     <File Include="bin/AnitsukiTV.dll">
-      <publishTime>08/23/2024 13:12:34</publishTime>
+      <publishTime>08/23/2024 17:44:07</publishTime>
     </File>
     <File Include="bin/AnitsukiTV.pdb">
-      <publishTime>08/23/2024 13:12:34</publishTime>
+      <publishTime>08/23/2024 17:44:07</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>08/23/2024 12:43:32</publishTime>
@@ -9961,7 +9961,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>08/23/2024 12:43:31</publishTime>
     </File>
     <File Include="css/main.css">
-      <publishTime>08/23/2024 12:43:30</publishTime>
+      <publishTime>08/23/2024 17:37:16</publishTime>
     </File>
     <File Include="css/video.css">
       <publishTime>08/23/2024 12:43:30</publishTime>
@@ -12715,7 +12715,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>08/23/2024 12:43:31</publishTime>
     </File>
     <File Include="Views/AnimeDetail/Index.cshtml">
-      <publishTime>08/23/2024 13:07:55</publishTime>
+      <publishTime>08/23/2024 14:39:06</publishTime>
     </File>
     <File Include="Views/AnimeDetail/LeaveComment.cshtml">
       <publishTime>08/23/2024 12:43:31</publishTime>
@@ -12724,7 +12724,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>08/23/2024 12:43:31</publishTime>
     </File>
     <File Include="Views/AnimeDetail/Video.cshtml">
-      <publishTime>08/23/2024 12:43:29</publishTime>
+      <publishTime>08/23/2024 17:40:47</publishTime>
     </File>
     <File Include="Views/Category/Index.cshtml">
       <publishTime>08/23/2024 12:43:29</publishTime>
@@ -12736,7 +12736,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>08/23/2024 12:43:29</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>08/23/2024 13:10:20</publishTime>
+      <publishTime>08/23/2024 13:46:48</publishTime>
     </File>
     <File Include="Views/Home/PrivacyPolicy.cshtml">
       <publishTime>08/23/2024 12:43:29</publishTime>
@@ -12832,19 +12832,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>08/23/2024 12:43:31</publishTime>
     </File>
     <File Include="Views/LoginSignIn/Login.cshtml">
-      <publishTime>08/23/2024 12:43:31</publishTime>
+      <publishTime>08/23/2024 17:40:45</publishTime>
     </File>
     <File Include="Views/LoginSignIn/ResetPassword.cshtml">
-      <publishTime>08/23/2024 12:43:31</publishTime>
+      <publishTime>08/23/2024 17:40:44</publishTime>
     </File>
     <File Include="Views/LoginSignIn/SignIn.cshtml">
-      <publishTime>08/23/2024 12:43:31</publishTime>
+      <publishTime>08/23/2024 17:40:44</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>08/23/2024 12:43:31</publishTime>
     </File>
     <File Include="Views/Shared/_AdminLayout.cshtml">
-      <publishTime>08/23/2024 12:43:31</publishTime>
+      <publishTime>08/23/2024 17:43:05</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
       <publishTime>08/23/2024 12:43:31</publishTime>

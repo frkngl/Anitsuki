@@ -58,7 +58,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="logo col-2">
-                    <a href="/Home/Index"><img src="~/Anitsuki/img/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/Anitsuki/img/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
+                    <a href="/Home/Index"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
                 </div>
 
                 <input style="display: none;" type="checkbox" id="check">
@@ -141,11 +141,11 @@
                     @foreach (var y in Model.VideoInfo.Episode)
                     {
                         <img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
-                        <div class="detail">
-                            <div style="width:50%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                        <div style="width:50%;" class="detail">
+                            <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
                                 <a href="/AnimeDetail/Index/@y.ANIMEID">@y.TBLANIME.ANIMENAME </a>
                             </div>
-                            <div style="width:50%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="episodename">
+                            <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="episodename">
                                 <span>S.@y.TBLSEASON.SEASONNUMBER</span> -
                                 <span>B.@y.EPINUMBER</span> @y.EPISODENAME
                             </div>
@@ -193,7 +193,7 @@
                                             <a style="color:#ffffff; text-decoration:none;" href="/LoginSignIn/Login"><i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == true).Count()</a>
                                         </div>
                                         <div class="unlike">
-                                            <a style="color: #ffffff; text-decoration: none" href="/LoginSignIn/Login"><i style="margin-right:2px;" class="bi bi-hand-thumbs-down"> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == false).Count()</i></a>
+                                            <a style="color: #ffffff; text-decoration: none" href="/LoginSignIn/Login"><i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == false).Count()</a>
                                         </div>
                                     }
                                 </div>
