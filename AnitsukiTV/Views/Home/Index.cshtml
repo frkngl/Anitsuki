@@ -207,13 +207,13 @@
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
-                <i class="bi bi-award"></i> IMDb Top 12 Animeler
+                <i class="bi bi-award"></i> My Anime List Top 12
             </div>
         </div>
         <div class="splide" id="splide3">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var l in Model.Anime.Where(l => l.STATUS == true).OrderByDescending(l => l.IMDB).Take(12))
+                    @foreach (var l in Model.Anime.Where(l => l.STATUS == true).OrderByDescending(l => l.MYANIMELIST).Take(12))
                     {
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@l.ID">
@@ -233,7 +233,7 @@
                                         @l.ANIMENAME
                                     </div>
                                     <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @l.IMDB
+                                        @l.MYANIMELIST
                                     </div>
                                 </div>
                             </a>

@@ -36,10 +36,9 @@
     <link rel="stylesheet" href="~/swiper/swiper-bundle.min.css" type="text/css">
     <link rel="stylesheet" href="~/bootstrap/dist/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="~/bootstrap-icons/font/bootstrap-icons.min.css" type="text/css">
-    <link rel="stylesheet" href="~/Anitsuki/css/main.css" type="text/css">
-    <link rel="stylesheet" href="~/Anitsuki/css/main.css.map" type="text/css">
+    <link rel="stylesheet" href="~/css/main.css" type="text/css">
     <!--TITLE IMG-->
-    <link rel="shortcut icon" href="~/Anitsuki/img/aylogo.png" />
+    <link rel="shortcut icon" href="~/IMG/aylogo.png" />
     @if (!User.Identity.IsAuthenticated)
     {
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6247305840090216" crossorigin="anonymous"></script>
@@ -49,14 +48,14 @@
 <body>
     <div id="loader">
         <div id="box1">
-            <img src="~/Anitsuki/img/arisu-aris.gif">
+            <img src="~/IMG/arisu-aris.gif">
         </div>
     </div>
     <header>
         <div class="container-xl">
             <div class="row">
                 <div class="logo col-2">
-                    <a href="/Home/Index"><img src="~/Anitsuki/img/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/Anitsuki/img/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
+                    <a href="/Home/Index"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
                 </div>
 
                 <input style="display: none;" type="checkbox" id="check">
@@ -208,13 +207,13 @@
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
-                <i class="bi bi-award"></i> IMDb Top 12 Animeler
+                <i class="bi bi-award"></i> My Anime List Top 12
             </div>
         </div>
         <div class="splide" id="splide3">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var l in Model.Anime.Where(l => l.STATUS == true).OrderByDescending(l => l.IMDB).Take(12))
+                    @foreach (var l in Model.Anime.Where(l => l.STATUS == true).OrderByDescending(l => l.MYANIMELIST).Take(12))
                     {
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@l.ID">
@@ -234,7 +233,7 @@
                                         @l.ANIMENAME
                                     </div>
                                     <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @l.IMDB
+                                        @l.MYANIMELIST
                                     </div>
                                 </div>
                             </a>
@@ -819,7 +818,7 @@
             </div>
         </div>
         <div class="copyright ">
-            <img src="~/Anitsuki/img/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+            <img src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
             <div class="text">
                 Copyright © Anitsuki 2024. Tüm hakları saklıdır.
             </div>
@@ -830,8 +829,8 @@
 <script src="~/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/swiper/swiper-bundle.min.js"></script>
 <script src="~/splidejs/splide/dist/js/splide.min.js"></script>
-<script src="~/Anitsuki/js/main1.js"></script>
-<script src="~/Anitsuki/js/splide.js"></script>
+<script src="~/js/main1.js"></script>
+<script src="~/js/splide.js"></script>
 <script>
     document.querySelectorAll('nav a').forEach(link => {
         link.classList.remove('active');
