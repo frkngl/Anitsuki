@@ -211,6 +211,7 @@ namespace AnitsukiTV.Controllers
             anime.ADMINSTATUS = false;
             anime.TYPE = add.TYPE;
             anime.DATE = add.DATE;
+            anime.MYANIMELIST = add.MYANIMELIST;
             anime.CATEGORYID = add.CATEGORYID;
 
             if (Image != null && Image.ContentLength > 0)
@@ -366,6 +367,7 @@ namespace AnitsukiTV.Controllers
             updateanime1.TYPE = update.TYPE;
             updateanime1.IMDB = update.IMDB;
             updateanime1.DATE = update.DATE;
+            updateanime1.MYANIMELIST = update.MYANIMELIST;
 
             db.SaveChanges();
             TempData["success"] = "Success";

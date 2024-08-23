@@ -44,6 +44,7 @@
     <Property Name="IMDB" Type="decimal" Precision="2" Scale="1" />
     <Property Name="ADMINSTATUS" Type="bit" />
     <Property Name="BIGBANNER" Type="nvarchar" MaxLength="500" />
+    <Property Name="MYANIMELIST" Type="decimal" Precision="2" Scale="1" />
   </EntityType>
   <EntityType Name="TBLANIMECOMMENT">
     <Key>
@@ -270,7 +271,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_TBLEPISODECOMMENT_TBLUSER1">
+  <Association Name="FK_TBLEPISODECOMMENT_TBLUSER">
     <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
     <End Role="TBLEPISODECOMMENT" Type="Self.TBLEPISODECOMMENT" Multiplicity="*" />
     <ReferentialConstraint>
@@ -442,7 +443,7 @@
       <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
       <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
     </AssociationSet>
-    <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLUSER1" Association="Self.FK_TBLEPISODECOMMENT_TBLUSER1">
+    <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLUSER" Association="Self.FK_TBLEPISODECOMMENT_TBLUSER">
       <End Role="TBLUSER" EntitySet="TBLUSER" />
       <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
     </AssociationSet>

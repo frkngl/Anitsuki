@@ -37,20 +37,20 @@
                 <label>Resim Yükleme</label>
                 <br />
                 <img class="resim" width="400" height="250" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" />
-                <input class="form-control" id="resim" type="file" onchange="$('.resim')[0].src = window.URL.createObjectURL(this.files[0])" name="Image"  />
+                <input class="form-control" id="resim" accept=".jpg, .jpeg, .png" type="file" onchange="$('.resim')[0].src = window.URL.createObjectURL(this.files[0])" name="Image"  />
             </div>
             <div>
                 <div style="margin-bottom:10px;">
                     <label for="exampleInputPassword4">360</label>
                     <br />
                     <video controls class="Video" width="400" height="250" style="border:1px solid #000000; object-fit:cover;"></video>
-                    <input class="form-control" id="resim" type="file" onchange="$('.Video')[0].src = window.URL.createObjectURL(this.files[0])" name="Video"  />
+                    <input class="form-control" id="resim" accept=".mp4" type="file" onchange="$('.Video')[0].src = window.URL.createObjectURL(this.files[0])" name="Video"  />
                 </div>
                 <div>
                     <label for="exampleInputPassword4">720</label>
                     <br />
                     <video controls class="Video3" width="400" height="250" style="border:1px solid #000000; object-fit:cover;"></video>
-                    <input class="form-control" id="resim" type="file" onchange="$('.Video3')[0].src = window.URL.createObjectURL(this.files[0])" name="Video3"  />
+                    <input class="form-control" id="resim" accept=".mp4" type="file" onchange="$('.Video3')[0].src = window.URL.createObjectURL(this.files[0])" name="Video3"  />
                 </div>
             </div>
             <div>
@@ -58,13 +58,13 @@
                     <label for="exampleInputPassword4">480</label>
                     <br />
                     <video controls class="Video2" width="400" height="250" style="border:1px solid #000000; object-fit:cover;"></video>
-                    <input class="form-control" id="resim" type="file" onchange="$('.Video2')[0].src = window.URL.createObjectURL(this.files[0])" name="Video2"  />
+                    <input class="form-control" id="resim" accept=".mp4" type="file" onchange="$('.Video2')[0].src = window.URL.createObjectURL(this.files[0])" name="Video2"  />
                 </div>
                 <div>
                     <label for="exampleInputPassword4">1080</label>
                     <br />
                     <video controls class="Video4" width="400" height="250" style="border:1px solid #000000; object-fit:cover;"></video>
-                    <input class="form-control" id="resim" type="file" onchange="$('.Video4')[0].src = window.URL.createObjectURL(this.files[0])" name="Video4"  />
+                    <input class="form-control" id="resim" accept=".mp4" type="file" onchange="$('.Video4')[0].src = window.URL.createObjectURL(this.files[0])" name="Video4"  />
                 </div>
             </div>
 

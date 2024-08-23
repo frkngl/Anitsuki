@@ -49,6 +49,7 @@
           <Property Name="IMDB" Type="decimal" Precision="2" Scale="1" />
           <Property Name="ADMINSTATUS" Type="bit" />
           <Property Name="BIGBANNER" Type="nvarchar" MaxLength="500" />
+          <Property Name="MYANIMELIST" Type="decimal" Precision="2" Scale="1" />
         </EntityType>
         <EntityType Name="TBLANIMECOMMENT">
           <Key>
@@ -275,7 +276,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TBLEPISODECOMMENT_TBLUSER1">
+        <Association Name="FK_TBLEPISODECOMMENT_TBLUSER">
           <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
           <End Role="TBLEPISODECOMMENT" Type="Self.TBLEPISODECOMMENT" Multiplicity="*" />
           <ReferentialConstraint>
@@ -447,7 +448,7 @@
             <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
             <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
           </AssociationSet>
-          <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLUSER1" Association="Self.FK_TBLEPISODECOMMENT_TBLUSER1">
+          <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLUSER" Association="Self.FK_TBLEPISODECOMMENT_TBLUSER">
             <End Role="TBLUSER" EntitySet="TBLUSER" />
             <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
           </AssociationSet>
@@ -560,7 +561,7 @@
             <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
             <End Role="TBLEPISODELIKE" EntitySet="TBLEPISODELIKE" />
           </AssociationSet>
-          <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLUSER1" Association="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLUSER1">
+          <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLUSER" Association="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLUSER">
             <End Role="TBLUSER" EntitySet="TBLUSER" />
             <End Role="TBLEPISODECOMMENT" EntitySet="TBLEPISODECOMMENT" />
           </AssociationSet>
@@ -631,6 +632,7 @@
           <Property Name="IMDB" Type="Decimal" Precision="2" Scale="1" />
           <Property Name="ADMINSTATUS" Type="Boolean" />
           <Property Name="BIGBANNER" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MYANIMELIST" Type="Decimal" Precision="2" Scale="1" />
           <NavigationProperty Name="TBLCATEGORY" Relationship="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY" FromRole="TBLANIME" ToRole="TBLCATEGORY" />
           <NavigationProperty Name="TBLANIMECOMMENT" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLANIME" FromRole="TBLANIME" ToRole="TBLANIMECOMMENT" />
           <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME" FromRole="TBLANIME" ToRole="TBLEPISODE" />
@@ -707,7 +709,7 @@
           <Property Name="USTID" Type="Int32" />
           <Property Name="STATUS" Type="Boolean" />
           <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLEPISODE" FromRole="TBLEPISODECOMMENT" ToRole="TBLEPISODE" />
-          <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLUSER1" FromRole="TBLEPISODECOMMENT" ToRole="TBLUSER" />
+          <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLUSER" FromRole="TBLEPISODECOMMENT" ToRole="TBLUSER" />
           <NavigationProperty Name="TBLEPISODECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT" FromRole="TBLEPISODECOMMENT" ToRole="TBLEPISODECOMMENTLIKE" />
         </EntityType>
         <EntityType Name="TBLEPISODECOMMENTLIKE">
@@ -769,7 +771,7 @@
           <Property Name="STATUS" Type="Boolean" />
           <NavigationProperty Name="TBLANIMECOMMENT" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLUSER" FromRole="TBLUSER" ToRole="TBLANIMECOMMENT" />
           <NavigationProperty Name="TBLANIMECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLANIMECOMMENTLIKE" />
-          <NavigationProperty Name="TBLEPISODECOMMENT" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLUSER1" FromRole="TBLUSER" ToRole="TBLEPISODECOMMENT" />
+          <NavigationProperty Name="TBLEPISODECOMMENT" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLUSER" FromRole="TBLUSER" ToRole="TBLEPISODECOMMENT" />
           <NavigationProperty Name="TBLEPISODECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLEPISODECOMMENTLIKE" />
           <NavigationProperty Name="TBLEPISODELIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLEPISODELIKE" />
           <NavigationProperty Name="TBLFAVORITES" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLUSER" FromRole="TBLUSER" ToRole="TBLFAVORITES" />
@@ -941,7 +943,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TBLEPISODECOMMENT_TBLUSER1">
+        <Association Name="FK_TBLEPISODECOMMENT_TBLUSER">
           <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
           <End Type="AnitsukiTVModel.TBLEPISODECOMMENT" Role="TBLEPISODECOMMENT" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1053,6 +1055,7 @@
           <EntitySetMapping Name="TBLANIME">
             <EntityTypeMapping TypeName="AnitsukiTVModel.TBLANIME">
               <MappingFragment StoreEntitySet="TBLANIME">
+                <ScalarProperty Name="MYANIMELIST" ColumnName="MYANIMELIST" />
                 <ScalarProperty Name="BIGBANNER" ColumnName="BIGBANNER" />
                 <ScalarProperty Name="ADMINSTATUS" ColumnName="ADMINSTATUS" />
                 <ScalarProperty Name="IMDB" ColumnName="IMDB" />
