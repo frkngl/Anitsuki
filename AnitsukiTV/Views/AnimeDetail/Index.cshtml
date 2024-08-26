@@ -208,15 +208,7 @@
                     }
                 </ul>
             </div>
-            <div class="commentplace">
-                <div class="headcomment">
-                    <div class="title">
-                        <i class="bi bi-pencil-square"></i> Düşüncelerinizi Yazın
-                    </div>
-                    @Html.Action("LeaveComment", "AnimeDetail")
-                </div>
-            </div>
-            @Html.Action("Comments", "AnimeDetail")
+            @Html.Action("Comment", "AnimeDetail")
         </div>
     </div>
     <footer>
@@ -268,6 +260,7 @@
 <script src="~/Scripts/toastr.min.js"></script>
 <script src="~/js/main1.js"></script>
 <script src="~/js/splide.js"></script>
+
 <script>
     document.querySelectorAll('nav a').forEach(link => {
         link.classList.remove('active');

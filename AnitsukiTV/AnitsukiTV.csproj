@@ -4343,8 +4343,6 @@
     <Content Include="Views\LoginSignIn\Login.cshtml" />
     <Content Include="Views\User\ProfileSetting.cshtml" />
     <Content Include="Views\LoginSignIn\ResetPassword.cshtml" />
-    <Content Include="Views\AnimeDetail\Comments.cshtml" />
-    <Content Include="Views\AnimeDetail\LeaveComment.cshtml" />
     <Content Include="Views\AnimeDetail\Comments1.cshtml" />
     <Content Include="Views\AnimeDetail\LeaveComment1.cshtml" />
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
@@ -4380,6 +4378,7 @@
     <Content Include="Views\LanetlerKralıAdmin\EpisodeComment.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\UpdateEpisodeComment.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\EpisodeCommentDetaıl.cshtml" />
+    <Content Include="Views\AnimeDetail\Comment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

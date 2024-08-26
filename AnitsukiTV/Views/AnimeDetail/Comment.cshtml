@@ -1,0 +1,245 @@
+﻿@using AnitsukiTV.Models
+@model List<TBLANIMECOMMENT>
+
+@if (Session["username"] != null)
+{
+    <div class="commentplace">
+        <div class="headcomment">
+            <div class="title">
+                <i class="bi bi-pencil-square"></i> Düşüncelerinizi Yazın
+            </div>
+            <form id="comment-form" action="/AnimeDetail/LeaveComment" method="post" data-ajax="true" data-ajax-method="post" data-ajax-success="commentPosted">
+                <textarea id="comment-text" name="COMMENT"></textarea>
+                <input type="hidden" name="ANIMEID" value="@ViewBag.animeID" />
+                <button type="submit"><i class="bi bi-send"></i> Yorum Yap</button>
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <div style="display:flex; justify-content:center; margin-top:50px;">
+        <p style="font-size:1.1rem;color:#ffffff;">Düşüncelerinizi yazmak için</p><a style="text-decoration: none;" href="/LoginSignIn/Login"><span style="color: #FF7F00; margin-left:5px; font-size:1.1rem;">Giriş Yapın</span></a>
+    </div>
+}
+<div class="commentboxes">
+    <div class="title">
+        <i class="bi bi-chat"></i> @ViewBag.CommentCount Yorum
+    </div>
+    <div id="comments" class="comments">
+        @if (Model.Any())
+        {
+            foreach (var x in Model.Where(x => x.STATUS == true).OrderByDescending(x => x.ID).Take(100))
+            {
+                <div class="comment1">
+                    <img src="~/IMG/@x.TBLUSER.PICTURE">
+                    <div class="detail">
+                        <div class="user">
+                            <div class="name">
+                                @x.TBLUSER.USERNAME
+                            </div>
+                            <div class="year">
+                                @x.DATE.Value.ToString("dd.MM.yyyy")
+                            </div>
+                        </div>
+                        <div class="text">
+                            @x.COMMENT
+                        </div>
+                        <div class="more">
+                            <div class="reply">
+                                <i class="bi bi-reply"></i>Cevapla
+                            </div>
+                            <div class="likeandunlike">
+                                @{
+                                    AnitsukiTVEntities db = new AnitsukiTVEntities();
+                                    var userID = db.TBLUSER.Where(u => u.USERNAME == User.Identity.Name).Select(u => u.ID).FirstOrDefault();
+                                    var likeExist = x.TBLANIMECOMMENTLIKE.Any(y => y.USERID == userID);
+                                    var liked = x.TBLANIMECOMMENTLIKE.FirstOrDefault(y => y.USERID == userID)?.STATUS;
+                                }
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    if (liked.HasValue && liked.Value)
+                                    {
+                                        <div class="like active" data-comment-id="@x.ID">
+                                            <a style="text-decoration:none; cursor:default; color:white;" onclick="handleLikeOrUnlike(this, @x.ID, @userID, true)">
+                                                <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
+                                                <span id="like-count-@x.ID">@x.TBLANIMECOMMENTLIKE.Where(y => y.STATUS == true).Count()</span>
+                                            </a>
+                                        </div>
+                                        <div class="unlike" data-comment-id="@x.ID">
+                                            <a style="text-decoration:none; color:white;" onclick="handleLikeOrUnlike(this, @x.ID, @userID, false)">
+                                                <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
+                                                <span id="unlike-count-@x.ID">@x.TBLANIMECOMMENTLIKE.Where(y => y.STATUS == false).Count()</span>
+                                            </a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="like" data-comment-id="@x.ID">
+                                            <a style="text-decoration:none; color:white;" onclick="handleLikeOrUnlike(this, @x.ID, @userID, true)">
+                                                <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
+                                                <span id="like-count-@x.ID">@x.TBLANIMECOMMENTLIKE.Where(y => y.STATUS == true).Count()</span>
+                                            </a>
+                                        </div>
+                                        <div class="unlike active" data-comment-id="@x.ID">
+                                            <a style="text-decoration:none; cursor:default; color:white;" onclick="handleLikeOrUnlike(this, @x.ID, @userID, false)">
+                                                <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
+                                                <span id="unlike-count-@x.ID">@x.TBLANIMECOMMENTLIKE.Where(y => y.STATUS == false).Count()</span>
+                                            </a>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="like" data-comment-id="@x.ID">
+                                        <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
+                                            <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
+                                            @x.TBLANIMECOMMENTLIKE.Where(y => y.STATUS == true).Count()
+                                        </a>
+                                    </div>
+                                    <div class="unlike" data-comment-id="@x.ID">
+                                        <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
+                                            <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
+                                            @x.TBLANIMECOMMENTLIKE.Where(y => y.STATUS == false).Count()
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div style="width:100%; height:auto; display:flex; justify-content:center;">Bu animeye henüz yorum yapılmamış.</div>
+        }
+    </div>
+</div>
+
+<div id="comment-success" style="display:none;"></div>
+<div id="comment-error" style="display:none;"></div>
+
+
+
+@*<div class="comment2">
+        <img src="img/1.png">
+        <div class="detail">
+            <div class="user">
+                <div class="name">
+                    BABAPRO
+                </div>
+                <div class="year">
+                    12.12.2023
+                </div>
+            </div>
+            <div class="text">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. At totam exercitationem
+                iure quia tempora suscipit illum adipisci voluptatum? Aspernatur, perspiciatis.
+            </div>
+            <div class="more">
+                <div class="reply">
+                    <i class="bi bi-reply"></i> Cevapla
+                </div>
+                <div class="likeandunlike">
+                    <div class="like">
+                        <i class="bi bi-hand-thumbs-up"></i> 1024
+                    </div>
+                    <div class="unlike">
+                        <i class="bi bi-hand-thumbs-down"></i> 299
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script>
+    $('#comment-form').submit(function (e) {
+        e.preventDefault();
+        var formData = $(this).serialize();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("LeaveComment")',
+            data: formData,
+            success: function (data) {
+                if (data.success) {
+                    // Yorum listesini güncelle
+                    var commentHtml = '<div class="comment1">' +
+                        '<img src="' + data.picture + '">' +
+                        '<div class="detail">' +
+                            '<div class="user">' +
+                                '<div class="name">' + data.username + '</div>' +
+                                '<div class="year">' + data.date + '</div>' +
+                            '</div>' +
+                            '<div class="text">' + data.commentText + '</div>' +
+                            '<div class="more">' +
+                                '<div class="reply"><i class="bi bi-reply"></i>Cevapla</div>' +
+                                '<div class="likeandunlike">' +
+                                    '<div class="like"><i class="bi bi-hand-thumbs-up"></i>0</div>' +
+                                    '<div class="unlike"><i class="bi bi-hand-thumbs-down"></i>0</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+                    // Yorumu sayfaya ekleyin
+                    $('#comments').prepend(commentHtml);
+                    // Yorum alanını temizle
+                    $('#comment-text').val('');
+                } else {
+                    // Hata mesajını göster
+                    $('#comment-error').text(data.message).fadeIn().delay(2000).fadeOut();
+                }
+            }
+        });
+        return false;
+    });
+</script>
+
+<script>
+    function handleLikeOrUnlike(element, commentId, userId, isLike) {
+        var likeButton, unlikeButton, likeCountSpan, unlikeCountSpan;
+
+        if (isLike) {
+            likeButton = $(element);
+            unlikeButton = likeButton.parent().siblings(".unlike").find("a");
+            likeCountSpan = likeButton.find("span");
+            unlikeCountSpan = unlikeButton.find("span");
+        } else {
+            unlikeButton = $(element);
+            likeButton = unlikeButton.parent().siblings(".like").find("a");
+            unlikeCountSpan = unlikeButton.find("span");
+            likeCountSpan = likeButton.find("span");
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/AnimeDetail/LikeOrUnlikeComment",
+            data: { id: commentId, userId: userId, isLike: isLike },
+            success: function (data) {
+                likeCountSpan.text(data.likeCount);
+                unlikeCountSpan.text(data.unlikeCount);
+                if (isLike) {
+                    if (data.likeCount > 0) {
+                        likeButton.addClass("active");
+                        unlikeButton.removeClass("active");
+                    } else {
+                        likeButton.removeClass("active");
+                        unlikeButton.addClass("active");
+                    }
+                } else {
+                    if (data.unlikeCount > 0) {
+                        unlikeButton.addClass("active");
+                        likeButton.removeClass("active");
+                    } else {
+                        unlikeButton.removeClass("active");
+                        likeButton.addClass("active");
+                    }
+                }
+            }
+        });
+    }
+</script>
+

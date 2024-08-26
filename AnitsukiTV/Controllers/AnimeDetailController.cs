@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
@@ -50,99 +51,101 @@ namespace AnitsukiTV.Controllers
             return View(veri);
         }
 
-        public PartialViewResult Comments(int id)
+
+        public PartialViewResult Comment(int id)
         {
-            var degerler = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id && x.STATUS == true).ToList();
-            ViewBag.animecom = id;
-            ViewBag.CommentCount = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id && x.STATUS == true).Take(1000).Count();
+            var anime = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id).FirstOrDefault();
+            var degerler = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id).ToList();
+            ViewBag.CommentCount = degerler.Count;
+            ViewBag.animeID = anime.ANIMEID;
             return PartialView(degerler);
         }
 
-        public PartialViewResult LeaveComment(int ? id)
+        [HttpPost]
+        public ActionResult LeaveComment(TBLANIMECOMMENT y)
         {
-            if (id.HasValue)
+            if (Session["username"] == null)
             {
-                ViewBag.deger = id.Value;
+                return Json(new { success = false, message = "Lütfen giriş yapın veya kayıt olun." });
             }
-            return PartialView();
+
+            try
+            {
+                TBLANIMECOMMENT yeni = new TBLANIMECOMMENT();
+                yeni.COMMENT = y.COMMENT;
+                yeni.DATE = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                yeni.USTID = null;
+                yeni.STATUS = true;
+                yeni.ANIMEID = y.ANIMEID;
+                yeni.USERID = (int)Session["id"]; 
+
+                // Veritabanından kullanıcı bilgilerini al
+                var user = db.TBLUSER.Find(yeni.USERID);
+                string username = user.USERNAME; 
+                string picture = "/IMG/" + user.PICTURE; 
+
+                db.TBLANIMECOMMENT.Add(yeni);
+                db.SaveChanges();
+                return Json(new
+                {
+                    success = true,
+                    message = "Yorumunuz başarıyla kaydedildi.",
+                    commentText = yeni.COMMENT,
+                    username = username,
+                    date = DateTime.Now.ToString("dd.MM.yyyy"),
+                    picture = picture
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Yorumunuz kaydedilemedi. Lütfen tekrar deneyin." });
+            }
         }
+
 
         [HttpPost]
-        public PartialViewResult LeaveComment(TBLANIMECOMMENT y)
+        public ActionResult LikeOrUnlikeComment(int id, int userId, bool isLike)
         {
-            int userId = Convert.ToInt32(Session["id"]);
-            TBLUSER user = db.TBLUSER.Find(userId);
-
-            TBLANIMECOMMENT yeni = new TBLANIMECOMMENT();
-            yeni.COMMENT = y.COMMENT;
-            yeni.ANIMEID = y.ANIMEID;
-            yeni.DATE = Convert.ToDateTime(DateTime.Now.ToShortDateString());
-            yeni.STATUS = true;
-            yeni.USTID = null;
-            yeni.USERID = userId;
-
-            db.TBLANIMECOMMENT.Add(yeni);
-            db.SaveChanges();
-
-            Response.Redirect("/AnimeDetail/Index/" + y.ANIMEID);
-            return PartialView();
-        }
-
-        [HttpPost]
-        public ActionResult ReplyComment(TBLANIMECOMMENT y)
-        {
-            int userId = Convert.ToInt32(Session["id"]);
-            TBLUSER user = db.TBLUSER.Find(userId);
-
-            y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
-            y.STATUS = true;
-            y.TBLUSER = user;
-            db.TBLANIMECOMMENT.Add(y);
-            db.SaveChanges();
-            return RedirectToAction("Index/" + y.ANIMEID);
-        }
-
-        public ActionResult LikeComment(int id)
-        {
-            var user = HttpContext.User.Identity.Name;
-            int userId = db.TBLUSER.Where(u => u.USERNAME == user).Select(u => u.ID).FirstOrDefault();
-            var comment = db.TBLANIMECOMMENT.Find(id);
+            var yorum = db.TBLANIMECOMMENT.Find(id);
             var like = db.TBLANIMECOMMENTLIKE.FirstOrDefault(x => x.ANIMECOMMENTID == id && x.USERID == userId);
 
-            if (like == null)
+            if (isLike)
             {
-                like = new TBLANIMECOMMENTLIKE { ANIMECOMMENTID = id, USERID = userId, STATUS = true };
-                db.TBLANIMECOMMENTLIKE.Add(like);
+                if (like == null)
+                {
+                    like = new TBLANIMECOMMENTLIKE { ANIMECOMMENTID = id, USERID = userId, STATUS = true };
+                    db.TBLANIMECOMMENTLIKE.Add(like);
+                }
+                else
+                {
+                    like.STATUS = true;
+                    db.Entry(like).State = EntityState.Modified;
+                }
             }
             else
             {
-                like.STATUS = true;
-                db.Entry(like).State = EntityState.Modified;
+                if (like == null)
+                {
+                    like = new TBLANIMECOMMENTLIKE { ANIMECOMMENTID = id, USERID = userId, STATUS = false };
+                    db.TBLANIMECOMMENTLIKE.Add(like);
+                }
+                else
+                {
+                    like.STATUS = false;
+                    db.Entry(like).State = EntityState.Modified;
+                }
             }
             db.SaveChanges();
-            return RedirectToAction("Index", new { id = comment.ANIMEID });
+
+            var likeCount = db.TBLANIMECOMMENTLIKE.Where(x => x.ANIMECOMMENTID == id && x.STATUS == true).Count();
+            var unlikeCount = db.TBLANIMECOMMENTLIKE.Where(x => x.ANIMECOMMENTID == id && x.STATUS == false).Count();
+
+            return Json(new { likeCount, unlikeCount });
         }
 
-        public ActionResult UnlikeComment(int id)
-        {
-            var user = HttpContext.User.Identity.Name;
-            int userId = db.TBLUSER.Where(u => u.USERNAME == user).Select(u => u.ID).FirstOrDefault();
-            var comment = db.TBLANIMECOMMENT.Find(id);
-            var like = db.TBLANIMECOMMENTLIKE.FirstOrDefault(x => x.ANIMECOMMENTID == id && x.USERID == userId);
 
-            if (like == null)
-            {
-                like = new TBLANIMECOMMENTLIKE { ANIMECOMMENTID = id, USERID = userId, STATUS = false };
-                db.TBLANIMECOMMENTLIKE.Add(like);
-            }
-            else
-            {
-                like.STATUS = false;
-                db.Entry(like).State = EntityState.Modified;
-            }
-            db.SaveChanges();
-            return RedirectToAction("Index", new { id = comment.ANIMEID });
-        }
+
+
 
         [HttpPost]
         public ActionResult AddFavorite(int animeID)
