@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Protocols;
 using System.Web.WebPages;
 
 namespace AnitsukiTV.Controllers
@@ -58,6 +60,7 @@ namespace AnitsukiTV.Controllers
             var degerler = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id).ToList();
             ViewBag.CommentCount = degerler.Count;
             ViewBag.animeID = anime.ANIMEID;
+            ViewBag.anime = id;
             return PartialView(degerler);
         }
 
@@ -77,12 +80,12 @@ namespace AnitsukiTV.Controllers
                 yeni.USTID = null;
                 yeni.STATUS = true;
                 yeni.ANIMEID = y.ANIMEID;
-                yeni.USERID = (int)Session["id"]; 
+                yeni.USERID = (int)Session["id"];
 
                 // Veritabanından kullanıcı bilgilerini al
                 var user = db.TBLUSER.Find(yeni.USERID);
-                string username = user.USERNAME; 
-                string picture = "/IMG/" + user.PICTURE; 
+                string username = user.USERNAME;
+                string picture = user.PICTURE != null ? "/IMG/" + user.PICTURE : "/IMG/stockuser.png";
 
                 db.TBLANIMECOMMENT.Add(yeni);
                 db.SaveChanges();
@@ -141,6 +144,21 @@ namespace AnitsukiTV.Controllers
             var unlikeCount = db.TBLANIMECOMMENTLIKE.Where(x => x.ANIMECOMMENTID == id && x.STATUS == false).Count();
 
             return Json(new { likeCount, unlikeCount });
+        }
+
+
+        [HttpPost]
+        public ActionResult ReplyComment(TBLANIMECOMMENT y)
+        {
+            int userId = Convert.ToInt32(Session["id"]);
+            TBLUSER user = db.TBLUSER.Find(userId);
+
+            y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
+            y.STATUS = true;
+            y.TBLUSER = user;
+            db.TBLANIMECOMMENT.Add(y);
+            db.SaveChanges();
+            return RedirectToAction("Index/" + y.ANIMEID);
         }
 
 
