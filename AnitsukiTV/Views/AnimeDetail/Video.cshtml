@@ -170,8 +170,8 @@
                                     {
                                         if (liked.HasValue && liked.Value)
                                         {
-                                            <div class="like active" data-comment-id="@y.ID">
-                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike(this, @y.ID, @userID, true)">
+                                            <div class="like1 active" data-comment-id="@y.ID">
+                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, true)">
                                                     <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
                                                     <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
                                                 </a>
@@ -181,8 +181,8 @@
                                             <div id="comment-error" style="display:none;"></div>
                                             <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
 
-                                            <div class="unlike" data-comment-id="@y.ID">
-                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike(this, @y.ID, @userID, false)">
+                                            <div class="unlike1" data-comment-id="@y.ID">
+                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, false)">
                                                     <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
                                                     <span id="unlike-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()</span>
                                                 </a>
@@ -190,14 +190,14 @@
                                         }
                                         else
                                         {
-                                            <div class="like" data-comment-id="@y.ID">
-                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike(this, @y.ID, @userID, true)">
+                                            <div class="like1" data-comment-id="@y.ID">
+                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, true)">
                                                     <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
                                                     <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
                                                 </a>
                                             </div>
-                                            <div class="unlike active" data-comment-id="@y.ID">
-                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike(this, @y.ID, @userID, false)">
+                                            <div class="unlike1 active" data-comment-id="@y.ID">
+                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, false)">
                                                     <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
                                                     <span id="unlike-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()</span>
                                                 </a>
@@ -206,13 +206,13 @@
                                     }
                                     else
                                     {
-                                        <div class="like" data-comment-id="@y.ID">
+                                        <div class="like1" data-comment-id="@y.ID">
                                             <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
                                                 <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
                                                 @y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()
                                             </a>
                                         </div>
-                                        <div class="unlike" data-comment-id="@y.ID">
+                                        <div class="unlike1" data-comment-id="@y.ID">
                                             <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
                                                 <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
                                                 @y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()
@@ -376,3 +376,51 @@
             event.stopPropagation();
         }
     });</script>
+
+
+
+
+<script>
+    function handleLikeOrUnlike1(element, commentId, userId, isLike) {
+        var likeButton, unlikeButton, likeCountSpan, unlikeCountSpan;
+
+        if (isLike) {
+            likeButton = $(element);
+            unlikeButton = likeButton.parent().siblings(".unlike1").find("a");
+            likeCountSpan = likeButton.find("span");
+            unlikeCountSpan = unlikeButton.find("span");
+        } else {
+            unlikeButton = $(element);
+            likeButton = unlikeButton.parent().siblings(".like1").find("a");
+            unlikeCountSpan = unlikeButton.find("span");
+            likeCountSpan = likeButton.find("span");
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/AnimeDetail/LikeOrUnlikeComment2",
+            data: { id: commentId, userId: userId, isLike: isLike },
+            success: function (data) {
+                likeCountSpan.text(data.likeCount);
+                unlikeCountSpan.text(data.unlikeCount);
+                if (isLike) {
+                    if (data.likeCount > 0) {
+                        likeButton.addClass("active");
+                        unlikeButton.removeClass("active");
+                    } else {
+                        likeButton.removeClass("active");
+                        unlikeButton.addClass("active");
+                    }
+                } else {
+                    if (data.unlikeCount > 0) {
+                        unlikeButton.addClass("active");
+                        likeButton.removeClass("active");
+                    } else {
+                        unlikeButton.removeClass("active");
+                        likeButton.addClass("active");
+                    }
+                }
+            }
+        });
+    }
+</script>
