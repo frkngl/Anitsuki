@@ -40,9 +40,9 @@
     </div>
     <div style="width:100%; height:auto; display:flex; align-items:center;justify-content:space-around;" class="form-group">
         <div>
-            <label for="exampleInputPassword4">Banner</label><br />
-            <img class="banner" width="400" height="250" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" src="~/IMG/@Model.BANNER" />
-            <input class="form-control" id="resim" accept=".jpg, .jpeg, .png" type="file" onchange="$('.banner')[0].src = window.URL.createObjectURL(this.files[0])" name="Banner" />
+            <label>Resim Yükleme</label><br />
+            <img class="resimmm" width="400" height="250" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" src="~/IMG/@Model.BANNER" />
+            <input class="form-control" id="resimmm" accept=".jpg, .jpeg, .png" type="file" onchange="$('.resimmm')[0].src = window.URL.createObjectURL(this.files[0])" name="Image" />
         </div>
         <div>
             <div style="margin-bottom:10px;">
@@ -103,7 +103,7 @@
         @Html.TextBoxFor(x => x.TIME, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
     </div>
     <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
-    <a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/Anime">Vazgeç</a>
+    <a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/Episode">Vazgeç</a>
 }
 
 
