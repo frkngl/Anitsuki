@@ -160,40 +160,63 @@
                                     Beğendiniz mi?
                                 </div>
                                 <div class="likeandunlike">
+                                    @{
+                                        var userID = db.TBLUSER.Where(u => u.USERNAME == User.Identity.Name).Select(u => u.ID).FirstOrDefault();
+                                        var likeExist = y.TBLEPISODELIKE.Any(y => y.USERID == userID);
+                                        var liked = y.TBLEPISODELIKE.FirstOrDefault(y => y.USERID == userID)?.LIKESTATUS;
+                                    }
+
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        var userId = db.TBLUSER.Where(u => u.USERNAME == User.Identity.Name).Select(u => u.ID).FirstOrDefault();
-                                        var likeExists = y.TBLEPISODELIKE.Any(x => x.USERID == userId);
-
-                                        if (likeExists)
+                                        if (liked.HasValue && liked.Value)
                                         {
-                                            <div style="color:white; width:100px;display:flex;">
-                                                <div style="width:50%;">
-                                                    <i class="bi bi-hand-thumbs-up"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == true).Count()
-                                                </div>
-                                                <div style="width:50%;">
-                                                    <i class="bi bi-hand-thumbs-down"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == false).Count()
-                                                </div>
+                                            <div class="like active" data-comment-id="@y.ID">
+                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike(this, @y.ID, @userID, true)">
+                                                    <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
+                                                    <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
+                                                </a>
                                             </div>
 
+                                            <div id="comment-success" style="display:none;"></div>
+                                            <div id="comment-error" style="display:none;"></div>
+                                            <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
+
+                                            <div class="unlike" data-comment-id="@y.ID">
+                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike(this, @y.ID, @userID, false)">
+                                                    <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
+                                                    <span id="unlike-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()</span>
+                                                </a>
+                                            </div>
                                         }
                                         else
                                         {
-                                            <div class="like">
-                                                <a style="text-decoration:none; color:white;" href="/AnimeDetail/LikeEpisode/@y.ID"><i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == true).Count()</a>
+                                            <div class="like" data-comment-id="@y.ID">
+                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike(this, @y.ID, @userID, true)">
+                                                    <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
+                                                    <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
+                                                </a>
                                             </div>
-                                            <div class="unlike">
-                                                <a style="text-decoration:none; color:white;" href="/AnimeDetail/UnlikeEpisode/@y.ID"><i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == false).Count()</a>
+                                            <div class="unlike active" data-comment-id="@y.ID">
+                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike(this, @y.ID, @userID, false)">
+                                                    <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
+                                                    <span id="unlike-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()</span>
+                                                </a>
                                             </div>
                                         }
                                     }
                                     else
                                     {
-                                        <div class="like">
-                                            <a style="color:#ffffff; text-decoration:none;" href="/LoginSignIn/Login"><i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == true).Count()</a>
+                                        <div class="like" data-comment-id="@y.ID">
+                                            <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
+                                                <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
+                                                @y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()
+                                            </a>
                                         </div>
-                                        <div class="unlike">
-                                            <a style="color: #ffffff; text-decoration: none" href="/LoginSignIn/Login"><i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i> @y.TBLEPISODELIKE.Where(x => x.LIKESTATUS == false).Count()</a>
+                                        <div class="unlike" data-comment-id="@y.ID">
+                                            <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
+                                                <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
+                                                @y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()
+                                            </a>
                                         </div>
                                     }
                                 </div>
@@ -201,15 +224,7 @@
                         </div>
                     }
                 </div>
-                <div class="commentplace">
-                    <div class="headcomment">
-                        <div class="title">
-                            <i class="bi bi-pencil-square"></i> Düşüncelerinizi Yazın
-                        </div>
-                        @Html.Action("LeaveComment1", "AnimeDetail")
-                    </div>
-                </div>
-                @Html.Action("Comments1", "AnimeDetail")
+                @Html.Action("Comment1", "AnimeDetail")
             </div>
             <div class="nextandprevepisode">
                 @{
