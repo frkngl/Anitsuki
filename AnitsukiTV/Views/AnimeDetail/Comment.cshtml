@@ -219,7 +219,7 @@ else
                                             </div>
                                             <div class="modal-body">
                                                 <form style="color:#ffffff;" action="/AnimeDetail/ReplyComment" method="post" class="form-group">
-                                                    <input hidden type="text" name="USTID" value="@y.ID" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
+                                                    <input hidden type="text" name="USTID" value="@y.USTID" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
                                                     <input hidden type="text" name="ANIMEID" value="@ViewBag.anime" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
                                                     @if (y.TBLUSER.PICTURE != null)
                                                     {
@@ -229,7 +229,7 @@ else
                                                     {
                                                         <img hidden src="~/IMG/stockuser.png" />
                                                     }
-                                                    <span hidden>@y.TBLUSER.USERNAME</span> <!-- Change this line -->
+                                                    <span hidden>@y.TBLUSER.USERNAME</span> 
                                                     Cevap yazdığınız kişi
                                                     <input type="text" name="USERID" value="@y.TBLUSER.USERNAME" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
                                                     <br />
