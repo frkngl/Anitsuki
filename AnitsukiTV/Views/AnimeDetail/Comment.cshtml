@@ -136,7 +136,7 @@ else
                                     }
                                     else
                                     {
-                                        <div class="like" data-comment-id="@x.ID">
+                                        <div class="like" style="margin-right:5px;" data-comment-id="@x.ID">
                                             <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike(this, @x.ID, @userID, true)">
                                                 <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
                                                 <span id="like-count-@x.ID">@x.TBLANIMECOMMENTLIKE.Where(y => y.STATUS == true).Count()</span>
@@ -152,7 +152,7 @@ else
                                 }
                                 else
                                 {
-                                    <div class="like" data-comment-id="@x.ID">
+                                    <div class="like" style="margin-right:5px;" data-comment-id="@x.ID">
                                         <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
                                             <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
                                             @x.TBLANIMECOMMENTLIKE.Where(y => y.STATUS == true).Count()
@@ -268,7 +268,7 @@ else
                                         }
                                         else
                                         {
-                                            <div class="like" data-comment-id="@y.ID">
+                                            <div class="like" style="margin-right:5px;" data-comment-id="@y.ID">
                                                 <a style="text-decoration: none; cursor: pointer; color: white; " onclick="handleLikeOrUnlike(this, @y.ID, @userID, true)">
                                                     <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
                                                     <span id="like-count-@y.ID">@y.TBLANIMECOMMENTLIKE.Where(z => z.STATUS == true).Count()</span>
@@ -284,7 +284,7 @@ else
                                     }
                                     else
                                     {
-                                        <div class="like" data-comment-id="@y.ID">
+                                        <div class="like" style="margin-right:5px;" data-comment-id="@y.ID">
                                             <a style="text-decoration: none; cursor: pointer; color: white; " href="/LoginSignIn/Login">
                                                 <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
                                                 @y.TBLANIMECOMMENTLIKE.Where(z => z.STATUS == true).Count()

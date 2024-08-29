@@ -170,7 +170,7 @@
                                     {
                                         if (liked.HasValue && liked.Value)
                                         {
-                                            <div class="like1 active" data-comment-id="@y.ID">
+                                            <div class="like1 active" style="margin-right:10px;" data-comment-id="@y.ID">
                                                 <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, true)">
                                                     <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
                                                     <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
@@ -190,7 +190,7 @@
                                         }
                                         else
                                         {
-                                            <div class="like1" data-comment-id="@y.ID">
+                                            <div class="like1" style="margin-right:15px;" data-comment-id="@y.ID">
                                                 <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, true)">
                                                     <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
                                                     <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
@@ -206,7 +206,7 @@
                                     }
                                     else
                                     {
-                                        <div class="like1" data-comment-id="@y.ID">
+                                        <div style="margin-right:15px;" class="like1" data-comment-id="@y.ID">
                                             <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
                                                 <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
                                                 @y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()
