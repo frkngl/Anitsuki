@@ -54,57 +54,51 @@ namespace AnitsukiTV.Controllers
         }
 
 
-
         public PartialViewResult Comment(int id)
         {
-            var anime = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id).FirstOrDefault();
-            var degerler = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id).ToList();
-            ViewBag.CommentCount = degerler.Count;
-            ViewBag.animeID = anime.ANIMEID;
+            var degerler = db.TBLANIMECOMMENT.Where(x=>x.ANIMEID == id && x.STATUS == true).ToList();
+            ViewBag.AnimeCount = degerler.Where(x=>x.STATUS == true).Count();
             ViewBag.anime = id;
             return PartialView(degerler);
         }
 
-        [HttpPost]
-        public ActionResult LeaveComment(TBLANIMECOMMENT y)
+
+
+        public PartialViewResult LeaveComment(int id)
         {
-            if (Session["username"] == null)
-            {
-                return Json(new { success = false, message = "Lütfen giriş yapın veya kayıt olun." });
-            }
-
-            try
-            {
-                TBLANIMECOMMENT yeni = new TBLANIMECOMMENT();
-                yeni.COMMENT = y.COMMENT;
-                yeni.DATE = Convert.ToDateTime(DateTime.Now.ToShortDateString());
-                yeni.USTID = null;
-                yeni.STATUS = true;
-                yeni.ANIMEID = y.ANIMEID;
-                yeni.USERID = (int)Session["id"];
-
-                // Veritabanından kullanıcı bilgilerini al
-                var user = db.TBLUSER.Find(yeni.USERID);
-                string username = user.USERNAME;
-                string picture = user.PICTURE != null ? "/IMG/" + user.PICTURE : "/IMG/stockuser.png";
-
-                db.TBLANIMECOMMENT.Add(yeni);
-                db.SaveChanges();
-                return Json(new
-                {
-                    success = true,
-                    message = "Yorumunuz başarıyla kaydedildi.",
-                    commentText = yeni.COMMENT,
-                    username = username,
-                    date = DateTime.Now.ToString("dd.MM.yyyy"),
-                    picture = picture
-                });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Yorumunuz kaydedilemedi. Lütfen tekrar deneyin." });
-            }
+            ViewBag.deger = id;
+            return PartialView();
         }
+        [HttpPost]
+        public PartialViewResult LeaveComment(TBLANIMECOMMENT y)
+        {
+            int userId = Convert.ToInt32(Session["id"]);
+            TBLUSER user = db.TBLUSER.Find(userId);
+
+            y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
+            y.STATUS = true;
+            y.TBLUSER = user;
+            db.TBLANIMECOMMENT.Add(y);
+            db.SaveChanges();
+            Response.Redirect("/AnimeDetail/Index/" + y.ANIMEID);
+            return PartialView();
+        }
+
+
+        [HttpPost]
+        public ActionResult ReplyComment(TBLANIMECOMMENT y)
+        {
+            int userId = Convert.ToInt32(Session["id"]);
+            TBLUSER user = db.TBLUSER.Find(userId);
+
+            y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
+            y.STATUS = true;
+            y.TBLUSER = user;
+            db.TBLANIMECOMMENT.Add(y);
+            db.SaveChanges();
+            return RedirectToAction("Index/" + y.ANIMEID);
+        }
+
 
 
         [HttpPost]
@@ -148,19 +142,7 @@ namespace AnitsukiTV.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult ReplyComment(TBLANIMECOMMENT y)
-        {
-            int userId = Convert.ToInt32(Session["id"]);
-            TBLUSER user = db.TBLUSER.Find(userId);
 
-            y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
-            y.STATUS = true;
-            y.TBLUSER = user;
-            db.TBLANIMECOMMENT.Add(y);
-            db.SaveChanges();
-            return RedirectToAction("Index/" + y.ANIMEID);
-        }
 
 
 
@@ -258,56 +240,48 @@ namespace AnitsukiTV.Controllers
 
         public PartialViewResult Comment1(int id)
         {
-            var anime = db.TBLEPISODECOMMENT.Where(x => x.EPISODEID == id).FirstOrDefault();
-            var degerler = db.TBLEPISODECOMMENT.Where(x => x.EPISODEID == id).ToList();
-            ViewBag.CommentCount = degerler.Count;
-            ViewBag.animeID = anime.EPISODEID;
-            ViewBag.anime = id;
+            var degerler = db.TBLEPISODECOMMENT.Where(x => x.EPISODEID == id && x.STATUS == true).ToList();
+            ViewBag.EpisodeCount = degerler.Where(x => x.STATUS == true).Count();
+            ViewBag.episode = id;
             return PartialView(degerler);
         }
 
 
+        public PartialViewResult LeaveComment1(int id)
+        {
+            ViewBag.episode1 = id;
+            return PartialView();
+        }
+        [HttpPost]
+        public PartialViewResult LeaveComment1(TBLEPISODECOMMENT y)
+        {
+            int userId = Convert.ToInt32(Session["id"]);
+            TBLUSER user = db.TBLUSER.Find(userId);
+
+            y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
+            y.STATUS = true;
+            y.TBLUSER = user;
+            db.TBLEPISODECOMMENT.Add(y);
+            db.SaveChanges();
+            Response.Redirect("/AnimeDetail/Video/" + y.EPISODEID);
+            return PartialView();
+        }
+
 
         [HttpPost]
-        public ActionResult LeaveComment1(TBLEPISODECOMMENT y)
+        public ActionResult ReplyComment1(TBLEPISODECOMMENT y)
         {
-            if (Session["username"] == null)
-            {
-                return Json(new { success = false, message = "Lütfen giriş yapın veya kayıt olun." });
-            }
+            int userId = Convert.ToInt32(Session["id"]);
+            TBLUSER user = db.TBLUSER.Find(userId);
 
-            try
-            {
-                TBLEPISODECOMMENT yeni = new TBLEPISODECOMMENT();
-                yeni.COMMENT = y.COMMENT;
-                yeni.DATE = Convert.ToDateTime(DateTime.Now.ToShortDateString());
-                yeni.USTID = null;
-                yeni.STATUS = true;
-                yeni.EPISODEID = y.EPISODEID;
-                yeni.USERID = (int)Session["id"];
-
-                // Veritabanından kullanıcı bilgilerini al
-                var user = db.TBLUSER.Find(yeni.USERID);
-                string username = user.USERNAME;
-                string picture = user.PICTURE != null ? "/IMG/" + user.PICTURE : "/IMG/stockuser.png";
-
-                db.TBLEPISODECOMMENT.Add(yeni);
-                db.SaveChanges();
-                return Json(new
-                {
-                    success = true,
-                    message = "Yorumunuz başarıyla kaydedildi.",
-                    commentText = yeni.COMMENT,
-                    username = username,
-                    date = DateTime.Now.ToString("dd.MM.yyyy"),
-                    picture = picture
-                });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Yorumunuz kaydedilemedi. Lütfen tekrar deneyin." });
-            }
+            y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
+            y.STATUS = true;
+            y.TBLUSER = user;
+            db.TBLEPISODECOMMENT.Add(y);
+            db.SaveChanges();
+            return RedirectToAction("Video/" + y.EPISODEID);
         }
+
 
 
         [HttpPost]
@@ -351,19 +325,6 @@ namespace AnitsukiTV.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult ReplyComment1(TBLEPISODECOMMENT y)
-        {
-            int userId = Convert.ToInt32(Session["id"]);
-            TBLUSER user = db.TBLUSER.Find(userId);
-
-            y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
-            y.STATUS = true;
-            y.TBLUSER = user;
-            db.TBLEPISODECOMMENT.Add(y);
-            db.SaveChanges();
-            return RedirectToAction("Video/" + y.EPISODEID);
-        }
 
 
 

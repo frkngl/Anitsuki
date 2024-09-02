@@ -70,27 +70,49 @@ namespace AnitsukiTV.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string username, string password)
+        public ActionResult Login(string username, string password, bool rememberMe)
         {
-            var admin = db.TBLADMIN.Where(x => x.USERNAME == username && x.PASSWORD == password && x.STATUS == true).FirstOrDefault();
-            if (admin != null)
+            var user = db.TBLUSER.Where(x => x.USERNAME == username && x.PASSWORD == password && x.STATUS == true).FirstOrDefault();
+            if (user != null)
             {
-                FormsAuthentication.SetAuthCookie(admin.USERNAME, true);
-                Session["username"] = admin.USERNAME;
-                Session["role"] = admin.TBLADMINROLE.ID;
-                Session["id"] = admin.ID;
-                return RedirectToAction("Index", "LanetlerKralıAdmin"); // Yönetici paneline yönlendir
+                if (rememberMe)
+                {
+                    var ticket = new FormsAuthenticationTicket(
+                        1, // version
+                        user.USERNAME, // username
+                        DateTime.Now, // issue date
+                        DateTime.Now.AddYears(1), // expiration date (1 year)
+                        true, // is persistent
+                        user.USERNAME // user data
+                    );
+
+                    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket));
+                    cookie.Domain = "https://anitsuki.com"; 
+                    cookie.Path = "/"; 
+                    cookie.Secure = true;
+                    cookie.Expires = ticket.Expiration;
+                    Response.Cookies.Add(cookie);
+                }
+                else
+                {
+                    FormsAuthentication.SetAuthCookie(user.USERNAME, false);
+                }
+
+                Session["username"] = user.USERNAME;
+                Session["id"] = user.ID;
+                return RedirectToAction("Index", "User");
             }
             else
             {
                 // Kullanıcı olup olmadığını kontrol et
-                var user = db.TBLUSER.Where(x => x.USERNAME == username && x.PASSWORD == password && x.STATUS == true).FirstOrDefault();
-                if (user != null)
+                var admin = db.TBLADMIN.Where(x => x.USERNAME == username && x.PASSWORD == password && x.STATUS == true).FirstOrDefault();
+                if (admin != null)
                 {
-                    FormsAuthentication.SetAuthCookie(user.USERNAME, true);
-                    Session["username"] = user.USERNAME;
-                    Session["id"] = user.ID;
-                    return RedirectToAction("Index", "User"); // Kullanıcı paneline yönlendir
+                    FormsAuthentication.SetAuthCookie(admin.USERNAME, false);
+                    Session["username"] = admin.USERNAME;
+                    Session["role"] = admin.TBLADMINROLE.ID;
+                    Session["id"] = admin.ID;
+                    return RedirectToAction("Index", "LanetlerKralıAdmin"); // Yönetici paneline yönlendir
                 }
                 else
                 {

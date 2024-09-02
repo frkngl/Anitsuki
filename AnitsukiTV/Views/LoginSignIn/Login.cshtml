@@ -75,7 +75,9 @@
                         <input style="color:#ffffff !important;" class="input100" type="password" name="PASSWORD">
                         <span style="color:#ffffff !important;" class="focus-input100" data-placeholder="Şifre"></span>
                     </div>
-
+                    <div style="width:100%;display:flex;justify-content:start; color:#ffffff;">
+                        @Html.CheckBox("rememberMe", true) <span style="margin-left:5px;">Beni hatırla</span>
+                    </div>
                     <div class="container-login100-form-btn">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
@@ -107,7 +109,7 @@
 </html>
 <link href="~/Content/toastr.min.css" rel="stylesheet" />
 <script src="~/Scripts/toastr.min.js"></script>
-<script src="~/Scripts/jquery-3.7.0.min.js"></script>
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
 @if (TempData["error2"] != null)
 {
     <script type="text/javascript">

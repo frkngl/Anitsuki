@@ -1,20 +1,24 @@
 ﻿@model AnitsukiTV.Models.TBLEPISODECOMMENT
-@{ AnitsukiTV.Models.AnitsukiTVEntities db = new AnitsukiTV.Models.AnitsukiTVEntities();}
-@if (Session["id"] != null)
+
+
+@if (Session["username"] != null)
 {
-    AnitsukiTV.Models.TBLUSER user = db.TBLUSER.Find(Convert.ToInt32(Session["id"]));
-    <form method="post">
-        <input hidden name="EPISODEID" value="@ViewBag.deger" />
-        <textarea name="COMMENT"></textarea>
-        <button type="submit"><i class="bi bi-send"></i> Gönder</button>
-        <img hidden src="~/IMG/@user.PICTURE" alt="Profil Fotoğrafı" />
-        <span hidden>@user.USERNAME</span>
-    </form>
+    <div class="commentplace">
+        <div class="headcomment">
+            <div class="title">
+                <i class="bi bi-pencil-square"></i> Düşüncelerinizi Yazın
+            </div>
+            <form action="/AnimeDetail/LeaveComment1" method="post">
+                <textarea name="COMMENT"></textarea>
+                <input type="hidden" name="EPISODEID" value="@ViewBag.episode1" />
+                <button><i class="bi bi-send"></i> Gönder</button>
+            </form>
+        </div>
+    </div>
 }
 else
 {
-    <div style="width:100%; height:100px;display:flex; align-items:center;justify-content:center;">
-        <p style="font-size:1.1rem;color:#ffffff;">Düşüncelerinizi paylaşmak için <a style="text-decoration: none; color: #FF7F00;" href="/LoginSignIn/Login">Giriş Yapın</a></p>
+    <div style="display:flex; justify-content:center; margin-top:50px;">
+        <p style="font-size:1.1rem;color:#ffffff;">Düşüncelerinizi yazmak için</p><a style="text-decoration: none;" href="/LoginSignIn/Login"><span style="color: #FF7F00; margin-left:5px; font-size:1.1rem;">Giriş Yapın</span></a>
     </div>
 }
-

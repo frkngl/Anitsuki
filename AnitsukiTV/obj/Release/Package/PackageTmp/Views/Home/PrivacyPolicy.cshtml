@@ -29,19 +29,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="~/splidejs/splide/dist/css/splide.min.css" type="text/css">
-    <link rel="stylesheet" href="~/splidejs/splide/dist/css/themes/splide-skyblue.min.css" type="text/css">
-    <link rel="stylesheet" href="~/swiper/swiper-bundle.min.css" type="text/css">
-    <link rel="stylesheet" href="~/bootstrap/dist/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="~/bootstrap-icons/font/bootstrap-icons.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="~/css/main.css" type="text/css">
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
 </head>
 <body>
-    <div id="loader">
-        <div id="box1">
-            <img src="~/IMG/arisu-aris.gif">
-        </div>
+    <div class="loader">
+
     </div>
     <header>
         <div class="container-xl">
@@ -208,12 +203,7 @@
     </footer>
 </body>
 </html>
-<script src="~/jquery/dist/jquery.min.js"></script>
-<script src="~/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/swiper/swiper-bundle.min.js"></script>
-<script src="~/splidejs/splide/dist/js/splide.min.js"></script>
-<script src="~/js/main1.js"></script>
-<script src="~/js/splide.js"></script>
+<script src="~/Scripts/bootstrap.bundle.min.js"></script>
 <script>
     document.querySelectorAll('nav a').forEach(link => {
         link.classList.remove('active');
@@ -222,15 +212,37 @@
             link.classList.add('active');
         }
     });
-    window.addEventListener('load', loaderfunc);
-    function loaderfunc() {
-        document.getElementById('loader').style.display = 'none';
-    }
+    window.addEventListener("load", () => {
+        const loader = document.querySelector(".loader");
+
+        loader.classList.add("loader-hidden");
+    })
     document.addEventListener('keydown', function (event) {
         if (event.code === 'Space' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'INPUT') {
             event.preventDefault();
             event.stopPropagation();
         }
+    });
+</script>
+<script>
+    const togglePositionalHeaderStyles = () => {
+        if (window.scrollY > 0 && !header.classList.contains("header-change")) {
+            header.classList.add("header-change");
+        };
+        if (window.scrollY === 0 && header.classList.contains("header-change")) {
+            header.classList.remove("header-change");
+        };
+    };
+
+    let timeoutID = null;
+    const header = document.querySelector("header");
+    togglePositionalHeaderStyles();
+    window.addEventListener("scroll", () => {
+        togglePositionalHeaderStyles();
+        if (timeoutID) clearTimeout(timeoutID);
+        timeoutID = setTimeout(() => {
+            togglePositionalHeaderStyles();
+        }, 50);
     });
 </script>
 
