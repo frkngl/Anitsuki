@@ -20,11 +20,8 @@ namespace AnitsukiTV.Controllers
         // GET: User
         public ActionResult Index()
         {
-            if (Session["id"] == null)
-            {
-                return RedirectToAction("Login", "LoginSignIn");
-            }
-            int userID = (int)Session["id"];
+            string username = HttpContext.User.Identity.Name;
+            int userID = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault().ID;
             veri.User = db.TBLUSER?.Where(x => x.ID == userID)?.FirstOrDefault();
             var degerler = db.TBLUSER?.Where(x => x.ID == userID)?.FirstOrDefault();
             ViewBag.user = degerler.USERNAME;
@@ -38,7 +35,8 @@ namespace AnitsukiTV.Controllers
         [HttpGet]
         public ActionResult ProfileSetting()
         {
-            int userID = (int)Session["id"];
+            string username = HttpContext.User.Identity.Name;
+            int userID = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault().ID;
             var user = db.TBLUSER.Find(userID);
             return View("ProfileSetting", user);
         }
@@ -46,7 +44,8 @@ namespace AnitsukiTV.Controllers
         [HttpPost]
         public ActionResult ProfileSetting(TBLUSER user, HttpPostedFileBase UserImage)
         {
-            int userID = (int)Session["id"];
+            string username = HttpContext.User.Identity.Name;
+            int userID = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault().ID;
             var UserUpdate = db.TBLUSER.Find(userID);
 
             if (UserImage != null && UserImage.ContentLength > 0)

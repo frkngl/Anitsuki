@@ -33,21 +33,19 @@ namespace AnitsukiTV.Controllers
             ViewBag.Season = selectedSeason?.SEASONNAME ?? $"{selectedSeason?.SEASONNUMBER} Sezon";
 
             bool isFavorite = false;
-            if (Session["id"] != null)
+            bool isWatchLater = false;
+
+            if (User.Identity.IsAuthenticated)
             {
-                int userID = (int)Session["id"];
+                int userID = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault().ID;
                 var favorite = db.TBLFAVORITES.Where(x => x.USERID == userID && x.ANIMEID == id).FirstOrDefault();
                 isFavorite = favorite != null;
-            }
-            ViewBag.IsFavorite = isFavorite;
 
-            bool isWatchLater = false;
-            if (Session["id"] != null)
-            {
-                int userID = (int)Session["id"];
                 var watchlater = db.TBLWATCHLATER.Where(x => x.USERID == userID && x.ANIMEID == id).FirstOrDefault();
                 isWatchLater = watchlater != null;
             }
+
+            ViewBag.IsFavorite = isFavorite;
             ViewBag.isWatchLater = isWatchLater;
 
             return View(veri);
@@ -69,11 +67,12 @@ namespace AnitsukiTV.Controllers
             ViewBag.deger = id;
             return PartialView();
         }
+
         [HttpPost]
         public PartialViewResult LeaveComment(TBLANIMECOMMENT y)
         {
-            int userId = Convert.ToInt32(Session["id"]);
-            TBLUSER user = db.TBLUSER.Find(userId);
+            string username = HttpContext.User.Identity.Name;
+            TBLUSER user = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault();
 
             y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
             y.STATUS = true;
@@ -88,8 +87,8 @@ namespace AnitsukiTV.Controllers
         [HttpPost]
         public ActionResult ReplyComment(TBLANIMECOMMENT y)
         {
-            int userId = Convert.ToInt32(Session["id"]);
-            TBLUSER user = db.TBLUSER.Find(userId);
+            string username = HttpContext.User.Identity.Name;
+            TBLUSER user = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault();
 
             y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
             y.STATUS = true;
@@ -151,12 +150,12 @@ namespace AnitsukiTV.Controllers
         [HttpPost]
         public ActionResult AddFavorite(int animeID)
         {
-            if (Session["id"] == null)
+            if (!User.Identity.IsAuthenticated)
             {
                 return Json(new { success = false });
             }
 
-            int userID = (int)Session["id"];
+            int userID = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault().ID;
             var favorite = db.TBLFAVORITES.Where(x => x.USERID == userID && x.ANIMEID == animeID).FirstOrDefault();
 
             if (favorite == null)
@@ -176,12 +175,12 @@ namespace AnitsukiTV.Controllers
         [HttpPost]
         public ActionResult WatchLater(int animeID)
         {
-            if (Session["id"] == null)
+            if (!User.Identity.IsAuthenticated)
             {
                 return Json(new { success = false });
             }
 
-            int userID = (int)Session["id"];
+            int userID = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault().ID;
             var watchlater = db.TBLWATCHLATER.Where(x => x.USERID == userID && x.ANIMEID == animeID).FirstOrDefault();
 
             if (watchlater == null)
@@ -252,11 +251,12 @@ namespace AnitsukiTV.Controllers
             ViewBag.episode1 = id;
             return PartialView();
         }
+
         [HttpPost]
         public PartialViewResult LeaveComment1(TBLEPISODECOMMENT y)
         {
-            int userId = Convert.ToInt32(Session["id"]);
-            TBLUSER user = db.TBLUSER.Find(userId);
+            string username = HttpContext.User.Identity.Name;
+            TBLUSER user = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault();
 
             y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
             y.STATUS = true;
@@ -271,8 +271,8 @@ namespace AnitsukiTV.Controllers
         [HttpPost]
         public ActionResult ReplyComment1(TBLEPISODECOMMENT y)
         {
-            int userId = Convert.ToInt32(Session["id"]);
-            TBLUSER user = db.TBLUSER.Find(userId);
+            string username = HttpContext.User.Identity.Name;
+            TBLUSER user = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault();
 
             y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
             y.STATUS = true;

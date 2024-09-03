@@ -71,10 +71,10 @@
     <div class="content9">
         <div class="text">
             <div class="box">
-                <i class="bi bi-person" style="font-size: 1.1rem;"></i> @Session["username"].ToString()
+                <i class="bi bi-person" style="font-size: 1.1rem;"></i> @User.Identity.Name
             </div>
             <div class="box">
-                <a href="/User/Index"> <i class="bi bi-arrow-left"></i> Hesaba Git</a>
+                <a href="@Url.Action("Index", "User", new { id = User.Identity.Name })"> <i class="bi bi-arrow-left"></i> Hesaba Git</a>
             </div>
         </div>
         <div style="display:flex; justify-content:center; align-items:center; flex-direction:column;" class="userdetail">
