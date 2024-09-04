@@ -100,7 +100,7 @@
             @foreach (var ğ in Model.Anime.Where(x => x.ADMINSTATUS == true))
             {
                 <div class="swiper-slide">
-                    <img src="~/IMG/@ğ.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                    <img src="~/IMG/@ğ.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                     <div class="inside">
                         <div class="title">
                             @ğ.ANIMENAME
@@ -137,14 +137,14 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Video/@l.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@l.TBLANIME.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    <img src="~/IMG/@l.TBLANIME.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (l.TBLANIME.EDIT != null)
                                     {
-                                        <video class="video" src="~/Videos/@l.TBLANIME.EDIT" playsinline></video>
+                                        <video class="video" src="~/Videos/@l.TBLANIME.EDIT" playsinline preload="none"></video>
                                     }
                                     else
                                     {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                                     }
 
                                 </div>
@@ -177,14 +177,14 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@l.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (l.EDIT != null)
                                     {
-                                        <video class="video" src="~/Videos/@l.EDIT" playsinline></video>
+                                        <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
                                     }
                                     else
                                     {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                                     }
                                 </div>
                                 <div class="text">
@@ -216,14 +216,14 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@l.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (l.EDIT != null)
                                     {
-                                        <video class="video" src="~/Videos/@l.EDIT" playsinline></video>
+                                        <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
                                     }
                                     else
                                     {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                                     }
                                 </div>
                                 <div class="text">
@@ -261,14 +261,14 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@x.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@x.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    <img src="~/IMG/@x.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (x.EDIT != null)
                                     {
-                                        <video class="video" src="~/Videos/@x.EDIT" playsinline></video>
+                                        <video class="video" src="~/Videos/@x.EDIT" playsinline preload="none"></video>
                                     }
                                     else
                                     {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                                     }
                                 </div>
                                 <div class="text">
@@ -307,14 +307,14 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@y.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    <img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (y.EDIT != null)
                                     {
-                                        <video class="video" src="~/Videos/@y.EDIT" playsinline></video>
+                                        <video class="video" src="~/Videos/@y.EDIT" playsinline preload="none"></video>
                                     }
                                     else
                                     {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                                     }
                                 </div>
                                 <div class="text">
@@ -352,14 +352,14 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@z.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@z.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    <img src="~/IMG/@z.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (z.EDIT != null)
                                     {
-                                        <video class="video" src="~/Videos/@z.EDIT" playsinline></video>
+                                        <video class="video" src="~/Videos/@z.EDIT" playsinline preload="none"></video>
                                     }
                                     else
                                     {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                                     }
                                 </div>
                                 <div class="text">
@@ -397,14 +397,14 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@q.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@q.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    <img src="~/IMG/@q.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (q.EDIT != null)
                                     {
-                                        <video class="video" src="~/Videos/@q.EDIT" playsinline></video>
+                                        <video class="video" src="~/Videos/@q.EDIT" playsinline preload="none"></video>
                                     }
                                     else
                                     {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                                     }
                                 </div>
                                 <div class="text">
@@ -442,14 +442,14 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@w.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@w.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    <img src="~/IMG/@w.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (w.EDIT != null)
                                     {
-                                        <video class="video" src="~/Videos/@w.EDIT" playsinline></video>
+                                        <video class="video" src="~/Videos/@w.EDIT" playsinline preload="none"></video>
                                     }
                                     else
                                     {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                                     }
                                 </div>
                                 <div class="text">
@@ -487,14 +487,14 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@e.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@e.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    <img src="~/IMG/@e.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (e.EDIT != null)
                                     {
-                                        <video class="video" src="~/Videos/@e.EDIT" playsinline></video>
+                                        <video class="video" src="~/Videos/@e.EDIT" playsinline preload="none"></video>
                                     }
                                     else
                                     {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                                     }
                                 </div>
                                 <div class="text">
@@ -532,14 +532,14 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@r.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@r.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    <img src="~/IMG/@r.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (r.EDIT != null)
                                     {
-                                        <video class="video" src="~/Videos/@r.EDIT" playsinline></video>
+                                        <video class="video" src="~/Videos/@r.EDIT" playsinline preload="none"></video>
                                     }
                                     else
                                     {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                                     }
                                 </div>
                                 <div class="text">
@@ -577,14 +577,14 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@t.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (t.EDIT != null)
                                     {
-                                        <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                        <video class="video" src="~/Videos/@t.EDIT" playsinline preload="none"></video>
                                     }
                                     else
                                     {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                                     }
                                 </div>
                                 <div class="text">
@@ -622,14 +622,14 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@t.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (t.EDIT != null)
                                     {
-                                        <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                        <video class="video" src="~/Videos/@t.EDIT" playsinline preload="none"></video>
                                     }
                                     else
                                     {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                                     }
                                 </div>
                                 <div class="text">
@@ -667,14 +667,14 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@t.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (t.EDIT != null)
                                     {
-                                        <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                        <video class="video" src="~/Videos/@t.EDIT" playsinline preload="none"></video>
                                     }
                                     else
                                     {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                                     }
                                 </div>
                                 <div class="text">
@@ -712,14 +712,14 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@t.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (t.EDIT != null)
                                     {
-                                        <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                        <video class="video" src="~/Videos/@t.EDIT" playsinline preload="none"></video>
                                     }
                                     else
                                     {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                                     }
                                 </div>
                                 <div class="text">
@@ -757,14 +757,14 @@
                         <li class="splide__slide">
                             <a href="/AnimeDetail/Index/@t.ID">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (t.EDIT != null)
                                     {
-                                        <video class="video" src="~/Videos/@t.EDIT" playsinline></video>
+                                        <video class="video" src="~/Videos/@t.EDIT" playsinline preload="none"></video>
                                     }
                                     else
                                     {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                                     }
                                 </div>
                                 <div class="text">
@@ -900,22 +900,40 @@
 <script>
     const video = document.querySelectorAll(".splide__slide .video");
     video.forEach(video => {
+        let cached = false;
+        let source = video.src;
+
         video.onmouseenter = () => {
+            if (!cached) {
+                video.src = source;
+                cached = true;
+            }
             video.play();
             video.volume = 0.05;
             video.classList.add("active");
         };
+
         video.onmouseleave = () => {
             video.pause();
+            video.src = "";
+            cached = false;
             video.classList.remove("active");
         };
+
         video.ontouchmove = () => {
+            if (!cached) {
+                video.src = source;
+                cached = true;
+            }
             video.play();
             video.volume = 0.05;
             video.classList.add("active");
         };
+
         video.ontouchend = () => {
             video.pause();
+            video.src = "";
+            cached = false;
             video.classList.remove("active");
         };
     });

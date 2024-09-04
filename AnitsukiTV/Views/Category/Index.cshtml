@@ -121,14 +121,14 @@
                 <li class="splide__slide">
                     <a href="/AnimeDetail/Index/@y.ID">
                         <div class="videoimg">
-                            <img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                            <img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                             @if (y.EDIT != null)
                             {
-                                <video class="video" src="~/Videos/@y.EDIT" playsinline></video>
+                                <video class="video" src="~/Videos/@y.EDIT" playsinline preload="none"></video>
                             }
                             else
                             {
-                                <video class="video" src="~/Videos/blackscreen.mp4" playsinline></video>
+                                <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
                             }
                         </div>
                         <div class="text">
@@ -250,22 +250,40 @@
 <script>
     const video = document.querySelectorAll(".splide__slide .video");
     video.forEach(video => {
+        let cached = false;
+        let source = video.src;
+
         video.onmouseenter = () => {
+            if (!cached) {
+                video.src = source;
+                cached = true;
+            }
             video.play();
             video.volume = 0.05;
             video.classList.add("active");
         };
+
         video.onmouseleave = () => {
             video.pause();
+            video.src = "";
+            cached = false;
             video.classList.remove("active");
         };
+
         video.ontouchmove = () => {
+            if (!cached) {
+                video.src = source;
+                cached = true;
+            }
             video.play();
             video.volume = 0.05;
             video.classList.add("active");
         };
+
         video.ontouchend = () => {
             video.pause();
+            video.src = "";
+            cached = false;
             video.classList.remove("active");
         };
     });
