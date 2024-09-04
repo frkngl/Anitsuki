@@ -175,8 +175,13 @@ namespace AnitsukiTV.Controllers
         public ActionResult SignOut()
         {
             FormsAuthentication.SignOut();
-            Session.Clear();
             return RedirectToAction("Index","Home");
+        }
+        public ActionResult SignOut2()
+        {
+            FormsAuthentication.SignOut();
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
