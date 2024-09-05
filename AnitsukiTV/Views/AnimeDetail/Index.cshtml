@@ -334,4 +334,41 @@
         }, 50);
     });
 </script>
+<script>
+    document.querySelectorAll('nav a').forEach(link => {
+        link.classList.remove('active');
+
+        if (link.href === window.location.href) {
+            link.classList.add('active');
+        }
+    });
+    window.addEventListener("load", () => {
+        const loader = document.querySelector(".loader");
+
+        loader.classList.add("loader-hidden");
+    })
+    document.addEventListener('keydown', function (event) {
+        if (event.code === 'Space' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'INPUT') {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    });
+
+    jQuery.expr[':'].contains = function (a, i, m) {
+        return jQuery(a).text().toUpperCase()
+            .indexOf(m[3].toUpperCase()) >= 0;
+    };
+    $(document).ready(function () {
+        $("#searchTags").keyup(function () {
+            var value = $("#searchTags").val();
+            if (value.length == 0) {
+                $("#menuFull li").show();
+            } else {
+                $("#menuFull li").hide();
+                $("#menuFull li:contains(" + value + ")").show();
+            }
+
+        });
+    });
+</script>
 

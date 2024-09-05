@@ -76,6 +76,7 @@ namespace AnitsukiTV.Controllers
             if (user != null)
             {
                 HttpCookie authCookie = FormsAuthentication.GetAuthCookie(user.USERNAME, rememberMe);
+                authCookie.Expires = DateTime.Now.AddMinutes(525600);
                 authCookie.HttpOnly = true;
                 authCookie.Secure = true;
                 Response.Cookies.Add(authCookie);
