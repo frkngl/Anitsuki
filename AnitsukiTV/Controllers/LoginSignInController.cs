@@ -75,11 +75,33 @@ namespace AnitsukiTV.Controllers
             var user = db.TBLUSER.Where(x => x.USERNAME == username && x.PASSWORD == password && x.STATUS == true).FirstOrDefault();
             if (user != null)
             {
-                HttpCookie authCookie = FormsAuthentication.GetAuthCookie(user.USERNAME, rememberMe);
-                authCookie.Expires = DateTime.Now.AddMinutes(525600);
+                var sessionId = Guid.NewGuid().ToString();
+                Response.Cookies.Remove("ASP.NET_SessionId"); 
+                var sessionCookie = new HttpCookie("ASP.NET_SessionId", sessionId);
+                sessionCookie.Path = "/";
+                sessionCookie.HttpOnly = true;
+                sessionCookie.Secure = true;
+                sessionCookie.Expires = DateTime.Now.AddMinutes(43800); 
+                Response.SetCookie(sessionCookie);
+
+                var ticket = new FormsAuthenticationTicket(1, user.USERNAME, DateTime.Now, DateTime.Now.AddMinutes(43800), rememberMe, sessionId);
+                var encryptedTicket = FormsAuthentication.Encrypt(ticket);
+                var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName.ToLower(), encryptedTicket);
+                authCookie.Path = "/";
                 authCookie.HttpOnly = true;
                 authCookie.Secure = true;
-                Response.Cookies.Add(authCookie);
+
+                if (rememberMe)
+                {
+                    authCookie.Expires = DateTime.Now.AddMinutes(43800);
+                }
+                else
+                {
+                    authCookie.Expires = DateTime.Now.AddMinutes(30);
+                }
+
+                Response.SetCookie(authCookie);
+
                 return RedirectToAction("Index", "User");
             }
             else
@@ -91,7 +113,7 @@ namespace AnitsukiTV.Controllers
                     Session["username"] = admin.USERNAME;
                     Session["role"] = admin.TBLADMINROLE.ID;
                     Session["id"] = admin.ID;
-                    return RedirectToAction("Index", "LanetlerKralıAdmin"); // Yönetici paneline yönlendir
+                    return RedirectToAction("Index", "LanetlerKralıAdmin"); 
                 }
                 else
                 {
@@ -176,12 +198,15 @@ namespace AnitsukiTV.Controllers
         public ActionResult SignOut()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index","Home");
-        }
-        public ActionResult SignOut2()
-        {
-            FormsAuthentication.SignOut();
             Session.Clear();
+
+            // Forms authentication çerezini sil
+            var formsAuthCookie = new HttpCookie(FormsAuthentication.FormsCookieName.ToLower()) { Expires = DateTime.Now.AddYears(-1) };
+            Response.Cookies.Add(formsAuthCookie);
+
+            // Oturum çerezini sil
+            Response.Cookies.Remove("ASP.NET_SessionId");
+
             return RedirectToAction("Index", "Home");
         }
     }

@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\frkng\Desktop\Publish</_PublishTargetUrl>
-    <History>True|2024-09-04T23:04:09.8626219Z||;True|2024-09-04T20:28:31.2197522+03:00||;True|2024-09-04T11:34:14.4024139+03:00||;True|2024-09-04T11:33:04.0344479+03:00||;True|2024-09-03T15:19:31.5635762+03:00||;True|2024-09-02T19:54:26.9600062+03:00||;True|2024-09-02T14:04:40.3455475+03:00||;True|2024-09-02T02:03:00.0016613+03:00||;True|2024-09-01T13:49:37.1870819+03:00||;True|2024-08-31T16:11:32.4617760+03:00||;True|2024-08-31T16:04:53.1031579+03:00||;True|2024-08-31T01:39:55.8816862+03:00||;True|2024-08-29T19:37:00.4599085+03:00||;</History>
+    <History>True|2024-09-09T15:27:17.1122846Z||;True|2024-09-08T22:50:46.9278358+03:00||;True|2024-09-06T23:06:45.1489324+03:00||;True|2024-09-06T17:02:08.3692122+03:00||;True|2024-09-06T14:06:59.1374629+03:00||;True|2024-09-06T13:44:46.3728967+03:00||;True|2024-09-05T02:04:09.8626219+03:00||;True|2024-09-04T20:28:31.2197522+03:00||;True|2024-09-04T11:34:14.4024139+03:00||;True|2024-09-04T11:33:04.0344479+03:00||;True|2024-09-03T15:19:31.5635762+03:00||;True|2024-09-02T19:54:26.9600062+03:00||;True|2024-09-02T14:04:40.3455475+03:00||;True|2024-09-02T02:03:00.0016613+03:00||;True|2024-09-01T13:49:37.1870819+03:00||;True|2024-08-31T16:11:32.4617760+03:00||;True|2024-08-31T16:04:53.1031579+03:00||;True|2024-08-31T01:39:55.8816862+03:00||;True|2024-08-29T19:37:00.4599085+03:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -2692,10 +2692,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/04/2024 20:27:48</publishTime>
     </File>
     <File Include="bin/AnitsukiTV.dll">
-      <publishTime>09/05/2024 19:40:33</publishTime>
+      <publishTime>09/09/2024 19:29:57</publishTime>
     </File>
     <File Include="bin/AnitsukiTV.pdb">
-      <publishTime>09/05/2024 19:40:33</publishTime>
+      <publishTime>09/09/2024 19:29:57</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/04/2024 20:27:49</publishTime>
@@ -12559,7 +12559,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/04/2024 20:27:48</publishTime>
     </File>
     <File Include="Views/AnimeDetail/Index.cshtml">
-      <publishTime>09/05/2024 16:00:16</publishTime>
+      <publishTime>09/08/2024 22:28:23</publishTime>
     </File>
     <File Include="Views/AnimeDetail/LeaveComment.cshtml">
       <publishTime>09/04/2024 20:27:48</publishTime>
@@ -12568,19 +12568,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/04/2024 20:27:48</publishTime>
     </File>
     <File Include="Views/AnimeDetail/Video.cshtml">
-      <publishTime>09/04/2024 20:27:47</publishTime>
+      <publishTime>09/08/2024 22:38:34</publishTime>
     </File>
     <File Include="Views/Category/Index.cshtml">
-      <publishTime>09/05/2024 16:00:35</publishTime>
+      <publishTime>09/09/2024 17:54:47</publishTime>
     </File>
     <File Include="Views/Category/UseCategory.cshtml">
-      <publishTime>09/05/2024 02:02:50</publishTime>
+      <publishTime>09/08/2024 22:38:48</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>09/04/2024 20:27:47</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>09/05/2024 19:38:31</publishTime>
+      <publishTime>09/09/2024 19:27:14</publishTime>
     </File>
     <File Include="Views/Home/PrivacyPolicy.cshtml">
       <publishTime>09/04/2024 20:27:47</publishTime>
@@ -12676,19 +12676,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/04/2024 20:27:48</publishTime>
     </File>
     <File Include="Views/LoginSignIn/Login.cshtml">
-      <publishTime>09/04/2024 20:27:48</publishTime>
+      <publishTime>09/09/2024 19:05:30</publishTime>
     </File>
     <File Include="Views/LoginSignIn/ResetPassword.cshtml">
       <publishTime>09/04/2024 20:27:48</publishTime>
     </File>
     <File Include="Views/LoginSignIn/SignIn.cshtml">
-      <publishTime>09/04/2024 20:27:48</publishTime>
+      <publishTime>09/06/2024 14:01:50</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>09/04/2024 20:27:48</publishTime>
     </File>
     <File Include="Views/Shared/_AdminLayout.cshtml">
-      <publishTime>09/04/2024 20:27:48</publishTime>
+      <publishTime>09/09/2024 16:52:13</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
       <publishTime>09/04/2024 20:27:48</publishTime>
@@ -12706,7 +12706,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/04/2024 20:27:48</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/05/2024 19:40:34</publishTime>
+      <publishTime>09/09/2024 19:29:58</publishTime>
     </File>
   </ItemGroup>
 </Project>

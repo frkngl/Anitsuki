@@ -37,10 +37,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/Category.css" />
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
-    @if (!User.Identity.IsAuthenticated)
-    {
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6247305840090216" crossorigin="anonymous"></script>
-    }
 </head>
 <body>
     <div class="loader">
@@ -116,7 +112,7 @@
             </div>
         </div>
         <ul id="menuFull">
-            @foreach (var y in Model.Anime.Where(x => x.STATUS == true))
+            @foreach (var y in Model.Anime.Where(x => x.STATUS == true).OrderBy(x => Guid.NewGuid()))
             {
                 <li class="splide__slide">
                     <a href="/AnimeDetail/Index/@y.ID">

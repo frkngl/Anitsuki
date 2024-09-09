@@ -22,7 +22,7 @@ namespace AnitsukiTV.Controllers
         {
             var degerler = db.TBLCATEGORY.FirstOrDefault(x => x.ID == id);
             veri.Category = db.TBLCATEGORY.ToList();
-            veri.Anime = db.TBLANIME.Where(x=>x.CATEGORYID == id && x.STATUS == true).ToList();
+            veri.Anime = db.TBLANIME.Where(x=>x.CATEGORYID == id && x.STATUS == true).OrderBy(x => Guid.NewGuid()).ToList();
             ViewBag.Category = degerler.CATEGORYNAME;
             return View(veri);
         }

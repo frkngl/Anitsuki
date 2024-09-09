@@ -39,10 +39,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <!--TITLE IMG-->
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
-    @if (!User.Identity.IsAuthenticated)
-    {
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6247305840090216" crossorigin="anonymous"></script>
-    }
 </head>
 
 <body>
@@ -106,7 +102,7 @@
                             @ğ.ANIMENAME
                         </div>
                         <div style="overflow-wrap: break-word; overflow: auto; white-space: normal;" class="des">
-                            @ğ.DETAIL.Substring(0,300)
+                            @ğ.DETAIL.Substring(0,300) ...
                         </div>
                         <a class="btn" href="/AnimeDetail/Index/@ğ.ID"><i class="fa-solid fa-play"></i></a>
                     </div>
