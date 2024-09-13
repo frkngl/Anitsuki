@@ -46,7 +46,7 @@
                                 <img style="object-fit:cover;" src="~/IMG/aylogo.png" alt="image">
                             </div>
                             <div class="nav-profile-text">
-                                <p class="mb-1 text-black">@Session["username"]</p>
+                                <p class="mb-1 text-black">@HttpContext.Current.User.Identity.Name</p>
                             </div>
                         </a>
                         <div class="dropdown-menu navbar-dropdown dropdown-menu-right p-0 border-0 font-size-sm" aria-labelledby="profileDropdown" data-x-placement="bottom-end">
@@ -85,107 +85,112 @@
                             <span class="menu-title">Anasayfa</span>
                         </a>
                     </li>
-                    @if (Session["role"] != null)
+                    @{ AnitsukiTV.Models.AnitsukiTVEntities db = new AnitsukiTV.Models.AnitsukiTVEntities();}
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        int role = (int)Session["role"];
-                        if (role == 1)
+                        var username = User.Identity.Name;
+                        var admin = db.TBLADMIN.Where(x => x.USERNAME == username).FirstOrDefault();
+                        if (admin != null)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/Admin">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Admin</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/AdminRole">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Roller</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/Category">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Kategori</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/Anime">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Anime</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/Season">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Sezonlar</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/Episode">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Bölümler</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/Users">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Kullanıcılar</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/AnimeComment">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Anime Yorumları</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/EpisodeComment">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Bölüm Yorumları</span>
-                                </a>
-                            </li>
-                        }
-                        else if (role == 2)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/Users">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Kullanıcılar</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/AnimeComment">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Anime Yorumları</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/EpisodeComment">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Bölüm Yorumları</span>
-                                </a>
-                            </li>
-                        }
-                        else if (role == 3)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/Anime">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Anime</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/Season">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Sezonlar</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/LanetlerKralıAdmin/Episode">
-                                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                                    <span class="menu-title">Bölümler</span>
-                                </a>
-                            </li>
+                            if (admin.ADMINROLEID == 1)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/Admin">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Admin</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/AdminRole">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Roller</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/Category">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Kategori</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/Anime">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Anime</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/Season">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Sezonlar</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/Episode">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Bölümler</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/Users">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Kullanıcılar</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/AnimeComment">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Anime Yorumları</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/EpisodeComment">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Bölüm Yorumları</span>
+                                    </a>
+                                </li>
+                            }
+                            else if (admin.ADMINROLEID == 3)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/Anime">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Anime</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/Season">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Sezonlar</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/Episode">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Bölümler</span>
+                                    </a>
+                                </li>
+                            }
+                            else if (admin.ADMINROLEID == 2)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/Users">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Kullanıcılar</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/AnimeComment">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Anime Yorumları</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/EpisodeComment">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Bölüm Yorumları</span>
+                                    </a>
+                                </li>
+                            }
                         }
                     }
 

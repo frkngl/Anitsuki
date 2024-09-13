@@ -75,16 +75,7 @@ namespace AnitsukiTV.Controllers
             var user = db.TBLUSER.Where(x => x.USERNAME == username && x.PASSWORD == password && x.STATUS == true).FirstOrDefault();
             if (user != null)
             {
-                var sessionId = Guid.NewGuid().ToString();
-                Response.Cookies.Remove("ASP.NET_SessionId"); 
-                var sessionCookie = new HttpCookie("ASP.NET_SessionId", sessionId);
-                sessionCookie.Path = "/";
-                sessionCookie.HttpOnly = true;
-                sessionCookie.Secure = true;
-                sessionCookie.Expires = DateTime.Now.AddMinutes(43800); 
-                Response.SetCookie(sessionCookie);
-
-                var ticket = new FormsAuthenticationTicket(1, user.USERNAME, DateTime.Now, DateTime.Now.AddMinutes(43800), rememberMe, sessionId);
+                var ticket = new FormsAuthenticationTicket(1, user.USERNAME, DateTime.Now, DateTime.Now.AddMinutes(Session.Timeout), rememberMe, Guid.NewGuid().ToString());
                 var encryptedTicket = FormsAuthentication.Encrypt(ticket);
                 var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName.ToLower(), encryptedTicket);
                 authCookie.Path = "/";
@@ -93,7 +84,7 @@ namespace AnitsukiTV.Controllers
 
                 if (rememberMe)
                 {
-                    authCookie.Expires = DateTime.Now.AddMinutes(43800);
+                    authCookie.Expires = DateTime.Now.AddMinutes(Session.Timeout);
                 }
                 else
                 {
@@ -109,15 +100,28 @@ namespace AnitsukiTV.Controllers
                 var admin = db.TBLADMIN.Where(x => x.USERNAME == username && x.PASSWORD == password && x.STATUS == true).FirstOrDefault();
                 if (admin != null)
                 {
-                    FormsAuthentication.SetAuthCookie(admin.USERNAME, false);
-                    Session["username"] = admin.USERNAME;
-                    Session["role"] = admin.TBLADMINROLE.ID;
-                    Session["id"] = admin.ID;
-                    return RedirectToAction("Index", "LanetlerKralıAdmin"); 
+                    var ticket = new FormsAuthenticationTicket(1, admin.USERNAME, DateTime.Now, DateTime.Now.AddMinutes(Session.Timeout), rememberMe, Guid.NewGuid().ToString());
+                    var encryptedTicket = FormsAuthentication.Encrypt(ticket);
+                    var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName.ToLower(), encryptedTicket);
+                    authCookie.Path = "/";
+                    authCookie.HttpOnly = true;
+                    authCookie.Secure = true;
+
+                    if (rememberMe)
+                    {
+                        authCookie.Expires = DateTime.Now.AddMinutes(Session.Timeout);
+                    }
+                    else
+                    {
+                        authCookie.Expires = DateTime.Now.AddMinutes(30);
+                    }
+
+                    Response.SetCookie(authCookie);
+
+                    return RedirectToAction("Index", "LanetlerKralıAdmin");
                 }
                 else
                 {
-                    // Geçersiz giriş denemelerini işle
                     var userStatus = db.TBLUSER.Where(x => x.USERNAME == username && x.PASSWORD == password).FirstOrDefault();
                     if (userStatus != null && userStatus.STATUS == false)
                     {
@@ -189,23 +193,25 @@ namespace AnitsukiTV.Controllers
 
         public ActionResult LockOut()
         {
+            Session.Abandon();
+
             FormsAuthentication.SignOut();
-            Session.Clear();
+
+            var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName.ToLower(), string.Empty) { Expires = DateTime.Now.AddDays(-1) };
+            Response.Cookies.Add(authCookie);
+
             return RedirectToAction("Login", "LoginSignIn");
         }
 
 
         public ActionResult SignOut()
         {
+            Session.Abandon();
+
             FormsAuthentication.SignOut();
-            Session.Clear();
 
-            // Forms authentication çerezini sil
-            var formsAuthCookie = new HttpCookie(FormsAuthentication.FormsCookieName.ToLower()) { Expires = DateTime.Now.AddYears(-1) };
-            Response.Cookies.Add(formsAuthCookie);
-
-            // Oturum çerezini sil
-            Response.Cookies.Remove("ASP.NET_SessionId");
+            var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName.ToLower(), string.Empty) { Expires = DateTime.Now.AddDays(-1) };
+            Response.Cookies.Add(authCookie);
 
             return RedirectToAction("Index", "Home");
         }

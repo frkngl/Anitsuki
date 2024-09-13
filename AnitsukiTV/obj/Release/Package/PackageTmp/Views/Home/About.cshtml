@@ -62,7 +62,7 @@
                     </div>
                     <div class="user">
                         @{ AnitsukiTV.Models.AnitsukiTVEntities db = new AnitsukiTV.Models.AnitsukiTVEntities();}
-                        @if (Request.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated)
                         {
                             var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
                             if (currentUser != null && currentUser.PICTURE != null)
@@ -119,7 +119,7 @@
                     <li><a href="https://www.youtube.com/channel/UC3AfwO_XmAvYEtw6FWZXZcw"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
                     @*<li><a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a></li>*@
                     <li><a href="https://www.instagram.com/anitsukitv/"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
-                    <li><a href="https://discord.gg/j6k56TRk"><i class="bi bi-discord"></i> Discord</a></li>
+                    <li><a href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
                 </ul>
             </div>
             <div class="contact">

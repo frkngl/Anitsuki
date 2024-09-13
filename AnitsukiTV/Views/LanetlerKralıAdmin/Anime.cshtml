@@ -1,5 +1,5 @@
 ﻿@using AnitsukiTV.Models
-@model PagedList.IPagedList<TBLANIME> 
+@model PagedList.IPagedList<TBLANIME>
 @{
     ViewBag.Title = "Anime";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -32,15 +32,24 @@
                             <th>TARIH</th>
                             <th>Güncelle</th>
                             <th>Durum</th>
-                            @if (Session["role"].Equals(1))
+                            @{ AnitsukiTVEntities db = new AnitsukiTVEntities();}
+
+                            @if (User.Identity.IsAuthenticated)
                             {
-                                <th>Sil</th>
+                                var username = User.Identity.Name;
+                                var admin = db.TBLADMIN.Where(x => x.USERNAME == username).FirstOrDefault();
+                                if (admin != null)
+                                {
+                                    if (admin.ADMINROLEID == 1)
+                                    {
+                                        <th>Sil</th>
+
+                                        <th>Slider</th>
+                                    }
+
+                                    <th>Detay</th>
+                                }
                             }
-                            @if (Session["role"].Equals(1))
-                            {
-                                <th>Slider</th>
-                            }
-                            <th>Detay</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,22 +71,31 @@
                                         <a href="/LanetlerKralıAdmin/ActivePassive1/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
                                     }
                                 </td>
-                                @if (Session["role"].Equals(1))
+
+                                @if (User.Identity.IsAuthenticated)
                                 {
-                                    <td>@Html.ActionLink("Sil", "Deletee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Animeyi silmek istediğinize emin misiniz?');" })</td>
-                                }
-                                @if (Session["role"].Equals(1))
-                                {
-                                    <td>
-                                        @if (x.ADMINSTATUS == true)
+                                    var username = User.Identity.Name;
+                                    var admin = db.TBLADMIN.Where(x => x.USERNAME == username).FirstOrDefault();
+                                    if (admin != null)
+                                    {
+                                        if (admin.ADMINROLEID == 1)
                                         {
-                                            <a href="/LanetlerKralıAdmin/ActivePassive2/@x.ID" class="btn btn-success btn-sm">Aktif</a>
+                                            <td>@Html.ActionLink("Sil", "Deletee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Animeyi silmek istediğinize emin misiniz?');" })</td>
+
+
+                                            <td>
+                                                @if (x.ADMINSTATUS == true)
+                                                {
+                                                    <a href="/LanetlerKralıAdmin/ActivePassive2/@x.ID" class="btn btn-success btn-sm">Aktif</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="/LanetlerKralıAdmin/ActivePassive2/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
+                                                }
+                                            </td>
                                         }
-                                        else
-                                        {
-                                            <a href="/LanetlerKralıAdmin/ActivePassive2/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
-                                        }
-                                    </td>
+
+                                    }
                                 }
                                 <td><a style="color:#ffffff;" href="/LanetlerKralıAdmin/AnimeDetail/@x.ID" class="btn btn-light">Detay</a></td>
                             </tr>

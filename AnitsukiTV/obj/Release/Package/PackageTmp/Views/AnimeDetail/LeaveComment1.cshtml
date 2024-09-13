@@ -1,6 +1,6 @@
 ﻿@model AnitsukiTV.Models.TBLEPISODECOMMENT
 
-@if (Request.IsAuthenticated)
+@if (User.Identity.IsAuthenticated)
 {
     <div class="commentplace">
         <div class="headcomment">

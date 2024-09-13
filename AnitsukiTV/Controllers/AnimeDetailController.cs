@@ -222,7 +222,6 @@ namespace AnitsukiTV.Controllers
 
             var tabeList = new TabeList
             {
-                // ... existing properties ...
                 VideoInfo = new VideoViewModel
                 {
                     Episode = veri.Episode,

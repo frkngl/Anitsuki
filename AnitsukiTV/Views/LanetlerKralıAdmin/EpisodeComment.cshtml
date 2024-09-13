@@ -32,9 +32,18 @@
                             <th>MESAJ</th>
                             <th>Güncelle</th>
                             <th>Durum</th>
-                            @if (Session["role"].Equals(1))
+                            @{ AnitsukiTVEntities db = new AnitsukiTVEntities();}
+                            @if (User.Identity.IsAuthenticated)
                             {
-                                <th>Sil</th>
+                                var username = User.Identity.Name;
+                                var admin = db.TBLADMIN.Where(x => x.USERNAME == username).FirstOrDefault();
+                                if (admin != null)
+                                {
+                                    if (admin.ADMINROLEID == 1)
+                                    {
+                                        <th>Sil</th>
+                                    }
+                                }
                             }
                             <th>Detay</th>
                         </tr>
@@ -59,9 +68,17 @@
                                         <a href="/LanetlerKralıAdmin/ActivePassive7/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
                                     }
                                 </td>
-                                @if (Session["role"].Equals(1))
+                                @if (User.Identity.IsAuthenticated)
                                 {
-                                    <td>@Html.ActionLink("Sil", "Deleteeeeeee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Yorumu silmek istediğinize emin misiniz?');" })</td>
+                                    var username = User.Identity.Name;
+                                    var admin = db.TBLADMIN.Where(x => x.USERNAME == username).FirstOrDefault();
+                                    if (admin != null)
+                                    {
+                                        if (admin.ADMINROLEID == 1)
+                                        {
+                                            <td>@Html.ActionLink("Sil", "Deleteeeeeee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Yorumu silmek istediğinize emin misiniz?');" })</td>
+                                        }
+                                    }
                                 }
                                 <td><a style="color:#ffffff;" href="/LanetlerKralıAdmin/EpisodeCommentDetaıl/@x.ID" class="btn btn-light">Detay</a></td>
                             </tr>

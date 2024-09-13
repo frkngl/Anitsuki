@@ -138,5 +138,6 @@ namespace AnitsukiTV.Controllers
             string[] validTypes = { "image/jpeg", "image/png", "image/jpg", "image/jfif", "image/gif" };
             return validTypes.Contains(contentType);
         }
+
     }
 }
