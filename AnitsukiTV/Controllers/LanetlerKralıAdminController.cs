@@ -174,6 +174,21 @@ namespace AnitsukiTV.Controllers
             return RedirectToAction("Category");
         }
 
+        public ActionResult ActivePassive8(int id)
+        {
+            var AdminActivePassive = db.TBLCATEGORY.Find(id);
+            if (AdminActivePassive.STATUS == true)
+            {
+                AdminActivePassive.STATUS = false;
+            }
+            else
+            {
+                AdminActivePassive.STATUS = true;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Category");
+        }
+
 
 
         public ActionResult Anime(string anime, int p = 1)
@@ -196,7 +211,7 @@ namespace AnitsukiTV.Controllers
         [HttpGet]
         public ActionResult AddAnime()
         {
-            ViewBag.Categories = db.TBLCATEGORY.ToList();
+            ViewBag.Categories = db.TBLCATEGORY.Where(x=>x.STATUS == true).ToList();
             return View();
         }
 
@@ -270,7 +285,7 @@ namespace AnitsukiTV.Controllers
             var FindAnime = db.TBLANIME.Find(id);
             var category = db.TBLCATEGORY.Find(FindAnime.CATEGORYID);
             ViewBag.CategoryName = db.TBLCATEGORY.Find(FindAnime.CATEGORYID)?.CATEGORYNAME;
-            ViewBag.Categories = db.TBLCATEGORY.ToList();
+            ViewBag.Categories = db.TBLCATEGORY.Where(x=>x.STATUS == true).ToList();
             return View("UpdateAnime", FindAnime);
         }
 

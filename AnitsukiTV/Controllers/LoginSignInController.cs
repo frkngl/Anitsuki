@@ -75,7 +75,7 @@ namespace AnitsukiTV.Controllers
             var user = db.TBLUSER.Where(x => x.USERNAME == username && x.PASSWORD == password && x.STATUS == true).FirstOrDefault();
             if (user != null)
             {
-                var ticket = new FormsAuthenticationTicket(1, user.USERNAME, DateTime.Now, DateTime.Now.AddMinutes(Session.Timeout), rememberMe, Guid.NewGuid().ToString());
+                var ticket = new FormsAuthenticationTicket(1, user.USERNAME, DateTime.Now, DateTime.Now.AddMinutes(43200), rememberMe, Guid.NewGuid().ToString());
                 var encryptedTicket = FormsAuthentication.Encrypt(ticket);
                 var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName.ToLower(), encryptedTicket);
                 authCookie.Path = "/";
@@ -84,7 +84,7 @@ namespace AnitsukiTV.Controllers
 
                 if (rememberMe)
                 {
-                    authCookie.Expires = DateTime.Now.AddMinutes(Session.Timeout);
+                    authCookie.Expires = DateTime.Now.AddMinutes(43200);
                 }
                 else
                 {
@@ -100,7 +100,7 @@ namespace AnitsukiTV.Controllers
                 var admin = db.TBLADMIN.Where(x => x.USERNAME == username && x.PASSWORD == password && x.STATUS == true).FirstOrDefault();
                 if (admin != null)
                 {
-                    var ticket = new FormsAuthenticationTicket(1, admin.USERNAME, DateTime.Now, DateTime.Now.AddMinutes(Session.Timeout), rememberMe, Guid.NewGuid().ToString());
+                    var ticket = new FormsAuthenticationTicket(1, admin.USERNAME, DateTime.Now, DateTime.Now.AddMinutes(43200), rememberMe, Guid.NewGuid().ToString());
                     var encryptedTicket = FormsAuthentication.Encrypt(ticket);
                     var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName.ToLower(), encryptedTicket);
                     authCookie.Path = "/";
@@ -109,7 +109,7 @@ namespace AnitsukiTV.Controllers
 
                     if (rememberMe)
                     {
-                        authCookie.Expires = DateTime.Now.AddMinutes(Session.Timeout);
+                        authCookie.Expires = DateTime.Now.AddMinutes(43200);
                     }
                     else
                     {
@@ -193,7 +193,6 @@ namespace AnitsukiTV.Controllers
 
         public ActionResult LockOut()
         {
-            Session.Abandon();
 
             FormsAuthentication.SignOut();
 
@@ -206,7 +205,6 @@ namespace AnitsukiTV.Controllers
 
         public ActionResult SignOut()
         {
-            Session.Abandon();
 
             FormsAuthentication.SignOut();
 

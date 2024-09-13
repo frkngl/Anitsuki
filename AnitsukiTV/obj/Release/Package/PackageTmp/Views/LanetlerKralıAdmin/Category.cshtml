@@ -19,6 +19,7 @@
                             <th>ID</th>
                             <th>Kategori Adı</th>
                             <th>Güncelle</th>
+                            <th>Durum</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,6 +29,16 @@
                                 <td>@x.ID</td>
                                 <td>@x.CATEGORYNAME</td>
                                 <td><a class="btn btn-warning" href="/LanetlerKralıAdmin/UpdateCategory/@x.ID">Güncelle</a></td>
+                                <td>
+                                    @if (x.STATUS == true)
+                                    {
+                                        <a href="/LanetlerKralıAdmin/ActivePassive8/@x.ID" class="btn btn-success btn-sm">Aktif</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/LanetlerKralıAdmin/ActivePassive8/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
+                                    }
+                                </td>
                             </tr>
                         }
                     </tbody>

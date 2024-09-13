@@ -100,7 +100,7 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="/Category/Index">Hepsi</a></li>
-                    @foreach (var x in Model.Category)
+                    @foreach (var x in Model.Category.Where(x => x.STATUS == true))
                     {
                         <li><a class="dropdown-item" href="/Category/UseCategory/@x.ID">@x.CATEGORYNAME</a></li>
                     }
@@ -162,10 +162,10 @@
                     Sosyal Medyalar
                 </div>
                 <ul>
-                    <li><a href="https://www.youtube.com/channel/UC3AfwO_XmAvYEtw6FWZXZcw"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
+                    <li><a target ="_blank" href="https://www.youtube.com/channel/UC3AfwO_XmAvYEtw6FWZXZcw"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
                     @*<li><a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a></li>*@
-                    <li><a href="https://www.instagram.com/anitsukitv/"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
-                    <li><a href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
+                    <li><a target ="_blank" href="https://www.instagram.com/anitsukitv/"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
+                    <li><a target ="_blank" href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
                 </ul>
             </div>
             <div class="contact">

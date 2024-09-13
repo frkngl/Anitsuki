@@ -4,5 +4,5 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2 style="text-align:center;">Anitsuki Admin Panele Hoş Geldin @Session["username"].ToString()</h2>
+<h2 style="text-align:center;">Anitsuki Admin Panele Hoş Geldin @HttpContext.Current.User.Identity.Name</h2>
 
