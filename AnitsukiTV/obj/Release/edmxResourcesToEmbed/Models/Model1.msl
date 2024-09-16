@@ -35,6 +35,10 @@
     <EntitySetMapping Name="TBLANIME">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLANIME">
         <MappingFragment StoreEntitySet="TBLANIME">
+          <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
+          <ScalarProperty Name="DISCORD" ColumnName="DISCORD" />
+          <ScalarProperty Name="TRANSLATES" ColumnName="TRANSLATES" />
+          <ScalarProperty Name="FANSUBAD" ColumnName="FANSUBAD" />
           <ScalarProperty Name="MYANIMELIST" ColumnName="MYANIMELIST" />
           <ScalarProperty Name="BIGBANNER" ColumnName="BIGBANNER" />
           <ScalarProperty Name="ADMINSTATUS" ColumnName="ADMINSTATUS" />

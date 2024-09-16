@@ -40,6 +40,34 @@
     <link rel="stylesheet" href="~/css/VideoDetail.css" type="text/css" />
     <link rel="stylesheet" href="~/css/video.css" type="text/css" />
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
+    <style>
+        .fansub {
+            width: 100%;
+            height: 100px;
+            margin-top: 25px;
+            color: #ffffff;
+            padding-right: 1rem;
+            line-height:20px;
+        }
+            .fansub .title {
+                color: #FF7F00;
+                font-size:1rem;
+                font-weight:600;
+            }
+            .fansub .des {
+                color: #ffffff;
+                font-size: 1rem;
+            }
+            .fansub .sitelink {
+                color: #ffffff;
+                font-size: 1rem;
+            }
+            .fansub .sitelink a{
+                color:#ffffff;
+                font-size:1rem;
+                margin:0px 5px;
+            }
+    </style>
 </head>
 <body>
     <div class="loader">
@@ -98,8 +126,11 @@
     <div class="content">
         <div class="videoplayer" tabindex="0">
             <div class="postervideo">
-                <img class="poster" src="~/IMG/poster.png" alt="anime izle, türkçe altyazı anime izle, anitsuki" />
-                <img class="postermobil" src="~/IMG/postermobil.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                @foreach (var ğ in Model.VideoInfo.Episode)
+                {
+                    <img class="poster" src="~/IMG/@ğ.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" />
+                    <img class="postermobil" src="~/IMG/@ğ.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                }
                 <span class="material-symbols-outlined posterbtn">
                     play_circle
                 </span>
@@ -126,19 +157,18 @@
                 }
             </video>
         </div>
-        <div class="head">
+        <div style="margin-top:25px !important;" class="head">
             <div class="episodeandcomment">
-                <div class="episodetail">
+                <div style="padding-right: 1rem; width: 100%;" class="episodetail">
                     @foreach (var y in Model.VideoInfo.Episode)
                     {
-                        <img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
-                        <div style="width:50%;" class="detail">
+                        @*<img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">*@
+                        <div style="width:100%; height:125px; margin-left:0px !important;" class="detail">
                             <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
                                 <a href="/AnimeDetail/Index/@y.ANIMEID">@y.TBLANIME.ANIMENAME </a>
                             </div>
                             <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="episodename">
-                                <span>S.@y.TBLSEASON.SEASONNUMBER</span> -
-                                <span>B.@y.EPINUMBER</span> @y.EPISODENAME
+                                <span>B@(y.EPINUMBER)</span> @(y.EPISODENAME)
                             </div>
                             <div class="time">
                                 <i class="bi bi-clock"></i> @y.TIME
@@ -215,9 +245,18 @@
                         </div>
                     }
                 </div>
-                @Html.Action("LeaveComment1","AnimeDetail")
+                @foreach (var ö in Model.VideoInfo.Episode)
+                {
+                    <div class="fansub">
+                        <div class="title"><i class="bi bi-info-circle"></i> Çevirmenler</div>
+                        <div class="des">Çeviri: @ö.TBLANIME.FANSUBAD</div>
+                        <div class="des">Çevirmen: @ö.TBLANIME.TRANSLATES</div>
+                        <div class="sitelink">Site: <a target="_blank" href="@ö.TBLANIME.WEBSITE"><i class="bi bi-globe"></i></a> <a target="_blank" href="@ö.TBLANIME.DISCORD"><i class="bi bi-discord"></i></a></div>
+                    </div>
+                }
+                @Html.Action("LeaveComment1", "AnimeDetail")
                 <div class="commentboxes">
-                    @Html.Action("Comment1","AnimeDetail")
+                    @Html.Action("Comment1", "AnimeDetail")
                 </div>
             </div>
             <div class="nextandprevepisode">
@@ -235,8 +274,8 @@
                                         <img src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                                         <div class="animedetail">
                                             <div class="episodename">
-                                                <span>S.@episode.TBLSEASON.SEASONNUMBER</span> -
-                                                <span>B.@episode.EPINUMBER</span> @episode.EPISODENAME
+                                                <span>S@(episode.TBLSEASON.SEASONNUMBER)</span> -
+                                                <span>B@(episode.EPINUMBER)</span> @(episode.EPISODENAME)
                                             </div>
                                             <div class="time">
                                                 <i class="bi bi-clock"></i> @episode.TIME
@@ -254,7 +293,7 @@
                     {
                         <div class="prev">
                             <div class="title">
-                                <i class="bi bi-eye"></i> İlk bölümdesiniz
+                                <i class="bi bi-eye"></i> İlk Bölümdesiniz
                             </div>
                         </div>
                     }
@@ -275,8 +314,8 @@
                                         <img src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                                         <div class="animedetail">
                                             <div class="episodename">
-                                                <span>S.@episode.TBLSEASON.SEASONNUMBER</span> -
-                                                <span>B.@episode.EPINUMBER</span> @episode.EPISODENAME
+                                                <span>S@(episode.TBLSEASON.SEASONNUMBER)</span> -
+                                                <span>B@(episode.EPINUMBER)</span> @(episode.EPISODENAME)
                                             </div>
                                             <div class="time">
                                                 <i class="bi bi-clock"></i> @episode.TIME

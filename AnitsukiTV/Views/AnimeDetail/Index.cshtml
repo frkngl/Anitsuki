@@ -156,7 +156,7 @@
                     <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                     <input type="text" autocomplete="off" name="searchTags" id="searchTags" placeholder="Bölüm Arayınız" />
                 </div>
-                <div class="dropdown">
+                <div style="width:auto;" class="dropdown">
                     <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                         @ViewBag.Season
@@ -190,7 +190,7 @@
                                     </div>
                                     <div class="detail">
                                         <div style="width: 100%; margin-top: -10px; line-height: 20px; height: 20px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; " class="title">
-                                            B.@z.EPINUMBER - @z.EPISODENAME
+                                            <span>B@(z.EPINUMBER)</span> - @(z.EPISODENAME)
                                         </div>
                                     </div>
                                 </div>

@@ -45,6 +45,10 @@
     <Property Name="ADMINSTATUS" Type="bit" />
     <Property Name="BIGBANNER" Type="nvarchar" MaxLength="500" />
     <Property Name="MYANIMELIST" Type="decimal" Precision="2" Scale="1" />
+    <Property Name="FANSUBAD" Type="nvarchar" MaxLength="200" />
+    <Property Name="TRANSLATES" Type="nvarchar" MaxLength="200" />
+    <Property Name="DISCORD" Type="nvarchar" MaxLength="200" />
+    <Property Name="WEBSITE" Type="nvarchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="TBLANIMECOMMENT">
     <Key>

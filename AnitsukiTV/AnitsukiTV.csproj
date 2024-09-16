@@ -1381,6 +1381,8 @@
     <Content Include="Views\AnimeDetail\Comment.cshtml" />
     <Content Include="Views\AnimeDetail\Comment1.cshtml" />
     <Content Include="Views\AnimeDetail\LeaveComment1.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\FanSub.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\AddFanSub.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
