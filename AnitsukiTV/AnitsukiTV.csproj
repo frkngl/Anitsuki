@@ -1056,19 +1056,21 @@
     <Content Include="css\About1.css" />
     <Content Include="css\AnimeDetail.css" />
     <Content Include="css\Category.css" />
+    <Content Include="css\Donate.css" />
     <Content Include="css\Home.css" />
+    <Content Include="css\plyr.css" />
     <Content Include="css\PrivacyandPolitic.css" />
     <Content Include="css\User.css" />
-    <Content Include="css\video.css" />
     <Content Include="css\VideoDetail.css" />
+    <Content Include="IMG\Anitsukibags.png" />
     <Content Include="IMG\arisu-aris.gif" />
     <Content Include="IMG\aylogo.png" />
     <Content Include="IMG\footer2.png" />
     <Content Include="IMG\logo.png" />
     <Content Include="IMG\poster.png" />
     <Content Include="IMG\postermobil.png" />
+    <Content Include="js\plyr.js" />
     <Content Include="js\splide1.js" />
-    <Content Include="js\video.js" />
     <Content Include="IMG\LoginBackground.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -1383,6 +1385,7 @@
     <Content Include="Views\AnimeDetail\LeaveComment1.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\FanSub.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\AddFanSub.cshtml" />
+    <Content Include="Views\Home\Donate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

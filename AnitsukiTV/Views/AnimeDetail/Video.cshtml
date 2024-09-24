@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/VideoDetail.css" type="text/css" />
-    <link rel="stylesheet" href="~/css/video.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/plyr.css" type="text/css" />
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
     <style>
         .fansub {
@@ -47,25 +47,60 @@
             margin-top: 25px;
             color: #ffffff;
             padding-right: 1rem;
-            line-height:20px;
+            line-height: 20px;
         }
+
             .fansub .title {
                 color: #FF7F00;
-                font-size:1rem;
-                font-weight:600;
+                font-size: 1rem;
+                font-weight: 600;
             }
+
             .fansub .des {
                 color: #ffffff;
                 font-size: 1rem;
             }
+
             .fansub .sitelink {
                 color: #ffffff;
                 font-size: 1rem;
             }
-            .fansub .sitelink a{
-                color:#ffffff;
-                font-size:1rem;
-                margin:0px 5px;
+
+                .fansub .sitelink a {
+                    color: #ffffff;
+                    font-size: 1rem;
+                    margin: 0px 5px;
+                }
+        .videoposter {
+            position: relative;
+            width:100%;
+        }
+
+            .videoposter .poster {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+            }
+
+                .videoposter .poster img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    filter: brightness(0.6);
+                }
+            .videoposter .poster i {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform:translate(-50%,-50%);
+                z-index: 2;
+                font-size: 4rem;
+                color: #ffffff;
+                cursor:pointer;
+
             }
     </style>
 </head>
@@ -87,12 +122,9 @@
 
                 <nav class="col-8">
                     <ul>
-                        <li>
-                            <a href="/Home/Index"><i class="fa-solid fa-house"></i> Anasayfa</a>
-                        </li>
-                        <li>
-                            <a href="/Category/Index"><i class="fa-solid fa-list"></i> Animeler</a>
-                        </li>
+                        <li><a href="/Home/Index" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
+                        <li><a href="/Category/Index"><i class="fa-solid fa-list"></i> Animeler</a></li>
+                        <li><a href="/Home/Donate"><i class="bi bi-cash-stack"></i> Bağış</a></li>
                     </ul>
                 </nav>
                 <div class="box col-2">
@@ -124,269 +156,266 @@
         </div>
     </header>
     <div class="content">
-        <div class="videoplayer" tabindex="0">
-            <div class="postervideo">
-                @foreach (var ğ in Model.VideoInfo.Episode)
+        <div class="videoposter">
+            <div class="poster">
+                @foreach (var vv in Model.VideoInfo.Episode)
                 {
-                    <img class="poster" src="~/IMG/@ğ.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" />
-                    <img class="postermobil" src="~/IMG/@ğ.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                    <img src="~/IMG/@vv.BANNER" />
                 }
-                <span class="material-symbols-outlined posterbtn">
-                    play_circle
-                </span>
+                <i class="bi bi-play-circle"></i>
             </div>
-            <video preload="metadata" class="main-video" playsinline>
+            <video controls id="plyr">
                 @foreach (var x in Model.VideoInfo.Episode)
                 {
                     if (x.EP1 != null)
                     {
-                        <source src="~/Videos/@x.EP1" size="360" type="video/mp4">
+                        <source src="~/Videos/@x.EP1" size="360" type="video/mp4" />
                     }
                     if (x.EP2 != null)
                     {
-                        <source src="~/Videos/@x.EP2" size="480" type="video/mp4">
+                        <source src="~/Videos/@x.EP2" size="480" type="video/mp4" />
                     }
                     if (x.EP3 != null)
                     {
-                        <source src="~/Videos/@x.EP3" size="720" type="video/mp4">
+                        <source src="~/Videos/@x.EP3" size="720" type="video/mp4" />
                     }
                     if (x.EP4 != null)
                     {
-                        <source src="~/Videos/@x.EP4" size="1080" type="video/mp4">
+                        <source src="~/Videos/@x.EP4" size="1080" type="video/mp4" />
                     }
                 }
             </video>
         </div>
-        <div style="margin-top:25px !important;" class="head">
-            <div class="episodeandcomment">
-                <div style="padding-right: 1rem; width: 100%;" class="episodetail">
-                    @foreach (var y in Model.VideoInfo.Episode)
-                    {
-                        @*<img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">*@
-                        <div style="width:100%; height:125px; margin-left:0px !important;" class="detail">
-                            <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                <a href="/AnimeDetail/Index/@y.ANIMEID">@y.TBLANIME.ANIMENAME </a>
-                            </div>
-                            <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="episodename">
-                                <span>B@(y.EPINUMBER)</span> @(y.EPISODENAME)
-                            </div>
-                            <div class="time">
-                                <i class="bi bi-clock"></i> @y.TIME
-                            </div>
-                            <div class="date">
-                                <i class="bi bi-calendar"></i> @y.DATE.Value.ToString("dd.MM.yyyy")
-                            </div>
-                            <div class="likeandunlikerating">
-                                <div class="rating">
-                                    Beğendiniz mi?
+            <div style="margin-top:25px !important;" class="head">
+                <div class="episodeandcomment">
+                    <div style="padding-right: 1rem; width: 100%;" class="episodetail">
+                        @foreach (var y in Model.VideoInfo.Episode)
+                        {
+                            @*<img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">*@
+                            <div style="width:100%; height:125px; margin-left:0px !important;" class="detail">
+                                <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                    <a href="/AnimeDetail/Index/@y.ANIMEID">@y.TBLANIME.ANIMENAME </a>
                                 </div>
-                                <div class="likeandunlike">
-                                    @{
-                                        var userID = db.TBLUSER.Where(u => u.USERNAME == User.Identity.Name).Select(u => u.ID).FirstOrDefault();
-                                        var likeExist = y.TBLEPISODELIKE.Any(y => y.USERID == userID);
-                                        var liked = y.TBLEPISODELIKE.FirstOrDefault(y => y.USERID == userID)?.LIKESTATUS;
-                                    }
+                                <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="episodename">
+                                    <span>S@(y.TBLSEASON.SEASONNUMBER)</span> - <span>B@(y.EPINUMBER)</span> @(y.EPISODENAME)
+                                </div>
+                                <div class="time">
+                                    <i class="bi bi-clock"></i> @y.TIME
+                                </div>
+                                <div class="date">
+                                    <i class="bi bi-calendar"></i> @y.DATE.Value.ToString("dd.MM.yyyy")
+                                </div>
+                                <div class="likeandunlikerating">
+                                    <div class="rating">
+                                        Beğendiniz mi?
+                                    </div>
+                                    <div class="likeandunlike">
+                                        @{
+                                            var userID = db.TBLUSER.Where(u => u.USERNAME == User.Identity.Name).Select(u => u.ID).FirstOrDefault();
+                                            var likeExist = y.TBLEPISODELIKE.Any(y => y.USERID == userID);
+                                            var liked = y.TBLEPISODELIKE.FirstOrDefault(y => y.USERID == userID)?.LIKESTATUS;
+                                        }
 
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                        if (liked.HasValue && liked.Value)
+                                        @if (User.Identity.IsAuthenticated)
                                         {
-                                            <div class="like1 active" style="margin-right:10px;" data-comment-id="@y.ID">
-                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, true)">
-                                                    <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
-                                                    <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
-                                                </a>
-                                            </div>
+                                            if (liked.HasValue && liked.Value)
+                                            {
+                                                <div class="like1 active" style="margin-right:10px;" data-comment-id="@y.ID">
+                                                    <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, true)">
+                                                        <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
+                                                        <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
+                                                    </a>
+                                                </div>
 
-                                            <div id="comment-success" style="display:none;"></div>
-                                            <div id="comment-error" style="display:none;"></div>
-                                            <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
+                                                <div id="comment-success" style="display:none;"></div>
+                                                <div id="comment-error" style="display:none;"></div>
+                                                <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
 
-                                            <div class="unlike1" data-comment-id="@y.ID">
-                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, false)">
-                                                    <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
-                                                    <span id="unlike-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()</span>
-                                                </a>
-                                            </div>
+                                                <div class="unlike1" data-comment-id="@y.ID">
+                                                    <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, false)">
+                                                        <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
+                                                        <span id="unlike-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()</span>
+                                                    </a>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="like1" style="margin-right:15px;" data-comment-id="@y.ID">
+                                                    <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, true)">
+                                                        <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
+                                                        <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
+                                                    </a>
+                                                </div>
+                                                <div class="unlike1 active" data-comment-id="@y.ID">
+                                                    <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, false)">
+                                                        <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
+                                                        <span id="unlike-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()</span>
+                                                    </a>
+                                                </div>
+                                            }
                                         }
                                         else
                                         {
-                                            <div class="like1" style="margin-right:15px;" data-comment-id="@y.ID">
-                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, true)">
+                                            <div style="margin-right:15px;" class="like1" data-comment-id="@y.ID">
+                                                <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
                                                     <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
-                                                    <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
+                                                    @y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()
                                                 </a>
                                             </div>
-                                            <div class="unlike1 active" data-comment-id="@y.ID">
-                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, false)">
+                                            <div class="unlike1" data-comment-id="@y.ID">
+                                                <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
                                                     <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
-                                                    <span id="unlike-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()</span>
+                                                    @y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()
                                                 </a>
                                             </div>
                                         }
-                                    }
-                                    else
-                                    {
-                                        <div style="margin-right:15px;" class="like1" data-comment-id="@y.ID">
-                                            <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
-                                                <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
-                                                @y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()
-                                            </a>
-                                        </div>
-                                        <div class="unlike1" data-comment-id="@y.ID">
-                                            <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
-                                                <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
-                                                @y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()
-                                            </a>
-                                        </div>
-                                    }
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    }
-                </div>
-                @foreach (var ö in Model.VideoInfo.Episode)
-                {
-                    <div class="fansub">
-                        <div class="title"><i class="bi bi-info-circle"></i> Çevirmenler</div>
-                        <div class="des">Çeviri: @ö.TBLANIME.FANSUBAD</div>
-                        <div class="des">Çevirmen: @ö.TBLANIME.TRANSLATES</div>
-                        <div class="sitelink">Site: <a target="_blank" href="@ö.TBLANIME.WEBSITE"><i class="bi bi-globe"></i></a> <a target="_blank" href="@ö.TBLANIME.DISCORD"><i class="bi bi-discord"></i></a></div>
+                        }
                     </div>
-                }
-                @Html.Action("LeaveComment1", "AnimeDetail")
-                <div class="commentboxes">
-                    @Html.Action("Comment1", "AnimeDetail")
-                </div>
-            </div>
-            <div class="nextandprevepisode">
-                @{
-                    if (Model.VideoInfo.OncekiBolum != null && Model.VideoInfo.OncekiBolum.Any())
+                    @foreach (var ö in Model.VideoInfo.Episode)
                     {
-                        <div class="prev">
-                            <div class="title">
-                                <i class="bi bi-arrow-left"></i> Önceki Bölüm
-                            </div>
-                            @foreach (var episode in Model.VideoInfo.OncekiBolum.Where(x => x.STATUS == true))
-                            {
-                                <a href="@Url.Action("Video", "AnimeDetail", new { id = episode.ID })">
-                                    <div class="box">
-                                        <img src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
-                                        <div class="animedetail">
-                                            <div class="episodename">
-                                                <span>S@(episode.TBLSEASON.SEASONNUMBER)</span> -
-                                                <span>B@(episode.EPINUMBER)</span> @(episode.EPISODENAME)
-                                            </div>
-                                            <div class="time">
-                                                <i class="bi bi-clock"></i> @episode.TIME
-                                            </div>
-                                            <div class="date">
-                                                <i class="bi bi-calendar"></i> @episode.DATE.Value.ToString("dd.MM.yyyy")
+                        <div class="fansub">
+                            <div class="title"><i class="bi bi-info-circle"></i> Çevirmenler</div>
+                            <div class="des">Çeviri: @ö.TBLANIME.FANSUBAD</div>
+                            <div class="des">Çevirmen: @ö.TBLANIME.TRANSLATES</div>
+                            <div class="sitelink">Site: <a target="_blank" href="@ö.TBLANIME.WEBSITE"><i class="bi bi-globe"></i></a> <a target="_blank" href="@ö.TBLANIME.DISCORD"><i class="bi bi-discord"></i></a></div>
+                        </div>
+                    }
+                    @Html.Action("LeaveComment1", "AnimeDetail")
+                    <div class="commentboxes">
+                        @Html.Action("Comment1", "AnimeDetail")
+                    </div>
+                </div>
+                <div class="nextandprevepisode">
+                    @{
+                        if (Model.VideoInfo.OncekiBolum != null && Model.VideoInfo.OncekiBolum.Any())
+                        {
+                            <div class="prev">
+                                <div class="title">
+                                    <i class="bi bi-arrow-left"></i> Önceki Bölüm
+                                </div>
+                                @foreach (var episode in Model.VideoInfo.OncekiBolum.Where(x => x.STATUS == true))
+                                {
+                                    <a href="@Url.Action("Video", "AnimeDetail", new { id = episode.ID })">
+                                        <div class="box">
+                                            <img src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                            <div class="animedetail">
+                                                <div class="episodename">
+                                                    <span>S@(episode.TBLSEASON.SEASONNUMBER)</span> -
+                                                    <span>B@(episode.EPINUMBER)</span> @(episode.EPISODENAME)
+                                                </div>
+                                                <div class="time">
+                                                    <i class="bi bi-clock"></i> @episode.TIME
+                                                </div>
+                                                <div class="date">
+                                                    <i class="bi bi-calendar"></i> @episode.DATE.Value.ToString("dd.MM.yyyy")
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            }
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="prev">
-                            <div class="title">
-                                <i class="bi bi-eye"></i> İlk Bölümdesiniz
+                                    </a>
+                                }
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="prev">
+                                <div class="title">
+                                    <i class="bi bi-eye"></i> İlk Bölümdesiniz
+                                </div>
+                            </div>
+                        }
                     }
-                }
 
-                @{
-                    if (Model.VideoInfo.SonrakiBolum != null && Model.VideoInfo.SonrakiBolum.Any())
-                    {
-                        <div class="next">
-                            <div class="title">
-                                Sonraki Bölüm
-                                <i class="bi bi-arrow-right"></i>
-                            </div>
-                            @foreach (var episode in Model.VideoInfo.SonrakiBolum.Where(x => x.STATUS == true))
-                            {
-                                <a href="@Url.Action("Video", "AnimeDetail", new { id = episode.ID })">
-                                    <div class="box">
-                                        <img src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
-                                        <div class="animedetail">
-                                            <div class="episodename">
-                                                <span>S@(episode.TBLSEASON.SEASONNUMBER)</span> -
-                                                <span>B@(episode.EPINUMBER)</span> @(episode.EPISODENAME)
-                                            </div>
-                                            <div class="time">
-                                                <i class="bi bi-clock"></i> @episode.TIME
-                                            </div>
-                                            <div class="date">
-                                                <i class="bi bi-calendar"></i> @episode.DATE.Value.ToString("dd.MM.yyyy")
+                    @{
+                        if (Model.VideoInfo.SonrakiBolum != null && Model.VideoInfo.SonrakiBolum.Any())
+                        {
+                            <div class="next">
+                                <div class="title">
+                                    Sonraki Bölüm
+                                    <i class="bi bi-arrow-right"></i>
+                                </div>
+                                @foreach (var episode in Model.VideoInfo.SonrakiBolum.Where(x => x.STATUS == true))
+                                {
+                                    <a href="@Url.Action("Video", "AnimeDetail", new { id = episode.ID })">
+                                        <div class="box">
+                                            <img src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                            <div class="animedetail">
+                                                <div class="episodename">
+                                                    <span>S@(episode.TBLSEASON.SEASONNUMBER)</span> -
+                                                    <span>B@(episode.EPINUMBER)</span> @(episode.EPISODENAME)
+                                                </div>
+                                                <div class="time">
+                                                    <i class="bi bi-clock"></i> @episode.TIME
+                                                </div>
+                                                <div class="date">
+                                                    <i class="bi bi-calendar"></i> @episode.DATE.Value.ToString("dd.MM.yyyy")
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            }
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="next">
-                            <div class="title">
-                                Güncel Bölümdesiniz
-                                <i class="bi bi-check2"></i>
+                                    </a>
+                                }
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="next">
+                                <div class="title">
+                                    Güncel Bölümdesiniz
+                                    <i class="bi bi-check2"></i>
+                                </div>
+                            </div>
+                        }
                     }
-                }
-            </div>
-        </div>
-    </div>
-    <footer>
-        <div class="footerimg">
-        </div>
-        <div class="detail">
-            <div class="page">
-                <div class="title">
-                    Sayfalar
                 </div>
-                <ul>
-                    <li><a href="/Home/About">Hakkımızda</a></li>
-                    <li><a href="/Home/PrivacyPolicy">Gizlilik Politikası</a></li>
-                </ul>
-            </div>
-            <div class="social">
-                <div class="title">
-                    Sosyal Medyalar
-                </div>
-                <ul>
-                    <li><a target ="_blank" href="https://www.youtube.com/channel/UC3AfwO_XmAvYEtw6FWZXZcw"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
-                    @*<li><a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a></li>*@
-                    <li><a target ="_blank" href="https://www.instagram.com/anitsukitv/"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
-                    <li><a target ="_blank" href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
-                </ul>
-            </div>
-            <div class="contact">
-                <div class="title">
-                    İletişim
-                </div>
-                <ul>
-                    <li>info@anitsuki.com</li>
-                </ul>
             </div>
         </div>
-        <div class="copyright ">
-            <img src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
-            <div class="text">
-                Copyright © Anitsuki 2024. Tüm hakları saklıdır.
+        <footer>
+            <div class="footerimg">
             </div>
-        </div>
-    </footer>
-</body>
+            <div class="detail">
+                <div class="page">
+                    <div class="title">
+                        Sayfalar
+                    </div>
+                    <ul>
+                        <li><a href="/Home/About">Hakkımızda</a></li>
+                        <li><a href="/Home/PrivacyPolicy">Gizlilik Politikası</a></li>
+                    </ul>
+                </div>
+                <div class="social">
+                    <div class="title">
+                        Sosyal Medyalar
+                    </div>
+                    <ul>
+                        <li><a target="_blank" href="https://www.youtube.com/channel/UC3AfwO_XmAvYEtw6FWZXZcw"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
+                        @*<li><a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a></li>*@
+                        <li><a target="_blank" href="https://www.instagram.com/anitsukitv/"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
+                        <li><a target="_blank" href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
+                    </ul>
+                </div>
+                <div class="contact">
+                    <div class="title">
+                        İletişim
+                    </div>
+                    <ul>
+                        <li>info@anitsuki.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright ">
+                <img src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                <div class="text">
+                    Copyright © Anitsuki 2024. Tüm hakları saklıdır.
+                </div>
+            </div>
+        </footer>
+    </body>
 </html>
 <script src="~/Scripts/jquery-3.7.1.min.js"></script>
 <script src="~/Scripts/bootstrap.bundle.min.js"></script>
-<script src="~/js/video.js"></script>
+<script src="~/js/plyr.js"></script>
 <script>
     document.querySelectorAll('nav a').forEach(link => {
         link.classList.remove('active');
@@ -470,5 +499,56 @@
         timeoutID = setTimeout(() => {
             togglePositionalHeaderStyles();
         }, 50);
+    });
+</script>
+
+<script>
+    const poster = document.querySelector('.poster');
+    const video = document.getElementById('plyr');
+
+    const player = new Plyr('#plyr', {
+        speed: {
+            selected: 1,
+            options: [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
+        },
+        controls: [
+            'rewind',
+            'play',
+            'fast-forward',
+            'progress',
+            'current-time',
+            'mute',
+            'volume',
+            'settings',
+            'pip',
+            'fullscreen',
+            'progressareatime'
+
+        ],
+        i18n: {
+
+            speed: 'Hız',
+            normal: 'Normal',
+            quality: 'Kalite'
+
+        },
+        keyboard: {
+            focused: true,
+            global: true,
+        },
+        fullscreen: {
+            enabled: true,
+            fallback: true,
+            iosNative: true,
+        }
+    });
+
+    poster.addEventListener('click', () => {
+    poster.style.display = "none";
+        player.play();
+    });
+
+    player.on('fullscreen', () => {
+        poster.style.display = "block";
     });
 </script>
