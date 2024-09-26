@@ -965,5 +965,85 @@ namespace AnitsukiTV.Controllers
             var degerler = db.TBLEPISODECOMMENT.Where(x => x.ID == id).ToList();
             return View(degerler);
         }
+
+
+        public ActionResult Donater(string Donate, int p = 1)
+        {
+            var degerler = from a in db.TBLDONATE select a;
+            if (!string.IsNullOrEmpty(Donate))
+            {
+                degerler = degerler.Where(x => x.DONATER.ToLower().Contains(Donate.ToLower()));
+            }
+            var pageSize = 50;
+            var paginatedResults = degerler.OrderByDescending(x => x.ID).Skip((p - 1) * pageSize).Take(pageSize).ToList();
+            var pagedList = new StaticPagedList<TBLDONATE>(paginatedResults, p, pageSize, degerler.Count());
+            ViewBag.PageCount = (int)Math.Ceiling(degerler.Count() / (double)pageSize);
+            ViewBag.CurrentPage = p;
+            ViewBag.Donate = Donate;
+            return View(pagedList);
+        }
+
+
+        [HttpGet]
+        public ActionResult AddDonate()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult AddDonate(TBLDONATE add)
+        {
+            TBLDONATE donate = new TBLDONATE();
+            donate.DONATER = add.DONATER;
+            donate.DONATE = add.DONATE;
+            donate.STATUS = false;
+            db.TBLDONATE.Add(donate);
+            db.SaveChanges();
+            TempData["success"] = "Eklendi";
+            return RedirectToAction("Donater");
+        }
+
+
+
+        public ActionResult UpdateDonate(int id)
+        {
+            var FindDonate = db.TBLDONATE.Find(id);
+            return View("UpdateDonate", FindDonate);
+        }
+
+        public ActionResult DonateSave(TBLDONATE cat)
+        {
+            var updatedonate = db.TBLDONATE.Find(cat.ID);
+            updatedonate.DONATER = cat.DONATER;
+            updatedonate.DONATE = cat.DONATE;
+            db.SaveChanges();
+            TempData["success"] = "Güncellendi";
+            return RedirectToAction("Donater");
+        }
+
+        public ActionResult Deleteeeeeeee(int id)
+        {
+            var Donate = db.TBLDONATE.Find(id);
+            db.TBLDONATE.Remove(Donate);
+            db.SaveChanges();
+            TempData["error"] = "Kullanıcı başarıyla silindi";
+            return RedirectToAction("Donater");
+        }
+
+        public ActionResult ActivePassive9(int id)
+        {
+            var AdminActivePassive = db.TBLDONATE.Find(id);
+            if (AdminActivePassive.STATUS == true)
+            {
+                AdminActivePassive.STATUS = false;
+            }
+            else
+            {
+                AdminActivePassive.STATUS = true;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Donater");
+        }
     }
 }

@@ -84,6 +84,15 @@
           <Property Name="CATEGORYNAME" Type="nvarchar" MaxLength="30" />
           <Property Name="STATUS" Type="bit" />
         </EntityType>
+        <EntityType Name="TBLDONATE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DONATER" Type="nvarchar" MaxLength="100" />
+          <Property Name="DONATE" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="STATUS" Type="bit" />
+        </EntityType>
         <EntityType Name="TBLEPISODE">
           <Key>
             <PropertyRef Name="ID" />
@@ -408,6 +417,7 @@
           <EntitySet Name="TBLANIMECOMMENT" EntityType="Self.TBLANIMECOMMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLANIMECOMMENTLIKE" EntityType="Self.TBLANIMECOMMENTLIKE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLCATEGORY" EntityType="Self.TBLCATEGORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLDONATE" EntityType="Self.TBLDONATE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLEPISODE" EntityType="Self.TBLEPISODE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLEPISODECOMMENT" EntityType="Self.TBLEPISODECOMMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLEPISODECOMMENTLIKE" EntityType="Self.TBLEPISODECOMMENTLIKE" Schema="dbo" store:Type="Tables" />
@@ -505,6 +515,7 @@
           <EntitySet Name="TBLANIMECOMMENT" EntityType="AnitsukiTVModel.TBLANIMECOMMENT" />
           <EntitySet Name="TBLANIMECOMMENTLIKE" EntityType="AnitsukiTVModel.TBLANIMECOMMENTLIKE" />
           <EntitySet Name="TBLCATEGORY" EntityType="AnitsukiTVModel.TBLCATEGORY" />
+          <EntitySet Name="TBLDONATE" EntityType="AnitsukiTVModel.TBLDONATE" />
           <EntitySet Name="TBLEPISODE" EntityType="AnitsukiTVModel.TBLEPISODE" />
           <EntitySet Name="TBLEPISODECOMMENT" EntityType="AnitsukiTVModel.TBLEPISODECOMMENT" />
           <EntitySet Name="TBLEPISODECOMMENTLIKE" EntityType="AnitsukiTVModel.TBLEPISODECOMMENTLIKE" />
@@ -682,6 +693,15 @@
           <Property Name="CATEGORYNAME" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="STATUS" Type="Boolean" />
           <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY" FromRole="TBLCATEGORY" ToRole="TBLANIME" />
+        </EntityType>
+        <EntityType Name="TBLDONATE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DONATER" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DONATE" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="STATUS" Type="Boolean" />
         </EntityType>
         <EntityType Name="TBLEPISODE">
           <Key>
@@ -1111,6 +1131,16 @@
               <MappingFragment StoreEntitySet="TBLCATEGORY">
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="CATEGORYNAME" ColumnName="CATEGORYNAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLDONATE">
+            <EntityTypeMapping TypeName="AnitsukiTVModel.TBLDONATE">
+              <MappingFragment StoreEntitySet="TBLDONATE">
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="DONATE" ColumnName="DONATE" />
+                <ScalarProperty Name="DONATER" ColumnName="DONATER" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

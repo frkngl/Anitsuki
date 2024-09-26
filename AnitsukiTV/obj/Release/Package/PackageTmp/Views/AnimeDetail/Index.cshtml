@@ -27,6 +27,7 @@
     <meta property="og:title" content="@ViewBag.anime izle - anitsuki" />
     <meta property="og:url" content="https://anitsuki.com/AnimeDetail/Index/@ViewBag.anime" />
     <meta property="og:type" content="video.tv_show" />
+    <meta property="og:image" content="~/IMG/aylogo.png">
     <meta property="og:description" content="@ViewBag.anime izle, @ViewBag.anime animesini türkçe altyazılı ve full hd seçeneğiyle ücretsiz olarak izleyin." />
     <meta name="robots" content="max-image-preview:large" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -40,6 +41,10 @@
 </head>
 
 <body>
+    <link itemprop="thumbnailUrl" href="~/IMG/aylogo.png">
+    <span itemprop="thumbnail" itemscope itemtype="~/IMG/aylogo.png">
+        <link itemprop="url" href="~/IMG/aylogo.png">
+    </span>
     <div class="loader">
 
     </div>
@@ -57,8 +62,9 @@
 
                 <nav class="col-8">
                     <ul>
-                        <li><a href="/Home/Index"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
+                        <li><a href="/Home/Index" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
                         <li><a href="/Category/Index"><i class="fa-solid fa-list"></i> Animeler</a></li>
+                        <li><a href="/Home/Donate"><i class="bi bi-cash-stack"></i> Bağış</a></li>
                     </ul>
                 </nav>
                 <div class="box col-2">
@@ -199,9 +205,9 @@
                     }
                 </ul>
             </div>
-            @Html.Action("LeaveComment","AnimeDetail")
+            @Html.Action("LeaveComment", "AnimeDetail")
             <div class="commentboxes">
-                @Html.Action("Comment","AnimeDetail")
+                @Html.Action("Comment", "AnimeDetail")
             </div>
         </div>
     </div>
@@ -223,10 +229,10 @@
                     Sosyal Medyalar
                 </div>
                 <ul>
-                    <li><a target ="_blank" href="https://www.youtube.com/channel/UC3AfwO_XmAvYEtw6FWZXZcw"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
+                    <li><a target="_blank" href="https://www.youtube.com/channel/UC3AfwO_XmAvYEtw6FWZXZcw"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
                     @*<li><a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a></li>*@
-                    <li><a target ="_blank" href="https://www.instagram.com/anitsukitv/"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
-                    <li><a target ="_blank" href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
+                    <li><a target="_blank" href="https://www.instagram.com/anitsukitv/"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
+                    <li><a target="_blank" href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
                 </ul>
             </div>
             <div class="contact">

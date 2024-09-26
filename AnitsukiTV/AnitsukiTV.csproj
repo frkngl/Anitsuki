@@ -211,6 +211,9 @@
     <Compile Include="Models\TBLCATEGORY.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TBLDONATE.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TBLEPISODE.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1062,7 +1065,7 @@
     <Content Include="css\PrivacyandPolitic.css" />
     <Content Include="css\User.css" />
     <Content Include="css\VideoDetail.css" />
-    <Content Include="IMG\Anitsukibags.png" />
+    <Content Include="IMG\AnitsukiQR.png" />
     <Content Include="IMG\arisu-aris.gif" />
     <Content Include="IMG\aylogo.png" />
     <Content Include="IMG\footer2.png" />
@@ -1386,6 +1389,9 @@
     <Content Include="Views\LanetlerKralıAdmin\FanSub.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\AddFanSub.cshtml" />
     <Content Include="Views\Home\Donate.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\Donater.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\AddDonate.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\UpdateDonate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

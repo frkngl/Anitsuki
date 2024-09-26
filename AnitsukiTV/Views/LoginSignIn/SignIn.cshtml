@@ -25,6 +25,7 @@
     <meta property="og:title" content="anitsuki - anime izle" />
     <meta property="og:url" content="https://anitsuki.com/LoginSignIn/Login" />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="~/IMG/aylogo.png">
     <meta property="og:description" content="anime izle,en popüler ücretsiz olarak anitsuki.com'da izleyin" />
     <meta name="robots" content="max-image-preview:large" />
     <link rel="icon" type="image/png" href="~/IMG/aylogo.png" />
@@ -51,6 +52,10 @@
     </style>
 </head>
 <body>
+    <link itemprop="thumbnailUrl" href="~/IMG/aylogo.png">
+    <span itemprop="thumbnail" itemscope itemtype="~/IMG/aylogo.png">
+        <link itemprop="url" href="~/IMG/aylogo.png">
+    </span>
     <div style="position:relative;" class="limiter">
         <img style="position:absolute; z-index:-1; width:100%; filter:brightness(0.6); height:100%;object-fit:cover;" src="~/IMG/LoginBackground.png" />
         <div style="background-color:transparent;" class="container-login100">
@@ -60,7 +65,7 @@
                         Kayıt
                     </span>
                     <span class="login100-form-title p-b-48">
-                        <img src="~/IMG/aylogo.png" width="100" alt="anime izle, türkçe altyazı anime izle, anitsuki"/>
+                        <img src="~/IMG/aylogo.png" width="100" alt="anime izle, türkçe altyazı anime izle, anitsuki" />
                     </span>
                     <h2 style="width:100%; text-align:center; color: #ffffff;">@ViewBag.user</h2>
 

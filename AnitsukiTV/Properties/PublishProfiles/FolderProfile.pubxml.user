@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\frkng\Desktop\Publish</_PublishTargetUrl>
-    <History>True|2024-09-24T14:42:49.7618071Z||;True|2024-09-16T20:37:18.7178360+03:00||;True|2024-09-14T00:04:10.6816289+03:00||;True|2024-09-13T17:44:57.9599547+03:00||;True|2024-09-13T17:19:45.8300612+03:00||;True|2024-09-13T16:57:48.7957199+03:00||;True|2024-09-12T20:26:14.5144820+03:00||;True|2024-09-11T18:24:30.2444466+03:00||;</History>
+    <History>True|2024-09-26T10:35:09.4360599Z||;True|2024-09-26T13:34:07.5192476+03:00||;True|2024-09-25T16:56:52.8064897+03:00||;True|2024-09-25T16:42:50.0020850+03:00||;True|2024-09-24T17:42:49.7618071+03:00||;True|2024-09-16T20:37:18.7178360+03:00||;True|2024-09-14T00:04:10.6816289+03:00||;True|2024-09-13T17:44:57.9599547+03:00||;True|2024-09-13T17:19:45.8300612+03:00||;True|2024-09-13T16:57:48.7957199+03:00||;True|2024-09-12T20:26:14.5144820+03:00||;True|2024-09-11T18:24:30.2444466+03:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -2692,10 +2692,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/23/2024 23:16:42</publishTime>
     </File>
     <File Include="bin/AnitsukiTV.dll">
-      <publishTime>09/24/2024 14:41:47</publishTime>
+      <publishTime>09/26/2024 13:20:44</publishTime>
     </File>
     <File Include="bin/AnitsukiTV.pdb">
-      <publishTime>09/24/2024 14:41:47</publishTime>
+      <publishTime>09/26/2024 13:20:44</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/23/2024 23:16:44</publishTime>
@@ -2998,7 +2998,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/23/2024 23:16:42</publishTime>
     </File>
     <File Include="css/About1.css">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/24/2024 23:27:37</publishTime>
     </File>
     <File Include="css/AnimeDetail.css">
       <publishTime>09/23/2024 23:16:43</publishTime>
@@ -3006,8 +3006,11 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="css/Category.css">
       <publishTime>09/23/2024 23:16:43</publishTime>
     </File>
+    <File Include="css/Donate.css">
+      <publishTime>09/24/2024 23:27:34</publishTime>
+    </File>
     <File Include="css/Home.css">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/25/2024 15:27:57</publishTime>
     </File>
     <File Include="css/plyr.css">
       <publishTime>09/24/2024 13:34:04</publishTime>
@@ -3029,6 +3032,12 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Global.asax">
       <publishTime>09/23/2024 23:16:42</publishTime>
+    </File>
+    <File Include="IMG/Anitsukibags.png">
+      <publishTime>09/24/2024 23:30:11</publishTime>
+    </File>
+    <File Include="IMG/AnitsukiQR.png">
+      <publishTime>09/24/2024 23:30:11</publishTime>
     </File>
     <File Include="IMG/arisu-aris.gif">
       <publishTime>09/23/2024 23:16:42</publishTime>
@@ -3385,7 +3394,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/23/2024 23:16:43</publishTime>
     </File>
     <File Include="Models/Model1.edmx.diagram">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/25/2024 16:52:40</publishTime>
     </File>
     <File Include="Scripts/bootstrap.bundle.js">
       <publishTime>09/23/2024 23:16:43</publishTime>
@@ -3487,7 +3496,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/23/2024 23:16:43</publishTime>
     </File>
     <File Include="Views/AnimeDetail/Index.cshtml">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/26/2024 13:10:42</publishTime>
     </File>
     <File Include="Views/AnimeDetail/LeaveComment.cshtml">
       <publishTime>09/23/2024 23:16:43</publishTime>
@@ -3496,22 +3505,25 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/23/2024 23:16:43</publishTime>
     </File>
     <File Include="Views/AnimeDetail/Video.cshtml">
-      <publishTime>09/24/2024 17:42:13</publishTime>
+      <publishTime>09/26/2024 13:10:37</publishTime>
     </File>
     <File Include="Views/Category/Index.cshtml">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/26/2024 13:05:54</publishTime>
     </File>
     <File Include="Views/Category/UseCategory.cshtml">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/26/2024 13:07:03</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/26/2024 13:02:58</publishTime>
+    </File>
+    <File Include="Views/Home/Donate.cshtml">
+      <publishTime>09/26/2024 13:04:08</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/26/2024 13:30:48</publishTime>
     </File>
     <File Include="Views/Home/PrivacyPolicy.cshtml">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/26/2024 13:01:43</publishTime>
     </File>
     <File Include="Views/LanetlerKralıAdmin/AddAdmin.cshtml">
       <publishTime>09/23/2024 23:16:43</publishTime>
@@ -3521,6 +3533,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Views/LanetlerKralıAdmin/AddCategory.cshtml">
       <publishTime>09/23/2024 23:16:43</publishTime>
+    </File>
+    <File Include="Views/LanetlerKralıAdmin/AddDonate.cshtml">
+      <publishTime>09/25/2024 16:55:01</publishTime>
     </File>
     <File Include="Views/LanetlerKralıAdmin/AddEpisode.cshtml">
       <publishTime>09/23/2024 23:16:43</publishTime>
@@ -3553,7 +3568,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/23/2024 23:16:43</publishTime>
     </File>
     <File Include="Views/LanetlerKralıAdmin/Category.cshtml">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/25/2024 13:37:43</publishTime>
+    </File>
+    <File Include="Views/LanetlerKralıAdmin/Donater.cshtml">
+      <publishTime>09/25/2024 16:55:00</publishTime>
     </File>
     <File Include="Views/LanetlerKralıAdmin/Episode.cshtml">
       <publishTime>09/23/2024 23:16:43</publishTime>
@@ -3583,10 +3601,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/23/2024 23:16:43</publishTime>
     </File>
     <File Include="Views/LanetlerKralıAdmin/UpdateCategory.cshtml">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/25/2024 14:27:54</publishTime>
     </File>
     <File Include="Views/LanetlerKralıAdmin/UpdateComment.cshtml">
       <publishTime>09/23/2024 23:16:43</publishTime>
+    </File>
+    <File Include="Views/LanetlerKralıAdmin/UpdateDonate.cshtml">
+      <publishTime>09/25/2024 16:55:10</publishTime>
     </File>
     <File Include="Views/LanetlerKralıAdmin/UpdateEpisode.cshtml">
       <publishTime>09/23/2024 23:16:43</publishTime>
@@ -3610,28 +3631,28 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/23/2024 23:16:43</publishTime>
     </File>
     <File Include="Views/LoginSignIn/Login.cshtml">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/26/2024 13:18:30</publishTime>
     </File>
     <File Include="Views/LoginSignIn/ResetPassword.cshtml">
       <publishTime>09/23/2024 23:16:43</publishTime>
     </File>
     <File Include="Views/LoginSignIn/SignIn.cshtml">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/26/2024 13:18:32</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>09/23/2024 23:16:43</publishTime>
     </File>
     <File Include="Views/Shared/_AdminLayout.cshtml">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/25/2024 13:30:33</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
       <publishTime>09/23/2024 23:16:43</publishTime>
     </File>
     <File Include="Views/User/Index.cshtml">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/26/2024 13:20:03</publishTime>
     </File>
     <File Include="Views/User/ProfileSetting.cshtml">
-      <publishTime>09/23/2024 23:16:43</publishTime>
+      <publishTime>09/26/2024 13:20:40</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>09/23/2024 23:16:43</publishTime>
@@ -3640,7 +3661,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/23/2024 23:16:43</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/24/2024 17:42:44</publishTime>
+      <publishTime>09/26/2024 13:34:04</publishTime>
     </File>
   </ItemGroup>
 </Project>

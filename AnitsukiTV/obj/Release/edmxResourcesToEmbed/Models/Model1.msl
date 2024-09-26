@@ -87,6 +87,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TBLDONATE">
+      <EntityTypeMapping TypeName="AnitsukiTVModel.TBLDONATE">
+        <MappingFragment StoreEntitySet="TBLDONATE">
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="DONATE" ColumnName="DONATE" />
+          <ScalarProperty Name="DONATER" ColumnName="DONATER" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="TBLEPISODE">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLEPISODE">
         <MappingFragment StoreEntitySet="TBLEPISODE">

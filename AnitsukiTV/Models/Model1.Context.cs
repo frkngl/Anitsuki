@@ -32,6 +32,7 @@ namespace AnitsukiTV.Models
         public virtual DbSet<TBLANIMECOMMENT> TBLANIMECOMMENT { get; set; }
         public virtual DbSet<TBLANIMECOMMENTLIKE> TBLANIMECOMMENTLIKE { get; set; }
         public virtual DbSet<TBLCATEGORY> TBLCATEGORY { get; set; }
+        public virtual DbSet<TBLDONATE> TBLDONATE { get; set; }
         public virtual DbSet<TBLEPISODE> TBLEPISODE { get; set; }
         public virtual DbSet<TBLEPISODECOMMENT> TBLEPISODECOMMENT { get; set; }
         public virtual DbSet<TBLEPISODECOMMENTLIKE> TBLEPISODECOMMENTLIKE { get; set; }

@@ -8,6 +8,7 @@
     <EntitySet Name="TBLANIMECOMMENT" EntityType="AnitsukiTVModel.TBLANIMECOMMENT" />
     <EntitySet Name="TBLANIMECOMMENTLIKE" EntityType="AnitsukiTVModel.TBLANIMECOMMENTLIKE" />
     <EntitySet Name="TBLCATEGORY" EntityType="AnitsukiTVModel.TBLCATEGORY" />
+    <EntitySet Name="TBLDONATE" EntityType="AnitsukiTVModel.TBLDONATE" />
     <EntitySet Name="TBLEPISODE" EntityType="AnitsukiTVModel.TBLEPISODE" />
     <EntitySet Name="TBLEPISODECOMMENT" EntityType="AnitsukiTVModel.TBLEPISODECOMMENT" />
     <EntitySet Name="TBLEPISODECOMMENTLIKE" EntityType="AnitsukiTVModel.TBLEPISODECOMMENTLIKE" />
@@ -185,6 +186,15 @@
     <Property Name="CATEGORYNAME" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="STATUS" Type="Boolean" />
     <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY" FromRole="TBLCATEGORY" ToRole="TBLANIME" />
+  </EntityType>
+  <EntityType Name="TBLDONATE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DONATER" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DONATE" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="STATUS" Type="Boolean" />
   </EntityType>
   <EntityType Name="TBLEPISODE">
     <Key>

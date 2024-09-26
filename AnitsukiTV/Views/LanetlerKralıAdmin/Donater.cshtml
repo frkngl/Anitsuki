@@ -1,0 +1,94 @@
+﻿@using AnitsukiTV.Models
+@model PagedList.IPagedList<TBLDONATE>
+@{
+    ViewBag.Title = "Donater";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div style="position:relative;" class="card-body">
+                <nav style="position:absolute; right:0;" class="navbar navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <form action="@Url.Action("Donater", "LanetlerKralıAdmin")" class="d-flex" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Bağışçı Ara" name="Donate" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Ara</button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+                <h4 class="card-title"><a class="btn btn-primary" href="/LanetlerKralıAdmin/AddDonate">Bağışçı Ekle</a></h4>
+                <p class="card-description">
+                    Bağış
+                </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Bağışcı</th>
+                            <th>Bağış Miktarı</th>
+                            <th>Güncelle</th>
+                            <th>Durum</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model)
+                        {
+                            <tr>
+                                <td>@x.ID</td>
+                                <td>@x.DONATER</td>
+                                <td>@x.DONATE</td>
+                                <td><a class="btn btn-warning" href="/LanetlerKralıAdmin/UpdateDonate/@x.ID">Güncelle</a></td>
+                                <td>
+                                    @if (x.STATUS == true)
+                                    {
+                                        <a href="/LanetlerKralıAdmin/ActivePassive9/@x.ID" class="btn btn-success btn-sm">Aktif</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/LanetlerKralıAdmin/ActivePassive9/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
+                                    }
+                                </td>
+                                <td>@Html.ActionLink("Sil", "Deleteeeeeeee", new { id = x.ID }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm" + "('Bu Bağışçıyı silmek istediğinize emin misiniz?');" })</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="width:100%; display:flex; justify-content:center;">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Donater", new { Donate = ViewBag.Donate, p = ViewBag.CurrentPage - 1 })" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = 1; i <= ViewBag.PageCount; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Donater", new { Donate = ViewBag.Donate, p = i })">@i</a>
+                </li>
+            }
+            @if (ViewBag.CurrentPage < ViewBag.PageCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Donater", new { Donate = ViewBag.Donate, p = ViewBag.CurrentPage + 1 })" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
+
+

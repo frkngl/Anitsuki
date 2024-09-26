@@ -25,6 +25,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta property="og:title" content="anitsuki - anime izle" />
     <meta property="og:url" content="https://anitsuki.com" />
+    <meta property="og:image" content="~/IMG/aylogo.png">
     <meta property="og:type" content="website" />
     <meta property="og:description" content="anime izle,en popüler ücretsiz olarak anitsuki.com'da izleyin" />
     <meta name="robots" content="max-image-preview:large" />
@@ -42,6 +43,10 @@
 </head>
 
 <body>
+    <link itemprop="thumbnailUrl" href="~/IMG/aylogo.png">
+    <span itemprop="thumbnail" itemscope itemtype="~/IMG/aylogo.png">
+        <link itemprop="url" href="~/IMG/aylogo.png">
+    </span>
     <div class="loader">
 
     </div>
@@ -61,6 +66,7 @@
                     <ul>
                         <li><a href="/Home/Index" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
                         <li><a href="/Category/Index"><i class="fa-solid fa-list"></i> Animeler</a></li>
+                        <li><a href="/Home/Donate"><i class="bi bi-cash-stack"></i> Bağış</a></li>
                     </ul>
                 </nav>
                 <div class="box col-2">
@@ -102,7 +108,7 @@
                             @ğ.ANIMENAME
                         </div>
                         <div style="overflow-wrap: break-word; overflow: auto; white-space: normal;" class="des">
-                            @ğ.DETAIL.Substring(0,300) ...
+                            @ğ.DETAIL.Substring(0, 300) ...
                         </div>
                         <a class="btn" href="/AnimeDetail/Index/@ğ.ID"><i class="fa-solid fa-play"></i></a>
                     </div>
@@ -149,7 +155,7 @@
                                         @l.TBLANIME.ANIMENAME
                                     </div>
                                     <div style="width:40%; display:flex; justify-content:end;" class="season">
-                                        S@(l.TBLSEASON.SEASONNUMBER) - B@(l.EPINUMBER) 
+                                        S@(l.TBLSEASON.SEASONNUMBER) - B@(l.EPINUMBER)
                                     </div>
                                 </div>
                             </a>
@@ -240,7 +246,7 @@
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
-                <i class="fa-solid fa-list"></i> Shounen Animeler
+                <i class="fas fa-hand-point-right"></i> Kahramanlık Zamanı !
             </div>
             <div class="all">
                 @foreach (var f in Model.Category.Where(i => i.ID == 1))
@@ -286,7 +292,7 @@
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
-                <i class="fa-solid fa-list"></i> Seinen Animeler
+                <i class="fas fa-hand-point-right"></i> Hayatın Kadar Acı
             </div>
             <div class="all">
                 @foreach (var f in Model.Category.Where(i => i.ID == 2))
@@ -329,99 +335,99 @@
         </div>
     </div>
     @*<div class="category1" id="category2">
-        <div class="text">
-            <div class="title">
-                <i class="fa-solid fa-list"></i> Shoujo Animeler
-            </div>
-            <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 3))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
-            </div>
-        </div>
-        <div class="splide" id="splide6">
-            <div class="splide__track">
-                <ul class="splide__list">
-                    @foreach (var z in Model.Anime.Where(i => i.CATEGORYID == 3 && i.STATUS == true).OrderBy(z => Guid.NewGuid()).Take(12))
+            <div class="text">
+                <div class="title">
+                    <i class="fa-solid fa-list"></i> Shoujo Animeler
+                </div>
+                <div class="all">
+                    @foreach (var f in Model.Category.Where(i => i.ID == 3))
                     {
-                        <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@z.ID">
-                                <div class="videoimg">
-                                    <img src="~/IMG/@z.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (z.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@z.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
-                                </div>
-                                <div class="text">
-                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                        @z.ANIMENAME
-                                    </div>
-                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @z.DATE.Value.ToString("yyyy")
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
+                        <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
                     }
-                </ul>
+                </div>
+            </div>
+            <div class="splide" id="splide6">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        @foreach (var z in Model.Anime.Where(i => i.CATEGORYID == 3 && i.STATUS == true).OrderBy(z => Guid.NewGuid()).Take(12))
+                        {
+                            <li class="splide__slide">
+                                <a href="/AnimeDetail/Index/@z.ID">
+                                    <div class="videoimg">
+                                        <img src="~/IMG/@z.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                        @if (z.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@z.EDIT" playsinline preload="none"></video>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                        }
+                                    </div>
+                                    <div class="text">
+                                        <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                            @z.ANIMENAME
+                                        </div>
+                                        <div style="width:30%; display:flex; justify-content:end;" class="season">
+                                            @z.DATE.Value.ToString("yyyy")
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="category1" id="category2">
+            <div class="text">
+                <div class="title">
+                    <i class="fa-solid fa-list"></i> Josei Animeler
+                </div>
+                <div class="all">
+                    @foreach (var f in Model.Category.Where(i => i.ID == 4))
+                    {
+                        <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
+                    }
+                </div>
+            </div>
+            <div class="splide" id="splide7">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        @foreach (var q in Model.Anime.Where(i => i.CATEGORYID == 4 && i.STATUS == true).OrderBy(q => Guid.NewGuid()).Take(12))
+                        {
+                            <li class="splide__slide">
+                                <a href="/AnimeDetail/Index/@q.ID">
+                                    <div class="videoimg">
+                                        <img src="~/IMG/@q.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                        @if (q.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@q.EDIT" playsinline preload="none"></video>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                        }
+                                    </div>
+                                    <div class="text">
+                                        <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                            @q.ANIMENAME
+                                        </div>
+                                        <div style="width:30%; display:flex; justify-content:end;" class="season">
+                                            @q.DATE.Value.ToString("yyyy")
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>*@
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
-                <i class="fa-solid fa-list"></i> Josei Animeler
-            </div>
-            <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 4))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
-            </div>
-        </div>
-        <div class="splide" id="splide7">
-            <div class="splide__track">
-                <ul class="splide__list">
-                    @foreach (var q in Model.Anime.Where(i => i.CATEGORYID == 4 && i.STATUS == true).OrderBy(q => Guid.NewGuid()).Take(12))
-                    {
-                        <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@q.ID">
-                                <div class="videoimg">
-                                    <img src="~/IMG/@q.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (q.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@q.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
-                                </div>
-                                <div class="text">
-                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                        @q.ANIMENAME
-                                    </div>
-                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @q.DATE.Value.ToString("yyyy")
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>*@
-    <div class="category1" id="category2">
-        <div class="text">
-            <div class="title">
-                <i class="fa-solid fa-list"></i> Isekai Animeler
+                <i class="fas fa-hand-point-right"></i> Truck-kun "un Selamı Var
             </div>
             <div class="all">
                 @foreach (var f in Model.Category.Where(i => i.ID == 5))
@@ -466,7 +472,7 @@
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
-                <i class="fa-solid fa-list"></i> Demantia Animeler
+                <i class="fas fa-hand-point-right"></i> Vur Kır Parçala !
             </div>
             <div class="all">
                 @foreach (var f in Model.Category.Where(i => i.ID == 6))
@@ -511,7 +517,7 @@
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
-                <i class="fa-solid fa-list"></i> Mecha  Animeler
+                <i class="fas fa-hand-point-right"></i> Ben Optimus Prime !
             </div>
             <div class="all">
                 @foreach (var f in Model.Category.Where(i => i.ID == 7))
@@ -556,7 +562,7 @@
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
-                <i class="fa-solid fa-list"></i> Ecchi Animeler
+                <i class="fas fa-hand-point-right"></i> Konuyu Siz Biliyorsunuz
             </div>
             <div class="all">
                 @foreach (var f in Model.Category.Where(i => i.ID == 8))
@@ -599,54 +605,54 @@
         </div>
     </div>
     @*<div class="category1" id="category2">
-        <div class="text">
-            <div class="title">
-                <i class="fa-solid fa-list"></i> Gore Animeler
-            </div>
-            <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 9))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
-            </div>
-        </div>
-        <div class="splide" id="splide12">
-            <div class="splide__track">
-                <ul class="splide__list">
-                    @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 9 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
+            <div class="text">
+                <div class="title">
+                    <i class="fa-solid fa-list"></i> Gore Animeler
+                </div>
+                <div class="all">
+                    @foreach (var f in Model.Category.Where(i => i.ID == 9))
                     {
-                        <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@t.ID">
-                                <div class="videoimg">
-                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (t.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@t.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
-                                </div>
-                                <div class="text">
-                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                        @t.ANIMENAME
-                                    </div>
-                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @t.DATE.Value.ToString("yyyy")
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
+                        <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
                     }
-                </ul>
+                </div>
             </div>
-        </div>
-    </div>*@
+            <div class="splide" id="splide12">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 9 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
+                        {
+                            <li class="splide__slide">
+                                <a href="/AnimeDetail/Index/@t.ID">
+                                    <div class="videoimg">
+                                        <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                        @if (t.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@t.EDIT" playsinline preload="none"></video>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                        }
+                                    </div>
+                                    <div class="text">
+                                        <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                            @t.ANIMENAME
+                                        </div>
+                                        <div style="width:30%; display:flex; justify-content:end;" class="season">
+                                            @t.DATE.Value.ToString("yyyy")
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>*@
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
-                <i class="fa-solid fa-list"></i> CGDCT Animeler
+                <i class="fas fa-hand-point-right"></i> Kawaiiii !!
             </div>
             <div class="all">
                 @foreach (var f in Model.Category.Where(i => i.ID == 10))
@@ -691,7 +697,7 @@
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
-                <i class="fa-solid fa-list"></i> Slice of Life Animeler
+                <i class="fas fa-hand-point-right"></i>  Hayat Güzel Kuşlar Uçuyor
             </div>
             <div class="all">
                 @foreach (var f in Model.Category.Where(i => i.ID == 11))
@@ -736,7 +742,7 @@
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
-                <i class="fa-solid fa-list"></i> Romantizm Animeler
+                <i class="fas fa-hand-point-right"></i>  Türk Dizisi Tadında
             </div>
             <div class="all">
                 @foreach (var f in Model.Category.Where(i => i.ID == 12))
@@ -796,10 +802,10 @@
                     Sosyal Medyalar
                 </div>
                 <ul>
-                    <li><a target ="_blank" href="https://www.youtube.com/channel/UC3AfwO_XmAvYEtw6FWZXZcw"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
+                    <li><a target="_blank" href="https://www.youtube.com/channel/UC3AfwO_XmAvYEtw6FWZXZcw"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
                     @*<li><a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a></li>*@
-                    <li><a target ="_blank" href="https://www.instagram.com/anitsukitv/"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
-                    <li><a target ="_blank" href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
+                    <li><a target="_blank" href="https://www.instagram.com/anitsukitv/"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
+                    <li><a target="_blank" href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
                 </ul>
             </div>
             <div class="contact">

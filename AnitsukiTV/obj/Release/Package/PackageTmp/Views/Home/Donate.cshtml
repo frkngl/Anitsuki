@@ -1,4 +1,5 @@
-﻿
+﻿@using AnitsukiTV.Models
+@model List<TBLDONATE>
 @{
     Layout = null;
 }
@@ -23,8 +24,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta property="og:title" content="anitsuki - anime izle" />
     <meta property="og:url" content="https://anitsuki.com" />
-    <meta property="og:image" content="~/IMG/aylogo.png">
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="~/IMG/aylogo.png">
     <meta property="og:description" content="anime izle,en popüler ücretsiz olarak anitsuki.com'da izleyin" />
     <meta name="robots" content="max-image-preview:large" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -32,7 +33,7 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="~/css/About1.css" />
+    <link rel="stylesheet" href="~/css/Donate.css" />
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
 </head>
 <body>
@@ -90,20 +91,53 @@
             </div>
         </div>
     </header>
-    <div class="content6 container-xl">
-        <div class="title">
-            Hakkımızda
+
+    <div class="container">
+        <div class="donation">
+            <div class="papara">
+                <img src="~/IMG/AnitsukiQR.png">
+            </div>
+            <div class="text">
+                <div style="color:#ffffff;" class="title">
+                    Sevgili Anitsuki Klanı Üyeleri,
+                </div>
+                <br>
+                <div style="color:#ffffff;" class="des">
+                    Sizlere daha kaliteli ve bağımsız bir içerik sunma hedefimizle yola çıktık. Reklamsız bir deneyim sağlamanın, dikkat dağıtıcı unsurlardan uzak kalmanın ve yalnızca değerli içerikler üretiminin önemine inanıyoruz. Bu hedefe ulaşabilmemiz için isz değerli destekçilerimize ihtiyacımız var. Sitemizin sürdürülebilirliğini sağlamak ve içeriklerimizi geliştirmek için bağışlarınız büyük bir önem taşıyor. Küçük ya da büyük, her katkı bizim için kıymetli. Birlikte daha güzel bir platform oluşturabiliriz!
+                    <br>
+                    <br>
+                    NOT: BAĞIŞINIZIN SİTEMİZE GÖZÜKMESİNİ İSTİYORSANIZ AÇIKLAMAYA NİCKNAME YAZABİLİRSİNİZ.
+                    <br>
+                    <br>
+                    Bağış için yan taraftaki PAPARA QR'ını uygulamadan okutarak yapabilirsiniz.
+                    <br>
+                    <br>
+                    Destekleriniz için şimdiden teşekkür ederiz. Birlikte daha güçlü bir topluluk oluşturmak dileğiyle!
+                    <br>
+                    <br>
+                    Sevgi ve saygılarımızla,
+                    <br>
+                    <br>
+                    Anitsuki Ekibi
+                </div>
+            </div>
         </div>
-        Anitsuki olarak anime tutkumuzu ve bilgi birikimimizi sizlerle paylaşmak için yola çıktık. Biz yeni bir siteyiz, anime dünyasına olan sevgimiz ve bu alandaki deneyimimiz oldukça yeni. Hedefimiz, anime severler için sade, etkili ve kullanıcı dostu bir platform sunarak anime deneyiminizi en üst düzeye çıkarmak.
-        <br />
-        Anitsuki’nin en büyük avantajı, kullanıcı dostu tasarımı ve erişilebilirliği ile dikkat çekmesidir. Tasarımımızı oluştururken, site ziyaretçilerimizin rahatça gezinebileceği, içeriklere kolayca ulaşabileceği ve anime dünyasının keyfini çıkarabileceği bir deneyim sunmayı ön planda tuttuk. Sitemiz, karmaşıklıktan uzak, anlaşılır ve sade bir yapıya sahip olup, anime dünyasına adım atmak isteyen herkese hitap edecek şekilde tasarlandı.
-        <br />
-        Anime severlerin ihtiyaçlarını göz önünde bulundurarak, geniş bir anime yelpazesi sunuyoruz. Hem klasik hem de güncel anime içeriklerini kapsamlı bir şekilde sunarak, farklı türlerdeki anime arayışınıza cevap verebilecek bir platform sağlıyoruz. Ayrıca, en yeni bölümler ve haberler hakkında düzenli güncellemelerle, anime dünyasındaki gelişmeleri yakından takip edebilmeniz için sürekli çalışıyoruz.
-        <br />
-        Anitsuki olarak, kullanıcılarımızın memnuniyetini en üst düzeyde tutmak için sürekli olarak geri bildirimlerinizi dinliyor ve site deneyiminizi daha da iyileştirmek için çalışmalarımıza yön veriyoruz. Bizimle bu yolculuğa katıldığınız için teşekkür ederiz ve anime dünyasında keyifli, sorunsuz ve eğlenceli bir deneyim yaşamanızı dileriz.
-        <br />
-        Animeye olan tutkumuzu sizinle paylaşmak ve en sevdiğiniz animeleri en kolay şekilde erişilebilir hale getirmek için buradayız. İyi seyirler!
+        <div style="margin-top:50px;" class="user">
+            <div style="color:#ffffff;" class="title">
+                <i class="bi bi-cash"></i> Bağışçılarımız
+            </div>
+            <div class="users">
+                @foreach (var x in Model)
+                {
+                    <div style="background-color:#000000;" class="box1">
+                        <div class="username">@x.DONATER</div>
+                        <div class="cash">@x.DONATE ₺</div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
+
     <footer>
         <div class="footerimg">
         </div>
@@ -188,7 +222,3 @@
         }, 50);
     });
 </script>
-
-
-
-

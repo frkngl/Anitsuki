@@ -1,4 +1,5 @@
-﻿
+﻿@using AnitsukiTV.Models
+@model List<TBLDONATE>
 @{
     Layout = null;
 }
@@ -24,6 +25,7 @@
     <meta property="og:title" content="anitsuki - anime izle" />
     <meta property="og:url" content="https://anitsuki.com" />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="~/IMG/aylogo.png">
     <meta property="og:description" content="anime izle,en popüler ücretsiz olarak anitsuki.com'da izleyin" />
     <meta name="robots" content="max-image-preview:large" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -35,6 +37,10 @@
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
 </head>
 <body>
+    <link itemprop="thumbnailUrl" href="~/IMG/aylogo.png">
+    <span itemprop="thumbnail" itemscope itemtype="~/IMG/aylogo.png">
+        <link itemprop="url" href="~/IMG/aylogo.png">
+    </span>
     <div class="loader">
 
     </div>
@@ -89,7 +95,7 @@
     <div class="container">
         <div class="donation">
             <div class="papara">
-                <img src="~/IMG/Anitsukibags.png">
+                <img src="~/IMG/AnitsukiQR.png">
             </div>
             <div class="text">
                 <div style="color:#ffffff;" class="title">
@@ -97,7 +103,7 @@
                 </div>
                 <br>
                 <div style="color:#ffffff;" class="des">
-                    Sizlere daha kaliteli ve bağımsız bir içerik sunma hedefimizle yola çıktık. Reklamsız bir deneyim sağlamanın, dikkat dağıtıcı unsurlardan uzak kalmanın ve yalnızca değerli içerikler üretiminin önemine inanıyoruz. Bu hedefe ulaşabilmemiz için isz değerli destekçilerimize ihtiyacımız var. Sitemizin sürdürülebilirliğini sağlamak ve içeriklerimizi geliştirmek için bağışlarınız büyük bir önem taşıyor. Küçük ya da büyük, her katkı bizim için kıymetli. Birlikte daha güzel bir platform oluşturabiliriz!
+                    Sizlere daha kaliteli ve bağımsız bir içerik sunma hedefimizle yola çıktık. Reklamsız bir deneyim sağlamanın, dikkat dağıtıcı unsurlardan uzak kalmanın ve yalnızca değerli içerikler üretiminin önemine inanıyoruz. Bu hedefe ulaşabilmemiz için siz değerli destekçilerimize ihtiyacımız var. Sitemizin sürdürülebilirliğini sağlamak ve içeriklerimizi geliştirmek için bağışlarınız büyük bir önem taşıyor. Küçük ya da büyük, her katkı bizim için kıymetli. Birlikte daha güzel bir platform oluşturabiliriz!
                     <br>
                     <br>
                     NOT: BAĞIŞINIZIN SİTEMİZE GÖZÜKMESİNİ İSTİYORSANIZ AÇIKLAMAYA NİCKNAME YAZABİLİRSİNİZ.
@@ -121,86 +127,13 @@
                 <i class="bi bi-cash"></i> Bağışçılarımız
             </div>
             <div class="users">
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">Paradaise LadonNN</div>
-                    <div class="cash">11200 ₺</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200 ₺</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200 ₺</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200 ₺</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
-                <div style="background-color:#000000;" class="box1">
-                    <div class="username">naber müdür</div>
-                    <div class="cash">200</div>
-                </div>
+                @foreach (var x in Model)
+                {
+                    <div style="background-color:#000000;" class="box1">
+                        <div class="username">@x.DONATER</div>
+                        <div class="cash">@x.DONATE ₺</div>
+                    </div>
+                }
             </div>
         </div>
     </div>

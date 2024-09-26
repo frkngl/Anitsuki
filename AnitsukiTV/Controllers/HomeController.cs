@@ -28,7 +28,8 @@ namespace AnitsukiTV.Controllers
         }
         public ActionResult Donate()
         {
-            return View();
+            var degerler = db.TBLDONATE.Where(x=>x.STATUS == true).OrderByDescending(x=>x.DONATE).Take(20).ToList();
+            return View(degerler);
         }
     }
 }
