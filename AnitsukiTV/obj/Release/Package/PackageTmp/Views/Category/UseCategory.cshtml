@@ -53,7 +53,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="logo col-2">
-                    <a href="/Home/Index"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
+                    <a href="@Url.RouteUrl("Anasayfa")"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
                 </div>
 
                 <input style="display: none;" type="checkbox" id="check">
@@ -63,9 +63,9 @@
 
                 <nav class="col-8">
                     <ul>
-                        <li><a href="/Home/Index" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
-                        <li><a href="/Category/Index"><i class="fa-solid fa-list"></i> Animeler</a></li>
-                        <li><a href="/Home/Donate"><i class="bi bi-cash-stack"></i> Bağış</a></li>
+                        <li><a href="@Url.RouteUrl("Anasayfa")" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
+                        <li><a href="@Url.RouteUrl("Animeler")"><i class="fa-solid fa-list"></i> Animeler</a></li>
+                        <li><a href="@Url.RouteUrl("Bağış")"><i class="bi bi-cash-stack"></i> Bağış</a></li>
                     </ul>
                 </nav>
                 <div class="box col-2">
@@ -80,17 +80,17 @@
                                 var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
                                 if (currentUser != null && currentUser.PICTURE != null)
                                 {
-                                    <a href="/User/Index"><img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE"></a>
+                                    <a href="@Url.RouteUrl("Profil", new { userName = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })"><img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE"></a>
                                 }
                                 else
                                 {
-                                    <a href="/User/Index"><img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png"></a>
+                                    <a href="@Url.RouteUrl("Profil", new { userName = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })"><img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png"></a>
                                 }
-                                <a href="/LoginSignIn/SignOut"><i class="bi bi-box-arrow-right"></i></a>
+                                <a href="/signout"><i class="bi bi-box-arrow-right"></i></a>
                             }
                             else
                             {
-                                <a href="/LoginSignIn/Login"><i class="bi bi-person"></i></a>
+                                <a href="@Url.RouteUrl("Giriş")"><i class="bi bi-person"></i></a>
                             }
                         </div>
                     </div>
@@ -105,10 +105,14 @@
                     @ViewBag.Category
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/Category/Index">Hepsi</a></li>
+                    <li><a class="dropdown-item" href="@Url.RouteUrl("Animeler")">Hepsi</a></li>
                     @foreach (var x in Model.Category.Where(x => x.STATUS == true))
                     {
-                        <li><a class="dropdown-item" href="/Category/UseCategory/@x.ID">@x.CATEGORYNAME</a></li>
+                        var categoryName = x.CATEGORYNAME.ToLower();
+                        categoryName = categoryName.Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ı", "i").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+                        categoryName = Uri.EscapeDataString(categoryName);
+
+                        <li><a class="dropdown-item" href="@Url.RouteUrl("Kategori", new { kategoriID = x.ID, kategoriName = categoryName })">@x.CATEGORYNAME</a></li>
                     }
                 </ul>
             </div>
@@ -125,7 +129,7 @@
             @foreach (var y in Model.Anime)
             {
                 <li class="splide__slide">
-                    <a href="/AnimeDetail/Index/@y.ID">
+                    <a href="@Url.RouteUrl("Anime Detay", new { animeID = y.ID, animeName = y.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = y.TBLSEASON?.FirstOrDefault(t => t.ANIMEID == y.ID)?.SEASONNUMBER ?? 0})">
                         <div class="videoimg">
                             <img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                             @if (y.EDIT != null)
@@ -159,8 +163,8 @@
                     Sayfalar
                 </div>
                 <ul>
-                    <li><a href="/Home/About">Hakkımızda</a></li>
-                    <li><a href="/Home/PrivacyPolicy">Gizlilik Politikası</a></li>
+                    <li><a href="@Url.RouteUrl("Hakkımızda")">Hakkımızda</a></li>
+                    <li><a href="@Url.RouteUrl("Gizlilik Politikası")">Gizlilik Politikası</a></li>
                 </ul>
             </div>
             <div class="social">
@@ -253,43 +257,56 @@
 </script>
 <script>
     const video = document.querySelectorAll(".splide__slide .video");
+
+
+    function isMobileDevice() {
+        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
     video.forEach(video => {
         let cached = false;
         let source = video.src;
 
-        video.onmouseenter = () => {
-            if (!cached) {
-                video.src = source;
-                cached = true;
-            }
-            video.play();
-            video.volume = 0.05;
-            video.classList.add("active");
-        };
 
-        video.onmouseleave = () => {
-            video.pause();
-            video.src = "";
-            cached = false;
-            video.classList.remove("active");
-        };
+        if (!isMobileDevice()) {
+            video.onmouseenter = () => {
+                if (!cached) {
+                    video.src = source;
+                    cached = true;
+                }
+                video.play();
+                video.volume = 0.05;
+                video.classList.add("active");
+            };
 
-        video.ontouchmove = () => {
-            if (!cached) {
-                video.src = source;
-                cached = true;
-            }
-            video.play();
-            video.volume = 0.05;
-            video.classList.add("active");
-        };
+            video.onmouseleave = () => {
+                video.pause();
+                video.src = "";
+                cached = false;
+                video.classList.remove("active");
+            };
+        } else {
 
-        video.ontouchend = () => {
-            video.pause();
-            video.src = "";
-            cached = false;
-            video.classList.remove("active");
-        };
+            video.style.display = 'none';
+        }
+
+        //video.ontouchmove = () => {
+        //    if (!cached) {
+        //        video.src = source;
+        //        cached = true;
+        //    }
+        //    video.play();
+        //    video.volume = 0.05;
+        //    video.classList.add("active");
+        //};
+
+        //video.ontouchend = () => {
+        //    video.pause();
+        //    video.src = "";
+        //    cached = false;
+        //    video.classList.remove("active");
+        //};
     });
 </script>
+
 

@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Xml.Linq;
 using PagedList;
 using PagedList.Mvc;
+using System.Web.UI.WebControls;
 
 namespace AnitsukiTV.Controllers
 {
@@ -1044,6 +1045,88 @@ namespace AnitsukiTV.Controllers
             }
             db.SaveChanges();
             return RedirectToAction("Donater");
+        }
+
+        public ActionResult Error()
+        {
+            var degerler = db.TBL404.ToList();
+            return View(degerler);
+        }
+
+        [HttpGet]
+        public ActionResult AddError()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult AddError(TBL404 add, HttpPostedFileBase Video)
+        {
+            TBL404 error = new TBL404();
+            if (Video != null && Video.ContentLength > 0)
+            {
+                string yol = Path.Combine("~/Videos/" + Video.FileName);
+                Video.SaveAs(Server.MapPath(yol));
+            }
+            error.VIDEO = Video != null ? Video.FileName.ToString() : null;
+            error.TEXT = add.TEXT;
+            error.STATUS = false;
+            db.TBL404.Add(error);
+            db.SaveChanges();
+            TempData["success"] = "Eklendi";
+            return RedirectToAction("Error");
+        }
+
+        public ActionResult UpdateError(int id)
+        {
+            var FindError = db.TBL404.Find(id);
+            ViewBag.Error = db.TBL404.ToList();
+            return View("UpdateError", FindError);
+        }
+
+        public ActionResult ErrorSave(TBL404 sea, HttpPostedFileBase Video)
+        {
+            var updateerror = db.TBL404.Find(sea.ID);
+            if (Video != null && Video.ContentLength > 0)
+            {
+                string yol = Path.Combine("~/Videos/" + Video.FileName);
+                Video.SaveAs(Server.MapPath(yol));
+            }
+            updateerror.VIDEO = Video != null ? Video.FileName.ToString() : null;
+            updateerror.TEXT = sea.TEXT;
+            db.SaveChanges();
+            TempData["success"] = "Güncellendi";
+            return RedirectToAction("Error");
+        }
+
+        public ActionResult ActivePassive10(int id)
+        {
+            var AdminActivePassive = db.TBL404.Find(id);
+            if (AdminActivePassive.STATUS == true)
+            {
+                AdminActivePassive.STATUS = false;
+            }
+            else
+            {
+                AdminActivePassive.STATUS = true;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Error");
+        }
+        public ActionResult ErrorDelete(int id)
+        {
+            var Error = db.TBL404.Find(id);
+            db.TBL404.Remove(Error);
+            db.SaveChanges();
+            TempData["error"] = "Kullanıcı başarıyla silindi";
+            return RedirectToAction("Error");
+        }
+
+        public ActionResult ErrorDetail(int id)
+        {
+            var degerler = db.TBL404.Where(x => x.ID == id).ToList();
+            return View(degerler);
         }
     }
 }

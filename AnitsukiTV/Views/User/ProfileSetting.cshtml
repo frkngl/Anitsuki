@@ -48,7 +48,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="logo col-2">
-                    <a href="/Home/Index"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
+                    <a href="@Url.RouteUrl("Anasayfa")"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
                 </div>
 
                 <input style="display: none;" type="checkbox" id="check">
@@ -58,17 +58,17 @@
 
                 <nav class="col-8">
                     <ul>
-                        <li><a href="/Home/Index" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
-                        <li><a href="/Category/Index"><i class="fa-solid fa-list"></i> Animeler</a></li>
-                        <li><a href="/Home/Donate"><i class="bi bi-cash-stack"></i> Bağış</a></li>
+                        <li><a href="@Url.RouteUrl("Anasayfa")" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
+                        <li><a href="@Url.RouteUrl("Animeler")"><i class="fa-solid fa-list"></i> Animeler</a></li>
+                        <li><a href="@Url.RouteUrl("Bağış")"><i class="bi bi-cash-stack"></i> Bağış</a></li>
                     </ul>
                 </nav>
                 <div class="box col-2">
                     <div class="search">
-                        <a href="/Category/Index"><i class="bi bi-search"></i></a>
+                        <a href="@Url.RouteUrl("Animeler")"><i class="bi bi-search"></i></a>
                     </div>
                     <div class="user">
-                        <a href="/LoginSignIn/SignOut"><i class="bi bi-box-arrow-right"></i></a>
+                        <a href="/signout"><i class="bi bi-box-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                 <i class="bi bi-person" style="font-size: 1.1rem;"></i> @User.Identity.Name
             </div>
             <div class="box">
-                <a href="@Url.Action("Index", "User", new { id = User.Identity.Name })"> <i class="bi bi-arrow-left"></i> Hesaba Git</a>
+                <a href="@Url.RouteUrl("Profil", new { userName = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })"> <i class="bi bi-arrow-left"></i> Hesaba Git</a>
             </div>
         </div>
         <div style="display:flex; justify-content:center; align-items:center; flex-direction:column;" class="userdetail">
@@ -145,8 +145,8 @@
                     Sayfalar
                 </div>
                 <ul>
-                    <li><a href="/Home/About">Hakkımızda</a></li>
-                    <li><a href="/Home/PrivacyPolicy">Gizlilik Politikası</a></li>
+                    <li><a href="@Url.RouteUrl("Hakkımızda")">Hakkımızda</a></li>
+                    <li><a href="@Url.RouteUrl("Gizlilik Politikası")">Gizlilik Politikası</a></li>
                 </ul>
             </div>
             <div class="social">

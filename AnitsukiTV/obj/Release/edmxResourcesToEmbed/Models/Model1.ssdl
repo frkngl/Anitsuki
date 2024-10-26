@@ -10,6 +10,15 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
+  <EntityType Name="TBL404">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VIDEO" Type="nvarchar(max)" />
+    <Property Name="TEXT" Type="nvarchar(max)" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
   <EntityType Name="TBLADMIN">
     <Key>
       <PropertyRef Name="ID" />
@@ -99,7 +108,7 @@
     <Property Name="EP2" Type="nvarchar" MaxLength="500" />
     <Property Name="EP3" Type="nvarchar" MaxLength="500" />
     <Property Name="EP4" Type="nvarchar" MaxLength="500" />
-    <Property Name="EPINUMBER" Type="nchar" MaxLength="3" />
+    <Property Name="EPINUMBER" Type="int" />
     <Property Name="EPISODENAME" Type="nvarchar" MaxLength="100" />
     <Property Name="DATE" Type="datetime" />
     <Property Name="TIME" Type="nvarchar" MaxLength="10" />
@@ -406,6 +415,7 @@
   </Association>
   <EntityContainer Name="AnitsukiTVModelStoreContainer">
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL404" EntityType="Self.TBL404" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLADMIN" EntityType="Self.TBLADMIN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLADMINROLE" EntityType="Self.TBLADMINROLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLANIME" EntityType="Self.TBLANIME" Schema="dbo" store:Type="Tables" />

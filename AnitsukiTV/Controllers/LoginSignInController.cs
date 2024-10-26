@@ -17,12 +17,16 @@ namespace AnitsukiTV.Controllers
     {
         AnitsukiTVEntities db = new AnitsukiTVEntities();
         // GET: LoginSignIn
+
+        [Route("kayit")]
         public ActionResult SignIn()
         {
             return View();
         }
 
+
         [HttpPost]
+        [Route("kayit")]
         public ActionResult SignIn(TBLUSER useradd)
         {
             // Create a new user object
@@ -64,12 +68,14 @@ namespace AnitsukiTV.Controllers
 
 
         [HttpGet]
+        [Route("giris")]
         public ActionResult Login()
         {
             return View();
         }
-
+            
         [HttpPost]
+        [Route("giris")]
         public ActionResult Login(string username, string password, bool rememberMe)
         {
             var user = db.TBLUSER.Where(x => x.USERNAME == username && x.PASSWORD == password && x.STATUS == true).FirstOrDefault();
@@ -92,8 +98,8 @@ namespace AnitsukiTV.Controllers
                 }
 
                 Response.SetCookie(authCookie);
-
-                return RedirectToAction("Index", "User");
+                string urlUsername = username.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+                return RedirectToRoute("Profil", new { userName = urlUsername });
             }
             else
             {
@@ -175,8 +181,8 @@ namespace AnitsukiTV.Controllers
                     Port = 587,
                     EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("info@anitsuki.com", "hlvimrynpfxqlytm")
+                    UseDefaultCredentials = true,
+                    Credentials = new NetworkCredential("info@anitsuki.com", "sgjdejpvzaudyvsy")
                 })
                 {
                     smtpClient.Send(mail);
@@ -199,7 +205,7 @@ namespace AnitsukiTV.Controllers
             var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName.ToLower(), string.Empty) { Expires = DateTime.Now.AddDays(-1) };
             Response.Cookies.Add(authCookie);
 
-            return RedirectToAction("Login", "LoginSignIn");
+            return Redirect("~/giris");
         }
 
 
@@ -211,7 +217,7 @@ namespace AnitsukiTV.Controllers
             var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName.ToLower(), string.Empty) { Expires = DateTime.Now.AddDays(-1) };
             Response.Cookies.Add(authCookie);
 
-            return RedirectToAction("Index", "Home");
+            return Redirect("~/");
         }
     }
 }

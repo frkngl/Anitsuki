@@ -52,7 +52,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="logo col-2">
-                    <a href="/Home/Index"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
+                    <a href="@Url.RouteUrl("Anasayfa")"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
                 </div>
 
                 <input style="display: none;" type="checkbox" id="check">
@@ -62,14 +62,14 @@
 
                 <nav class="col-8">
                     <ul>
-                        <li><a href="/Home/Index" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
-                        <li><a href="/Category/Index"><i class="fa-solid fa-list"></i> Animeler</a></li>
-                        <li><a href="/Home/Donate"><i class="bi bi-cash-stack"></i> Bağış</a></li>
+                        <li><a href="@Url.RouteUrl("Anasayfa")" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
+                        <li><a href="@Url.RouteUrl("Animeler")"><i class="fa-solid fa-list"></i> Animeler</a></li>
+                        <li><a href="@Url.RouteUrl("Bağış")"><i class="bi bi-cash-stack"></i> Bağış</a></li>
                     </ul>
                 </nav>
                 <div class="box col-2">
                     <div class="search">
-                        <a href="/Category/Index"><i class="bi bi-search"></i></a>
+                        <a href="@Url.RouteUrl("Animeler")"><i class="bi bi-search"></i></a>
                     </div>
                     <div class="user">
                         @{ AnitsukiTVEntities db = new AnitsukiTVEntities();}
@@ -78,17 +78,17 @@
                             var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
                             if (currentUser != null && currentUser.PICTURE != null)
                             {
-                                <a href="/User/Index"><img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE"></a>
+                                <a href="@Url.RouteUrl("Profil", new { userName = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })"><img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE"></a>
                             }
                             else
                             {
-                                <a href="/User/Index"><img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png"></a>
+                                <a href="@Url.RouteUrl("Profil", new { userName = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })"><img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png"></a>
                             }
-                            <a href="/LoginSignIn/SignOut"><i class="bi bi-box-arrow-right"></i></a>
+                            <a href="/signout"><i class="bi bi-box-arrow-right"></i></a>
                         }
                         else
                         {
-                            <a href="/LoginSignIn/Login"><i class="bi bi-person"></i></a>
+                            <a href="@Url.RouteUrl("Giriş")"><i class="bi bi-person"></i></a>
                         }
                     </div>
                 </div>
@@ -170,15 +170,16 @@
                     <ul class="dropdown-menu">
                         @foreach (var y in Model.Season.Where(y => y.STATUS == true))
                         {
+                            var animeID = Model.Anime.FirstOrDefault().ID;
+                            var animeName = Model.Anime.FirstOrDefault().ANIMENAME.Replace(" ", "-").ToLower(); // Replace spaces with dashes and convert to lower case
                             if (y.SEASONNAME == null)
                             {
-                                <li><a class="dropdown-item" href="/AnimeDetail/Index/@Model.Anime.FirstOrDefault().ID?sezonID=@(y.ID)">@y.SEASONNUMBER Sezon</a></li>
+                                <li><a class="dropdown-item" href="@Url.RouteUrl("Anime Detay", new { animeID = animeID, animeName = animeName, seasonNumber = y.SEASONNUMBER })">@y.SEASONNUMBER Sezon</a></li>
                             }
                             else
                             {
-                                <li><a class="dropdown-item" href="/AnimeDetail/Index/@Model.Anime.FirstOrDefault().ID?sezonID=@(y.ID)">@y.SEASONNAME</a></li>
+                                <li><a class="dropdown-item" href="@Url.RouteUrl("Anime Detay", new { animeID = animeID, animeName = animeName, seasonNumber = y.SEASONNUMBER })">@y.SEASONNAME</a></li>
                             }
-
                         }
                     </ul>
                 </div>
@@ -188,7 +189,7 @@
                     @foreach (var z in Model.Episode.Where(z => z.STATUS == true))
                     {
                         <li>
-                            <a href="/AnimeDetail/Video/@z.ID">
+                            <a href="@Url.RouteUrl("Video", new {episodeID = z.ID, animeName = z.TBLANIME.ANIMENAME.Replace(" ","-").ToLowerInvariant(), seasonNumber = z.TBLSEASON.SEASONNUMBER, episodeNumber = z.EPINUMBER })">
                                 <div class="box">
                                     <div class="img">
                                         <i class="bi bi-play-circle"></i>
@@ -205,9 +206,9 @@
                     }
                 </ul>
             </div>
-            @Html.Action("LeaveComment", "AnimeDetail")
+            @Html.Action("LeaveComment", "AnimeDetail", new { id = ViewBag.AnimeId })
             <div class="commentboxes">
-                @Html.Action("Comment", "AnimeDetail")
+                @Html.Action("Comment", "AnimeDetail", new { id = ViewBag.AnimeId })
             </div>
         </div>
     </div>
@@ -220,8 +221,8 @@
                     Sayfalar
                 </div>
                 <ul>
-                    <li><a href="/Home/About">Hakkımızda</a></li>
-                    <li><a href="/Home/PrivacyPolicy">Gizlilik Politikası</a></li>
+                    <li><a href="@Url.RouteUrl("Hakkımızda")">Hakkımızda</a></li>
+                    <li><a href="@Url.RouteUrl("Gizlilik Politikası")">Gizlilik Politikası</a></li>
                 </ul>
             </div>
             <div class="social">
@@ -290,7 +291,7 @@
                         toastr["error"](data.message, "Çıkarma işlemi");
                     }
                 } else {
-                    window.location.href = "/LoginSignIn/Login";
+                    window.location.href = "@Url.RouteUrl("Giriş")";
                 }
             }
         });
@@ -309,7 +310,7 @@
                         toastr["error"](data.message, "Çıkarma işlemi");
                     }
                 } else {
-                    window.location.href = "/LoginSignIn/Login";
+                    window.location.href = "@Url.RouteUrl("Giriş")";
                 }
             }
         });

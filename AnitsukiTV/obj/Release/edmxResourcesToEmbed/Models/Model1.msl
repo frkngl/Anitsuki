@@ -12,6 +12,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TBL404">
+      <EntityTypeMapping TypeName="AnitsukiTVModel.TBL404">
+        <MappingFragment StoreEntitySet="TBL404">
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+          <ScalarProperty Name="VIDEO" ColumnName="VIDEO" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="TBLADMIN">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLADMIN">
         <MappingFragment StoreEntitySet="TBLADMIN">

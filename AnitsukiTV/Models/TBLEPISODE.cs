@@ -28,7 +28,7 @@ namespace AnitsukiTV.Models
         public string EP2 { get; set; }
         public string EP3 { get; set; }
         public string EP4 { get; set; }
-        public string EPINUMBER { get; set; }
+        public Nullable<int> EPINUMBER { get; set; }
         public string EPISODENAME { get; set; }
         public Nullable<System.DateTime> DATE { get; set; }
         public string TIME { get; set; }

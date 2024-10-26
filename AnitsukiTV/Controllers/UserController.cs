@@ -20,8 +20,8 @@ namespace AnitsukiTV.Controllers
         // GET: User
         public ActionResult Index()
         {
-            string username = HttpContext.User.Identity.Name;
-            int userID = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault().ID;
+            string urlUsername = RouteData.Values["userName"].ToString();
+            int userID = db.TBLUSER.Where(x => x.USERNAME.Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").ToLower() == urlUsername).FirstOrDefault().ID;
             veri.User = db.TBLUSER?.Where(x => x.ID == userID)?.FirstOrDefault();
             var degerler = db.TBLUSER?.Where(x => x.ID == userID)?.FirstOrDefault();
             ViewBag.user = degerler.USERNAME;
@@ -33,10 +33,10 @@ namespace AnitsukiTV.Controllers
 
 
         [HttpGet]
-        public ActionResult ProfileSetting()
+        public ActionResult ProfileSetting(string userName)
         {
-            string username = HttpContext.User.Identity.Name;
-            int userID = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault().ID;
+            string username = userName;
+            int userID = db.TBLUSER.Where(x => x.USERNAME.Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").ToLower() == username).FirstOrDefault().ID;
             var user = db.TBLUSER.Find(userID);
             return View("ProfileSetting", user);
         }

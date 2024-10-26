@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Hakkımızda - Anitsuki</title>
+    <title>Bağış - Anitsuki</title>
     <meta name="description" content="anime izle,en popüler ücretsiz olarak anitsuki.com'da izleyin" />
     <meta name="language" content="Turkish" />
     <meta name="geo.placename" content="Turkey" />
@@ -48,7 +48,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="logo col-2">
-                    <a href="/Home/Index"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
+                    <a href="@Url.RouteUrl("Anasayfa")"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
                 </div>
 
                 <input style="display: none;" type="checkbox" id="check">
@@ -58,33 +58,33 @@
 
                 <nav class="col-8">
                     <ul>
-                        <li><a href="/Home/Index" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
-                        <li><a href="/Category/Index"><i class="fa-solid fa-list"></i> Animeler</a></li>
-                        <li><a href="/Home/Donate"><i class="bi bi-cash-stack"></i> Bağış</a></li>
+                        <li><a href="@Url.RouteUrl("Anasayfa")" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
+                        <li><a href="@Url.RouteUrl("Animeler")"><i class="fa-solid fa-list"></i> Animeler</a></li>
+                        <li><a href="@Url.RouteUrl("Bağış")"><i class="bi bi-cash-stack"></i> Bağış</a></li>
                     </ul>
                 </nav>
                 <div class="box col-2">
                     <div class="search">
-                        <a href="/Category/Index"><i class="bi bi-search"></i></a>
+                        <a href="@Url.RouteUrl("Animeler")"><i class="bi bi-search"></i></a>
                     </div>
                     <div class="user">
-                        @{ AnitsukiTV.Models.AnitsukiTVEntities db = new AnitsukiTV.Models.AnitsukiTVEntities();}
+                        @{ AnitsukiTVEntities db = new AnitsukiTVEntities();}
                         @if (User.Identity.IsAuthenticated)
                         {
                             var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
                             if (currentUser != null && currentUser.PICTURE != null)
                             {
-                                <a href="/User/Index"><img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE"></a>
+                                <a href="@Url.RouteUrl("Profil", new { userName = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })"><img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE"></a>
                             }
                             else
                             {
-                                <a href="/User/Index"><img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png"></a>
+                                <a href="@Url.RouteUrl("Profil", new { userName = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })"><img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png"></a>
                             }
-                            <a href="/LoginSignIn/SignOut"><i class="bi bi-box-arrow-right"></i></a>
+                            <a href="/signout"><i class="bi bi-box-arrow-right"></i></a>
                         }
                         else
                         {
-                            <a href="/LoginSignIn/Login"><i class="bi bi-person"></i></a>
+                            <a href="@Url.RouteUrl("Giriş")"><i class="bi bi-person"></i></a>
                         }
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                 </div>
                 <br>
                 <div style="color:#ffffff;" class="des">
-                    Sizlere daha kaliteli ve bağımsız bir içerik sunma hedefimizle yola çıktık. Reklamsız bir deneyim sağlamanın, dikkat dağıtıcı unsurlardan uzak kalmanın ve yalnızca değerli içerikler üretiminin önemine inanıyoruz. Bu hedefe ulaşabilmemiz için isz değerli destekçilerimize ihtiyacımız var. Sitemizin sürdürülebilirliğini sağlamak ve içeriklerimizi geliştirmek için bağışlarınız büyük bir önem taşıyor. Küçük ya da büyük, her katkı bizim için kıymetli. Birlikte daha güzel bir platform oluşturabiliriz!
+                    Sizlere daha kaliteli ve bağımsız bir içerik sunma hedefimizle yola çıktık. Reklamsız bir deneyim sağlamanın, dikkat dağıtıcı unsurlardan uzak kalmanın ve yalnızca değerli içerikler üretiminin önemine inanıyoruz. Bu hedefe ulaşabilmemiz için siz değerli destekçilerimize ihtiyacımız var. Sitemizin sürdürülebilirliğini sağlamak ve içeriklerimizi geliştirmek için bağışlarınız büyük bir önem taşıyor. Küçük ya da büyük, her katkı bizim için kıymetli. Birlikte daha güzel bir platform oluşturabiliriz!
                     <br>
                     <br>
                     NOT: BAĞIŞINIZIN SİTEMİZE GÖZÜKMESİNİ İSTİYORSANIZ AÇIKLAMAYA NİCKNAME YAZABİLİRSİNİZ.
@@ -147,8 +147,8 @@
                     Sayfalar
                 </div>
                 <ul>
-                    <li><a href="/Home/About">Hakkımızda</a></li>
-                    <li><a href="/Home/PrivacyPolicy">Gizlilik Politikası</a></li>
+                    <li><a href="@Url.RouteUrl("Hakkımızda")">Hakkımızda</a></li>
+                    <li><a href="@Url.RouteUrl("Gizlilik Politikası")">Gizlilik Politikası</a></li>
                 </ul>
             </div>
             <div class="social">

@@ -53,9 +53,9 @@
                                             <button style="background-color: #ffffff; color:#ffffff;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            @using (Html.BeginForm("ReplyComment1", "AnimeDetail", FormMethod.Post))
+                                            @using (Html.BeginForm("ReplyComment1", null, new { animeName = ViewBag.animeName, seasonNumber = ViewBag.seasonNumber, episodeNumber = ViewBag.episodeNumber }, FormMethod.Post))
                                             {
-                                                @Html.AntiForgeryToken()
+                                                <input hidden type="text" name="animeName" value="@ViewBag.animeName" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
                                                 <input hidden type="text" name="USTID" value="@x.ID" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
                                                 <input hidden type="text" name="EPISODEID" value="@ViewBag.episode" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
                                                 if (x.TBLUSER.PICTURE != null)
@@ -91,7 +91,7 @@
                         }
                         else
                         {
-                            <a href="/LoginSignIn/Login" style="text-decoration: none; color: white;">
+                            <a href="@Url.RouteUrl("Giriş")" style="text-decoration: none; color: white;">
                                 <i class="bi bi-reply"></i>Cevapla
                             </a>
                         }
@@ -144,13 +144,13 @@
                             else
                             {
                                 <div class="like" style="margin-right:5px;" data-comment-id="@x.ID">
-                                    <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
+                                    <a style="text-decoration:none; color:white;" href="@Url.RouteUrl("Giriş")">
                                         <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
                                         @x.TBLEPISODECOMMENTLIKE.Where(y => y.STATUS == true).Count()
                                     </a>
                                 </div>
                                 <div class="unlike" data-comment-id="@x.ID">
-                                    <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
+                                    <a style="text-decoration:none; color:white;" href="@Url.RouteUrl("Giriş")">
                                         <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
                                         @x.TBLEPISODECOMMENTLIKE.Where(y => y.STATUS == false).Count()
                                     </a>
@@ -201,14 +201,14 @@
                                                 <button style="background-color: #ffffff; color:#ffffff;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                @using (Html.BeginForm("ReplyComment1", "AnimeDetail", FormMethod.Post))
+                                                @using (Html.BeginForm("ReplyComment1", null, new { animeName = ViewBag.animeName, seasonNumber = ViewBag.seasonNumber, episodeNumber = ViewBag.episodeNumber }, FormMethod.Post))
                                                 {
-                                                    @Html.AntiForgeryToken()
+                                                    <input hidden type="text" name="animeName" value="@ViewBag.animeName" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
                                                     <input hidden type="text" name="USTID" value="@x.ID" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
                                                     <input hidden type="text" name="EPISODEID" value="@ViewBag.episode" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
                                                     if (x.TBLUSER.PICTURE != null)
                                                     {
-                                                        <img hidden src="~/IMG/@x.TBLUSER.PICTURE" alt="Profil Fotoğrafı" />
+                                                        <img hidden src="~/IMG/@y.TBLUSER.PICTURE" alt="Profil Fotoğrafı" />
                                                     }
                                                     else
                                                     {
@@ -216,9 +216,9 @@
                                                     }
                                                     if (x.TBLUSER != null && !string.IsNullOrEmpty(x.TBLUSER.USERNAME))
                                                     {
-                                                        <span hidden>@x.TBLUSER.USERNAME</span>
+                                                        <span hidden>@y.TBLUSER.USERNAME</span>
                                                         <div style="color:#ffffff;">Cevap yazdığınız kişi</div>
-                                                        <input type="text" name="USERID" value="@x.TBLUSER.USERNAME" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
+                                                        <input type="text" name="USERID" value="@y.TBLUSER.USERNAME" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
                                                     }
                                                     else
                                                     {
@@ -239,7 +239,7 @@
                             }
                             else
                             {
-                                <a href="/LoginSignIn/Login" style="text-decoration: none; color: white;">
+                                <a href="@Url.RouteUrl("Giriş")" style="text-decoration: none; color: white;">
                                     <i class="bi bi-reply"></i>Cevapla
                                 </a>
                             }
@@ -285,13 +285,13 @@
                                 else
                                 {
                                     <div class="like" style="margin-right:5px;" data-comment-id="@y.ID">
-                                        <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
+                                        <a style="text-decoration:none; color:white;" href="@Url.RouteUrl("Giriş")">
                                             <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
                                             @y.TBLEPISODECOMMENTLIKE.Where(z => z.STATUS == true).Count()
                                         </a>
                                     </div>
                                     <div class="unlike" data-comment-id="@y.ID">
-                                        <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
+                                        <a style="text-decoration:none; color:white;" href="@Url.RouteUrl("Giriş")">
                                             <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
                                             @y.TBLEPISODECOMMENTLIKE.Where(z => z.STATUS == false).Count()
                                         </a>

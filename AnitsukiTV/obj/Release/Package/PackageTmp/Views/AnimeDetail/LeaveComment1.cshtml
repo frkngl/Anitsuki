@@ -7,7 +7,7 @@
             <div class="title">
                 <i class="bi bi-pencil-square"></i> Düşüncelerinizi Yazın
             </div>
-            <form action="/AnimeDetail/LeaveComment1" method="post">
+            <form action="@Request.Url.AbsolutePath" method="post">
                 <textarea name="COMMENT"></textarea>
                 <input type="hidden" name="EPISODEID" value="@ViewBag.episode1" />
                 <button><i class="bi bi-send"></i> Gönder</button>
@@ -18,6 +18,6 @@
 else
 {
     <div style="display:flex; justify-content:center; margin-top:50px;">
-        <p style="font-size:1.1rem;color:#ffffff;">Düşüncelerinizi yazmak için</p><a style="text-decoration: none;" href="/LoginSignIn/Login"><span style="color: #FF7F00; margin-left:5px; font-size:1.1rem;">Giriş Yapın</span></a>
+        <p style="font-size:1.1rem;color:#ffffff;">Düşüncelerinizi yazmak için</p><a style="text-decoration: none;" href="@Url.RouteUrl("Giriş")"><span style="color: #FF7F00; margin-left:5px; font-size:1.1rem;">Giriş Yapın</span></a>
     </div>
 }

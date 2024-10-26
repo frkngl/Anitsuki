@@ -54,11 +54,11 @@
                             <div class="p-2">
                                 <div role="separator" class="dropdown-divider"></div>
                                 <h5 class="dropdown-header text-uppercase  pl-2 text-dark mt-2">İşlemler</h5>
-                                <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="/LoginSignIn/LockOut">
+                                <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="/lockout">
                                     <span>Hesabı Kilitle</span>
                                     <i class="mdi mdi-lock ml-1"></i>
                                 </a>
-                                <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="/LoginSignIn/SignOut">
+                                <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="/signout">
                                     <span>Çıkış Yap</span>
                                     <i class="mdi mdi-logout ml-1"></i>
                                 </a>
@@ -154,6 +154,12 @@
                                         <span class="menu-title">Bölüm Yorumları</span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/LanetlerKralıAdmin/Error">
+                                        <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                                        <span class="menu-title">Hata Sayfası</span>
+                                    </a>
+                                </li>
                             }
                             else if (admin.ADMINROLEID == 3)
                             {
@@ -202,7 +208,7 @@
 
                     <li class="nav-item sidebar-user-actions">
                         <div class="sidebar-user-menu">
-                            <a href="/LoginSignIn/SignOut" class="nav-link">
+                            <a href="/signout" class="nav-link">
                                 <i class="mdi mdi-logout menu-icon"></i>
                                 <span class="menu-title">Çıkış Yap</span>
                             </a>

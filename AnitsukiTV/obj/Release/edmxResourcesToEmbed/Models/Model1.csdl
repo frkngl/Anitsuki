@@ -2,6 +2,7 @@
 <Schema Namespace="AnitsukiTVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="AnitsukiTVEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="sysdiagrams" EntityType="AnitsukiTVModel.sysdiagrams" />
+    <EntitySet Name="TBL404" EntityType="AnitsukiTVModel.TBL404" />
     <EntitySet Name="TBLADMIN" EntityType="AnitsukiTVModel.TBLADMIN" />
     <EntitySet Name="TBLADMINROLE" EntityType="AnitsukiTVModel.TBLADMINROLE" />
     <EntitySet Name="TBLANIME" EntityType="AnitsukiTVModel.TBLANIME" />
@@ -103,6 +104,15 @@
     <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="version" Type="Int32" />
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TBL404">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VIDEO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TEXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="STATUS" Type="Boolean" />
   </EntityType>
   <EntityType Name="TBLADMIN">
     <Key>
@@ -207,7 +217,7 @@
     <Property Name="EP2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="EP3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="EP4" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="EPINUMBER" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+    <Property Name="EPINUMBER" Type="Int32" />
     <Property Name="EPISODENAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="DATE" Type="DateTime" Precision="3" />
     <Property Name="TIME" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />

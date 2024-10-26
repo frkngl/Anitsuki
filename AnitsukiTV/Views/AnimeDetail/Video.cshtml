@@ -118,7 +118,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="logo col-2">
-                    <a href="/Home/Index"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
+                    <a href="@Url.RouteUrl("Anasayfa")"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
                 </div>
 
                 <input style="display: none;" type="checkbox" id="check">
@@ -128,14 +128,14 @@
 
                 <nav class="col-8">
                     <ul>
-                        <li><a href="/Home/Index" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
-                        <li><a href="/Category/Index"><i class="fa-solid fa-list"></i> Animeler</a></li>
-                        <li><a href="/Home/Donate"><i class="bi bi-cash-stack"></i> Bağış</a></li>
+                        <li><a href="@Url.RouteUrl("Anasayfa")" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
+                        <li><a href="@Url.RouteUrl("Animeler")"><i class="fa-solid fa-list"></i> Animeler</a></li>
+                        <li><a href="@Url.RouteUrl("Bağış")"><i class="bi bi-cash-stack"></i> Bağış</a></li>
                     </ul>
                 </nav>
                 <div class="box col-2">
                     <div class="search">
-                        <a href="/Category/Index"><i class="bi bi-search"></i></a>
+                        <a href="@Url.RouteUrl("Animeler")"><i class="bi bi-search"></i></a>
                     </div>
                     <div class="user">
                         @{ AnitsukiTVEntities db = new AnitsukiTVEntities();}
@@ -144,17 +144,17 @@
                             var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
                             if (currentUser != null && currentUser.PICTURE != null)
                             {
-                                <a href="/User/Index"><img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE"></a>
+                                <a href="@Url.RouteUrl("Profil", new { userName = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })"><img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE"></a>
                             }
                             else
                             {
-                                <a href="/User/Index"><img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png"></a>
+                                <a href="@Url.RouteUrl("Profil", new { userName = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })"><img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png"></a>
                             }
-                            <a href="/LoginSignIn/SignOut"><i class="bi bi-box-arrow-right"></i></a>
+                            <a href="/signout"><i class="bi bi-box-arrow-right"></i></a>
                         }
                         else
                         {
-                            <a href="/LoginSignIn/Login"><i class="bi bi-person"></i></a>
+                            <a href="@Url.RouteUrl("Giriş")"><i class="bi bi-person"></i></a>
                         }
                     </div>
                 </div>
@@ -200,7 +200,7 @@
                         @*<img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">*@
                         <div style="width:100%; height:125px; margin-left:0px !important;" class="detail">
                             <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                <a href="/AnimeDetail/Index/@y.ANIMEID">@y.TBLANIME.ANIMENAME </a>
+                                <a href="@Url.RouteUrl("Anime Detay", new {animeID = y.TBLANIME.ID, animeName = y.TBLANIME.ANIMENAME.Replace(" ","-").ToLowerInvariant(), seasonNumber = y.TBLSEASON.SEASONNUMBER })">@y.TBLANIME.ANIMENAME </a>
                             </div>
                             <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="episodename">
                                 <span>S@(y.TBLSEASON.SEASONNUMBER)</span> - <span>B@(y.EPINUMBER)</span> @(y.EPISODENAME)
@@ -263,13 +263,13 @@
                                     else
                                     {
                                         <div style="margin-right:15px;" class="like1" data-comment-id="@y.ID">
-                                            <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
+                                            <a style="text-decoration:none; color:white;" href="@Url.RouteUrl("Giriş")">
                                                 <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
                                                 @y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()
                                             </a>
                                         </div>
                                         <div class="unlike1" data-comment-id="@y.ID">
-                                            <a style="text-decoration:none; color:white;" href="/LoginSignIn/Login">
+                                            <a style="text-decoration:none; color:white;" href="@Url.RouteUrl("Giriş")">
                                                 <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
                                                 @y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()
                                             </a>
@@ -289,9 +289,9 @@
                         <div class="sitelink">Site: <a target="_blank" href="@ö.TBLANIME.WEBSITE"><i class="bi bi-globe"></i></a> <a target="_blank" href="@ö.TBLANIME.DISCORD"><i class="bi bi-discord"></i></a></div>
                     </div>
                 }
-                @Html.Action("LeaveComment1", "AnimeDetail")
+                @Html.Action("LeaveComment1", "AnimeDetail", new { id = ViewBag.episodeID })
                 <div class="commentboxes">
-                    @Html.Action("Comment1", "AnimeDetail")
+                    @Html.Action("Comment1", "AnimeDetail", new { id = ViewBag.episodeID})
                 </div>
             </div>
             <div class="nextandprevepisode">
@@ -304,7 +304,7 @@
                             </div>
                             @foreach (var episode in Model.VideoInfo.OncekiBolum.Where(x => x.STATUS == true))
                             {
-                                <a href="@Url.Action("Video", "AnimeDetail", new { id = episode.ID })">
+                                <a href="@Url.RouteUrl("Video", new { episodeID = episode.ID, animeName = episode.TBLANIME.ANIMENAME.Replace(" ","-").ToLowerInvariant(), seasonNumber = episode.TBLSEASON.SEASONNUMBER, episodeNumber = episode.EPINUMBER })">
                                     <div class="box">
                                         <img src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                                         <div class="animedetail">
@@ -344,7 +344,7 @@
                             </div>
                             @foreach (var episode in Model.VideoInfo.SonrakiBolum.Where(x => x.STATUS == true))
                             {
-                                <a href="@Url.Action("Video", "AnimeDetail", new { id = episode.ID })">
+                                <a href="@Url.RouteUrl("Video", new { episodeID = episode.ID, animeName = episode.TBLANIME.ANIMENAME.Replace(" ","-").ToLowerInvariant(), seasonNumber = episode.TBLSEASON.SEASONNUMBER, episodeNumber = episode.EPINUMBER })">
                                     <div class="box">
                                         <img src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                                         <div class="animedetail">
@@ -386,8 +386,8 @@
                     Sayfalar
                 </div>
                 <ul>
-                    <li><a href="/Home/About">Hakkımızda</a></li>
-                    <li><a href="/Home/PrivacyPolicy">Gizlilik Politikası</a></li>
+                    <li><a href="@Url.RouteUrl("Hakkımızda")">Hakkımızda</a></li>
+                    <li><a href="@Url.RouteUrl("Gizlilik Politikası")">Gizlilik Politikası</a></li>
                 </ul>
             </div>
             <div class="social">

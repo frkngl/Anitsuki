@@ -11,6 +11,8 @@ namespace AnitsukiTV.Controllers
     {
         AnitsukiTVEntities db = new AnitsukiTVEntities();   
         TabeList veri = new TabeList();
+
+        [Route("")]
         public ActionResult Index()
         {
             veri.Episode = db.TBLEPISODE.ToList();
@@ -18,17 +20,23 @@ namespace AnitsukiTV.Controllers
             veri.Anime = db.TBLANIME.ToList();
             return View(veri);
         }
+
+        [Route("gizlilik-politikasi")]
         public ActionResult PrivacyPolicy()
         {
             return View();
         }
+
+        [Route("hakkimizda")]
         public ActionResult About()
         {
             return View();
         }
+
+        [Route("bagis")]
         public ActionResult Donate()
         {
-            var degerler = db.TBLDONATE.Where(x=>x.STATUS == true).OrderByDescending(x=>x.DONATE).Take(20).ToList();
+            var degerler = db.TBLDONATE.Where(x => x.STATUS == true).OrderByDescending(x => x.DONATE).Take(20).ToList();
             return View(degerler);
         }
     }

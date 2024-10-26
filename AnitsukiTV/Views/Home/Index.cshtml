@@ -41,7 +41,6 @@
     <!--TITLE IMG-->
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
 </head>
-
 <body>
     <link itemprop="thumbnailUrl" href="~/IMG/aylogo.png">
     <span itemprop="thumbnail" itemscope itemtype="~/IMG/aylogo.png">
@@ -54,7 +53,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="logo col-2">
-                    <a href="/Home/Index"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
+                    <a href="@Url.RouteUrl("Anasayfa")"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
                 </div>
 
                 <input style="display: none;" type="checkbox" id="check">
@@ -64,14 +63,14 @@
 
                 <nav class="col-8">
                     <ul>
-                        <li><a href="/Home/Index" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
-                        <li><a href="/Category/Index"><i class="fa-solid fa-list"></i> Animeler</a></li>
-                        <li><a href="/Home/Donate"><i class="bi bi-cash-stack"></i> Bağış</a></li>
+                        <li><a href="@Url.RouteUrl("Anasayfa")" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
+                        <li><a href="@Url.RouteUrl("Animeler")"><i class="fa-solid fa-list"></i> Animeler</a></li>
+                        <li><a href="@Url.RouteUrl("Bağış")"><i class="bi bi-cash-stack"></i> Bağış</a></li>
                     </ul>
                 </nav>
                 <div class="box col-2">
                     <div style="margin-right:-8px;" class="search">
-                        <a href="/Category/Index"><i class="bi bi-search"></i></a>
+                        <a href="@Url.RouteUrl("Animeler")"><i class="bi bi-search"></i></a>
                     </div>
                     <div class="user">
                         @{ AnitsukiTVEntities db = new AnitsukiTVEntities();}
@@ -80,17 +79,17 @@
                             var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
                             if (currentUser != null && currentUser.PICTURE != null)
                             {
-                                <a href="/User/Index"><img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE"></a>
+                                <a href="@Url.RouteUrl("Profil", new { userName = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })"><img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE"></a>
                             }
                             else
                             {
-                                <a href="/User/Index"><img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png"></a>
+                                <a href="@Url.RouteUrl("Profil", new { userName = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })"><img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png"></a>
                             }
-                            <a href="/LoginSignIn/SignOut"><i class="bi bi-box-arrow-right"></i></a>
+                            <a href="/signout"><i class="bi bi-box-arrow-right"></i></a>
                         }
                         else
                         {
-                            <a href="/LoginSignIn/Login"><i class="bi bi-person"></i></a>
+                            <a href="@Url.RouteUrl("Giriş")"><i class="bi bi-person"></i></a>
                         }
                     </div>
                 </div>
@@ -110,7 +109,10 @@
                         <div style="overflow-wrap: break-word; overflow: auto; white-space: normal;" class="des">
                             @ğ.DETAIL.Substring(0, 300) ...
                         </div>
-                        <a class="btn" href="/AnimeDetail/Index/@ğ.ID"><i class="fa-solid fa-play"></i></a>
+
+                        <a class="btn" href="@Url.RouteUrl("Anime Detay", new { animeID = ğ.ID, animeName = ğ.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = ğ.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == ğ.ID)?.SEASONNUMBER ?? 0})">
+                            <i class="fa-solid fa-play"></i>
+                        </a>
                     </div>
                 </div>
             }
@@ -137,7 +139,7 @@
                     @foreach (var l in Model.Episode.Where(l => l.STATUS == true).OrderByDescending(l => l.ID).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="/AnimeDetail/Video/@l.ID">
+                            <a href="@Url.RouteUrl("Video", new {episodeID = l.ID, animeName = l.TBLANIME.ANIMENAME.Replace(" ","-").ToLowerInvariant(), seasonNumber = l.TBLSEASON.SEASONNUMBER, episodeNumber = l.EPINUMBER })">
                                 <div class="videoimg">
                                     <img src="~/IMG/@l.TBLANIME.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (l.TBLANIME.EDIT != null)
@@ -177,7 +179,7 @@
                     @foreach (var l in Model.Anime.Where(l => l.STATUS == true).OrderByDescending(l => l.ID).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@l.ID">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
                                     <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (l.EDIT != null)
@@ -216,7 +218,7 @@
                     @foreach (var l in Model.Anime.Where(l => l.STATUS == true).OrderByDescending(l => l.MYANIMELIST).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@l.ID">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
                                     <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (l.EDIT != null)
@@ -249,10 +251,16 @@
                 <i class="fas fa-hand-point-right"></i> Kahramanlık Zamanı !
             </div>
             <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 1))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
+                <div class="all">
+                    @foreach (var f in Model.Category.Where(i => i.ID == 1))
+                    {
+                        var categoryName = f.CATEGORYNAME.ToLower();
+                        categoryName = categoryName.Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ı", "i").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+                        categoryName = Uri.EscapeDataString(categoryName);
+
+                        <a href="@Url.RouteUrl("Kategori", new { kategoriID = f.ID, kategoriName = categoryName })"><i class="bi bi-box-arrow-up-left"></i> Hepsi</a>
+                    }
+                </div>
             </div>
         </div>
         <div class="splide" id="splide4">
@@ -261,7 +269,7 @@
                     @foreach (var x in Model.Anime.Where(i => i.CATEGORYID == 1 && i.STATUS == true).OrderBy(x => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@x.ID">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = x.ID, animeName = x.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = x.TBLSEASON?.FirstOrDefault(y => y.ANIMEID == x.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
                                     <img src="~/IMG/@x.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (x.EDIT != null)
@@ -295,10 +303,16 @@
                 <i class="fas fa-hand-point-right"></i> Hayatın Kadar Acı
             </div>
             <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 2))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
+                <div class="all">
+                    @foreach (var f in Model.Category.Where(i => i.ID == 2))
+                    {
+                        var categoryName = f.CATEGORYNAME.ToLower();
+                        categoryName = categoryName.Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ı", "i").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+                        categoryName = Uri.EscapeDataString(categoryName);
+
+                        <a href="@Url.RouteUrl("Kategori", new { kategoriID = f.ID, kategoriName = categoryName })"><i class="bi bi-box-arrow-up-left"></i> Hepsi</a>
+                    }
+                </div>
             </div>
         </div>
         <div class="splide" id="splide5">
@@ -307,7 +321,7 @@
                     @foreach (var y in Model.Anime.Where(i => i.CATEGORYID == 2 && i.STATUS == true).OrderBy(y => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@y.ID">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = y.ID, animeName = y.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = y.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == y.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
                                     <img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (y.EDIT != null)
@@ -430,10 +444,16 @@
                 <i class="fas fa-hand-point-right"></i> Truck-kun "un Selamı Var
             </div>
             <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 5))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
+                <div class="all">
+                    @foreach (var f in Model.Category.Where(i => i.ID == 5))
+                    {
+                        var categoryName = f.CATEGORYNAME.ToLower();
+                        categoryName = categoryName.Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ı", "i").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+                        categoryName = Uri.EscapeDataString(categoryName);
+
+                        <a href="@Url.RouteUrl("Kategori", new { kategoriID = f.ID, kategoriName = categoryName })"><i class="bi bi-box-arrow-up-left"></i> Hepsi</a>
+                    }
+                </div>
             </div>
         </div>
         <div class="splide" id="splide8">
@@ -442,7 +462,7 @@
                     @foreach (var w in Model.Anime.Where(i => i.CATEGORYID == 5 && i.STATUS == true).OrderBy(w => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@w.ID">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = w.ID, animeName = w.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = w.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == w.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
                                     <img src="~/IMG/@w.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (w.EDIT != null)
@@ -475,10 +495,16 @@
                 <i class="fas fa-hand-point-right"></i> Vur Kır Parçala !
             </div>
             <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 6))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
+                <div class="all">
+                    @foreach (var f in Model.Category.Where(i => i.ID == 6))
+                    {
+                        var categoryName = f.CATEGORYNAME.ToLower();
+                        categoryName = categoryName.Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ı", "i").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+                        categoryName = Uri.EscapeDataString(categoryName);
+
+                        <a href="@Url.RouteUrl("Kategori", new { kategoriID = f.ID, kategoriName = categoryName })"><i class="bi bi-box-arrow-up-left"></i> Hepsi</a>
+                    }
+                </div>
             </div>
         </div>
         <div class="splide" id="splide9">
@@ -487,7 +513,7 @@
                     @foreach (var e in Model.Anime.Where(i => i.CATEGORYID == 6 && i.STATUS == true).OrderBy(e => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@e.ID">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = e.ID, animeName = e.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = e.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == e.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
                                     <img src="~/IMG/@e.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (e.EDIT != null)
@@ -520,10 +546,16 @@
                 <i class="fas fa-hand-point-right"></i> Ben Optimus Prime !
             </div>
             <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 7))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
+                <div class="all">
+                    @foreach (var f in Model.Category.Where(i => i.ID == 7))
+                    {
+                        var categoryName = f.CATEGORYNAME.ToLower();
+                        categoryName = categoryName.Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ı", "i").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+                        categoryName = Uri.EscapeDataString(categoryName);
+
+                        <a href="@Url.RouteUrl("Kategori", new { kategoriID = f.ID, kategoriName = categoryName })"><i class="bi bi-box-arrow-up-left"></i> Hepsi</a>
+                    }
+                </div>
             </div>
         </div>
         <div class="splide" id="splide10">
@@ -532,7 +564,7 @@
                     @foreach (var r in Model.Anime.Where(i => i.CATEGORYID == 7 && i.STATUS == true).OrderBy(r => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@r.ID">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = r.ID, animeName = r.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = r.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == r.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
                                     <img src="~/IMG/@r.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (r.EDIT != null)
@@ -565,10 +597,16 @@
                 <i class="fas fa-hand-point-right"></i> Konuyu Siz Biliyorsunuz
             </div>
             <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 8))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
+                <div class="all">
+                    @foreach (var f in Model.Category.Where(i => i.ID == 8))
+                    {
+                        var categoryName = f.CATEGORYNAME.ToLower();
+                        categoryName = categoryName.Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ı", "i").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+                        categoryName = Uri.EscapeDataString(categoryName);
+
+                        <a href="@Url.RouteUrl("Kategori", new { kategoriID = f.ID, kategoriName = categoryName })"><i class="bi bi-box-arrow-up-left"></i> Hepsi</a>
+                    }
+                </div>
             </div>
         </div>
         <div class="splide" id="splide11">
@@ -577,7 +615,7 @@
                     @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 8 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@t.ID">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = t.ID, animeName = t.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = t.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == t.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
                                     <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (t.EDIT != null)
@@ -655,10 +693,16 @@
                 <i class="fas fa-hand-point-right"></i> Kawaiiii !!
             </div>
             <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 10))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
+                <div class="all">
+                    @foreach (var f in Model.Category.Where(i => i.ID == 10))
+                    {
+                        var categoryName = f.CATEGORYNAME.ToLower();
+                        categoryName = categoryName.Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ı", "i").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+                        categoryName = Uri.EscapeDataString(categoryName);
+
+                        <a href="@Url.RouteUrl("Kategori", new { kategoriID = f.ID, kategoriName = categoryName })"><i class="bi bi-box-arrow-up-left"></i> Hepsi</a>
+                    }
+                </div>
             </div>
         </div>
         <div class="splide" id="splide13">
@@ -667,7 +711,7 @@
                     @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 10 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@t.ID">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = t.ID, animeName = t.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = t.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == t.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
                                     <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (t.EDIT != null)
@@ -700,10 +744,16 @@
                 <i class="fas fa-hand-point-right"></i>  Hayat Güzel Kuşlar Uçuyor
             </div>
             <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 11))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
+                <div class="all">
+                    @foreach (var f in Model.Category.Where(i => i.ID == 11))
+                    {
+                        var categoryName = f.CATEGORYNAME.ToLower();
+                        categoryName = categoryName.Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ı", "i").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+                        categoryName = Uri.EscapeDataString(categoryName);
+
+                        <a href="@Url.RouteUrl("Kategori", new { kategoriID = f.ID, kategoriName = categoryName })"><i class="bi bi-box-arrow-up-left"></i> Hepsi</a>
+                    }
+                </div>
             </div>
         </div>
         <div class="splide" id="splide14">
@@ -712,7 +762,7 @@
                     @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 11 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@t.ID">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = t.ID, animeName = t.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = t.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == t.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
                                     <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (t.EDIT != null)
@@ -745,10 +795,16 @@
                 <i class="fas fa-hand-point-right"></i>  Türk Dizisi Tadında
             </div>
             <div class="all">
-                @foreach (var f in Model.Category.Where(i => i.ID == 12))
-                {
-                    <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                }
+                <div class="all">
+                    @foreach (var f in Model.Category.Where(i => i.ID == 12))
+                    {
+                        var categoryName = f.CATEGORYNAME.ToLower();
+                        categoryName = categoryName.Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ı", "i").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+                        categoryName = Uri.EscapeDataString(categoryName);
+
+                        <a href="@Url.RouteUrl("Kategori", new { kategoriID = f.ID, kategoriName = categoryName })"><i class="bi bi-box-arrow-up-left"></i> Hepsi</a>
+                    }
+                </div>
             </div>
         </div>
         <div class="splide" id="splide15">
@@ -757,7 +813,7 @@
                     @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 12 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="/AnimeDetail/Index/@t.ID">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = t.ID, animeName = t.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = t.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == t.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
                                     <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                                     @if (t.EDIT != null)
@@ -793,8 +849,8 @@
                     Sayfalar
                 </div>
                 <ul>
-                    <li><a href="/Home/About">Hakkımızda</a></li>
-                    <li><a href="/Home/PrivacyPolicy">Gizlilik Politikası</a></li>
+                    <li><a href="@Url.RouteUrl("Hakkımızda")">Hakkımızda</a></li>
+                    <li><a href="@Url.RouteUrl("Gizlilik Politikası")">Gizlilik Politikası</a></li>
                 </ul>
             </div>
             <div class="social">
@@ -903,42 +959,56 @@
 
 <script>
     const video = document.querySelectorAll(".splide__slide .video");
+
+    // Mobil cihazları kontrol etme fonksiyonu
+    function isMobileDevice() {
+        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
     video.forEach(video => {
         let cached = false;
         let source = video.src;
 
-        video.onmouseenter = () => {
-            if (!cached) {
-                video.src = source;
-                cached = true;
-            }
-            video.play();
-            video.volume = 0.05;
-            video.classList.add("active");
-        };
+        // Eğer mobil cihazda isek, video oynatma işlevselliğini devre dışı bırak
+        if (!isMobileDevice()) {
+            video.onmouseenter = () => {
+                if (!cached) {
+                    video.src = source;
+                    cached = true;
+                }
+                video.play();
+                video.volume = 0.05;
+                video.classList.add("active");
+            };
 
-        video.onmouseleave = () => {
-            video.pause();
-            video.src = "";
-            cached = false;
-            video.classList.remove("active");
-        };
+            video.onmouseleave = () => {
+                video.pause();
+                video.src = "";
+                cached = false;
+                video.classList.remove("active");
+            };
+        } else {
+            // Mobil cihazlar için video öğesini gizleme veya farklı bir işlem yapma
+            video.style.display = 'none'; // İsterseniz bu satırı değiştirebilirsiniz
+        }
 
-        video.ontouchmove = () => {
-            if (!cached) {
-                video.src = source;
-                cached = true;
-            }
-            video.play();
-            video.volume = 0.05;
-            video.classList.add("active");
-        };
+        //video.ontouchmove = () => {
+        //    if (!cached) {
+        //        video.src = source;
+        //        cached = true;
+        //    }
+        //    video.play();
+        //    video.volume = 0.05;
+        //    video.classList.add("active");
+        //};
 
-        video.ontouchend = () => {
-            video.pause();
-            video.src = "";
-            cached = false;
-            video.classList.remove("active");
-        };
+        //video.ontouchend = () => {
+        //    video.pause();
+        //    video.src = "";
+        //    cached = false;
+        //    video.classList.remove("active");
+        //};
     });
+
+    
 </script>

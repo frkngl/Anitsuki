@@ -18,17 +18,20 @@ namespace AnitsukiTV.Controllers
         AnitsukiTVEntities db = new AnitsukiTVEntities();
         TabeList veri =new TabeList();
         // GET: AnimeDetail
-        public ActionResult Index(int? id, int? sezonID)
-        {
-            var degerler2 = db.TBLANIME.FirstOrDefault(x => x.ID == id);
-            ViewBag.anime = degerler2?.ANIMENAME;
 
-            var degerler = db.TBLSEASON.FirstOrDefault(x => x.SEASONNUMBER == id);
-            veri.Anime = db.TBLANIME.Where(x => x.ID == id).ToList();
-            veri.Season = db.TBLSEASON.Where(x => x.ANIMEID == id).ToList();
-            int sezonIDValue = sezonID.HasValue ? sezonID.Value : veri.Season.FirstOrDefault()?.ID ?? 0;
-            veri.Episode = db.TBLEPISODE.Where(x => x.SEASONID == sezonIDValue).ToList();
-            
+        [Route("anime/{animeID}/{animeName}-{seasonNumber}-sezon-izle")]
+        public ActionResult Index(int animeID, string animeName, int seasonNumber)
+        {
+            var degerler2 = db.TBLANIME.FirstOrDefault(x => x.ID == animeID);
+            ViewBag.anime = degerler2.ANIMENAME;
+            ViewBag.AnimeId = degerler2.ID;
+
+            int sezonIDValue = db.TBLSEASON.FirstOrDefault(x => x.ANIMEID == animeID && x.SEASONNUMBER == seasonNumber)?.ID ?? 0;
+
+            veri.Anime = db.TBLANIME.Where(x => x.ID == animeID).ToList();
+            veri.Season = db.TBLSEASON.Where(x => x.ANIMEID == animeID).ToList();
+            veri.Episode = db.TBLEPISODE .Where(x => x.ANIMEID == animeID && x.SEASONID == sezonIDValue).ToList();
+
             var selectedSeason = db.TBLSEASON.FirstOrDefault(x => x.ID == sezonIDValue);
             ViewBag.Season = selectedSeason?.SEASONNAME ?? $"{selectedSeason?.SEASONNUMBER} Sezon";
 
@@ -38,10 +41,10 @@ namespace AnitsukiTV.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 int userID = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault().ID;
-                var favorite = db.TBLFAVORITES.Where(x => x.USERID == userID && x.ANIMEID == id).FirstOrDefault();
+                var favorite = db.TBLFAVORITES.Where(x => x.USERID == userID && x.ANIMEID == animeID).FirstOrDefault();
                 isFavorite = favorite != null;
 
-                var watchlater = db.TBLWATCHLATER.Where(x => x.USERID == userID && x.ANIMEID == id).FirstOrDefault();
+                var watchlater = db.TBLWATCHLATER.Where(x => x.USERID == userID && x.ANIMEID == animeID).FirstOrDefault();
                 isWatchLater = watchlater != null;
             }
 
@@ -51,17 +54,18 @@ namespace AnitsukiTV.Controllers
             return View(veri);
         }
 
-
+        
         public PartialViewResult Comment(int id)
         {
-            var degerler = db.TBLANIMECOMMENT.Where(x=>x.ANIMEID == id && x.STATUS == true).ToList();
-            ViewBag.AnimeCount = degerler.Where(x=>x.STATUS == true).Count();
+            var degerler = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id && x.STATUS == true).ToList();
+            ViewBag.AnimeCount = degerler.Where(x => x.STATUS == true).Count();
             ViewBag.anime = id;
+            ViewBag.animeName = db.TBLANIME.Find(id).ANIMENAME; // Set anime name here
             return PartialView(degerler);
         }
 
 
-
+        
         public PartialViewResult LeaveComment(int id)
         {
             ViewBag.deger = id;
@@ -79,13 +83,14 @@ namespace AnitsukiTV.Controllers
             y.TBLUSER = user;
             db.TBLANIMECOMMENT.Add(y);
             db.SaveChanges();
-            Response.Redirect("/AnimeDetail/Index/" + y.ANIMEID);
+            string originalUrl = Request.Url.AbsolutePath;
+            Response.Redirect(originalUrl);
             return PartialView();
         }
 
 
         [HttpPost]
-        public ActionResult ReplyComment(TBLANIMECOMMENT y)
+        public ActionResult ReplyComment(int animeID, string animeName, int seasonNumber, TBLANIMECOMMENT y)
         {
             string username = HttpContext.User.Identity.Name;
             TBLUSER user = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault();
@@ -95,7 +100,10 @@ namespace AnitsukiTV.Controllers
             y.TBLUSER = user;
             db.TBLANIMECOMMENT.Add(y);
             db.SaveChanges();
-            return RedirectToAction("Index/" + y.ANIMEID);
+
+            string url = $"/anime/{animeID}/{animeName.ToLower().Replace(" ", "-")}-{seasonNumber}-sezon-izle";
+            Response.Redirect(url);
+            return View();
         }
 
 
@@ -199,20 +207,22 @@ namespace AnitsukiTV.Controllers
 
 
 
-
-        public ActionResult Video(int id)
+        [Route("{episodeID}/{animeName}-{seasonNumber}-sezon-{episodeNumber}-bolum-izle")]
+        public ActionResult Video(int episodeID, string animeName, int seasonNumber, int episodeNumber)
         {
-            veri.Episode = db.TBLEPISODE.Where(x => x.ID == id && x.STATUS == true).ToList();
+            var degerler = db.TBLEPISODE.FirstOrDefault(x => x.ID == episodeID);
+            veri.Episode = db.TBLEPISODE.Where(x => x.ID == episodeID && x.STATUS == true).ToList();
             int animeId = veri.Episode.FirstOrDefault()?.TBLANIME?.ID ?? 0;
+            ViewBag.episodeID = degerler.ID;
             int sezonNumarası = veri.Episode.FirstOrDefault()?.TBLSEASON?.SEASONNUMBER ?? 0;
-            int oncekiBolumId = db.TBLEPISODE.Where(x => x.TBLANIME.ID == animeId && x.TBLSEASON.SEASONNUMBER == sezonNumarası && x.ID < id).OrderByDescending(x => x.ID).FirstOrDefault()?.ID ?? 0;
+            int oncekiBolumId = db.TBLEPISODE.Where(x => x.TBLANIME.ID == animeId && x.TBLSEASON.SEASONNUMBER == sezonNumarası && x.ID < episodeID).OrderByDescending(x => x.ID).FirstOrDefault()?.ID ?? 0;
             if (oncekiBolumId == 0)
             {
                 int oncekiSezonNumarası = sezonNumarası - 1;
                 oncekiBolumId = db.TBLEPISODE.Where(x => x.TBLANIME.ID == animeId && x.TBLSEASON.SEASONNUMBER == oncekiSezonNumarası).OrderByDescending(x => x.ID).FirstOrDefault()?.ID ?? 0;
             }
             veri.OncekiBolum = db.TBLEPISODE.Where(x => x.ID == oncekiBolumId).ToList();
-            int sonrakiBolumId = db.TBLEPISODE.Where(x => x.TBLANIME.ID == animeId && x.TBLSEASON.SEASONNUMBER == sezonNumarası && x.ID > id).OrderBy(x => x.ID).FirstOrDefault()?.ID ?? 0;
+            int sonrakiBolumId = db.TBLEPISODE.Where(x => x.TBLANIME.ID == animeId && x.TBLSEASON.SEASONNUMBER == sezonNumarası && x.ID > episodeID).OrderBy(x => x.ID).FirstOrDefault()?.ID ?? 0;
             if (sonrakiBolumId == 0)
             {
                 int sonrakiSezonNumarası = sezonNumarası + 1;
@@ -227,7 +237,7 @@ namespace AnitsukiTV.Controllers
                     Episode = veri.Episode,
                     AnimeTitle = veri.Episode.FirstOrDefault()?.TBLANIME?.ANIMENAME,
                     SeasonNumber = veri.Episode.FirstOrDefault()?.TBLSEASON?.SEASONNUMBER ?? 0,
-                    EpisodeNumber = int.Parse(veri.Episode.FirstOrDefault()?.EPINUMBER ?? "0"),
+                    EpisodeNumber = veri.Episode.FirstOrDefault()?.EPINUMBER ?? 0,
                     OncekiBolum = veri.OncekiBolum,
                     SonrakiBolum = veri.SonrakiBolum
                 }
@@ -241,6 +251,7 @@ namespace AnitsukiTV.Controllers
             var degerler = db.TBLEPISODECOMMENT.Where(x => x.EPISODEID == id && x.STATUS == true).ToList();
             ViewBag.EpisodeCount = degerler.Where(x => x.STATUS == true).Count();
             ViewBag.episode = id;
+            ViewBag.animeName = db.TBLEPISODE.Find(id).TBLANIME.ANIMENAME;
             return PartialView(degerler);
         }
 
@@ -262,13 +273,14 @@ namespace AnitsukiTV.Controllers
             y.TBLUSER = user;
             db.TBLEPISODECOMMENT.Add(y);
             db.SaveChanges();
-            Response.Redirect("/AnimeDetail/Video/" + y.EPISODEID);
+            string originalUrl = Request.Url.AbsolutePath;
+            Response.Redirect(originalUrl);
             return PartialView();
         }
 
 
         [HttpPost]
-        public ActionResult ReplyComment1(TBLEPISODECOMMENT y)
+        public ActionResult ReplyComment1(int episodeID, string animeName, int seasonNumber, int episodeNumber, TBLEPISODECOMMENT y)
         {
             string username = HttpContext.User.Identity.Name;
             TBLUSER user = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault();
@@ -278,7 +290,12 @@ namespace AnitsukiTV.Controllers
             y.TBLUSER = user;
             db.TBLEPISODECOMMENT.Add(y);
             db.SaveChanges();
-            return RedirectToAction("Video/" + y.EPISODEID);
+
+            string url = $"/{episodeID}/{animeName.ToLower().Replace(" ", "-")}-{seasonNumber}-sezon-{episodeNumber}-bolum-izle";
+            Response.Redirect(url);
+            return View();
+
+            
         }
 
 

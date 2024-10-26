@@ -47,7 +47,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="logo col-2">
-                    <a href="/Home/Index"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
+                    <a href="@Url.RouteUrl("Anasayfa")"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
                 </div>
 
                 <input style="display: none;" type="checkbox" id="check">
@@ -57,17 +57,17 @@
 
                 <nav class="col-8">
                     <ul>
-                        <li><a href="/Home/Index" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
-                        <li><a href="/Category/Index"><i class="fa-solid fa-list"></i> Animeler</a></li>
-                        <li><a href="/Home/Donate"><i class="bi bi-cash-stack"></i> Bağış</a></li>
+                        <li><a href="@Url.RouteUrl("Anasayfa")" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
+                        <li><a href="@Url.RouteUrl("Animeler")"><i class="fa-solid fa-list"></i> Animeler</a></li>
+                        <li><a href="@Url.RouteUrl("Bağış")"><i class="bi bi-cash-stack"></i> Bağış</a></li>
                     </ul>
                 </nav>
                 <div class="box col-2">
                     <div class="search">
-                        <a href="/Category/Index"><i class="bi bi-search"></i></a>
+                        <a href="@Url.RouteUrl("Animeler")"><i class="bi bi-search"></i></a>
                     </div>
                     <div class="user">
-                        <a href="/LoginSignIn/SignOut"><i class="bi bi-box-arrow-right"></i></a>
+                        <a href="/signout"><i class="bi bi-box-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                 <i class="bi bi-person" style="font-size: 1.1rem;"></i> @User.Identity.Name
             </div>
             <div class="box">
-                <a href="@Url.Action("ProfileSetting", "User", new { id = User.Identity.Name })"> <i class="bi bi-gear"></i> Profili Düzenle</a>
+                <a href="@Url.RouteUrl("Ayarlar", new { userName = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })"> <i class="bi bi-gear"></i> Profili Düzenle</a>
             </div>
         </div>
         <div class="userdetail">
@@ -106,14 +106,14 @@
                     }
                 </div>
                 <div class="date">
-                    <i class="bi bi-calendar"></i> Kayıt Tarihi: @Model.User.DATE.Value.ToString("dd.MM.yyyy") <i style="margin-left:10px;" class="bi bi-heart"></i> @Model.Favorites.Where(x => x.TBLANIME.STATUS == true).Count()  <i style="margin-left:10px;" class="bi bi-clock-history"></i> @Model.WatchLater.Where(x => x.TBLANIME.STATUS == true).Count()
+                    <i class="bi bi-calendar"></i> Kayıt Tarihi: @Model.User.DATE.Value.ToString("dd.MM.yyyy") <i style="margin-left:10px;" class="bi bi-heart-fill"></i> @Model.Favorites.Where(x => x.TBLANIME.STATUS == true).Count()  <i style="margin-left:10px;" class="bi bi-clock-fill"></i> @Model.WatchLater.Where(x => x.TBLANIME.STATUS == true).Count()
                 </div>
             </div>
         </div>
         <div class="lastcommentfavoriteanime">
             <div class="text">
                 <div class="title">
-                    <i class="bi bi-heart"></i> Favori Animeler
+                    <i class="bi bi-heart-fill"></i> Favori Animeler
                 </div>
                 <div class="search">
                     <i class="fa-solid fa-magnifying-glass fa-xl"></i>
@@ -126,8 +126,9 @@
                     {
                         foreach (var s in Model.Favorites.Where(s => s.TBLANIME.STATUS == true))
                         {
+                            var season = s.TBLANIME.TBLSEASON.FirstOrDefault();
                             <li>
-                                <a href="/AnimeDetail/Index/@s.ANIMEID">
+                                <a href="@Url.RouteUrl("Anime Detay", new { animeID = s.TBLANIME.ID, animeName = s.TBLANIME.ANIMENAME.Replace(" ","-").ToLowerInvariant(), seasonNumber = season!= null ? season.SEASONNUMBER : 0 })">
                                     <div class="box">
                                         <div class="img">
                                             <img src="~/IMG/@s.TBLANIME.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
@@ -156,7 +157,7 @@
         <div class="lastcommentfavoriteanime" style="margin-top: 80px !important;">
             <div class="text">
                 <div class="title">
-                    <i class="bi bi-clock-history"></i> Sonra İzleyeceklerim
+                    <i class="bi bi-clock-fill"></i> Sonra İzleyeceklerim
                 </div>
                 <div class="search">
                     <i class="fa-solid fa-magnifying-glass fa-xl"></i>
@@ -169,8 +170,9 @@
                     {
                         foreach (var i in Model.WatchLater.Where(s => s.TBLANIME.STATUS == true))
                         {
+                            var season = i.TBLANIME.TBLSEASON.FirstOrDefault();
                             <li>
-                                <a href="/AnimeDetail/Index/@i.ANIMEID">
+                                <a href="@Url.RouteUrl("Anime Detay", new { animeID = i.TBLANIME.ID, animeName = i.TBLANIME.ANIMENAME.Replace(" ","-").ToLowerInvariant(), seasonNumber = season!= null ? season.SEASONNUMBER : 0})">
                                     <div class="box">
                                         <div class="img">
                                             <img src="~/IMG/@i.TBLANIME.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
@@ -205,8 +207,8 @@
                     Sayfalar
                 </div>
                 <ul>
-                    <li><a href="/Home/About">Hakkımızda</a></li>
-                    <li><a href="/Home/PrivacyPolicy">Gizlilik Politikası</a></li>
+                    <li><a href="@Url.RouteUrl("Hakkımızda")">Hakkımızda</a></li>
+                    <li><a href="@Url.RouteUrl("Gizlilik Politikası")">Gizlilik Politikası</a></li>
                 </ul>
             </div>
             <div class="social">

@@ -1,0 +1,91 @@
+﻿@using AnitsukiTV.Models
+@model List<TBL404>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Sayfa Bulunamadı</title>
+    <link rel="stylesheet" href="~/css/404Page.css" type="text/Css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="shortcut icon" href="~/IMG/aylogo.png" />
+    <meta property="og:image" content="~/IMG/aylogo.png">
+</head>
+<body>
+    <link itemprop="thumbnailUrl" href="~/IMG/aylogo.png">
+    <span itemprop="thumbnail" itemscope itemtype="~/IMG/aylogo.png">
+        <link itemprop="url" href="~/IMG/aylogo.png">
+    </span>
+    <div class="error">
+        @foreach (var x in Model.Where(x => x.STATUS == true).OrderBy(x => Guid.NewGuid()).Take(1))
+        {
+            <div class="text">
+                <div class="number">
+                    404
+                </div>
+                <div class="textdetail">
+                    <div class="title">
+                        Sayfa Bulunamadı
+                    </div>
+                    <div class="des">
+                        aradığınız sayfanın adres yolu değişmiş olabilir ya da adres yolunuzu yanlış yazmış olabilirsin eğer <b>@x.TEXT</b> sahnesinden kesit izlemek istiyorsanız oynat butona basabilirsiniz eğer ki izlemek istemiyorsanız ise <a href="@Url.RouteUrl("Anasayfa")"><b>Anasayfa</b></a>'ya dönebilirsiniz..
+                    </div>
+                </div>
+            </div>
+            <div class="videos">
+                <video class="video" loop muted playsinline>
+                    <source src="~/Videos/@x.VIDEO">
+                </video>
+                <div class="buttons">
+                    <button class="material-symbols-outlined toggle">play_arrow</button>
+                    <button class="material-symbols-outlined restart">restart_alt</button>
+                    <button class="material-symbols-outlined volume">volume_off</button>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>
+<script>
+    const audio = document.querySelector('.video');
+    const btnToggle = document.querySelector('.toggle');
+    const btnRestart = document.querySelector('.restart');
+    const btnMuteUnmte = document.querySelector('.volume');
+
+    audio.addEventListener('loadedmetadata', () => {
+        const duration = audio.duration;
+        const targetTime = duration * 0.1;
+        audio.currentTime = targetTime;
+    });
+
+    btnToggle.addEventListener("click", () => {
+        if (audio.paused) {
+            audio.play();
+            btnToggle.textContent = "pause";
+        } else {
+            audio.pause();
+            btnToggle.textContent = "play_arrow";
+        }
+    });
+
+    btnRestart.addEventListener('click', () => {
+        audio.currentTime = 0;
+        audio.play();
+    });
+
+    btnMuteUnmte.addEventListener('click', () => {
+        if (audio.muted) {
+            audio.muted = false;
+            audio.volume = 0.08;
+            btnMuteUnmte.textContent = "volume_up";
+        } else {
+            audio.muted = true;
+            btnMuteUnmte.textContent = "volume_off";
+        }
+    });
+</script>
