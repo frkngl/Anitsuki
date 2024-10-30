@@ -46,9 +46,13 @@
         </div>
         <div>
             <div style="margin-bottom:10px;">
-                <label for="exampleInputPassword4">360</label><br />
-                <video width="400" height="250" style="object-fit:cover;" controls class="video" src="~/Videos/@Model.EP1"></video>
-                <input type="file" id="resim" accept=".mp4" class=" form-control" onchange="$('.video')[0].src = window.URL.createObjectURL(this.files[0])" name="Video" />
+                <label for="videoUrlInput">Video URL</label><br />
+                <iframe id="videoIframe" width="400" height="250" style="border:1px solid #000000; display:block;" frameborder="0" allowfullscreen></iframe>
+                <video controls id="otherVideo" width="400" height="250" style="border:1px solid #000000; display:none; object-fit:cover;"></video>
+                <div class="d-flex">
+                    @Html.TextBoxFor(x => x.URL, new { @class = "form-control", @id = "videoUrlInput", @placeholder = "YouTube veya Google Drive video URL'sini buraya yapıştırın", @style = "width:100%; border:1px solid #000000; padding:3px;" })
+                    <button class="btn btn-primary" type="button" id="previewButton">Önizle</button>
+                </div>
             </div>
             <div>
                 <label for="exampleInputPassword4">720</label><br />
@@ -125,6 +129,45 @@
                 }
             }
         });
+    });
+</script>
+
+<script>
+    document.getElementById('previewButton').addEventListener('click', function () {
+        var videoUrl = document.getElementById('videoUrlInput').value;
+        var videoIframe = document.getElementById('videoIframe');
+        var otherVideo = document.getElementById('otherVideo');
+
+        if (videoUrl) {
+            // YouTube URL kontrolü
+            if (videoUrl.includes('youtube.com/watch?v=')) {
+                var videoId = videoUrl.split('v=')[1];
+                if (videoId) {
+                    var ampersandPosition = videoId.indexOf('&');
+                    if (ampersandPosition !== -1) {
+                        videoId = videoId.substring(0, ampersandPosition);
+                    }
+                    videoIframe.src = "https://www.youtube.com/embed/" + videoId;
+                    videoIframe.style.display = "block";
+                    otherVideo.style.display = "none";
+                }
+            }
+            // Google Drive URL kontrolü
+            else if (videoUrl.includes('drive.google.com/file/d/')) {
+                var fileId = videoUrl.split('/d/')[1].split('/')[0];
+                videoIframe.src = "https://drive.google.com/file/d/" + fileId + "/preview";
+                videoIframe.style.display = "block";
+                otherVideo.style.display = "none";
+            } else {
+                // Diğer video URL'leri için
+                videoIframe.style.display = "none";
+                otherVideo.src = videoUrl;
+                otherVideo.style.display = "block";
+            }
+        } else {
+            videoIframe.style.display = "none";
+            otherVideo.style.display = "none";
+        }
     });
 </script>
 

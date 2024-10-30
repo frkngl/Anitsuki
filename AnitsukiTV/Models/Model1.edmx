@@ -21,7 +21,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VIDEO" Type="nvarchar(max)" />
-          <Property Name="TEXT" Type="nvarchar(max)" />
+          <Property Name="TEXT" Type="nvarchar" MaxLength="250" />
           <Property Name="STATUS" Type="bit" />
         </EntityType>
         <EntityType Name="TBLADMIN">
@@ -98,8 +98,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DONATER" Type="nvarchar" MaxLength="100" />
           <Property Name="DONATE" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DONATER" Type="nvarchar" MaxLength="250" />
           <Property Name="STATUS" Type="bit" />
         </EntityType>
         <EntityType Name="TBLEPISODE">
@@ -109,7 +109,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ANIMEID" Type="int" />
           <Property Name="SEASONID" Type="int" />
-          <Property Name="EP1" Type="nvarchar" MaxLength="500" />
+          <Property Name="URL" Type="nvarchar(max)" />
           <Property Name="EP2" Type="nvarchar" MaxLength="500" />
           <Property Name="EP3" Type="nvarchar" MaxLength="500" />
           <Property Name="EP4" Type="nvarchar" MaxLength="500" />
@@ -628,7 +628,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="VIDEO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TEXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TEXT" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="STATUS" Type="Boolean" />
         </EntityType>
         <EntityType Name="TBLADMIN">
@@ -719,8 +719,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DONATER" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="DONATE" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DONATER" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="STATUS" Type="Boolean" />
         </EntityType>
         <EntityType Name="TBLEPISODE">
@@ -730,7 +730,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ANIMEID" Type="Int32" />
           <Property Name="SEASONID" Type="Int32" />
-          <Property Name="EP1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="EP2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="EP3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="EP4" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -1169,8 +1169,8 @@
             <EntityTypeMapping TypeName="AnitsukiTVModel.TBLDONATE">
               <MappingFragment StoreEntitySet="TBLDONATE">
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
-                <ScalarProperty Name="DONATE" ColumnName="DONATE" />
                 <ScalarProperty Name="DONATER" ColumnName="DONATER" />
+                <ScalarProperty Name="DONATE" ColumnName="DONATE" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1187,7 +1187,7 @@
                 <ScalarProperty Name="EP4" ColumnName="EP4" />
                 <ScalarProperty Name="EP3" ColumnName="EP3" />
                 <ScalarProperty Name="EP2" ColumnName="EP2" />
-                <ScalarProperty Name="EP1" ColumnName="EP1" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="SEASONID" ColumnName="SEASONID" />
                 <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

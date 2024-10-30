@@ -3,60 +3,42 @@
     <loc>https://anitsuki.com/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <lastmod>2024-10-26</lastmod>
+    <lastmod>2024-10-30</lastmod>
   </url>
   <url>
     <loc>https://anitsuki.com/animeler</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
-    <lastmod>2024-10-26</lastmod>
-  </url>
-  <url>
-    <loc>https://anitsuki.com/animeler/{kategoriID}/{kategoriName}-izle</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2024-10-26</lastmod>
-  </url>
-  <url>
-    <loc>https://anitsuki.com/anime/{animeID}/{animeName}-{seasonNumber}-sezon-izle</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2024-10-26</lastmod>
-  </url>
-  <url>
-    <loc>https://anitsuki.com/{episodeID}/{animeName}-{seasonNumber}-sezon-{episodeNumber}-bolum-izle</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2024-10-26</lastmod>
+    <lastmod>2024-10-30</lastmod>
   </url>
   <url>
     <loc>https://anitsuki.com/bagis</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
-    <lastmod>2024-10-26</lastmod>
+    <lastmod>2024-10-30</lastmod>
   </url>
   <url>
     <loc>https://anitsuki.com/hakkimizda</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
-    <lastmod>2024-10-26</lastmod>
+    <lastmod>2024-10-30</lastmod>
   </url>
   <url>
     <loc>https://anitsuki.com/gizlilik-politikasi</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
-    <lastmod>2024-10-26</lastmod>
+    <lastmod>2024-10-30</lastmod>
   </url>
   <url>
     <loc>https://anitsuki.com/giris</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
-    <lastmod>2024-10-26</lastmod>
+    <lastmod>2024-10-30</lastmod>
   </url>
   <url>
     <loc>https://anitsuki.com/kayit</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
-    <lastmod>2024-10-26</lastmod>
+    <lastmod>2024-10-30</lastmod>
   </url>
 </urlset>

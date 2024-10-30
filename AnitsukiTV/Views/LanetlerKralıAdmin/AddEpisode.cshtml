@@ -41,16 +41,20 @@
             </div>
             <div>
                 <div style="margin-bottom:10px;">
-                    <label for="exampleInputPassword4">360</label>
+                    <label for="videoUrlInput">Video URL</label>
                     <br />
-                    <video controls class="Video" width="400" height="250" style="border:1px solid #000000; object-fit:cover;"></video>
-                    <input class="form-control" id="resim" accept=".mp4" type="file" onchange="$('.Video')[0].src = window.URL.createObjectURL(this.files[0])" name="Video"  />
+                    <iframe id="videoIframe" width="400" height="250" style="border:1px solid #000000; display:block;" frameborder="0" allowfullscreen></iframe>
+                    <video controls id="otherVideo" width="400" height="250" style="border:1px solid #000000; display:none; object-fit:cover;"></video>
+                    <div class="d-flex">
+                        @Html.TextBoxFor(x => x.URL, new { @class = "form-control", @id = "videoUrlInput", @placeholder = "YouTube veya Google Drive video URL'sini buraya yapıştırın", @style = "width:100%; border:1px solid #000000; padding:3px;" })
+                        <button class="btn btn-primary" type="button" id="previewButton">Önizle</button>
+                    </div>
                 </div>
                 <div>
                     <label for="exampleInputPassword4">720</label>
                     <br />
                     <video controls class="Video3" width="400" height="250" style="border:1px solid #000000; object-fit:cover;"></video>
-                    <input class="form-control" id="resim" accept=".mp4" type="file" onchange="$('.Video3')[0].src = window.URL.createObjectURL(this.files[0])" name="Video3"  />
+                    <input class="form-control" id="resim" accept=".mp4" type="file" onchange="$('.Video3')[0].src = window.URL.createObjectURL(this.files[0])" name="Video3" />
                 </div>
             </div>
             <div>
@@ -96,7 +100,7 @@
             @Html.TextBoxFor(x => x.TIME, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
         </div>
         <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
-        <a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/Anime">Vazgeç</a>
+        <a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/Episode">Vazgeç</a>
     </form>
 
 }
@@ -118,5 +122,40 @@
                 }
             }
         });
+    });
+</script>
+
+
+<script>
+    document.getElementById('previewButton').addEventListener('click', function () {
+        var videoUrl = document.getElementById('videoUrlInput').value;
+        var videoIframe = document.getElementById('videoIframe');
+        var otherVideo = document.getElementById('otherVideo');
+
+        if (videoUrl) {
+            // YouTube URL kontrolü
+            if (videoUrl.includes('youtube.com/watch?v=')) {
+                var videoId = videoUrl.split('v=')[1];
+                if (videoId) {
+                    var ampersandPosition = videoId.indexOf('&');
+                    if (ampersandPosition !== -1) {
+                        videoId = videoId.substring(0, ampersandPosition);
+                    }
+                    videoIframe.src = "https://www.youtube.com/embed/" + videoId;
+                    videoIframe.style.display = "block";
+                    otherVideo.style.display = "none";
+                }
+            }
+            // Google Drive URL kontrolü
+            else if (videoUrl.includes('drive.google.com/file/d/')) {
+                var fileId = videoUrl.split('/d/')[1].split('/')[0];
+                videoIframe.src = "https://drive.google.com/file/d/" + fileId + "/preview";
+                videoIframe.style.display = "block";
+                otherVideo.style.display = "none";
+            }
+        }
+        else {
+            alert('Lütfen geçerli bir video URL\'si girin.');
+        }
     });
 </script>

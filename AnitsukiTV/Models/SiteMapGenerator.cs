@@ -20,9 +20,6 @@ namespace AnitsukiTV.Models
                 // URL'leri ekleyin
                 AddNode(xmlDoc, urlSet, "Anasayfa", "https://anitsuki.com/", "daily", "1.0");
                 AddNode(xmlDoc, urlSet, "Animeler", "https://anitsuki.com/animeler", "daily", "0.9");
-                AddNode(xmlDoc, urlSet, "Kategori", "https://anitsuki.com/animeler/{kategoriID}/{kategoriName}-izle", "daily", "0.9");
-                AddNode(xmlDoc, urlSet, "Anime Detay", "https://anitsuki.com/anime/{animeID}/{animeName}-{seasonNumber}-sezon-izle", "daily", "0.9");
-                AddNode(xmlDoc, urlSet, "Video", "https://anitsuki.com/{episodeID}/{animeName}-{seasonNumber}-sezon-{episodeNumber}-bolum-izle", "daily", "0.9");
                 AddNode(xmlDoc, urlSet, "Bağış", "https://anitsuki.com/bagis", "daily", "0.8");
                 AddNode(xmlDoc, urlSet, "Hakkımızda", "https://anitsuki.com/hakkimizda", "daily", "0.8");
                 AddNode(xmlDoc, urlSet, "Gizlilik Politikası", "https://anitsuki.com/gizlilik-politikasi", "daily", "0.8");

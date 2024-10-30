@@ -21,7 +21,7 @@ namespace AnitsukiTV.Controllers
             return View(veri);
         }
 
-        [Route("gizlilik-politikasi")]
+        [Route("gizlilik-politikasi")]  
         public ActionResult PrivacyPolicy()
         {
             return View();

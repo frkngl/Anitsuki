@@ -15,8 +15,8 @@ namespace AnitsukiTV.Models
     public partial class TBLDONATE
     {
         public int ID { get; set; }
-        public string DONATER { get; set; }
         public Nullable<decimal> DONATE { get; set; }
+        public string DONATER { get; set; }
         public Nullable<bool> STATUS { get; set; }
     }
 }

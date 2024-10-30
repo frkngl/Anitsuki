@@ -24,7 +24,7 @@ namespace AnitsukiTV.Models
         public int ID { get; set; }
         public Nullable<int> ANIMEID { get; set; }
         public Nullable<int> SEASONID { get; set; }
-        public string EP1 { get; set; }
+        public string URL { get; set; }
         public string EP2 { get; set; }
         public string EP3 { get; set; }
         public string EP4 { get; set; }

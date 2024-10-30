@@ -101,8 +101,8 @@
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLDONATE">
         <MappingFragment StoreEntitySet="TBLDONATE">
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
-          <ScalarProperty Name="DONATE" ColumnName="DONATE" />
           <ScalarProperty Name="DONATER" ColumnName="DONATER" />
+          <ScalarProperty Name="DONATE" ColumnName="DONATE" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -119,7 +119,7 @@
           <ScalarProperty Name="EP4" ColumnName="EP4" />
           <ScalarProperty Name="EP3" ColumnName="EP3" />
           <ScalarProperty Name="EP2" ColumnName="EP2" />
-          <ScalarProperty Name="EP1" ColumnName="EP1" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
           <ScalarProperty Name="SEASONID" ColumnName="SEASONID" />
           <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
           <ScalarProperty Name="ID" ColumnName="ID" />

@@ -16,7 +16,7 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="VIDEO" Type="nvarchar(max)" />
-    <Property Name="TEXT" Type="nvarchar(max)" />
+    <Property Name="TEXT" Type="nvarchar" MaxLength="250" />
     <Property Name="STATUS" Type="bit" />
   </EntityType>
   <EntityType Name="TBLADMIN">
@@ -93,8 +93,8 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DONATER" Type="nvarchar" MaxLength="100" />
     <Property Name="DONATE" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="DONATER" Type="nvarchar" MaxLength="250" />
     <Property Name="STATUS" Type="bit" />
   </EntityType>
   <EntityType Name="TBLEPISODE">
@@ -104,7 +104,7 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ANIMEID" Type="int" />
     <Property Name="SEASONID" Type="int" />
-    <Property Name="EP1" Type="nvarchar" MaxLength="500" />
+    <Property Name="URL" Type="nvarchar(max)" />
     <Property Name="EP2" Type="nvarchar" MaxLength="500" />
     <Property Name="EP3" Type="nvarchar" MaxLength="500" />
     <Property Name="EP4" Type="nvarchar" MaxLength="500" />

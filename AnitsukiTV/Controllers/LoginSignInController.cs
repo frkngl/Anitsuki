@@ -61,7 +61,7 @@ namespace AnitsukiTV.Controllers
             db.TBLUSER.Add(user);
             db.SaveChanges();
             TempData["add"] = "Kayıt işlemi başarılı giriş sayfasından, giriş yapabilirsiniz";
-            return RedirectToAction("SignIn");
+            return RedirectToAction("Login");
         }
 
 
@@ -188,7 +188,7 @@ namespace AnitsukiTV.Controllers
                     smtpClient.Send(mail);
                 }
                 TempData["success"] = "Kayıtlı mail adresinize geçici mail gönderilmiştir";
-                return View();
+                return RedirectToAction("Login");
             }
             else
             {

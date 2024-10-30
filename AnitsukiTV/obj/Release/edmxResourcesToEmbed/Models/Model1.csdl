@@ -111,7 +111,7 @@
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="VIDEO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="TEXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TEXT" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="STATUS" Type="Boolean" />
   </EntityType>
   <EntityType Name="TBLADMIN">
@@ -202,8 +202,8 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="DONATER" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="DONATE" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DONATER" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="STATUS" Type="Boolean" />
   </EntityType>
   <EntityType Name="TBLEPISODE">
@@ -213,7 +213,7 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ANIMEID" Type="Int32" />
     <Property Name="SEASONID" Type="Int32" />
-    <Property Name="EP1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="EP2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="EP3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="EP4" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />

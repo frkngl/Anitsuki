@@ -569,7 +569,6 @@ namespace AnitsukiTV.Controllers
                     WebImage rr = new WebImage(Image.InputStream);
 
                     if (rr.Width > 1000)
-
                         rr.Resize(1000, 1000);
                     rr.Save(path);
 
@@ -583,13 +582,13 @@ namespace AnitsukiTV.Controllers
                     episode.TIME = add.TIME;
                     episode.DATE = Convert.ToDateTime(DateTime.Now.ToShortDateString());
 
-                    if (Video != null && Video.ContentLength > 0)
+                    // Process the video URL for embedding
+                    if (!string.IsNullOrEmpty(add.URL))
                     {
-                        string yol = Path.Combine("~/Videos/" + Video.FileName);
-                        Video.SaveAs(Server.MapPath(yol));
+                        episode.URL = FormatVideoUrl(add.URL);
                     }
-                    episode.EP1 = Video != null ? Video.FileName.ToString() : null;
 
+                    // Handle video uploads
                     if (Video2 != null && Video2.ContentLength > 0)
                     {
                         string yol2 = Path.Combine("~/Videos/" + Video2.FileName);
@@ -623,6 +622,21 @@ namespace AnitsukiTV.Controllers
                 }
             }
             return View();
+        }
+
+        private string FormatVideoUrl(string url)
+        {
+            if (url.Contains("youtube.com/watch?v="))
+            {
+                var videoId = url.Split(new[] { "v=" }, StringSplitOptions.None)[1].Split('&')[0];
+                return "https://www.youtube.com/embed/" + videoId;
+            }
+            else if (url.Contains("drive.google.com/file/d/"))
+            {
+                var fileId = url.Split(new[] { "/d/" }, StringSplitOptions.None)[1].Split('/')[0];
+                return "https://drive.google.com/file/d/" + fileId + "/preview";
+            }
+            return url; 
         }
 
 
@@ -674,19 +688,9 @@ namespace AnitsukiTV.Controllers
                 }
             }
 
-            if (Video != null && Video.ContentLength > 0)
+            if (!string.IsNullOrEmpty(update.URL))
             {
-                var videoPath = Request.MapPath("~/Videos/" + Video.FileName);
-                try
-                {
-                    Video.SaveAs(videoPath);
-                    updateepisode.EP1 = Video.FileName;
-                }
-                catch (Exception ex)
-                {
-                    TempData["error"] = "Error uploading video: " + ex.Message;
-                    return View();
-                }
+                updateepisode.URL = FormatVideoUrl(update.URL);
             }
 
             if (Video2 != null && Video2.ContentLength > 0)

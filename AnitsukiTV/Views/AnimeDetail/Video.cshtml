@@ -108,7 +108,7 @@
 </head>
 <body>
     <link itemprop="thumbnailUrl" href="~/IMG/aylogo.png">
-    <span itemprop="thumbnail" itemscope itemtype="~/IMG/aylogo.png">
+    <span itemprop="thumbnail" itemscope itemtype="http://schema.org/ImageObject">
         <link itemprop="url" href="~/IMG/aylogo.png">
     </span>
     <div class="loader">
@@ -163,34 +163,52 @@
     </header>
     <div class="content">
         <div class="videoposter">
-            <div class="poster">
-                @foreach (var vv in Model.VideoInfo.Episode)
+            @foreach (var vv in Model.VideoInfo.Episode)
+            {
+                if (vv.URL != null)
                 {
-                    <img src="~/IMG/@vv.BANNER" />
+                    <div style="display: none;" class="poster">
+                        <img src="~/IMG/@vv.BANNER" />
+                        <i class="bi bi-play-circle"></i>
+                    </div>
                 }
-                <i class="bi bi-play-circle"></i>
-            </div>
-            <video controls id="plyr">
-                @foreach (var x in Model.VideoInfo.Episode)
+                else
                 {
-                    if (x.EP1 != null)
+                    if (vv.BANNER != null)
                     {
-                        <source src="~/Videos/@x.EP1" size="360" type="video/mp4" />
-                    }
-                    if (x.EP2 != null)
-                    {
-                        <source src="~/Videos/@x.EP2" size="480" type="video/mp4" />
-                    }
-                    if (x.EP3 != null)
-                    {
-                        <source src="~/Videos/@x.EP3" size="720" type="video/mp4" />
-                    }
-                    if (x.EP4 != null)
-                    {
-                        <source src="~/Videos/@x.EP4" size="1080" type="video/mp4" />
+                        <div class="poster">
+                            <img src="~/IMG/@vv.BANNER" />
+                            <i class="bi bi-play-circle"></i>
+                        </div>
                     }
                 }
-            </video>
+            }
+
+            @foreach (var ez in Model.VideoInfo.Episode)
+            {
+                if (ez.URL != null)
+                {
+                    <iframe style="width:100%; height:70vh;" src="@ez.URL" allowfullscreen></iframe>
+                }
+                else
+                {
+                    <video controls id="plyr">
+                        @if (ez.EP2 != null)
+                        {
+                            <source src="~/Videos/@ez.EP2" size="480" type="video/mp4" />
+                        }
+                        @if (ez.EP3 != null)
+                        {
+                            <source src="~/Videos/@ez.EP3" size="720" type="video/mp4" />
+                        }
+                        @if (ez.EP4 != null)
+                        {
+                            <source src="~/Videos/@ez.EP4" size="1080" type="video/mp4" />
+                        }
+                    </video>
+                }
+            }
+
         </div>
         <div style="margin-top:25px !important;" class="head">
             <div class="episodeandcomment">
@@ -291,7 +309,7 @@
                 }
                 @Html.Action("LeaveComment1", "AnimeDetail", new { id = ViewBag.episodeID })
                 <div class="commentboxes">
-                    @Html.Action("Comment1", "AnimeDetail", new { id = ViewBag.episodeID})
+                    @Html.Action("Comment1", "AnimeDetail", new { id = ViewBag.episodeID })
                 </div>
             </div>
             <div class="nextandprevepisode">
@@ -529,14 +547,11 @@
             'pip',
             'fullscreen',
             'progressareatime'
-
         ],
         i18n: {
-
             speed: 'Hız',
             normal: 'Normal',
             quality: 'Kalite'
-
         },
         keyboard: {
             focused: true,
@@ -550,11 +565,23 @@
     });
 
     poster.addEventListener('click', () => {
-    poster.style.display = "none";
+        poster.style.display = "none";
         player.play();
     });
 
     player.on('fullscreen', () => {
         poster.style.display = "block";
+    });
+
+    
+    document.addEventListener('keydown', (event) => {
+        if (event.code === 'Space') {
+            event.preventDefault(); 
+            if (player.playing) {
+                player.pause(); 
+            } else {
+                player.play(); 
+            }
+        }
     });
 </script>
