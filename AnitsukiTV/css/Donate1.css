@@ -33,6 +33,49 @@ body {
     background-color: #FF7F00;
 }
 
+/*---------------------------------YILBASI KAR TEMASI----------------------------------------*/
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000000;
+}
+
+#snow-container {
+    z-index: 99999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.snowflake {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+.snowflake {
+    animation-name: fall;
+    animation-timing-function: linear;
+}
+
 /*---------------------------------------LOADING START---------------------------------------*/
 
 .loader {
@@ -330,43 +373,298 @@ header {
 }
 
 /*---------------------------------------HEADER END---------------------------------------*/
-
-/*---------------------------------------ABOUT START---------------------------------------*/
-.content6 {
-    width: 100%;
+/*---------------------------------------DONATE END---------------------------------------*/
+.container {
     margin-top: 130px;
-    color: #F2F4F3;
-    font-size: 1rem;
-    font-weight: 400;
-    font-style: normal;
 }
 
-    .content6 .title {
-        font-size: 1.4rem;
-        font-weight: 500;
-        font-style: normal;
-        margin: 20px 0px;
-    }
-
-@media only screen and (max-width: 600px) {
-    .content6 {
+    .container .donation {
         width: 100%;
-        margin-top: 100px;
-        color: #F2F4F3;
-        font-size: 0.8rem;
-        font-weight: 400;
-        font-style: normal;
+        height: auto;
+        display: flex;
     }
 
-        .content6 .title {
-            font-size: 1.2rem;
+        .container .donation .papara {
+            width: 35%;
+            height: auto;
+        }
+
+            .container .donation .papara img {
+                width: 350px;
+                height: auto;
+            }
+
+        .container .donation .text {
+            width: 65%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: center;
+        }
+
+            .container .donation .text .title {
+                font-size: 1.1rem;
+                font-style: normal;
+                font-weight: 600;
+            }
+
+            .container .donation .text .des {
+                font-size: 1rem;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+    .container .user {
+        width: 100%;
+        height: auto;
+    }
+
+        .container .user .title {
+            font-size: 1.1rem;
             font-weight: 500;
             font-style: normal;
-            margin: 20px 0px;
+            margin-bottom: 10px;
         }
-}
-/*---------------------------------------ABOUT END---------------------------------------*/
 
+        .container .user .users {
+            width: 100%;
+            height: 230px;
+            border: 2px solid #FF7F00;
+            box-shadow: #FF7F00 0px 0px 100px 5px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 100px;
+        }
+
+            .container .user .users .box1 {
+                width: 25%;
+                height: 40px;
+                background-color: #ffffff;
+                color: #ffffff;
+                display: flex;
+                justify-content: space-around;
+                position: relative;
+            }
+
+                .container .user .users .box1::after {
+                    content: "";
+                    width: 95%;
+                    height: 2px;
+                    background-color: #313120;
+                    display: block;
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+
+                .container .user .users .box1 .username {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 70%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 70%; /* Add this line */
+                }
+
+                .container .user .users .box1 .cash {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 30%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 30%; /* Add this line */
+                }
+
+
+@media only screen and (max-width:1200px) {
+    .container .donation {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+        .container .donation .papara {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: auto;
+            margin-top: 50px;
+        }
+
+            .container .donation .papara img {
+                width: 350px;
+                height: auto;
+            }
+
+        .container .donation .text {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: center;
+        }
+
+            .container .donation .text .title {
+                font-size: 1.1rem;
+                font-style: normal;
+                font-weight: 600;
+            }
+
+            .container .donation .text .des {
+                font-size: 1rem;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+    .container .user {
+        width: 100%;
+        height: auto;
+    }
+
+        .container .user .title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            font-style: normal;
+            margin-bottom: 10px;
+        }
+
+        .container .user .users {
+            width: 100%;
+            height: 420px;
+            border: 2px solid #FF7F00;
+            box-shadow: #FF7F00 0px 0px 100px 5px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 100px;
+        }
+
+            .container .user .users .box1 {
+                width: 48%;
+                height: 40px;
+                background-color: #ffffff;
+                color: #ffffff;
+                display: flex;
+                justify-content: space-around;
+                position: relative;
+            }
+
+                .container .user .users .box1::after {
+                    content: "";
+                    width: 95%;
+                    height: 2px;
+                    background-color: #313120;
+                    display: block;
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+
+                .container .user .users .box1 .username {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 70%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 70%; /* Add this line */
+                }
+
+                .container .user .users .box1 .cash {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 30%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 30%; /* Add this line */
+                }
+}
+
+@media only screen and (max-width:600px) {
+    .container .user {
+        width: 100%;
+        height: auto;
+    }
+
+        .container .user .title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            font-style: normal;
+            margin-bottom: 10px;
+        }
+
+        .container .user .users {
+            width: 100%;
+            height: 840px;
+            border: 2px solid #FF7F00;
+            box-shadow: #FF7F00 0px 0px 100px 5px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 100px;
+        }
+
+            .container .user .users .box1 {
+                width: 100%;
+                height: 40px;
+                background-color: #ffffff;
+                color: #ffffff;
+                display: flex;
+                justify-content: space-around;
+                position: relative;
+            }
+
+                .container .user .users .box1::after {
+                    content: "";
+                    width: 95%;
+                    height: 2px;
+                    background-color: #313120;
+                    display: block;
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+
+                .container .user .users .box1 .username {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 70%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 70%; /* Add this line */
+                }
+
+                .container .user .users .box1 .cash {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 30%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 30%; /* Add this line */
+                }
+}
+/*---------------------------------------DONATE END---------------------------------------*/
 /*---------------------------------------FOOTER START---------------------------------------*/
 footer {
     margin-top: 100px;

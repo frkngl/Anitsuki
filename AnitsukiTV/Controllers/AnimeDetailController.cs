@@ -61,7 +61,7 @@ namespace AnitsukiTV.Controllers
             var degerler = db.TBLANIMECOMMENT.Where(x => x.ANIMEID == id && x.STATUS == true).ToList();
             ViewBag.AnimeCount = degerler.Where(x => x.STATUS == true).Count();
             ViewBag.anime = id;
-            ViewBag.animeName = db.TBLANIME.Find(id).ANIMENAME; // Set anime name here
+            ViewBag.animeName = db.TBLANIME.Find(id).ANIMENAME; 
             return PartialView(degerler);
         }
 
