@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 Sayfa Bulunamadı</title>
-    <link rel="stylesheet" href="~/css/404Page.css" type="text/Css">
+    <link rel="stylesheet" href="~/css/404Page1.css" type="text/Css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
@@ -21,6 +21,7 @@
     <span itemprop="thumbnail" itemscope itemtype="http://schema.org/ImageObject">
         <link itemprop="url" href="~/IMG/aylogo.png">
     </span>
+    <div id="snow-container"></div>
     <div class="error">
         @foreach (var x in Model.Where(x => x.STATUS == true).OrderBy(x => Guid.NewGuid()).Take(1))
         {
@@ -88,4 +89,32 @@
             btnMuteUnmte.textContent = "volume_off";
         }
     });
+</script>
+
+<script>
+    // script.js
+    const snowContainer = document.getElementById('snow-container');
+
+    function createSnowflake() {
+        const snowflake = document.createElement('div');
+        const size = Math.random() * 5 + 2; // Kar tanesi boyutu
+        const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
+        const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
+
+        snowflake.classList.add('snowflake');
+        snowflake.style.width = `${size}px`;
+        snowflake.style.height = `${size}px`;
+        snowflake.style.left = `${leftPosition}px`;
+        snowflake.style.animationDuration = `${animationDuration}s`;
+
+        snowContainer.appendChild(snowflake);
+
+        // Kar tanesinin düşüşü tamamlandığında sil
+        setTimeout(() => {
+            snowflake.remove();
+        }, animationDuration * 1000);
+    }
+
+    // Kar tanelerini sürekli oluştur
+    setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
 </script>

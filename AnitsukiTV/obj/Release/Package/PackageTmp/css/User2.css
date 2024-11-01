@@ -33,6 +33,50 @@ body {
     background-color: #FF7F00;
 }
 
+/*---------------------------------YILBASI KAR TEMASI----------------------------------------*/
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000000;
+}
+
+#snow-container {
+    z-index: 99999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.snowflake {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+.snowflake {
+    animation-name: fall;
+    animation-timing-function: linear;
+}
+
+
 /*---------------------------------------LOADING START---------------------------------------*/
 
 .loader {
@@ -331,41 +375,442 @@ header {
 
 /*---------------------------------------HEADER END---------------------------------------*/
 
-/*---------------------------------------ABOUT START---------------------------------------*/
-.content6 {
-    width: 100%;
-    margin-top: 130px;
-    color: #F2F4F3;
-    font-size: 1rem;
-    font-weight: 400;
-    font-style: normal;
+/*---------------------------------------USER START---------------------------------------*/
+.content9 {
+    padding: 0rem 10rem;
+    margin-top: 80px;
 }
 
-    .content6 .title {
-        font-size: 1.4rem;
-        font-weight: 500;
-        font-style: normal;
-        margin: 20px 0px;
-    }
-
-@media only screen and (max-width: 600px) {
-    .content6 {
+    .content9 .text {
         width: 100%;
-        margin-top: 100px;
-        color: #F2F4F3;
-        font-size: 0.8rem;
-        font-weight: 400;
-        font-style: normal;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
-        .content6 .title {
-            font-size: 1.2rem;
+        .content9 .text .box {
+            color: #FF7F00;
+            font-size: 1rem;
+            letter-spacing: 1px;
             font-weight: 500;
             font-style: normal;
-            margin: 20px 0px;
+            display: flex;
+            align-items: center;
         }
+
+            .content9 .text .box a {
+                position: relative;
+                text-decoration: none;
+                letter-spacing: 0.5px;
+                color: #ffffff;
+                font-size: 1rem;
+                font-weight: 500;
+                font-style: normal;
+                transition: all 300ms;
+            }
+
+                .content9 .text .box a:hover {
+                    color: #FF7F00;
+                }
+
+    .content9 .userdetail {
+        display: flex;
+    }
+
+        .content9 .userdetail img {
+            width: 140px;
+            height: 140px;
+            -o-object-fit: cover;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .content9 .userdetail .detail {
+            margin-left: 20px;
+            width: 100%;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+            .content9 .userdetail .detail .title {
+                color: #ffffff;
+                font-size: 1rem;
+                font-weight: 500;
+                font-style: normal;
+            }
+
+            .content9 .userdetail .detail .des {
+                color: #ffffff;
+                font-size: 0.9rem;
+                font-weight: 500;
+                font-style: normal;
+                padding-right: 10rem;
+            }
+
+            .content9 .userdetail .detail .date {
+                color: #ffffff;
+                font-size: 0.9rem;
+                font-weight: 500;
+                font-style: normal;
+                margin-top: 10px;
+            }
+
+    .content9 .lastcommentfavoriteanime {
+        margin-top: 30px;
+        width: 100%;
+        height: auto;
+    }
+
+        .content9 .lastcommentfavoriteanime .text {
+            display: flex;
+            justify-content: space-between;
+        }
+
+            .content9 .lastcommentfavoriteanime .text .title {
+                font-size: 1rem;
+                font-weight: 500;
+                font-style: normal;
+                color: #ffffff;
+            }
+
+            .content9 .lastcommentfavoriteanime .text .search {
+                width: 170px;
+                height: 35px;
+                background-color: #313131;
+                border-radius: 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                color: #ffffff;
+            }
+
+                .content9 .lastcommentfavoriteanime .text .search i {
+                    margin-left: 10px;
+                    font-size: 1rem;
+                    font-style: normal;
+                }
+
+                .content9 .lastcommentfavoriteanime .text .search input {
+                    width: 82%;
+                    height: 100%;
+                    border: none;
+                    outline: none;
+                    background-color: transparent;
+                    color: #ffffff;
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                    font-style: normal;
+                    padding-right: 6px;
+                }
+
+        .content9 .lastcommentfavoriteanime .animeler {
+            width: 100%;
+            max-height: 400px;
+        }
+
+            .content9 .lastcommentfavoriteanime .animeler ul {
+                list-style-type: none;
+                padding: 0px;
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                max-height: 400px;
+                overflow: auto;
+                gap: 1.2%;
+            }
+
+                .content9 .lastcommentfavoriteanime .animeler ul li {
+                    transition: all 250ms;
+                    width: 10%;
+                    margin-bottom: 20px;
+                }
+
+                    .content9 .lastcommentfavoriteanime .animeler ul li a {
+                        text-decoration: none;
+                        color: #ffffff;
+                    }
+
+                        .content9 .lastcommentfavoriteanime .animeler ul li a .box {
+                            width: 100%;
+                            line-height: 0.7;
+                        }
+
+                            .content9 .lastcommentfavoriteanime .animeler ul li a .box .img {
+                                position: relative;
+                                width: 100%;
+                                height: 240px;
+                            }
+
+                                .content9 .lastcommentfavoriteanime .animeler ul li a .box .img img {
+                                    width: 100%;
+                                    height: 230px;
+                                    -o-object-fit: cover;
+                                    object-fit: cover;
+                                    border-radius: 10px;
+                                }
+
+                                .content9 .lastcommentfavoriteanime .animeler ul li a .box .img .bi-play-circle {
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    font-size: 2rem;
+                                    font-weight: 600;
+                                    font-style: normal;
+                                    transform: translate(-50%, -50%);
+                                }
+
+                            .content9 .lastcommentfavoriteanime .animeler ul li a .box .detail .title {
+                                font-size: 0.9rem;
+                                font-weight: 500;
+                                font-style: normal;
+                            }
+
+@media only screen and (max-width: 1800px) {
+    .content9 {
+        padding: 0rem 10rem;
+        margin-top: 80px;
+    }
+
+        .content9 .lastcommentfavoriteanime .animeler {
+            width: 100%;
+            max-height: 400px;
+        }
+
+            .content9 .lastcommentfavoriteanime .animeler ul {
+                list-style-type: none;
+                padding: 0px;
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                max-height: 400px;
+                overflow: auto;
+                gap: 0.5% !important;
+            }
+
+                .content9 .lastcommentfavoriteanime .animeler ul li {
+                    transition: all 250ms;
+                    width: 12% !important;
+                    margin-bottom: 20px;
+                }
 }
-/*---------------------------------------ABOUT END---------------------------------------*/
+
+@media only screen and (max-width: 1500px) {
+    .content9 {
+        padding: 0rem !important;
+        margin: 80px 16px 0px 16px !important;
+    }
+
+        .content9 .lastcommentfavoriteanime {
+            margin-top: 30px;
+            width: 100%;
+            height: auto;
+        }
+
+            .content9 .lastcommentfavoriteanime .animeler {
+                width: 100%;
+                max-height: 400px;
+            }
+
+                .content9 .lastcommentfavoriteanime .animeler ul {
+                    list-style-type: none;
+                    padding: 0px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    width: 100%;
+                    max-height: 400px;
+                    overflow: auto;
+                    gap: 1% !important;
+                }
+
+                    .content9 .lastcommentfavoriteanime .animeler ul li {
+                        transition: all 250ms;
+                        width: 13.3% !important;
+                        margin-bottom: 20px;
+                    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .content9 .lastcommentfavoriteanime {
+        margin-top: 30px;
+        width: 100%;
+        height: auto;
+    }
+
+        .content9 .lastcommentfavoriteanime .animeler {
+            width: 100%;
+            max-height: 400px;
+        }
+
+            .content9 .lastcommentfavoriteanime .animeler ul {
+                list-style-type: none;
+                padding: 0px;
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                max-height: 400px;
+                overflow: auto;
+                gap: 1% !important;
+            }
+
+                .content9 .lastcommentfavoriteanime .animeler ul li {
+                    transition: all 250ms;
+                    width: 15.8% !important;
+                    margin-bottom: 20px;
+                }
+}
+
+@media only screen and (max-width: 950px) {
+    .content9 .lastcommentfavoriteanime {
+        margin-top: 30px;
+        width: 100%;
+        height: auto;
+    }
+
+        .content9 .lastcommentfavoriteanime .animeler {
+            width: 100%;
+            max-height: 400px;
+        }
+
+            .content9 .lastcommentfavoriteanime .animeler ul {
+                list-style-type: none;
+                padding: 0px;
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                max-height: 400px;
+                overflow: auto;
+                gap: 3.5% !important;
+            }
+
+                .content9 .lastcommentfavoriteanime .animeler ul li {
+                    transition: all 250ms;
+                    width: 22% !important;
+                    margin-bottom: 20px;
+                }
+}
+
+@media only screen and (max-width: 700px) {
+    .content9 .lastcommentfavoriteanime {
+        margin-top: 30px;
+        width: 100%;
+        height: auto;
+    }
+
+        .content9 .lastcommentfavoriteanime .animeler {
+            width: 100%;
+            max-height: 400px;
+        }
+
+            .content9 .lastcommentfavoriteanime .animeler ul {
+                list-style-type: none;
+                padding: 0px;
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                max-height: 400px;
+                overflow: auto;
+                gap: 2.3% !important;
+            }
+
+                .content9 .lastcommentfavoriteanime .animeler ul li {
+                    transition: all 250ms;
+                    width: 23% !important;
+                    margin-bottom: 20px;
+                }
+}
+
+@media only screen and (max-width: 650px) {
+    .content9 .userdetail {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .content9 .userdetail img {
+            width: 140px;
+            height: 140px;
+            -o-object-fit: cover;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .content9 .userdetail .detail {
+            margin-left: 0px !important;
+            width: 100%;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+            .content9 .userdetail .detail .des {
+                color: #ffffff;
+                font-size: 0.9rem;
+                font-weight: 500;
+                font-style: normal;
+                padding-right: 0rem;
+            }
+
+    .content9 .lastcommentfavoriteanime {
+        margin-top: 30px;
+        width: 100%;
+        height: auto;
+    }
+
+        .content9 .lastcommentfavoriteanime .animeler {
+            width: 100%;
+            max-height: 400px;
+        }
+
+            .content9 .lastcommentfavoriteanime .animeler ul {
+                list-style-type: none;
+                padding: 0px;
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                max-height: 400px;
+                overflow: auto;
+                gap: 4% !important;
+            }
+
+                .content9 .lastcommentfavoriteanime .animeler ul li {
+                    transition: all 250ms;
+                    width: 30% !important;
+                    margin-bottom: 20px;
+                }
+}
+
+@media only screen and (max-width: 500px) {
+    .content9 .lastcommentfavoriteanime {
+        margin-top: 30px;
+        width: 100%;
+        height: auto;
+    }
+
+        .content9 .lastcommentfavoriteanime .animeler {
+            width: 100%;
+        }
+
+            .content9 .lastcommentfavoriteanime .animeler ul {
+                list-style-type: none;
+                padding: 0px;
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                overflow: auto;
+                gap: 1% !important;
+            }
+
+                .content9 .lastcommentfavoriteanime .animeler ul li {
+                    transition: all 250ms;
+                    width: 49% !important;
+                    margin-bottom: 20px;
+                }
+}
+/*---------------------------------------USER END---------------------------------------*/
 
 /*---------------------------------------FOOTER START---------------------------------------*/
 footer {

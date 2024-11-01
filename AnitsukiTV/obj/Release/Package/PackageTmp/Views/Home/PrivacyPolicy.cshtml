@@ -32,7 +32,7 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="~/css/PrivacyandPolitic.css" />
+    <link rel="stylesheet" href="~/css/PrivacyandPolitic1.css" />
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
 </head>
 <body>
@@ -43,6 +43,7 @@
     <div class="loader">
 
     </div>
+    <div id="snow-container"></div>
     <header>
         <div class="container-xl">
             <div class="row">
@@ -250,6 +251,33 @@
             togglePositionalHeaderStyles();
         }, 50);
     });
+</script>
+<script>
+    // script.js
+    const snowContainer = document.getElementById('snow-container');
+
+    function createSnowflake() {
+        const snowflake = document.createElement('div');
+        const size = Math.random() * 5 + 2; // Kar tanesi boyutu
+        const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
+        const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
+
+        snowflake.classList.add('snowflake');
+        snowflake.style.width = `${size}px`;
+        snowflake.style.height = `${size}px`;
+        snowflake.style.left = `${leftPosition}px`;
+        snowflake.style.animationDuration = `${animationDuration}s`;
+
+        snowContainer.appendChild(snowflake);
+
+        // Kar tanesinin düşüşü tamamlandığında sil
+        setTimeout(() => {
+            snowflake.remove();
+        }, animationDuration * 1000);
+    }
+
+    // Kar tanelerini sürekli oluştur
+    setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
 </script>
 
 

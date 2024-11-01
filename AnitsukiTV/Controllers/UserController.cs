@@ -21,12 +21,26 @@ namespace AnitsukiTV.Controllers
         public ActionResult Index()
         {
             string urlUsername = RouteData.Values["userName"].ToString();
-            int userID = db.TBLUSER.Where(x => x.USERNAME.Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").ToLower() == urlUsername).FirstOrDefault().ID;
-            veri.User = db.TBLUSER?.Where(x => x.ID == userID)?.FirstOrDefault();
-            var degerler = db.TBLUSER?.Where(x => x.ID == userID)?.FirstOrDefault();
-            ViewBag.user = degerler.USERNAME;
-            veri.Favorites = db.TBLFAVORITES.AsQueryable().Include(f => f.TBLANIME).Where(f => f.USERID == userID).ToList();
-            veri.WatchLater = db.TBLWATCHLATER.AsQueryable().Include(f => f.TBLANIME).Where(f => f.USERID == userID).ToList();
+
+            // Kullanıcının profilini al
+            var user = db.TBLUSER.Where(x => x.USERNAME.Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").ToLower() == urlUsername).FirstOrDefault();
+
+            if (user == null)
+            {
+                return HttpNotFound(); // Kullanıcı bulunamazsa 404 döndür
+            }
+
+            veri.User = user;
+            ViewBag.UserName = user.USERNAME; // Kullanıcı adını ViewBag'e ekle
+
+            // Favoriler ve İzlenecekler
+            veri.Favorites = db.TBLFAVORITES.AsQueryable().Include(f => f.TBLANIME).Where(f => f.USERID == user.ID).ToList();
+            veri.WatchLater = db.TBLWATCHLATER.AsQueryable().Include(f => f.TBLANIME).Where(f => f.USERID == user.ID).ToList();
+
+            // Kullanıcının kendi profilini ziyaret edip etmediğini kontrol et
+            bool isCurrentUserProfile = (User.Identity.Name.ToLower() == urlUsername.ToLower());
+            ViewBag.IsCurrentUserProfile = isCurrentUserProfile;
+
             return View(veri);
         }
 

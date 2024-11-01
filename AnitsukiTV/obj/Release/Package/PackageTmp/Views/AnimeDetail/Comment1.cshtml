@@ -1,7 +1,27 @@
 ﻿@using AnitsukiTV.Models
 @model List<TBLEPISODECOMMENT>
 
+<style>
+    .comments .detail .user .name a {
+        color: #ffffff; 
+        text-decoration: none; 
+        transition: all 0.2s;
+    }
 
+        .comments .detail .user .name a:hover {
+            color: #FF7F00; 
+        }
+
+    .like.active a,
+    .unlike.active a {
+        color: orange; 
+    }
+
+    .like a,
+    .unlike a {
+        color: white;
+    }
+</style>
 
 
 
@@ -26,7 +46,16 @@
                 <div class="detail">
                     <div class="user">
                         <div class="name">
-                            @x.TBLUSER.USERNAME
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                // Giriş yapmış kullanıcı
+                                <a href="@Url.RouteUrl("Profil", new { userName = x.TBLUSER.USERNAME })">@x.TBLUSER.USERNAME</a>
+                            }
+                            else
+                            {
+                                // Giriş yapmamış kullanıcı
+                                <a href="@Url.RouteUrl("Giriş", new { returnUrl = Request.RawUrl })">@x.TBLUSER.USERNAME</a>
+                            }
                         </div>
                         <div class="year">
                             @x.DATE.Value.ToString("dd.MM.yyyy")
@@ -105,41 +134,19 @@
 
                             @if (User.Identity.IsAuthenticated)
                             {
-                                if (liked.HasValue && liked.Value)
-                                {
-                                    <div class="like active" data-comment-id="@x.ID">
-                                        <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike(this, @x.ID, @userID, true)">
-                                            <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
-                                            <span id="like-count-@x.ID">@x.TBLEPISODECOMMENTLIKE.Where(y => y.STATUS == true).Count()</span>
-                                        </a>
-                                    </div>
+                                <div class="like @(liked.HasValue && liked.Value ? "active" : "")" data-comment-id="@x.ID">
+                                    <a style="text-decoration: none; cursor: pointer;" onclick="handleLikeOrUnlike(this, @x.ID, @userID, true)">
+                                        <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
+                                        <span id="like-count-@x.ID">@x.TBLEPISODECOMMENTLIKE.Where(y => y.STATUS == true).Count()</span>
+                                    </a>
+                                </div>
 
-                                    <div id="comment-success" style="display:none;"></div>
-                                    <div id="comment-error" style="display:none;"></div>
-                                    <span id="like-count-@x.ID">@x.TBLEPISODECOMMENTLIKE.Where(y => y.STATUS == true).Count()</span>
-
-                                    <div class="unlike" data-comment-id="@x.ID">
-                                        <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike(this, @x.ID, @userID, false)">
-                                            <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
-                                            <span id="unlike-count-@x.ID">@x.TBLEPISODECOMMENTLIKE.Where(y => y.STATUS == false).Count()</span>
-                                        </a>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="like" style="margin-right:5px;" data-comment-id="@x.ID">
-                                        <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike(this, @x.ID, @userID, true)">
-                                            <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
-                                            <span id="like-count-@x.ID">@x.TBLEPISODECOMMENTLIKE.Where(y => y.STATUS == true).Count()</span>
-                                        </a>
-                                    </div>
-                                    <div class="unlike active" data-comment-id="@x.ID">
-                                        <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike(this, @x.ID, @userID, false)">
-                                            <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
-                                            <span id="unlike-count-@x.ID">@x.TBLEPISODECOMMENTLIKE.Where(y => y.STATUS == false).Count()</span>
-                                        </a>
-                                    </div>
-                                }
+                                <div class="unlike @(liked.HasValue && !liked.Value ? "active" : "")" data-comment-id="@x.ID">
+                                    <a style="text-decoration: none; cursor: pointer;" onclick="handleLikeOrUnlike(this, @x.ID, @userID, false)">
+                                        <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
+                                        <span id="unlike-count-@x.ID">@x.TBLEPISODECOMMENTLIKE.Where(y => y.STATUS == false).Count()</span>
+                                    </a>
+                                </div>
                             }
                             else
                             {
@@ -174,7 +181,16 @@
                     <div class="detail">
                         <div class="user">
                             <div class="name">
-                                @y.TBLUSER.USERNAME
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    // Giriş yapmış kullanıcı
+                                    <a href="@Url.RouteUrl("Profil", new { userName = y.TBLUSER.USERNAME })">@y.TBLUSER.USERNAME</a>
+                                }
+                                else
+                                {
+                                    // Giriş yapmamış kullanıcı
+                                    <a href="@Url.RouteUrl("Giriş", new { returnUrl = Request.RawUrl })">@y.TBLUSER.USERNAME</a>
+                                }
                             </div>
                             <div class="year">
                                 @y.DATE.Value.ToString("dd.MM.yyyy")
@@ -254,10 +270,6 @@
                                                 <span id="like-count-@y.ID">@y.TBLEPISODECOMMENTLIKE.Where(z => z.STATUS == true).Count()</span>
                                             </a>
                                         </div>
-
-                                        <div id="comment-success" style="display:none;"></div>
-                                        <div id="comment-error" style="display:none;"></div>
-                                        <span id="like-count-@y.ID">@y.TBLEPISODECOMMENTLIKE.Where(z => z.STATUS == true).Count()</span>
 
                                         <div class="unlike" data-comment-id="@y.ID">
                                             <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike(this, @y.ID, @userID, false)">
@@ -340,19 +352,19 @@
                 unlikeCountSpan.text(data.unlikeCount);
                 if (isLike) {
                     if (data.likeCount > 0) {
-                        likeButton.addClass("active");
-                        unlikeButton.removeClass("active");
+                        likeButton.addClass("active").css('color', '#FF7F00');
+                        unlikeButton.removeClass("active").css('color', '#ffffff')
                     } else {
-                        likeButton.removeClass("active");
-                        unlikeButton.addClass("active");
+                        likeButton.addClass("active").css('color', '#FF7F00');
+                        unlikeButton.removeClass("active").css('color', '#ffffff');
                     }
                 } else {
                     if (data.unlikeCount > 0) {
-                        unlikeButton.addClass("active");
-                        likeButton.removeClass("active");
+                        unlikeButton.addClass("active").css('color', '#FF7F00');
+                        likeButton.removeClass("active").css('color', '#ffffff');
                     } else {
-                        unlikeButton.removeClass("active");
-                        likeButton.addClass("active");
+                        unlikeButton.addClass("active").css('color', '#FF7F00');
+                        likeButton.removeClass("active").css('color', '#ffffff');
                     }
                 }
             }

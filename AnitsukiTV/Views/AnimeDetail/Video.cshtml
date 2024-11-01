@@ -38,7 +38,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="~/css/VideoDetail.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/VideoDetail2.css" type="text/css" />
     <link rel="stylesheet" href="~/css/plyr.css" type="text/css" />
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
     <style>
@@ -104,6 +104,16 @@
                     color: #ffffff;
                     cursor: pointer;
                 }
+
+        .like1.active a,
+        .unlike1.active a {
+            color: orange; 
+        }
+
+        .like1 a,
+        .unlike1 a {
+            color: white; 
+        }
     </style>
 </head>
 <body>
@@ -114,6 +124,7 @@
     <div class="loader">
 
     </div>
+    <div id="snow-container"></div>
     <header style="background-color: #000000;">
         <div class="container-xl">
             <div class="row">
@@ -242,54 +253,32 @@
 
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        if (liked.HasValue && liked.Value)
-                                        {
-                                            <div class="like1 active" style="margin-right:10px;" data-comment-id="@y.ID">
-                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, true)">
-                                                    <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
-                                                    <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
-                                                </a>
-                                            </div>
+                                        <div class="like1 @(liked.HasValue && liked.Value ? "active" : "")" style="margin-right:10px;" data-comment-id="@y.ID">
+                                            <a style="text-decoration: none; cursor: pointer; color: @(liked.HasValue && liked.Value ? "orange" : "white");" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, true)">
+                                                <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
+                                                <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(z => z.LIKESTATUS == true).Count()</span>
+                                            </a>
+                                        </div>
 
-                                            <div id="comment-success" style="display:none;"></div>
-                                            <div id="comment-error" style="display:none;"></div>
-                                            <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
-
-                                            <div class="unlike1" data-comment-id="@y.ID">
-                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, false)">
-                                                    <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
-                                                    <span id="unlike-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()</span>
-                                                </a>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="like1" style="margin-right:15px;" data-comment-id="@y.ID">
-                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, true)">
-                                                    <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
-                                                    <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()</span>
-                                                </a>
-                                            </div>
-                                            <div class="unlike1 active" data-comment-id="@y.ID">
-                                                <a style="text-decoration: none; cursor: pointer; color: white;" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, false)">
-                                                    <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
-                                                    <span id="unlike-count-@y.ID">@y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()</span>
-                                                </a>
-                                            </div>
-                                        }
+                                        <div class="unlike1 @(liked.HasValue && !liked.Value ? "active" : "")" data-comment-id="@y.ID">
+                                            <a style="text-decoration: none; cursor: pointer; color: @(liked.HasValue && !liked.Value ? "orange" : "white");" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, false)">
+                                                <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
+                                                <span id="unlike-count-@y.ID">@y.TBLEPISODELIKE.Where(z => z.LIKESTATUS == false).Count()</span>
+                                            </a>
+                                        </div>
                                     }
                                     else
                                     {
                                         <div style="margin-right:15px;" class="like1" data-comment-id="@y.ID">
                                             <a style="text-decoration:none; color:white;" href="@Url.RouteUrl("Giriş")">
                                                 <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
-                                                @y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == true).Count()
+                                                @y.TBLEPISODELIKE.Where(z => z.LIKESTATUS == true).Count()
                                             </a>
                                         </div>
                                         <div class="unlike1" data-comment-id="@y.ID">
                                             <a style="text-decoration:none; color:white;" href="@Url.RouteUrl("Giriş")">
                                                 <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
-                                                @y.TBLEPISODELIKE.Where(y => y.LIKESTATUS == false).Count()
+                                                @y.TBLEPISODELIKE.Where(z => z.LIKESTATUS == false).Count()
                                             </a>
                                         </div>
                                     }
@@ -485,19 +474,19 @@
                 unlikeCountSpan.text(data.unlikeCount);
                 if (isLike) {
                     if (data.likeCount > 0) {
-                        likeButton.addClass("active");
-                        unlikeButton.removeClass("active");
+                        likeButton.addClass("active").css('color', '#FF7F00');
+                        unlikeButton.removeClass("active").css('color', '#ffffff')
                     } else {
-                        likeButton.removeClass("active");
-                        unlikeButton.addClass("active");
+                        likeButton.addClass("active").css('color', '#FF7F00');
+                        unlikeButton.removeClass("active").css('color', '#ffffff');
                     }
                 } else {
                     if (data.unlikeCount > 0) {
-                        unlikeButton.addClass("active");
-                        likeButton.removeClass("active");
+                        unlikeButton.addClass("active").css('color', '#FF7F00');
+                        likeButton.removeClass("active").css('color', '#ffffff');
                     } else {
-                        unlikeButton.removeClass("active");
-                        likeButton.addClass("active");
+                        unlikeButton.addClass("active").css('color', '#FF7F00');
+                        likeButton.removeClass("active").css('color', '#ffffff');
                     }
                 }
             }
@@ -584,4 +573,32 @@
             }
         }
     });
+</script>
+
+<script>
+    // script.js
+    const snowContainer = document.getElementById('snow-container');
+
+    function createSnowflake() {
+        const snowflake = document.createElement('div');
+        const size = Math.random() * 5 + 2; // Kar tanesi boyutu
+        const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
+        const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
+
+        snowflake.classList.add('snowflake');
+        snowflake.style.width = `${size}px`;
+        snowflake.style.height = `${size}px`;
+        snowflake.style.left = `${leftPosition}px`;
+        snowflake.style.animationDuration = `${animationDuration}s`;
+
+        snowContainer.appendChild(snowflake);
+
+        // Kar tanesinin düşüşü tamamlandığında sil
+        setTimeout(() => {
+            snowflake.remove();
+        }, animationDuration * 1000);
+    }
+
+    // Kar tanelerini sürekli oluştur
+    setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
 </script>

@@ -8,7 +8,7 @@
                 <i class="bi bi-pencil-square"></i> Düşüncelerinizi Yazın
             </div>
             <form action="@Request.Url.AbsolutePath" method="post">
-                <textarea name="COMMENT"></textarea>
+                <textarea name="COMMENT" required></textarea>
                 <input type="hidden" name="ANIMEID" value="@ViewBag.deger" />
                 <button><i class="bi bi-send"></i> Gönder</button>
             </form>
@@ -21,6 +21,10 @@ else
         <p style="font-size:1.1rem;color:#ffffff;">Düşüncelerinizi yazmak için</p><a style="text-decoration: none;" href="@Url.RouteUrl("Giriş")"><span style="color: #FF7F00; margin-left:5px; font-size:1.1rem;">Giriş Yapın</span></a>
     </div>
 }
+
+
+
+
 
 
 
