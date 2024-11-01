@@ -168,6 +168,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TBLFOLLOWERS">
+      <EntityTypeMapping TypeName="AnitsukiTVModel.TBLFOLLOWERS">
+        <MappingFragment StoreEntitySet="TBLFOLLOWERS">
+          <ScalarProperty Name="DATE" ColumnName="DATE" />
+          <ScalarProperty Name="FOLLOWEDID" ColumnName="FOLLOWEDID" />
+          <ScalarProperty Name="FOLLOWERID" ColumnName="FOLLOWERID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="TBLSEASON">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLSEASON">
         <MappingFragment StoreEntitySet="TBLSEASON">

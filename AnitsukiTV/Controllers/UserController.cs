@@ -25,17 +25,19 @@ namespace AnitsukiTV.Controllers
             // Kullanıcının profilini al
             var user = db.TBLUSER.Where(x => x.USERNAME.Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").ToLower() == urlUsername).FirstOrDefault();
 
-            if (user == null)
-            {
-                return HttpNotFound(); // Kullanıcı bulunamazsa 404 döndür
-            }
-
             veri.User = user;
             ViewBag.UserName = user.USERNAME; // Kullanıcı adını ViewBag'e ekle
 
             // Favoriler ve İzlenecekler
             veri.Favorites = db.TBLFAVORITES.AsQueryable().Include(f => f.TBLANIME).Where(f => f.USERID == user.ID).ToList();
             veri.WatchLater = db.TBLWATCHLATER.AsQueryable().Include(f => f.TBLANIME).Where(f => f.USERID == user.ID).ToList();
+
+            // Takipçiler (Kullanıcının takip ettiği kişiler)
+            veri.Followers = db.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID) .Select(f => f.TBLUSER).ToList();
+
+            
+            var takipEttikleriIDler = db.TBLFOLLOWERS.Where(f => f.FOLLOWERID == user.ID) .Select(f => f.FOLLOWEDID).ToList();
+            veri.Following = db.TBLUSER.Where(u => takipEttikleriIDler.Contains(u.ID)).ToList();
 
             // Kullanıcının kendi profilini ziyaret edip etmediğini kontrol et
             bool isCurrentUserProfile = (User.Identity.Name.ToLower() == urlUsername.ToLower());

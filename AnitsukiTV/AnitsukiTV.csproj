@@ -234,6 +234,9 @@
     <Compile Include="Models\TBLFAVORITES.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TBLFOLLOWERS.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TBLSEASON.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1403,7 +1406,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\SiteMap\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

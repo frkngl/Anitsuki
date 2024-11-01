@@ -39,6 +39,7 @@ namespace AnitsukiTV.Models
         public virtual DbSet<TBLEPISODECOMMENTLIKE> TBLEPISODECOMMENTLIKE { get; set; }
         public virtual DbSet<TBLEPISODELIKE> TBLEPISODELIKE { get; set; }
         public virtual DbSet<TBLFAVORITES> TBLFAVORITES { get; set; }
+        public virtual DbSet<TBLFOLLOWERS> TBLFOLLOWERS { get; set; }
         public virtual DbSet<TBLSEASON> TBLSEASON { get; set; }
         public virtual DbSet<TBLUSER> TBLUSER { get; set; }
         public virtual DbSet<TBLWATCHLATER> TBLWATCHLATER { get; set; }

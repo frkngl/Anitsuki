@@ -23,6 +23,8 @@ namespace AnitsukiTV.Models
             this.TBLEPISODECOMMENTLIKE = new HashSet<TBLEPISODECOMMENTLIKE>();
             this.TBLEPISODELIKE = new HashSet<TBLEPISODELIKE>();
             this.TBLFAVORITES = new HashSet<TBLFAVORITES>();
+            this.TBLFOLLOWERS = new HashSet<TBLFOLLOWERS>();
+            this.TBLFOLLOWERS1 = new HashSet<TBLFOLLOWERS>();
             this.TBLWATCHLATER = new HashSet<TBLWATCHLATER>();
         }
     
@@ -48,6 +50,10 @@ namespace AnitsukiTV.Models
         public virtual ICollection<TBLEPISODELIKE> TBLEPISODELIKE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBLFAVORITES> TBLFAVORITES { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBLFOLLOWERS> TBLFOLLOWERS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBLFOLLOWERS> TBLFOLLOWERS1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBLWATCHLATER> TBLWATCHLATER { get; set; }
     }

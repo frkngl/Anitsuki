@@ -15,6 +15,7 @@
     <EntitySet Name="TBLEPISODECOMMENTLIKE" EntityType="AnitsukiTVModel.TBLEPISODECOMMENTLIKE" />
     <EntitySet Name="TBLEPISODELIKE" EntityType="AnitsukiTVModel.TBLEPISODELIKE" />
     <EntitySet Name="TBLFAVORITES" EntityType="AnitsukiTVModel.TBLFAVORITES" />
+    <EntitySet Name="TBLFOLLOWERS" EntityType="AnitsukiTVModel.TBLFOLLOWERS" />
     <EntitySet Name="TBLSEASON" EntityType="AnitsukiTVModel.TBLSEASON" />
     <EntitySet Name="TBLUSER" EntityType="AnitsukiTVModel.TBLUSER" />
     <EntitySet Name="TBLWATCHLATER" EntityType="AnitsukiTVModel.TBLWATCHLATER" />
@@ -89,6 +90,14 @@
     <AssociationSet Name="FK_TBLFAVORITES_TBLUSER" Association="AnitsukiTVModel.FK_TBLFAVORITES_TBLUSER">
       <End Role="TBLUSER" EntitySet="TBLUSER" />
       <End Role="TBLFAVORITES" EntitySet="TBLFAVORITES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLFOLLOWERS_TBLUSER" Association="AnitsukiTVModel.FK_TBLFOLLOWERS_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLFOLLOWERS" EntitySet="TBLFOLLOWERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLFOLLOWERS_TBLUSER1" Association="AnitsukiTVModel.FK_TBLFOLLOWERS_TBLUSER1">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLFOLLOWERS" EntitySet="TBLFOLLOWERS" />
     </AssociationSet>
     <AssociationSet Name="FK_TBLWATCHLATER_TBLUSER" Association="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER">
       <End Role="TBLUSER" EntitySet="TBLUSER" />
@@ -275,6 +284,17 @@
     <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLANIME" FromRole="TBLFAVORITES" ToRole="TBLANIME" />
     <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLUSER" FromRole="TBLFAVORITES" ToRole="TBLUSER" />
   </EntityType>
+  <EntityType Name="TBLFOLLOWERS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FOLLOWERID" Type="Int32" />
+    <Property Name="FOLLOWEDID" Type="Int32" />
+    <Property Name="DATE" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLFOLLOWERS_TBLUSER" FromRole="TBLFOLLOWERS" ToRole="TBLUSER" />
+    <NavigationProperty Name="TBLUSER1" Relationship="AnitsukiTVModel.FK_TBLFOLLOWERS_TBLUSER1" FromRole="TBLFOLLOWERS" ToRole="TBLUSER" />
+  </EntityType>
   <EntityType Name="TBLSEASON">
     <Key>
       <PropertyRef Name="ID" />
@@ -306,6 +326,8 @@
     <NavigationProperty Name="TBLEPISODECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLEPISODECOMMENTLIKE" />
     <NavigationProperty Name="TBLEPISODELIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLUSER" FromRole="TBLUSER" ToRole="TBLEPISODELIKE" />
     <NavigationProperty Name="TBLFAVORITES" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLUSER" FromRole="TBLUSER" ToRole="TBLFAVORITES" />
+    <NavigationProperty Name="TBLFOLLOWERS" Relationship="AnitsukiTVModel.FK_TBLFOLLOWERS_TBLUSER" FromRole="TBLUSER" ToRole="TBLFOLLOWERS" />
+    <NavigationProperty Name="TBLFOLLOWERS1" Relationship="AnitsukiTVModel.FK_TBLFOLLOWERS_TBLUSER1" FromRole="TBLUSER" ToRole="TBLFOLLOWERS" />
     <NavigationProperty Name="TBLWATCHLATER" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER" FromRole="TBLUSER" ToRole="TBLWATCHLATER" />
   </EntityType>
   <EntityType Name="TBLWATCHLATER">
@@ -531,6 +553,30 @@
       </Principal>
       <Dependent Role="TBLFAVORITES">
         <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLFOLLOWERS_TBLUSER">
+    <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLFOLLOWERS" Role="TBLFOLLOWERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLFOLLOWERS">
+        <PropertyRef Name="FOLLOWERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLFOLLOWERS_TBLUSER1">
+    <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLFOLLOWERS" Role="TBLFOLLOWERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLFOLLOWERS">
+        <PropertyRef Name="FOLLOWEDID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
