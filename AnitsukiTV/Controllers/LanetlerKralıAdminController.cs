@@ -227,10 +227,6 @@ namespace AnitsukiTV.Controllers
             anime.ADMINSTATUS = false;
             anime.TYPE = add.TYPE;
             anime.DATE = add.DATE;
-            anime.FANSUBAD = add.FANSUBAD;
-            anime.TRANSLATES = add.TRANSLATES;
-            anime.WEBSITE = add.WEBSITE;
-            anime.DISCORD = add.DISCORD;
             anime.MYANIMELIST = add.MYANIMELIST;
             anime.CATEGORYID = add.CATEGORYID;
 
@@ -388,10 +384,6 @@ namespace AnitsukiTV.Controllers
             updateanime1.IMDB = update.IMDB;
             updateanime1.DATE = update.DATE;
             updateanime1.MYANIMELIST = update.MYANIMELIST;
-            updateanime1.FANSUBAD = update.FANSUBAD;
-            updateanime1.TRANSLATES = update.TRANSLATES;
-            updateanime1.WEBSITE = update.WEBSITE;
-            updateanime1.DISCORD = update.DISCORD;
 
             db.SaveChanges();
             TempData["success"] = "Success";
@@ -475,6 +467,10 @@ namespace AnitsukiTV.Controllers
             season.ANIMEID = add.ANIMEID;
             season.SEASONNUMBER = add.SEASONNUMBER;
             season.SEASONNAME = add.SEASONNAME;
+            season.TRANSLATES = add.TRANSLATES;
+            season.FANSUBAD = add.FANSUBAD;
+            season.WEBSITE = add.WEBSITE;
+            season.DISCORD = add.DISCORD;
             season.STATUS = false;
             db.TBLSEASON.Add(season);
             db.SaveChanges();
@@ -497,6 +493,10 @@ namespace AnitsukiTV.Controllers
             updateseason.ANIMEID = sea.ANIMEID;
             updateseason.SEASONNUMBER = sea.SEASONNUMBER;
             updateseason.SEASONNAME = sea.SEASONNAME;
+            updateseason.FANSUBAD = sea.FANSUBAD;
+            updateseason.TRANSLATES = sea.TRANSLATES;
+            updateseason.DISCORD = sea.DISCORD;
+            updateseason.WEBSITE = sea.WEBSITE;
             db.SaveChanges();
             TempData["success"] = "Güncellendi";
             return RedirectToAction("Season");

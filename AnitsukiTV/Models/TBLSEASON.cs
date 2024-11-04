@@ -25,6 +25,10 @@ namespace AnitsukiTV.Models
         public Nullable<int> SEASONNUMBER { get; set; }
         public string SEASONNAME { get; set; }
         public Nullable<bool> STATUS { get; set; }
+        public string FANSUBAD { get; set; }
+        public string TRANSLATES { get; set; }
+        public string DISCORD { get; set; }
+        public string WEBSITE { get; set; }
     
         public virtual TBLANIME TBLANIME { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

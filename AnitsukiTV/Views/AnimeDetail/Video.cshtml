@@ -291,9 +291,9 @@
                 {
                     <div class="fansub">
                         <div class="title"><i class="bi bi-info-circle"></i> Çevirmenler</div>
-                        <div class="des">Çeviri: @ö.TBLANIME.FANSUBAD</div>
-                        <div class="des">Çevirmen: @ö.TBLANIME.TRANSLATES</div>
-                        <div class="sitelink">Site: <a target="_blank" href="@ö.TBLANIME.WEBSITE"><i class="bi bi-globe"></i></a> <a target="_blank" href="@ö.TBLANIME.DISCORD"><i class="bi bi-discord"></i></a></div>
+                        <div class="des">Çeviri: @ö.TBLANIME.TBLSEASON.FirstOrDefault().FANSUBAD</div>
+                        <div class="des">Çevirmen: @ö.TBLANIME.TBLSEASON.FirstOrDefault().TRANSLATES</div>
+                        <div class="sitelink">Site: <a target="_blank" href="@ö.TBLANIME.TBLSEASON.FirstOrDefault().WEBSITE"><i class="bi bi-globe"></i></a> <a target="_blank" href="@ö.TBLANIME.TBLSEASON.FirstOrDefault().DISCORD"><i class="bi bi-discord"></i></a></div>
                     </div>
                 }
                 @Html.Action("LeaveComment1", "AnimeDetail", new { id = ViewBag.episodeID })

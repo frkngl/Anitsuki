@@ -33,26 +33,64 @@ namespace AnitsukiTV.Controllers
             veri.WatchLater = db.TBLWATCHLATER.AsQueryable().Include(f => f.TBLANIME).Where(f => f.USERID == user.ID).ToList();
 
             // Takipçiler (Kullanıcının takip ettiği kişiler)
-            veri.Followers = db.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID) .Select(f => f.TBLUSER).ToList();
+            veri.Followers = db.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
+            ViewBag.FollowersCount = veri.Followers.Count;
 
-            
-            var takipEttikleriIDler = db.TBLFOLLOWERS.Where(f => f.FOLLOWERID == user.ID) .Select(f => f.FOLLOWEDID).ToList();
+
+            var takipEttikleriIDler = db.TBLFOLLOWERS.Where(f => f.FOLLOWERID == user.ID).Select(f => f.FOLLOWEDID).ToList();
             veri.Following = db.TBLUSER.Where(u => takipEttikleriIDler.Contains(u.ID)).ToList();
+            ViewBag.FollowingCount = veri.Following.Count;
 
             // Kullanıcının kendi profilini ziyaret edip etmediğini kontrol et
             bool isCurrentUserProfile = (User.Identity.Name.ToLower() == urlUsername.ToLower());
             ViewBag.IsCurrentUserProfile = isCurrentUserProfile;
 
+            // Kullanıcının takip edip etmediğini kontrol et
+            int currentUserId = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault().ID;
+            bool isFollowing = db.TBLFOLLOWERS.Any(f => f.FOLLOWERID == currentUserId && f.FOLLOWEDID == user.ID);
+            ViewBag.IsFollowing = isFollowing;
+
             return View(veri);
         }
 
+        [HttpPost]
+        public ActionResult FollowUser(int followedUserId)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Json(new { success = false });
+            }
 
+            int followerUserId = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault().ID;
+            var followRecord = db.TBLFOLLOWERS.FirstOrDefault(f => f.FOLLOWERID == followerUserId && f.FOLLOWEDID == followedUserId);
+
+            if (followRecord == null)
+            {
+                // Takip et
+                db.TBLFOLLOWERS.Add(new TBLFOLLOWERS { FOLLOWERID = followerUserId, FOLLOWEDID = followedUserId, DATE = DateTime.Now });
+                db.SaveChanges();
+                return Json(new { success = true, isFollowing = true, message = "Kullanıcı takip edildi." });
+            }
+            else
+            {
+                // Takipten çık
+                db.TBLFOLLOWERS.Remove(followRecord);
+                db.SaveChanges();
+                return Json(new { success = true, isFollowing = false, message = "Kullanıcı takipten çıkıldı." });
+            }
+        }
 
         [HttpGet]
         public ActionResult ProfileSetting(string userName)
         {
-            string username = userName;
-            int userID = db.TBLUSER.Where(x => x.USERNAME.Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").ToLower() == username).FirstOrDefault().ID;
+            string currentUsername = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+
+            if (currentUsername != userName.ToLower())
+            {
+                return RedirectToAction("AccessDenied"); 
+            }
+
+            int userID = db.TBLUSER.Where(x => x.USERNAME.Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").ToLower() == userName).FirstOrDefault().ID;
             var user = db.TBLUSER.Find(userID);
             return View("ProfileSetting", user);
         }

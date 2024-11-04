@@ -150,12 +150,6 @@ namespace AnitsukiTV.Controllers
         }
 
 
-
-
-
-
-
-
         [HttpPost]
         public ActionResult AddFavorite(int animeID)
         {

@@ -160,10 +160,6 @@
     <Property Name="ADMINSTATUS" Type="Boolean" />
     <Property Name="BIGBANNER" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="MYANIMELIST" Type="Decimal" Precision="2" Scale="1" />
-    <Property Name="FANSUBAD" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="TRANSLATES" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="DISCORD" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="WEBSITE" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="TBLCATEGORY" Relationship="AnitsukiTVModel.FK_TBLANIME_TBLCATEGORY" FromRole="TBLANIME" ToRole="TBLCATEGORY" />
     <NavigationProperty Name="TBLANIMECOMMENT" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLANIME" FromRole="TBLANIME" ToRole="TBLANIMECOMMENT" />
     <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME" FromRole="TBLANIME" ToRole="TBLEPISODE" />
@@ -304,6 +300,10 @@
     <Property Name="SEASONNUMBER" Type="Int32" />
     <Property Name="SEASONNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="STATUS" Type="Boolean" />
+    <Property Name="FANSUBAD" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="TRANSLATES" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="DISCORD" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="WEBSITE" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" FromRole="TBLSEASON" ToRole="TBLANIME" />
     <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" FromRole="TBLSEASON" ToRole="TBLEPISODE" />
   </EntityType>

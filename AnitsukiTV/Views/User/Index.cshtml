@@ -32,14 +32,16 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="~/css/User2.css" />
+    <link rel="stylesheet" href="~/css/User26.css" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
     <style>
-        .userdetail .detail .date button{
-            color:#ffffff;
-            text-decoration:none;
-            transition:all 300ms;
+        .userdetail .detail .date button {
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 300ms;
         }
+
             .userdetail .detail .date button:hover {
                 color: #FF7F00;
             }
@@ -70,34 +72,34 @@
             color: #000000;
         }
 
-        .modal-body .search{
-            position:relative;
-            width:200px;
-            height:35px;
-            margin-left:50%;
-            transform:translateX(-50%);
+        .modal-body .search {
+            position: relative;
+            width: 200px;
+            height: 35px;
+            margin-left: 50%;
+            transform: translateX(-50%);
         }
 
-        .modal-body .search i{
-            position:absolute;
-            top:50%;
-            left:5px;
-            z-index:9;
-            font-size:1rem;
-        }
+            .modal-body .search .fa-magnifying-glass {
+                position: absolute;
+                top: 50%;
+                left: 5px;
+                z-index: 9;
+                font-size: 1rem;
+            }
 
-        .modal-body .search input{
-            position:absolute;
-            top:0;
-            left:0;
-            background-color:#313131;
-            color:#ffffff;
-            border:none;
-            width:100%;
-            height:100%;
-            border-radius:20px;
-            padding:0px 0px 0px 28px;
-        }
+            .modal-body .search input {
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: #313131;
+                color: #ffffff;
+                border: none;
+                width: 100%;
+                height: 100%;
+                border-radius: 20px;
+                padding: 0px 0px 0px 28px;
+            }
 
         .modal-body #menuFull11 {
             list-style-type: none;
@@ -111,10 +113,10 @@
             overflow: auto;
         }
 
-        .modal-body #menuFull11 a{
-            color:white;
-            text-decoration:none;
-        }
+            .modal-body #menuFull11 a {
+                color: white;
+                text-decoration: none;
+            }
 
         .modal-body #menuFull12 {
             list-style-type: none;
@@ -125,14 +127,13 @@
             align-items: start;
             flex-wrap: wrap;
             max-height: 500px;
-            overflow:auto;
+            overflow: auto;
         }
 
-        .modal-body #menuFull12 a{
-            color: white;
-            text-decoration: none;
-        }
-
+            .modal-body #menuFull12 a {
+                color: white;
+                text-decoration: none;
+            }
     </style>
 </head>
 <body>
@@ -190,94 +191,130 @@
             @if (Model.User.PICTURE == null)
             {
                 <img style="border: 2px solid #FF7F00;" src="~/IMG/stockuser.png">
+                if (!ViewBag.IsCurrentUserProfile)
+                {
+                    <div class="zort">
+                        <button onclick="followUser (@Model.User.ID, this)" style="background-color: transparent; border: none; display: flex; width: 100%; height: 100%; align-items: center; color: #FF7F00; justify-content: center;">
+                            @if (ViewBag.IsFollowing)
+                            {
+                                <i style="font-size:2.5rem;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
+                            }
+                            else
+                            {
+                                <i style="font-size:2.5rem;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
+                            }
+                        </button>
+                    </div>
+                }
             }
             else
             {
                 <img style="border: 2px solid #FF7F00;" src="~/IMG/@Model.User.PICTURE">
+                if (!ViewBag.IsCurrentUserProfile)
+                {
+                    <div class="zort">
+                        <button onclick="followUser (@Model.User.ID, this)" style="background-color: transparent; border: none; display: flex; width: 100%; height: 100%; align-items: center; color: #FF7F00; justify-content: center;">
+                            @if (ViewBag.IsFollowing)
+                            {
+                                <i style="font-size:2.5rem;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
+                            }
+                            else
+                            {
+                                <i style="font-size:2.5rem;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
+                            }
+                        </button>
+                    </div>
+                }
             }
-        <div class="detail">
-            <div class="title">
-                <i class="bi bi-info-circle"></i> Hakkımda
-            </div>
-            <div style=" overflow-wrap: break-word; overflow: auto; white-space: normal;" class="des">
-                @if (Model.User.ABOUT == null)
-                {
-                    <h6>Kullanıcı hakkında daha bilgi paylaşmamış</h6>
-                }
-                else
-                {
-                    @Model.User.ABOUT
-                }
-            </div>
-            <div class="date">
-                <i class="bi bi-calendar"></i> Kayıt Tarihi: @Model.User.DATE.Value.ToString("dd.MM.yyyy") <i style="margin-left:10px;" class="bi bi-heart-fill"></i> @Model.Favorites.Where(x => x.TBLANIME.STATUS == true).Count()  <i style="margin-left:10px;" class="bi bi-clock-fill"></i> @Model.WatchLater.Where(x => x.TBLANIME.STATUS == true).Count() <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-left: 10px; border:none; background-color:transparent;"><i style="font-size:1rem;" class="bi bi-people-fill"></i> Takipçiler</button>
+            <div class="detail">
+                <div class="title">
+                    <i class="bi bi-info-circle"></i> Hakkımda
+                </div>
+                <div style=" overflow-wrap: break-word; overflow: auto; white-space: normal;" class="des">
+                    @if (Model.User.ABOUT == null)
+                    {
+                        <h6>Kullanıcı hakkında daha bilgi paylaşmamış</h6>
+                    }
+                    else
+                    {
+                        @Model.User.ABOUT
+                    }
+                </div>
+                <div class="date">
+                    <i class="bi bi-calendar"></i>  @Model.User.DATE.Value.ToString("dd.MM.yyyy") <i style="margin-left:10px;" class="bi bi-heart-fill"></i> @Model.Favorites.Where(x => x.TBLANIME.STATUS == true).Count()  <i style="margin-left:10px;" class="bi bi-clock-fill"></i> @Model.WatchLater.Where(x => x.TBLANIME.STATUS == true).Count() <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-left: 10px; border:none; background-color:transparent;"><i style="font-size:1.2rem;" class="bi bi-people-fill"></i> Takipçiler</button>
 
-                <div style="margin-top: 100px;" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div style="background-color: #000000; box-shadow: 0px 0px 20px #FF7F00" class="modal-content">
-                            <div class="modal-header">
-                                <button id="linkFollowers" onclick="showContent('followers')" style=" font-size:1rem; font-weight:bold; margin-right: 20px;">Takipçi</button>
-                                <button id="linkFollowing" onclick="showContent('following')" style="font-size: 1rem; font-weight: bold; ">Takip</button>
+                    <div style="margin-top: 100px;" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div style="background-color: #000000; box-shadow: 0px 0px 20px #FF7F00" class="modal-content">
+                                <div class="modal-header">
+                                    <button id="linkFollowers" onclick="showContent('followers')" style=" font-size:1rem; font-weight:bold; margin-right: 20px;">Takipçi</button>
+                                    <button id="linkFollowing" onclick="showContent('following')" style="font-size: 1rem; font-weight: bold; ">Takip</button>
 
-                                <button type="button" style="background-color:#ffffff;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div id="followersContent" style="display: block;">
-                                    <div class="search">
-                                        <i class="fa-solid fa-magnifying-glass fa-xl"></i>
-                                        <input type="text" autocomplete="off" name="searchTags11" id="searchTags11" placeholder="Takipçi Ara..." />
-                                    </div>
-                                    <ul id="menuFull11">
-                                        @if (Model.Followers.Any())
-                                        {
-                                            foreach (var user in Model.Followers.Where(s => s.STATUS == true))
-                                            {
-                                                <li style="margin:10px 0px;width:220px;">
-                                                    <a href="@Url.RouteUrl("Profil", new { userName = user.USERNAME })">
-                                                        <img style="width:50px; height:50px; margin-right:7px;" src="~/IMG/stockuser.png" /> @user.USERNAME
-                                                    </a>
-                                                </li>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <li style="font-size:1rem;width:100% !important;height:70px;display:flex !important;justify-content:center !important;align-items:center !important;color:#ffffff !important;">
-                                                henüz takipçisi yok
-                                            </li>
-                                        }
-                                    </ul>
+                                    <button type="button" style="background-color:#ffffff;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div id="followingContent" style="display: none;">
-                                    <div class="search">
-                                        <i class="fa-solid fa-magnifying-glass fa-xl"></i>
-                                        <input type="text" autocomplete="off" name="searchTags12" id="searchTags12" placeholder="Takip Ara..." />
-                                    </div>
-                                    <ul id="menuFull12">
-                                        @if (Model.Following.Any())
-                                        {
-                                            foreach (var user in Model.Following)
+                                <div class="modal-body">
+                                    <div id="followersContent" style="display: block;">
+                                        <div class="search">
+                                            <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+                                            <input type="text" autocomplete="off" name="searchTags11" id="searchTags11" placeholder="Takipçi Ara..." />
+                                            <div style="position:absolute; right:-40px;top:50%; transform:translateY(-50%);font-size:1rem; font-weight:bold;">
+                                                <i class="bi bi-people-fill"></i>  @ViewBag.FollowersCount
+                                            </div>
+                                        </div>
+                                        <ul id="menuFull11">
+                                            @if (Model.Followers.Any())
                                             {
-                                                <li style="margin:10px 0px;width:220px;">
-                                                    <a href="@Url.RouteUrl("Profil", new { userName = user.USERNAME })">
-                                                        <img style="width:50px; height:50px; margin-right:7px;" src="~/IMG/stockuser.png" /> @user.USERNAME
-                                                    </a>
+                                                foreach (var user in Model.Followers.Where(s => s.STATUS == true))
+                                                {
+                                                    <li style="margin:10px 0px;width:220px;">
+                                                        <a href="@Url.RouteUrl("Profil", new { userName = user.USERNAME })">
+                                                            <img style="width:50px; height:50px; margin-right:7px;" src="~/IMG/stockuser.png" /> @user.USERNAME
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <li style="font-size:1rem;width:100% !important;height:70px;display:flex !important;justify-content:center !important;align-items:center !important;color:#ffffff !important;">
+                                                    henüz takipçisi yok
                                                 </li>
                                             }
-                                        }
-                                        else
-                                        {
-                                            <li style="font-size:1rem;width:100% !important;height:70px;display:flex !important;justify-content:center !important;align-items:center !important;color:#ffffff !important;">
-                                                henüz takip yok
-                                            </li>
-                                        }
-                                    </ul>
+                                        </ul>
+                                    </div>
+                                    <div id="followingContent" style="display: none;">
+                                        <div class="search">
+                                            <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+                                            <input type="text" autocomplete="off" name="searchTags12" id="searchTags12" placeholder="Takip Ara..." />
+                                            <div style="position:absolute; right:-40px;top:50%; transform:translateY(-50%);font-size:1rem; font-weight:bold;">
+                                                <i class="bi bi-people-fill"></i>  @ViewBag.FollowingCount
+                                            </div>
+                                        </div>
+                                        <ul id="menuFull12">
+                                            @if (Model.Following.Any())
+                                            {
+                                                foreach (var user in Model.Following)
+                                                {
+                                                    <li style="margin:10px 0px;width:220px;">
+                                                        <a href="@Url.RouteUrl("Profil", new { userName = user.USERNAME })">
+                                                            <img style="width:50px; height:50px; margin-right:7px;" src="~/IMG/stockuser.png" /> @user.USERNAME
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <li style="font-size:1rem;width:100% !important;height:70px;display:flex !important;justify-content:center !important;align-items:center !important;color:#ffffff !important;">
+                                                    henüz takip yok
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
         <div class="lastcommentfavoriteanime">
             <div class="text">
@@ -410,6 +447,7 @@
 </body>
 </html>
 <script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/toastr.min.js"></script>
 <script src="~/Scripts/bootstrap.bundle.min.js"></script>
 <script>
     document.querySelectorAll('nav a').forEach(link => {
@@ -499,6 +537,22 @@
 
         });
     });
+
+    function followUser (followedUserId, element) {
+    $.ajax({
+        type: "POST",
+        url: "/YourController/FollowUser ", // Controller adını buraya ekleyin
+        data: { followedUserId: followedUserId },
+        success: function (data) {
+            if (data.success) {
+                $(element).text(data.isFollowing ? "Takipten Çık" : "Takip Et");
+                toastr[data.isFollowing ? "success" : "error"](data.message, "Takip İşlemi");
+            } else {
+                window.location.href = "@Url.RouteUrl("Giriş")"; // Giriş sayfasına yönlendir
+            }
+        }
+    });
+}
 </script>
 
 <script>
@@ -548,4 +602,27 @@
     document.getElementById('exampleModal').addEventListener('show.bs.modal', function () {
         showContent('followers');
     });
+</script>
+
+<script>
+    function followUser (followedUserId, elem) {
+    $.ajax({
+        type: "POST",
+        url: "/User/FollowUser ", 
+        data: { followedUserId: followedUserId },
+        success: function (data) {
+            if (data.success) {
+                if (data.isFollowing) {
+                    $(elem).html("<i style='font-size:2.5rem;' class='bi bi-person-fill-dash'></i>"); // 
+                    toastr.success(data.message, "Takip Etme");
+                } else {
+                    $(elem).html("<i style='font-size:2.5rem;' class='bi bi-person-fill-add'></i>"); 
+                    toastr.error(data.message, "Takipten Çıkma");
+                }
+            } else {
+                window.location.href = "@Url.RouteUrl("Giriş")"; 
+            }
+        }
+    });
+}
 </script>
