@@ -16,6 +16,7 @@
     <EntitySet Name="TBLEPISODELIKE" EntityType="AnitsukiTVModel.TBLEPISODELIKE" />
     <EntitySet Name="TBLFAVORITES" EntityType="AnitsukiTVModel.TBLFAVORITES" />
     <EntitySet Name="TBLFOLLOWERS" EntityType="AnitsukiTVModel.TBLFOLLOWERS" />
+    <EntitySet Name="TBLNOTIFICATIONS" EntityType="AnitsukiTVModel.TBLNOTIFICATIONS" />
     <EntitySet Name="TBLSEASON" EntityType="AnitsukiTVModel.TBLSEASON" />
     <EntitySet Name="TBLUSER" EntityType="AnitsukiTVModel.TBLUSER" />
     <EntitySet Name="TBLWATCHLATER" EntityType="AnitsukiTVModel.TBLWATCHLATER" />
@@ -98,6 +99,10 @@
     <AssociationSet Name="FK_TBLFOLLOWERS_TBLUSER1" Association="AnitsukiTVModel.FK_TBLFOLLOWERS_TBLUSER1">
       <End Role="TBLUSER" EntitySet="TBLUSER" />
       <End Role="TBLFOLLOWERS" EntitySet="TBLFOLLOWERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLNOTIFICATIONS_TBLUSER" Association="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLUSER">
+      <End Role="TBLUSER" EntitySet="TBLUSER" />
+      <End Role="TBLNOTIFICATIONS" EntitySet="TBLNOTIFICATIONS" />
     </AssociationSet>
     <AssociationSet Name="FK_TBLWATCHLATER_TBLUSER" Association="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER">
       <End Role="TBLUSER" EntitySet="TBLUSER" />
@@ -291,6 +296,19 @@
     <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLFOLLOWERS_TBLUSER" FromRole="TBLFOLLOWERS" ToRole="TBLUSER" />
     <NavigationProperty Name="TBLUSER1" Relationship="AnitsukiTVModel.FK_TBLFOLLOWERS_TBLUSER1" FromRole="TBLFOLLOWERS" ToRole="TBLUSER" />
   </EntityType>
+  <EntityType Name="TBLNOTIFICATIONS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USERID" Type="Int32" />
+    <Property Name="MESSAGE" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="CREATED" Type="DateTime" Precision="3" />
+    <Property Name="ISCLEARED" Type="Boolean" />
+    <Property Name="USERNAME" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PROFILEPICTURE" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLUSER" FromRole="TBLNOTIFICATIONS" ToRole="TBLUSER" />
+  </EntityType>
   <EntityType Name="TBLSEASON">
     <Key>
       <PropertyRef Name="ID" />
@@ -328,6 +346,7 @@
     <NavigationProperty Name="TBLFAVORITES" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLUSER" FromRole="TBLUSER" ToRole="TBLFAVORITES" />
     <NavigationProperty Name="TBLFOLLOWERS" Relationship="AnitsukiTVModel.FK_TBLFOLLOWERS_TBLUSER" FromRole="TBLUSER" ToRole="TBLFOLLOWERS" />
     <NavigationProperty Name="TBLFOLLOWERS1" Relationship="AnitsukiTVModel.FK_TBLFOLLOWERS_TBLUSER1" FromRole="TBLUSER" ToRole="TBLFOLLOWERS" />
+    <NavigationProperty Name="TBLNOTIFICATIONS" Relationship="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLUSER" FromRole="TBLUSER" ToRole="TBLNOTIFICATIONS" />
     <NavigationProperty Name="TBLWATCHLATER" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLUSER" FromRole="TBLUSER" ToRole="TBLWATCHLATER" />
   </EntityType>
   <EntityType Name="TBLWATCHLATER">
@@ -577,6 +596,18 @@
       </Principal>
       <Dependent Role="TBLFOLLOWERS">
         <PropertyRef Name="FOLLOWEDID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLNOTIFICATIONS_TBLUSER">
+    <End Type="AnitsukiTVModel.TBLUSER" Role="TBLUSER" Multiplicity="0..1" />
+    <End Type="AnitsukiTVModel.TBLNOTIFICATIONS" Role="TBLNOTIFICATIONS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLNOTIFICATIONS">
+        <PropertyRef Name="USERID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -237,6 +237,9 @@
     <Compile Include="Models\TBLFOLLOWERS.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TBLNOTIFICATIONS.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TBLSEASON.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1069,7 +1072,7 @@
     <Content Include="css\AnimeDetail5.css" />
     <Content Include="css\Category20.css" />
     <Content Include="css\Donate1.css" />
-    <Content Include="css\Home30.css" />
+    <Content Include="css\Home33.css" />
     <Content Include="css\plyr.css" />
     <Content Include="css\PrivacyandPolitic1.css" />
     <Content Include="css\User26.css" />

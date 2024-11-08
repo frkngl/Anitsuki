@@ -332,7 +332,7 @@ header {
                 height: auto;
                 background-color: #000000;
                 opacity: 0;
-                transform: translateY(-150px);
+                transform: translateY(-300px);
                 transition: all 200ms ease-in-out;
                 z-index: 999;
             }

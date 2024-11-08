@@ -25,6 +25,7 @@ namespace AnitsukiTV.Models
             this.TBLFAVORITES = new HashSet<TBLFAVORITES>();
             this.TBLFOLLOWERS = new HashSet<TBLFOLLOWERS>();
             this.TBLFOLLOWERS1 = new HashSet<TBLFOLLOWERS>();
+            this.TBLNOTIFICATIONS = new HashSet<TBLNOTIFICATIONS>();
             this.TBLWATCHLATER = new HashSet<TBLWATCHLATER>();
         }
     
@@ -54,6 +55,8 @@ namespace AnitsukiTV.Models
         public virtual ICollection<TBLFOLLOWERS> TBLFOLLOWERS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBLFOLLOWERS> TBLFOLLOWERS1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBLNOTIFICATIONS> TBLNOTIFICATIONS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBLWATCHLATER> TBLWATCHLATER { get; set; }
     }

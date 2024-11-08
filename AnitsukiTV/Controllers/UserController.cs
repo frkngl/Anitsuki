@@ -36,7 +36,6 @@ namespace AnitsukiTV.Controllers
             veri.Followers = db.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
             ViewBag.FollowersCount = veri.Followers.Count;
 
-
             var takipEttikleriIDler = db.TBLFOLLOWERS.Where(f => f.FOLLOWERID == user.ID).Select(f => f.FOLLOWEDID).ToList();
             veri.Following = db.TBLUSER.Where(u => takipEttikleriIDler.Contains(u.ID)).ToList();
             ViewBag.FollowingCount = veri.Following.Count;
@@ -58,17 +57,46 @@ namespace AnitsukiTV.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return Json(new { success = false });
+                return Json(new { success = false, message = "Giriş yapmalısınız." });
             }
 
-            int followerUserId = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault().ID;
+            int followerUserId = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).Select(x => x.ID).FirstOrDefault();
+
+            // Takip kaydını kontrol et
             var followRecord = db.TBLFOLLOWERS.FirstOrDefault(f => f.FOLLOWERID == followerUserId && f.FOLLOWEDID == followedUserId);
+
+            // Takip eden kullanıcının bilgilerini al
+            var follower = db.TBLUSER.FirstOrDefault(x => x.ID == followerUserId);
+            var followerUsername = follower?.USERNAME;
+            var followerProfileImage = follower?.PICTURE; // Profil resmi URL'si
 
             if (followRecord == null)
             {
                 // Takip et
-                db.TBLFOLLOWERS.Add(new TBLFOLLOWERS { FOLLOWERID = followerUserId, FOLLOWEDID = followedUserId, DATE = DateTime.Now });
+                var followerRecord = new TBLFOLLOWERS
+                {
+                    FOLLOWERID = followerUserId,
+                    FOLLOWEDID = followedUserId,
+                    DATE = DateTime.Now
+                };
+
+                db.TBLFOLLOWERS.Add(followerRecord);
                 db.SaveChanges();
+
+                // Bildirim oluştur
+                var notification = new TBLNOTIFICATIONS
+                {
+                    USERID = followedUserId, // Bildirimi alacak kullanıcı
+                    MESSAGE = "Sizi takip etmeye başladı.", // Genel mesaj
+                    USERNAME = followerUsername, // Takip eden kullanıcının ismini ayrı bir alanda sakla
+                    PROFILEPICTURE = followerProfileImage, // Takip eden kullanıcının profil resmini sakla
+                    CREATED = DateTime.Now,
+                    ISCLEARED = false
+                };
+
+                db.TBLNOTIFICATIONS.Add(notification);
+                db.SaveChanges();
+
                 return Json(new { success = true, isFollowing = true, message = "Kullanıcı takip edildi." });
             }
             else
@@ -76,10 +104,39 @@ namespace AnitsukiTV.Controllers
                 // Takipten çık
                 db.TBLFOLLOWERS.Remove(followRecord);
                 db.SaveChanges();
+
                 return Json(new { success = true, isFollowing = false, message = "Kullanıcı takipten çıkıldı." });
             }
         }
 
+        [HttpPost]
+        public ActionResult ClearNotifications()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Json(new { success = false, message = "Giriş yapmalısınız." });
+            }
+
+            int currentUserId = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).Select(x => x.ID).FirstOrDefault();
+
+            // Kullanıcının tüm bildirimlerini temizle
+            var notifications = db.TBLNOTIFICATIONS.Where(n => n.USERID == currentUserId && n.ISCLEARED == false).ToList();
+            if (notifications.Count == 0)
+            {
+                return Json(new { success = false, message = "Temizlenecek bildirim yok." });
+            }
+
+            foreach (var notification in notifications)
+            {
+                notification.ISCLEARED = true; // Bildirimleri temizle
+            }
+
+            db.SaveChanges(); // Değişiklikleri kaydet
+
+            return Json(new { success = true, message = "Tüm bildirimler temizlendi." });
+        }
+
+        
         [HttpGet]
         public ActionResult ProfileSetting(string userName)
         {
@@ -192,6 +249,5 @@ namespace AnitsukiTV.Controllers
             string[] validTypes = { "image/jpeg", "image/png", "image/jpg", "image/jfif", "image/gif" };
             return validTypes.Contains(contentType);
         }
-
     }
 }
