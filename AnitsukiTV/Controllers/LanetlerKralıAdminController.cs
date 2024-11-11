@@ -18,10 +18,18 @@ namespace AnitsukiTV.Controllers
     public class LanetlerKralıAdminController : Controller
     {
         AnitsukiTVEntities db = new AnitsukiTVEntities();
+        TabeList veri = new TabeList();
         // GET: LanetlerKralıAdmin
         public ActionResult Index()
         {
-            return View();
+            veri.Anime = db.TBLANIME.ToList();
+            veri.Episode = db.TBLEPISODE.ToList();
+            veri.Users = db.TBLUSER.ToList();
+            ViewBag.animecount = veri.Anime.Count(x=>x.STATUS == true);
+            ViewBag.episodecount = veri.Episode.Count(x=>x.STATUS == true);
+            ViewBag.usercounttrue = db.TBLUSER.Count(x=>x.STATUS == true);
+            ViewBag.usercountfalse = db.TBLUSER.Count(x => x.STATUS == false);
+            return View(veri);
         }
         
         public ActionResult Admin()

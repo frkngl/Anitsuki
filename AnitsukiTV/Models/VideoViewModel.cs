@@ -8,6 +8,8 @@ namespace AnitsukiTV.Models
     public class VideoViewModel
     {
         public List<TBLEPISODE> Episode { get; set; }
+        public List<TBLNOTIFICATIONS> Notification { get; set; }
+        public List<TBLUSER> Users { get; set; }
         public string AnimeTitle { get; set; }
         public int SeasonNumber { get; set; }
         public int EpisodeNumber { get; set; }

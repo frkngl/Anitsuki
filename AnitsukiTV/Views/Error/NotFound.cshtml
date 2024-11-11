@@ -21,7 +21,7 @@
     <span itemprop="thumbnail" itemscope itemtype="http://schema.org/ImageObject">
         <link itemprop="url" href="~/IMG/aylogo.png">
     </span>
-    <div id="snow-container"></div>
+    @*<div id="snow-container"></div>*@
     <div class="error">
         @foreach (var x in Model.Where(x => x.STATUS == true).OrderBy(x => Guid.NewGuid()).Take(1))
         {
@@ -91,7 +91,7 @@
     });
 </script>
 
-<script>
+@*<script>
     // script.js
     const snowContainer = document.getElementById('snow-container');
 
@@ -117,4 +117,4 @@
 
     // Kar tanelerini sürekli oluştur
     setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
-</script>
+</script>*@

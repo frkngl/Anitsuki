@@ -39,11 +39,27 @@
         </div>
         <div class="form-group">
             <label for="exampleInputName1">Sezon Sayısı</label>
-            @Html.TextBoxFor(x => x.SEASONNUMBER, new { @style = "width:100%; border:1px solid #000000;", @required= "required" })
+            @Html.TextBoxFor(x => x.SEASONNUMBER, new { @style = "width:100%; border:1px solid #000000;", @required = "required" })
         </div>
         <div class="form-group">
             <label for="exampleInputName1">Sezon Adı</label>
             @Html.TextBoxFor(x => x.SEASONNAME, new { @style = "width:100%; border:1px solid #000000;", })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">FanSub</label><br />
+            @Html.TextBoxFor(x => x.FANSUBAD, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">Çevirici</label><br />
+            @Html.TextBoxFor(x => x.TRANSLATES, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">Website</label><br />
+            @Html.TextBoxFor(x => x.WEBSITE, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">Discord</label><br />
+            @Html.TextBoxFor(x => x.DISCORD, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
         </div>
         <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
         <a style="color:#ffffff;" href="/LanetlerKralıAdmin/Season" class="btn btn-light">Vazgeç</a>

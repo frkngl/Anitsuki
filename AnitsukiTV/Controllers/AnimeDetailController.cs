@@ -52,6 +52,40 @@ namespace AnitsukiTV.Controllers
             ViewBag.IsFavorite = isFavorite;
             ViewBag.isWatchLater = isWatchLater;
 
+            // Giriş yapan kullanıcının ID'sini al (varsa)
+            int? currentUserId = User.Identity.IsAuthenticated ? db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault()?.ID : (int?)null;
+
+            // Giriş yapan kullanıcı hariç tüm kullanıcıları al
+            veri.Users = currentUserId.HasValue ? db.TBLUSER.Where(u => u.ID != currentUserId.Value).ToList() : db.TBLUSER.ToList();
+
+            // Kullanıcının takip ettiği kullanıcıların ID'lerini al (varsa)
+            var followedUserIds = currentUserId.HasValue ? db.TBLFOLLOWERS.Where(f => f.FOLLOWERID == currentUserId.Value).Select(f => f.FOLLOWEDID.Value).ToList() : new List<int>();
+
+            ViewBag.FollowedUserIds = followedUserIds;
+
+            // DateTime.Now.AddDays(-7) ifadesini bir değişkene atayın
+            var fiveDaysAgo = DateTime.Now.AddDays(-7);
+
+            if (currentUserId.HasValue)
+            {
+                // Kullanıcının bildirimlerini kontrol et ve 5 günden eski olanları temizle
+                var oldNotifications = db.TBLNOTIFICATIONS.Where(n => n.USERID == currentUserId.Value && n.ISCLEARED == false && n.CREATED < fiveDaysAgo).ToList();
+
+                foreach (var notification in oldNotifications)
+                {
+                    notification.ISCLEARED = true; // Bildirimi temizle
+                }
+
+                db.SaveChanges(); // Değişiklikleri kaydet
+
+                // Giriş yapan kullanıcının güncel bildirimlerini al
+                veri.Notifications = db.TBLNOTIFICATIONS.Where(n => n.USERID == currentUserId.Value && n.ISCLEARED == false).ToList();
+            }
+            else
+            {
+                veri.Notifications = new List<TBLNOTIFICATIONS>();
+            }
+
             return View(veri);
         }
 
@@ -225,6 +259,40 @@ namespace AnitsukiTV.Controllers
             }
             veri.SonrakiBolum = db.TBLEPISODE.Where(x => x.ID == sonrakiBolumId).ToList();
 
+            // Giriş yapan kullanıcının ID'sini al (varsa)
+            int? currentUserId = User.Identity.IsAuthenticated ? db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault()?.ID : (int?)null;
+
+            // Giriş yapan kullanıcı hariç tüm kullanıcıları al
+            veri.Users = currentUserId.HasValue ? db.TBLUSER.Where(u => u.ID != currentUserId.Value).ToList() : db.TBLUSER.ToList();
+
+            // Kullanıcının takip ettiği kullanıcıların ID'lerini al (varsa)
+            var followedUserIds = currentUserId.HasValue ? db.TBLFOLLOWERS.Where(f => f.FOLLOWERID == currentUserId.Value).Select(f => f.FOLLOWEDID.Value).ToList() : new List<int>();
+
+            ViewBag.FollowedUserIds = followedUserIds;
+
+            // DateTime.Now.AddDays(-7) ifadesini bir değişkene atayın
+            var fiveDaysAgo = DateTime.Now.AddDays(-7);
+
+            if (currentUserId.HasValue)
+            {
+                // Kullanıcının bildirimlerini kontrol et ve 5 günden eski olanları temizle
+                var oldNotifications = db.TBLNOTIFICATIONS.Where(n => n.USERID == currentUserId.Value && n.ISCLEARED == false && n.CREATED < fiveDaysAgo).ToList();
+
+                foreach (var notification in oldNotifications)
+                {
+                    notification.ISCLEARED = true; // Bildirimi temizle
+                }
+
+                db.SaveChanges(); // Değişiklikleri kaydet
+
+                // Giriş yapan kullanıcının güncel bildirimlerini al
+                veri.Notifications = db.TBLNOTIFICATIONS.Where(n => n.USERID == currentUserId.Value && n.ISCLEARED == false).ToList();
+            }
+            else
+            {
+                veri.Notifications = new List<TBLNOTIFICATIONS>();
+            }
+
             var tabeList = new TabeList
             {
                 VideoInfo = new VideoViewModel
@@ -234,7 +302,9 @@ namespace AnitsukiTV.Controllers
                     SeasonNumber = veri.Episode.FirstOrDefault()?.TBLSEASON?.SEASONNUMBER ?? 0,
                     EpisodeNumber = veri.Episode.FirstOrDefault()?.EPINUMBER ?? 0,
                     OncekiBolum = veri.OncekiBolum,
-                    SonrakiBolum = veri.SonrakiBolum
+                    SonrakiBolum = veri.SonrakiBolum,
+                    Notification = veri.Notifications,
+                    Users = veri.Users
                 }
             };
 

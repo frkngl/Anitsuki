@@ -32,6 +32,10 @@
                             <th>Anime Adı</th>
                             <th>Sezon Numarası</th>
                             <th>Sezon İsmi</th>
+                            <th>FanSub Ad</th>
+                            <th>Translate</th>
+                            <th>WebSite</th>
+                            <th>Discord</th>
                             <th>Güncelle</th>
                             <th>Durum</th>
                             @{ AnitsukiTVEntities db = new AnitsukiTVEntities();}
@@ -57,6 +61,10 @@
                                 <td>@x.TBLANIME.ANIMENAME</td>
                                 <td>@x.SEASONNUMBER Sezon</td>
                                 <td>@x.SEASONNAME</td>
+                                <td>@x.FANSUBAD</td>
+                                <td>@x.TRANSLATES</td>
+                                <td>@x.WEBSITE</td>
+                                <td>@x.DISCORD</td>
                                 <td><a class="btn btn-warning" href="/LanetlerKralıAdmin/UpdateSeason/@x.ID">Güncelle</a></td>
                                 <td>
                                     @if (x.STATUS == true)

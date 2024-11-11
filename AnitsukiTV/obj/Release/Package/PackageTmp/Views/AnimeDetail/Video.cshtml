@@ -37,8 +37,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="~/css/VideoDetail2.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/VideoDetail3.css" type="text/css" />
     <link rel="stylesheet" href="~/css/plyr.css" type="text/css" />
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
     <style>
@@ -107,12 +108,67 @@
 
         .like1.active a,
         .unlike1.active a {
-            color: orange; 
+            color: orange;
         }
 
         .like1 a,
         .unlike1 a {
-            color: white; 
+            color: white;
+        }
+
+        .modal-body .searchhh {
+            position: relative;
+            width: 200px;
+            height: 35px;
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+
+            .modal-body .searchhh .fa-magnifying-glass {
+                position: absolute;
+                top: 50%;
+                left: 5px;
+                z-index: 9;
+                font-size: 1rem;
+            }
+
+            .modal-body .searchhh input {
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: #313131;
+                color: #ffffff;
+                border: none;
+                width: 100%;
+                height: 100%;
+                border-radius: 20px;
+                padding: 0px 0px 0px 28px;
+            }
+
+        .modal-body #menuFull11 {
+            list-style-type: none;
+            padding: 0px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: start;
+            flex-wrap: wrap;
+            overflow: auto;
+        }
+
+            .modal-body #menuFull11 a {
+                color: white;
+                text-decoration: none;
+            }
+
+        .user ul li a:hover {
+            background-color: #ffffff;
+            color: #000000 !important;
+        }
+
+        header #nabermudur ul {
+            max-height: 300px;
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -124,7 +180,7 @@
     <div class="loader">
 
     </div>
-    <div id="snow-container"></div>
+    @*<div id="snow-container"></div>*@
     <header style="background-color: #000000;">
         <div class="container-xl">
             <div class="row">
@@ -142,31 +198,150 @@
                         <li><a href="@Url.RouteUrl("Anasayfa")" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
                         <li><a href="@Url.RouteUrl("Animeler")"><i class="fa-solid fa-list"></i> Animeler</a></li>
                         <li><a href="@Url.RouteUrl("Bağış")"><i class="bi bi-cash-stack"></i> Bağış</a></li>
+                        <li style="color:white;"><i class="bi bi-tv"></i> WT Yakında</li>
                     </ul>
                 </nav>
                 <div class="box col-2">
-                    <div class="search">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div id="nabermudur" style="margin-right:5px;" class="search">
+                            <button style="background-color:transparent; border:none; outline:none; color:orange;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i id="notification-icon" style="font-size:1.5rem;" class="bi bi-bell"></i>
+                            </button>
+                            <ul id="nabermudurr" style="background-color:#313131;" class="dropdown-menu">
+                                @if (Model.VideoInfo.Notification.Any(n => n.ISCLEARED == false))
+                                {
+                                    foreach (var notification in Model.VideoInfo.Notification)
+                                    {
+                                        <li style="display: flex; align-items: center; padding: 5px;">
+                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLowerInvariant().Replace(" ","-") })">
+                                                @if (notification.PROFILEPICTURE != null)
+                                                {
+                                                    <img src="~/IMG/@notification.PROFILEPICTURE" style="width: 40px; object-fit:cover; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/IMG/stockuser.png" style="width: 40px; height: 40px; object-fit:cover; border-radius: 50%; margin-right: 10px;" />
+                                                }
+                                                <div style="color: #ffffff;">
+                                                    <strong>@notification.USERNAME</strong><br />
+                                                    <span style="font-size: 0.9rem;">@notification.MESSAGE</span><br />
+                                                    <span style="font-size: 0.8rem; color: #cccccc;">@notification.CREATED.Value.ToString("dd.MM.yyyy")</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    }
+                                    <li>
+                                        <button id="clear-notifications" style="margin: 0px; width: 100%; padding: 5px 12px; color: #ffffff; background: none; border: none;">Temizle</button>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li style="color:white; text-align:center;">Bildirim Kutusu Boş</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div style="margin-right:0px;" class="search">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i style="font-size:1.8rem !important;" class="bi bi-person-add"></i></a>
+                        </div>
+                    }
+                    <div style="margin-right:-10px;" class="search">
                         <a href="@Url.RouteUrl("Animeler")"><i class="bi bi-search"></i></a>
                     </div>
+                    <div style="margin-top: 100px;" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div style="background-color: #000000; box-shadow: 0px 0px 20px #FF7F00" class="modal-content">
+                                <div class="modal-header">
+                                    <h1 style="color:white;" class="modal-title fs-5" id="exampleModalLabel">Arkadaş Ara</h1>
+                                    <button type="button" style="background-color:#ffffff;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div style="height: 300px;" class="modal-body">
+                                    <div id="followersContent">
+                                        <div class="searchhh">
+                                            <i style="color:white;" class="fa-solid fa-magnifying-glass fa-xl"></i>
+                                            <input type="text" autocomplete="off" name="searchTags11" id="searchTags11" placeholder="Arkadaş Ara..." />
+                                        </div>
+                                        <ul id="menuFull11" style="display:none; height:245px; overflow-y:auto;">
+                                            @foreach (var user in Model.VideoInfo.Users.Where(x=>x.STATUS == true))
+                                            {
+                                                <li style="margin:10px 0px;width:100%; display:flex; justify-content:space-between; align-items:center;">
+                                                    <div>
+                                                        @{
+                                                            AnitsukiTVEntities y = new AnitsukiTVEntities();
+                                                            var Followers = y.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
+                                                            ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
+                                                        }
+                                                        <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLowerInvariant().Replace(" ","-") })">
+                                                            @if (user.PICTURE != null)
+                                                            {
+                                                                <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/IMG/@user.PICTURE" />
+                                                                <div>
+                                                                    <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
+                                                                    <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+
+                                                                <img style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" src="~/IMG/stockuser.png" />
+                                                                <div>
+                                                                    <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
+                                                                    <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
+                                                                </div>
+                                                            }
+                                                        </a>
+                                                    </div>
+                                                    <div style="color:white;">
+                                                        <button onclick="followUser (@user.ID, this)" style="background-color: transparent; border: none; color: #FF7F00;">
+                                                            @if (ViewBag.FollowedUserIds.Contains(user.ID))
+                                                            {
+                                                                <i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
+                                                            }
+                                                            else
+                                                            {
+                                                                <i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
+                                                            }
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="user">
-                        @{ AnitsukiTVEntities db = new AnitsukiTVEntities();}
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
-                            if (currentUser != null && currentUser.PICTURE != null)
+                        <div style="height:60px; display:flex; align-items:center; margin-left:10px;" class="dropdown">
+                            @{ AnitsukiTVEntities db = new AnitsukiTVEntities(); }
+                            @if (User.Identity.IsAuthenticated)
                             {
-                                <a href="@Url.RouteUrl("Profil", new { userName = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })"><img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE"></a>
+                                var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
+                                string userNameUrl = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+
+                                <button style="background-color:transparent; border:none; outline:none; color:orange;" class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @if (currentUser != null && currentUser.PICTURE != null)
+                                    {
+                                        <img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE" alt="User  Profile Picture">
+                                    }
+                                    else
+                                    {
+                                        <img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png" alt="Default User Profile Picture">
+                                    }
+                                </button>
+                                <ul style="background-color:#313131;" class="dropdown-menu">
+                                    <li><a style="margin:0px; padding:5px 12px; color:white;" class="dropdown-item" href="@Url.RouteUrl("Profil", new { userName = userNameUrl })"><i style="font-size:1.3rem;" class="bi bi-person"></i> Profil</a></li>
+                                    <li><a style="margin:0px; padding: 5px 15px; color: white;" class="dropdown-item" href="/signout"><i style="font-size:1.3rem;" class="bi bi-box-arrow-right"></i> Çıkış Yap</a></li>
+                                </ul>
                             }
                             else
                             {
-                                <a href="@Url.RouteUrl("Profil", new { userName = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })"><img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png"></a>
+                                <a style="margin-left:-15px !important;" href="@Url.RouteUrl("Giriş")"><i class="bi bi-person"></i></a>
                             }
-                            <a href="/signout"><i class="bi bi-box-arrow-right"></i></a>
-                        }
-                        else
-                        {
-                            <a href="@Url.RouteUrl("Giriş")"><i class="bi bi-person"></i></a>
-                        }
+                        </div>
                     </div>
                 </div>
             </div>
@@ -291,9 +466,9 @@
                 {
                     <div class="fansub">
                         <div class="title"><i class="bi bi-info-circle"></i> Çevirmenler</div>
-                        <div class="des">Çeviri: @ö.TBLANIME.FANSUBAD</div>
-                        <div class="des">Çevirmen: @ö.TBLANIME.TRANSLATES</div>
-                        <div class="sitelink">Site: <a target="_blank" href="@ö.TBLANIME.WEBSITE"><i class="bi bi-globe"></i></a> <a target="_blank" href="@ö.TBLANIME.DISCORD"><i class="bi bi-discord"></i></a></div>
+                        <div class="des">Çeviri: @ö.TBLANIME.TBLSEASON.FirstOrDefault().FANSUBAD</div>
+                        <div class="des">Çevirmen: @ö.TBLANIME.TBLSEASON.FirstOrDefault().TRANSLATES</div>
+                        <div class="sitelink">Site: <a target="_blank" href="@ö.TBLANIME.TBLSEASON.FirstOrDefault().WEBSITE"><i class="bi bi-globe"></i></a> <a target="_blank" href="@ö.TBLANIME.TBLSEASON.FirstOrDefault().DISCORD"><i class="bi bi-discord"></i></a></div>
                     </div>
                 }
                 @Html.Action("LeaveComment1", "AnimeDetail", new { id = ViewBag.episodeID })
@@ -427,6 +602,7 @@
 </body>
 </html>
 <script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/toastr.min.js"></script>
 <script src="~/Scripts/bootstrap.bundle.min.js"></script>
 <script src="~/js/plyr.js"></script>
 <script>
@@ -562,20 +738,20 @@
         poster.style.display = "block";
     });
 
-    
+
     document.addEventListener('keydown', (event) => {
         if (event.code === 'Space') {
-            event.preventDefault(); 
+            event.preventDefault();
             if (player.playing) {
-                player.pause(); 
+                player.pause();
             } else {
-                player.play(); 
+                player.play();
             }
         }
     });
 </script>
 
-<script>
+@*<script>
     // script.js
     const snowContainer = document.getElementById('snow-container');
 
@@ -601,4 +777,89 @@
 
     // Kar tanelerini sürekli oluştur
     setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
+</script>*@
+
+<script>
+    // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
+    jQuery.expr[':'].contains = function (a, i, m) {
+        return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+    };
+
+    $(document).ready(function () {
+        $("#searchTags11").on("input", function () { // 'input' olayını kullanarak gerçek zamanlı filtreleme
+            var value = $(this).val(); // Mevcut giriş değerini al
+
+            if (value.length === 0) {
+                $("#menuFull11").hide(); // Eğer giriş boşsa kullanıcıları gizle
+            } else {
+                $("#menuFull11").show(); // Giriş değeri varsa kullanıcı listesini göster
+                $("#menuFull11 li").hide(); // İlk olarak tüm kullanıcıları gizle
+                $("#menuFull11 li:contains(" + value + ")").show(); // Giriş değerini içeren kullanıcıları göster
+            }
+        });
+
+        // Sayfa yüklendiğinde kullanıcı listesini gizle
+        $("#menuFull11").hide(); // Bu satır, sayfa yüklendiğinde kullanıcı listesinin gizlenmesini sağlar.
+    });
 </script>
+
+<script>
+    function followUser(followedUserId, button) {
+        $.ajax({
+            type: "POST",
+            url: "/User/FollowUser ",
+            data: { followedUserId: followedUserId },
+            success: function (response) {
+                if (response.success) {
+                    if (response.isFollowing) {
+                        // Takip etme durumu
+                        $(button).html('<i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i>'); // Takipten çıkma simgesi
+                        toastr.success('Artık bu kullanıcıyı takip ediyorsunuz.'); // Başarı bildirimi
+                    } else {
+                        // Takipten çıkma durumu
+                        $(button).html('<i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i>'); // Takip etme simgesi
+                        toastr.error('Artık bu kullanıcıyı takipten çıkıyorsunuz.'); // Hata bildirimi
+                    }
+                } else {
+                    toastr.error(response.message || 'Kullanıcıyı takip etmeye/çıkarma işleminde bir hata oluştu.'); // Hata bildirimi
+                }
+            },
+            error: function () {
+                toastr.error('İsteğinizi işleme alırken bir hata oluştu.'); // Genel hata bildirimi
+            }
+        });
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        // Eğer yeni bildirim varsa ikon dolu olacak
+        var hasNewNotification = @Model.VideoInfo.Notification.Any(n => n.ISCLEARED == false).ToString().ToLower();
+        if (hasNewNotification) {
+            $('#notification-icon').removeClass('bi-bell').addClass('bi-bell-fill');
+        }
+
+        $('#notification-icon').click(function () {
+            // İkon tıklandığında dolu ikon boş ikona dönüşecek
+            $(this).removeClass('bi-bell-fill').addClass('bi-bell');
+        });
+
+        $('#clear-notifications').click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/User/ClearNotifications",
+                success: function (data) {
+                    if (data.success) {
+                        $('#nabermudurr').empty();
+                        $('#nabermudurr').append('<li style="color:white; text-align:center;">Bildirim Kutusu Boş</li>');
+                        $('#notification-icon').removeClass('bi-bell-fill').addClass('bi-bell'); // İkonu boş yap
+                        toastr.success(data.message, "Bildirimler Temizlendi");
+                    } else {
+                        toastr.error(data.message, "Hata");
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+

@@ -20,9 +20,41 @@ namespace AnitsukiTV.Controllers
         // GET: User
         public ActionResult Index()
         {
-            string urlUsername = RouteData.Values["userName"].ToString();
+            // Giriş yapan kullanıcının ID'sini al (varsa)
+            int? currentUserId = User.Identity.IsAuthenticated ? db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault()?.ID : (int?)null;
+
+            // Giriş yapan kullanıcı hariç tüm kullanıcıları al
+            veri.Users = currentUserId.HasValue? db.TBLUSER.Where(u => u.ID != currentUserId.Value).ToList() : db.TBLUSER.ToList();
+
+            // Kullanıcının takip ettiği kullanıcıların ID'lerini al (varsa)
+            var followedUserIds = currentUserId.HasValue? db.TBLFOLLOWERS.Where(f => f.FOLLOWERID == currentUserId.Value).Select(f => f.FOLLOWEDID.Value).ToList() : new List<int>();
+            ViewBag.FollowedUserIds = followedUserIds;
+
+            // DateTime.Now.AddDays(-7) ifadesini bir değişkene atayın
+            var fiveDaysAgo = DateTime.Now.AddDays(-7);
+
+            if (currentUserId.HasValue)
+            {
+                // Kullanıcının bildirimlerini kontrol et ve 5 günden eski olanları temizle
+                var oldNotifications = db.TBLNOTIFICATIONS.Where(n => n.USERID == currentUserId.Value && n.ISCLEARED == false && n.CREATED < fiveDaysAgo).ToList();
+
+                foreach (var notification in oldNotifications)
+                {
+                    notification.ISCLEARED = true; // Bildirimi temizle
+                }
+
+                db.SaveChanges(); // Değişiklikleri kaydet
+
+                // Giriş yapan kullanıcının güncel bildirimlerini al
+                veri.Notifications = db.TBLNOTIFICATIONS.Where(n => n.USERID == currentUserId.Value && n.ISCLEARED == false).ToList();
+            }
+            else
+            {
+                veri.Notifications = new List<TBLNOTIFICATIONS>();
+            }
 
             // Kullanıcının profilini al
+            string urlUsername = RouteData.Values["userName"].ToString();
             var user = db.TBLUSER.Where(x => x.USERNAME.Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").ToLower() == urlUsername).FirstOrDefault();
 
             veri.User = user;
@@ -34,20 +66,26 @@ namespace AnitsukiTV.Controllers
 
             // Takipçiler (Kullanıcının takip ettiği kişiler)
             veri.Followers = db.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
-            ViewBag.FollowersCount = veri.Followers.Count;
+            ViewBag.FollowersCount = veri.Followers.Count(x=>x.STATUS == true);
 
             var takipEttikleriIDler = db.TBLFOLLOWERS.Where(f => f.FOLLOWERID == user.ID).Select(f => f.FOLLOWEDID).ToList();
             veri.Following = db.TBLUSER.Where(u => takipEttikleriIDler.Contains(u.ID)).ToList();
-            ViewBag.FollowingCount = veri.Following.Count;
+            ViewBag.FollowingCount = veri.Following.Count(x=>x.STATUS == true);
 
             // Kullanıcının kendi profilini ziyaret edip etmediğini kontrol et
             bool isCurrentUserProfile = (User.Identity.Name.ToLower() == urlUsername.ToLower());
             ViewBag.IsCurrentUserProfile = isCurrentUserProfile;
 
             // Kullanıcının takip edip etmediğini kontrol et
-            int currentUserId = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault().ID;
-            bool isFollowing = db.TBLFOLLOWERS.Any(f => f.FOLLOWERID == currentUserId && f.FOLLOWEDID == user.ID);
-            ViewBag.IsFollowing = isFollowing;
+            if (currentUserId.HasValue)
+            {
+                bool isFollowing = db.TBLFOLLOWERS.Any(f => f.FOLLOWERID == currentUserId.Value && f.FOLLOWEDID == user.ID);
+                ViewBag.IsFollowing = isFollowing;
+            }
+            else
+            {
+                ViewBag.IsFollowing = false;
+            }
 
             return View(veri);
         }

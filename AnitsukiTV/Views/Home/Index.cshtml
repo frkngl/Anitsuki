@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="~/swiper/swiper-bundle.min.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/toastr.min.css" type="text/css" />
-    <link rel="stylesheet" href="~/css/Home33.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/Home40.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <!--TITLE IMG-->
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
@@ -79,7 +79,7 @@
             justify-content: space-around;
             align-items: start;
             flex-wrap: wrap;
-            overflow: auto;
+            overflow-y:auto;
         }
 
             .modal-body #menuFull11 a {
@@ -106,7 +106,7 @@
     <div class="loader">
 
     </div>
-    <div id="snow-container"></div>
+    @*<div id="snow-container"></div>*@
     <header>
         <div class="container-xl">
             <div class="row">
@@ -140,14 +140,14 @@
                                     foreach (var notification in Model.Notifications)
                                     {
                                         <li style="display: flex; align-items: center; padding: 5px;">
-                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME })">
+                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLowerInvariant().Replace(" ","-") })">
                                                 @if (notification.PROFILEPICTURE != null)
                                                 {
-                                                    <img src="~/IMG/@notification.PROFILEPICTURE" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    <img src="~/IMG/@notification.PROFILEPICTURE" style=" object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
                                                 }
                                                 else
                                                 {
-                                                    <img src="~/IMG/stockuser.png" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    <img src="~/IMG/stockuser.png" style=" object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
                                                 }
                                                 <div style="color: #ffffff;">
                                                     <strong>@notification.USERNAME</strong><br />
@@ -170,7 +170,7 @@
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <div style="margin-right:5px;" class="search">
+                        <div style="margin-left:0px;" class="search">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i style="font-size:1.8rem !important;" class="bi bi-person-add"></i></a>
                         </div>
                     }
@@ -190,19 +190,33 @@
                                             <i style="color:white;" class="fa-solid fa-magnifying-glass fa-xl"></i>
                                             <input type="text" autocomplete="off" name="searchTags11" id="searchTags11" placeholder="Arkadaş Ara..." />
                                         </div>
-                                        <ul id="menuFull11" style="display:none;">
-                                            @foreach (var user in Model.Users)
+                                        <ul id="menuFull11" style="display: none; height: 245px; overflow-y: auto;">
+                                            @foreach (var user in Model.Users.Where(x => x.STATUS == true))
                                             {
                                                 <li style="margin:10px 0px;width:100%; display:flex; justify-content:space-between; align-items:center;">
                                                     <div>
-                                                        <a href="@Url.RouteUrl("Profil", new { userName = user.USERNAME })">
+                                                        @{
+                                                            AnitsukiTVEntities y = new AnitsukiTVEntities();
+                                                            var Followers = y.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
+                                                            ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
+                                                        }
+                                                        <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLowerInvariant().Replace(" ","-") })">
                                                             @if (user.PICTURE != null)
                                                             {
-                                                                <img style="width:50px; height:50px; margin-right:7px; border-radius:50%;" src="~/IMG/@user.PICTURE" /> @user.USERNAME
+                                                                <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/IMG/@user.PICTURE" />
+                                                                <div>
+                                                                    <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
+                                                                    <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
+                                                                </div>
                                                             }
                                                             else
                                                             {
-                                                                <img style="width:50px; height:50px; margin-right:7px; border-radius:50%;" src="~/IMG/stockuser.png" /> @user.USERNAME
+
+                                                                <img style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" src="~/IMG/stockuser.png" />
+                                                                <div>
+                                                                    <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
+                                                                    <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
+                                                                </div>
                                                             }
                                                         </a>
                                                     </div>
@@ -210,11 +224,11 @@
                                                         <button onclick="followUser (@user.ID, this)" style="background-color: transparent; border: none; color: #FF7F00;">
                                                             @if (ViewBag.FollowedUserIds.Contains(user.ID))
                                                             {
-                                                                <i style="font-size:1.5rem;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
+                                                                <i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
                                                             }
                                                             else
                                                             {
-                                                                <i style="font-size:1.5rem;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
+                                                                <i style="font-size: 1.5rem; margin-right: 5px;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
                                                             }
                                                         </button>
                                                     </div>
@@ -227,7 +241,7 @@
                         </div>
                     </div>
                     <div class="user">
-                        <div style="height:60px; display:flex; align-items:center; margin-left:15px;" class="dropdown">
+                        <div style="height:60px; display:flex; align-items:center; margin-left:10px;" class="dropdown">
                             @{ AnitsukiTVEntities db = new AnitsukiTVEntities(); }
                             @if (User.Identity.IsAuthenticated)
                             {
@@ -369,6 +383,45 @@
             </div>
         </div>
     </div>
+    @*<div class="category1" id="category2">
+        <div class="text">
+            <div class="title">
+                <i class="bi bi-patch-plus"></i> Takip Ettiğin Kullanıcıların Beğendiği Animeler 
+            </div>
+        </div>
+        <div class="splide" id="splide16">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    @foreach (var l in Model.Anime.Where(l => l.STATUS == true).OrderByDescending(l => l.ID).Take(12))
+                    {
+                        <li class="splide__slide">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
+                                <div class="videoimg">
+                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                    @if (l.EDIT != null)
+                                    {
+                                        <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
+                                    }
+                                    else
+                                    {
+                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                    }
+                                </div>
+                                <div class="text">
+                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                        @l.ANIMENAME
+                                    </div>
+                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
+                                        @l.DATE.Value.ToString("yyyy")
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>*@
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
@@ -1050,7 +1103,7 @@
 <script src="~/splidejs/splide/dist/js/splide.min.js"></script>
 <script src="~/Scripts/jquery-3.7.1.min.js"></script>
 <script src="~/Scripts/toastr.min.js"></script>
-<script src="~/js/splide1.js"></script>
+<script src="~/js/splide2.js"></script>
 <script>
     document.querySelectorAll('nav a').forEach(link => {
         link.classList.remove('active');
@@ -1176,7 +1229,7 @@
     });
 </script>
 
-<script>
+@*<script>
     // script.js
     const snowContainer = document.getElementById('snow-container');
 
@@ -1202,7 +1255,7 @@
 
     // Kar tanelerini sürekli oluştur
     setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
-</script>
+</script>*@
 <script>
     // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
     jQuery.expr[':'].contains = function (a, i, m) {
@@ -1237,11 +1290,11 @@
                 if (response.success) {
                     if (response.isFollowing) {
                         // Takip etme durumu
-                        $(button).html('<i style="font-size:1.5rem;" class="bi bi-person-fill-dash"></i>'); // Takipten çıkma simgesi
+                        $(button).html('<i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i>'); // Takipten çıkma simgesi
                         toastr.success('Artık bu kullanıcıyı takip ediyorsunuz.'); // Başarı bildirimi
                     } else {
                         // Takipten çıkma durumu
-                        $(button).html('<i style="font-size:1.5rem;" class="bi bi-person-fill-add"></i>'); // Takip etme simgesi
+                        $(button).html('<i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i>'); // Takip etme simgesi
                         toastr.error('Artık bu kullanıcıyı takipten çıkıyorsunuz.'); // Hata bildirimi
                     }
                 } else {
