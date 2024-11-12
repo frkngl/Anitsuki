@@ -35,7 +35,7 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="~/css/AnimeDetail6.css" />
+    <link rel="stylesheet" href="~/css/AnimeDetail11.css" />
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
     <style>
@@ -272,66 +272,70 @@
         </div>
     </header>
     <div class="content3">
-        <div class="animeabout">
-            @foreach (var x in Model.Anime.Where(x => x.STATUS == true))
-            {
-                <div class="img">
-                    <img src="~/IMG/@x.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+        @foreach (var x in Model.Anime.Where(x=>x.STATUS == true))
+        {
+            <div class="watson">
+                <div class="watson-bg">
+                    <img class="desktop" src="~/IMG/@x.BIGBANNER">
+                    <img class="mobile" src="~/IMG/@x.BANNER">
                 </div>
-                <div class="detail">
-                    <div class="title">
+                <div class="originalimg">
+                    <img class="desktop" src="~/IMG/@x.BIGBANNER">
+                    <img class="mobile" src="~/IMG/@x.BANNER">
+                </div>
+            </div>
+            <div class="animeabout">
+                <div class="text">
+                    <div style="line-height:1;" class="title">
                         @x.ANIMENAME
                     </div>
-
+                    <div class="like">
+                        <button data-action="favorite" class="watchlater" onclick="addWatchLater(@Model.Anime.FirstOrDefault().ID, this)">
+                            @if (ViewBag.isWatchLater)
+                            {
+                                <i class="bi bi-clock-fill"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-clock"></i>
+                            }
+                        </button>
+                        <button data-action="favorite" class="favorite" onclick="addFavorite(@Model.Anime.FirstOrDefault().ID, this)">
+                            @if (ViewBag.IsFavorite)
+                            {
+                                <i class="bi bi-heart-fill"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-heart"></i>
+                            }
+                        </button>
+                    </div>
+                </div>
+                <div class="animedes">
                     <div class="totalepisode">
                         <i class="bi bi-play-circle"></i> Toplam Bölüm: @x.TBLEPISODE.Count()
                     </div>
-                    <div class="year">
-                        <i class="bi bi-calendar"></i> Yapım Yılı:  @x.DATE.Value.ToString("yyyy")
+                    <div class="createyear">
+                        <i class="bi bi-calendar"></i> Yapım yılı: @x.DATE.Value.ToString("yyyy")
                     </div>
-                    <div class="type">
+                    <div class="category">
                         <i class="bi bi-ticket"></i> Tür: @x.TBLCATEGORY.CATEGORYNAME, @x.TYPE
                     </div>
                     <div class="des">
                         @x.DETAIL
                     </div>
-                    <div style="display:flex;" class="save">
-                        <div>
-                            <a href="#" data-action="favorite" class="watchlater" onclick="addWatchLater(@Model.Anime.FirstOrDefault().ID, this)">
-                                @if (ViewBag.isWatchLater)
-                                {
-                                    <i style="color:#ffffff;" class="bi bi-clock-fill"></i>
-                                }
-                                else
-                                {
-                                    <i style="color:#ffffff;" class="bi bi-clock"></i>
-                                }
-                            </a>
-                        </div>
-                        <div>
-                            <a href="#" style="margin-left:10px;" data-action="favorite" class="favorite" onclick="addFavorite(@Model.Anime.FirstOrDefault().ID, this)">
-                                @if (ViewBag.IsFavorite)
-                                {
-                                    <i style="color:#ffffff;" class="bi bi-heart-fill"></i>
-                                }
-                                else
-                                {
-                                    <i style="color:#ffffff;" class="bi bi-heart"></i>
-                                }
-                            </a>
-                        </div>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; width:160px;" class="likeandunlikerating">
-                        <div style="width:49%;" class="rating">
+                    <div class="imdbandmal">
+                        <div class="imdb">
                             IMDb @x.IMDB
                         </div>
-                        <div style="width: 49%; background-color: #2e51a2; color:#ffffff;" class="rating">
+                        <div class="mal">
                             MAL @x.MYANIMELIST
                         </div>
                     </div>
                 </div>
-            }
-        </div>
+            </div>
+        }
         <div class="allepisode">
             <div class="searchcategory">
                 <div class="search">
