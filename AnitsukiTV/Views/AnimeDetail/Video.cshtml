@@ -739,16 +739,25 @@
     });
 
 
-    document.addEventListener('keydown', (event) => {
-        if (event.code === 'Space') {
-            event.preventDefault();
-            if (player.playing) {
-                player.pause();
-            } else {
-                player.play();
-            }
-        }
-    });
+    //document.addEventListener('keydown', (event) => {
+    //    const textarea = document.querySelector('textarea[name="COMMENT"]'); // Yorum alanını seçin
+
+    //    // Eğer textarea üzerinde odak varsa, boşluk tuşunun varsayılan davranışını engellemeyin
+    //    if (document.activeElement === textarea) {
+    //        // Burada boşluk tuşuna basıldığında hiçbir şey yapma
+    //        return; // Yorum alanında boşluk tuşu çalışsın
+    //    }
+
+    //    // Eğer video oynatıcı aktifse, boşluk tuşunu video kontrolü için kullanın
+    //    if (event.code === 'Space') {
+    //        event.preventDefault(); // Varsayılan boşluk davranışını engelle
+    //        if (player.playing) {
+    //            player.pause(); // Video duraklat
+    //        } else {
+    //            player.play(); // Video oynat
+    //        }
+    //    }
+    //});
 </script>
 
 @*<script>

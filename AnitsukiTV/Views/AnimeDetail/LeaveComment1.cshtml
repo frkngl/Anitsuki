@@ -8,7 +8,7 @@
                 <i class="bi bi-pencil-square"></i> Düşüncelerinizi Yazın
             </div>
             <form action="@Request.Url.AbsolutePath" method="post">
-                <textarea name="COMMENT"></textarea>
+                <textarea name="COMMENT" required></textarea>
                 <input type="hidden" name="EPISODEID" value="@ViewBag.episode1" />
                 <button><i class="bi bi-send"></i> Gönder</button>
             </form>

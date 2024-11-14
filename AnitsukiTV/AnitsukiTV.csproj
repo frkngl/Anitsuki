@@ -1084,7 +1084,7 @@
     <Content Include="IMG\poster.png" />
     <Content Include="IMG\postermobil.png" />
     <Content Include="js\plyr.js" />
-    <Content Include="js\splide2.js" />
+    <Content Include="js\splide3.js" />
     <Content Include="IMG\LoginBackground.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />

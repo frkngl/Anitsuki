@@ -280,8 +280,8 @@
                     <img class="mobile" src="~/IMG/@x.BANNER">
                 </div>
                 <div class="originalimg">
-                    <img class="desktop" src="~/IMG/@x.BIGBANNER">
-                    <img class="mobile" src="~/IMG/@x.BANNER">
+                    <img style="border-radius:10px;" class="desktop" src="~/IMG/@x.BIGBANNER">
+                    <img style="border-radius:10px;" class="mobile" src="~/IMG/@x.BANNER">
                 </div>
             </div>
             <div class="animeabout">
@@ -322,7 +322,7 @@
                     <div class="category">
                         <i class="bi bi-ticket"></i> Tür: @x.TBLCATEGORY.CATEGORYNAME, @x.TYPE
                     </div>
-                    <div class="des">
+                    <div style="overflow-wrap: break-word; overflow: auto; white-space: normal;" o;" class="des">
                         @x.DETAIL
                     </div>
                     <div class="imdbandmal">
@@ -530,12 +530,6 @@
 
         loader.classList.add("loader-hidden");
     })
-    document.addEventListener('keydown', function (event) {
-        if (event.code === 'Space' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'INPUT') {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    });
 
     jQuery.expr[':'].contains = function (a, i, m) {
         return jQuery(a).text().toUpperCase()
@@ -665,6 +659,7 @@
         });
     });
 </script>
+
 
 
 

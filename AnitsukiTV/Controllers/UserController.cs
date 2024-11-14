@@ -100,50 +100,57 @@ namespace AnitsukiTV.Controllers
 
             int followerUserId = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).Select(x => x.ID).FirstOrDefault();
 
-            // Takip kaydını kontrol et
-            var followRecord = db.TBLFOLLOWERS.FirstOrDefault(f => f.FOLLOWERID == followerUserId && f.FOLLOWEDID == followedUserId);
-
-            // Takip eden kullanıcının bilgilerini al
-            var follower = db.TBLUSER.FirstOrDefault(x => x.ID == followerUserId);
-            var followerUsername = follower?.USERNAME;
-            var followerProfileImage = follower?.PICTURE; // Profil resmi URL'si
-
-            if (followRecord == null)
+            try
             {
-                // Takip et
-                var followerRecord = new TBLFOLLOWERS
+                // Takip kaydını kontrol et
+                var followRecord = db.TBLFOLLOWERS.FirstOrDefault(f => f.FOLLOWERID == followerUserId && f.FOLLOWEDID == followedUserId);
+
+                // Takip eden kullanıcının bilgilerini al
+                var follower = db.TBLUSER.FirstOrDefault(x => x.ID == followerUserId);
+                var followerUsername = follower?.USERNAME;
+                var followerProfileImage = follower?.PICTURE; // Profil resmi URL'si
+
+                if (followRecord == null)
                 {
-                    FOLLOWERID = followerUserId,
-                    FOLLOWEDID = followedUserId,
-                    DATE = DateTime.Now
-                };
+                    // Takip et
+                    var followerRecord = new TBLFOLLOWERS
+                    {
+                        FOLLOWERID = followerUserId,
+                        FOLLOWEDID = followedUserId,
+                        DATE = DateTime.Now
+                    };
 
-                db.TBLFOLLOWERS.Add(followerRecord);
-                db.SaveChanges();
+                    db.TBLFOLLOWERS.Add(followerRecord);
+                    db.SaveChanges();
 
-                // Bildirim oluştur
-                var notification = new TBLNOTIFICATIONS
+                    // Bildirim oluştur
+                    var notification = new TBLNOTIFICATIONS
+                    {
+                        USERID = followedUserId, // Bildirimi alacak kullanıcı
+                        MESSAGE = "Sizi takip etmeye başladı.", // Genel mesaj
+                        USERNAME = followerUsername, // Takip eden kullanıcının ismini ayrı bir alanda sakla
+                        PROFILEPICTURE = followerProfileImage, // Takip eden kullanıcının profil resmini sakla
+                        CREATED = DateTime.Now,
+                        ISCLEARED = false
+                    };
+
+                    db.TBLNOTIFICATIONS.Add(notification);
+                    db.SaveChanges();
+
+                    return Json(new { success = true, isFollowing = true, message = "Kullanıcı takip edildi." });
+                }
+                else
                 {
-                    USERID = followedUserId, // Bildirimi alacak kullanıcı
-                    MESSAGE = "Sizi takip etmeye başladı.", // Genel mesaj
-                    USERNAME = followerUsername, // Takip eden kullanıcının ismini ayrı bir alanda sakla
-                    PROFILEPICTURE = followerProfileImage, // Takip eden kullanıcının profil resmini sakla
-                    CREATED = DateTime.Now,
-                    ISCLEARED = false
-                };
+                    // Takipten çık
+                    db.TBLFOLLOWERS.Remove(followRecord);
+                    db.SaveChanges();
 
-                db.TBLNOTIFICATIONS.Add(notification);
-                db.SaveChanges();
-
-                return Json(new { success = true, isFollowing = true, message = "Kullanıcı takip edildi." });
+                    return Json(new { success = true, isFollowing = false, message = "Kullanıcı takipten çıkıldı." });
+                }
             }
-            else
+            catch (Exception)
             {
-                // Takipten çık
-                db.TBLFOLLOWERS.Remove(followRecord);
-                db.SaveChanges();
-
-                return Json(new { success = true, isFollowing = false, message = "Kullanıcı takipten çıkıldı." });
+                return Json(new { success = false, message = "Bir hata oluştu. Lütfen tekrar deneyin." });
             }
         }
 
@@ -157,24 +164,31 @@ namespace AnitsukiTV.Controllers
 
             int currentUserId = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).Select(x => x.ID).FirstOrDefault();
 
-            // Kullanıcının tüm bildirimlerini temizle
-            var notifications = db.TBLNOTIFICATIONS.Where(n => n.USERID == currentUserId && n.ISCLEARED == false).ToList();
-            if (notifications.Count == 0)
+            try
             {
-                return Json(new { success = false, message = "Temizlenecek bildirim yok." });
-            }
+                // Kullanıcının tüm bildirimlerini temizle
+                var notifications = db.TBLNOTIFICATIONS.Where(n => n.USERID == currentUserId && n.ISCLEARED == false).ToList();
+                if (notifications.Count == 0)
+                {
+                    return Json(new { success = false, message = "Temizlenecek bildirim yok." });
+                }
 
-            foreach (var notification in notifications)
+                foreach (var notification in notifications)
+                {
+                    notification.ISCLEARED = true; // Bildirimleri temizle
+                }
+
+                db.SaveChanges(); // Değişiklikleri kaydet
+
+                return Json(new { success = true, message = "Tüm bildirimler temizlendi." });
+            }
+            catch (Exception)
             {
-                notification.ISCLEARED = true; // Bildirimleri temizle
+                return Json(new { success = false, message = "Bir hata oluştu. Lütfen tekrar deneyin." });
             }
-
-            db.SaveChanges(); // Değişiklikleri kaydet
-
-            return Json(new { success = true, message = "Tüm bildirimler temizlendi." });
         }
 
-        
+
         [HttpGet]
         public ActionResult ProfileSetting(string userName)
         {
@@ -194,91 +208,93 @@ namespace AnitsukiTV.Controllers
         public ActionResult ProfileSetting(TBLUSER user, HttpPostedFileBase UserImage)
         {
             string username = HttpContext.User.Identity.Name;
-            int userID = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault().ID;
-            var UserUpdate = db.TBLUSER.Find(userID);
+            int userID;
 
-            if (UserImage != null && UserImage.ContentLength > 0)
+            try
             {
-                string fileExtension = Path.GetExtension(UserImage.FileName).ToLower();
+                userID = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault().ID;
+                var UserUpdate = db.TBLUSER.Find(userID);
 
-                if (fileExtension != ".jpg" && fileExtension != ".jpeg" && fileExtension != ".png" && fileExtension != ".gif")
+                if (UserImage != null && UserImage.ContentLength > 0)
                 {
-                    TempData["error3"] = "Lütfen resim formatında bir dosya seçiniz! Örnek a.jpg, a.jpeg, a.gif ve a.png !";
-                    return View(user);
+                    string fileExtension = Path.GetExtension(UserImage.FileName).ToLower();
+
+                    if (fileExtension != ".jpg" && fileExtension != ".jpeg" && fileExtension != ".png" && fileExtension != ".gif")
+                    {
+                        TempData["error3"] = "Lütfen resim formatında bir dosya seçiniz! Örnek a.jpg, a.jpeg, a.gif ve a.png !";
+                        return View(user);
+                    }
+
+                    if (UserImage.ContentLength > 15 * 1024 * 1024) // 15 MB
+                    {
+                        TempData["error5"] = "Lütfen 15 MB'den küçük bir dosya seçiniz!";
+                        return View(user);
+                    }
+
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(UserImage.FileName);
+                    var path = Path.Combine(Server.MapPath("~/IMG/"), fileName);
+
+                    WebImage Websize = new WebImage(UserImage.InputStream);
+                    if (Websize.Width > 750)
+                        Websize.Resize(750, 750);
+                    Websize.Save(path);
+                    TempData["UploadedImage"] = fileName;
+                    UserUpdate.PICTURE = fileName;
                 }
 
-                if (UserImage.ContentLength > 15 * 1024 * 1024) // 15 MB
+                if (string.IsNullOrWhiteSpace(user.MAIL))
                 {
-                    TempData["error5"] = "Lütfen 15 MB'den küçük bir dosya seçiniz!";
+                    TempData["error2"] = "Lütfen Mail alanınızı boş bırakmayınız!";
                     return View(user);
-                }
-
-                var file = new FileInfo(UserImage.FileName);
-                var fileName = Path.GetFileName(UserImage.FileName);
-                fileName = Guid.NewGuid().ToString() + file.Extension;
-                var path = Path.Combine(Server.MapPath("~/IMG/"), fileName);
-
-                WebImage Websize = new WebImage(UserImage.InputStream);
-                if (Websize.Width > 750)
-                    Websize.Resize(750, 750);
-                Websize.Save(path);
-                TempData["UploadedImage"] = fileName;
-                UserUpdate.PICTURE = fileName;
-            }
-
-            if (string.IsNullOrWhiteSpace(user.MAIL))
-            {
-                TempData["error2"] = "Lütfen Mail alanınızı boş bırakmayınız!";
-                return View(user);
-            }
-            else
-            {
-                user.MAIL = user.MAIL.Trim();
-                string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-                if (!Regex.IsMatch(user.MAIL, emailPattern))
-                {
-                    TempData["error"] = "Lütfen geçerli bir Mail adresi giriniz!";
-                    return View(user);
-                }
-
-                var existingUser = db.TBLUSER.FirstOrDefault(u => u.MAIL == user.MAIL && u.ID != userID);
-                if (existingUser != null)
-                {
-                    TempData["error6"] = "Mail adresi kullanımda!";
-                    return View(user);
-                }
-            }
-
-            if (!string.IsNullOrWhiteSpace(user.PASSWORD))
-            {
-                if (user.PASSWORD != user.CONFIRMPASS)
-                {
-                    TempData["error4"] = "Şifreler aynı değil!";
-                    ModelState.AddModelError("PASSWORD", "Şifreler aynı değil!");
                 }
                 else
                 {
-                    UserUpdate.PASSWORD = user.PASSWORD;
-                    UserUpdate.CONFIRMPASS = user.PASSWORD;
-                    ModelState.Remove("CONFIRMPASS");
+                    user.MAIL = user.MAIL.Trim();
+                    string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+                    if (!Regex.IsMatch(user.MAIL, emailPattern))
+                    {
+                        TempData["error"] = "Lütfen geçerli bir Mail adresi giriniz!";
+                        return View(user);
+                    }
+
+                    var existingUser = db.TBLUSER.FirstOrDefault(u => u.MAIL == user.MAIL && u.ID != userID);
+                    if (existingUser != null)
+                    {
+                        TempData["error6"] = "Mail adresi kullanımda!";
+                        return View(user);
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(user.PASSWORD))
+                {
+                    if (user.PASSWORD != user.CONFIRMPASS)
+                    {
+                        TempData["error4"] = "Şifreler aynı değil!";
+                        ModelState.AddModelError("PASSWORD", "Şifreler aynı değil!");
+                    }
+                    else
+                    {
+                        UserUpdate.PASSWORD = user.PASSWORD;
+                        UserUpdate.CONFIRMPASS = user.PASSWORD;
+                        ModelState.Remove("CONFIRMPASS");
+                    }
+                }
+
+                UserUpdate.ABOUT = string.IsNullOrWhiteSpace(user.ABOUT) ? null : user.ABOUT;
+                UserUpdate.MAIL = user.MAIL;
+
+                if (ModelState.IsValid)
+                {
+                    db.SaveChanges();
+                    TempData["success"] = "Başarıyla Güncellenmiştir!";
+                    return RedirectToAction("ProfileSetting");
                 }
             }
-            if (string.IsNullOrWhiteSpace(user.ABOUT))
+            catch (Exception)
             {
-                UserUpdate.ABOUT = null;
-            }
-            else
-            {
-                UserUpdate.ABOUT = user.ABOUT;
+                TempData["error10"] = "Bir hata oluştu. Lütfen tekrar deneyin.";
             }
 
-            UserUpdate.MAIL = user.MAIL;
-            if (ModelState.IsValid)
-            {
-                db.SaveChanges();
-                TempData["success"] = "Başarıyla Güncellenmiştir!";
-                return RedirectToAction("ProfileSetting");
-            }
             return View(user);
         }
 

@@ -4,6 +4,7 @@
     ViewBag.Title = "Anime";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<link rel="stylesheet" href="~/Content/toastr.min.css" />
 
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
@@ -64,11 +65,11 @@
                                 <td>
                                     @if (x.STATUS == true)
                                     {
-                                        <a href="/LanetlerKralıAdmin/ActivePassive1/@x.ID" class="btn btn-success btn-sm">Aktif</a>
+                                        <button class="btn btn-success btn-sm toggle-status" data-id="@x.ID" data-action="ActivePassive1">Aktif</button>
                                     }
                                     else
                                     {
-                                        <a href="/LanetlerKralıAdmin/ActivePassive1/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
+                                        <button class="btn btn-warning btn-sm toggle-status" data-id="@x.ID" data-action="ActivePassive1">Pasif</button>
                                     }
                                 </td>
 
@@ -86,11 +87,11 @@
                                             <td>
                                                 @if (x.ADMINSTATUS == true)
                                                 {
-                                                    <a href="/LanetlerKralıAdmin/ActivePassive2/@x.ID" class="btn btn-success btn-sm">Aktif</a>
+                                                    <button class="btn btn-success btn-sm toggle-status" data-id="@x.ID" data-action="ActivePassive2">Aktif</button>
                                                 }
                                                 else
                                                 {
-                                                    <a href="/LanetlerKralıAdmin/ActivePassive2/@x.ID" class="btn btn-warning btn-sm">Pasif</a>
+                                                    <button class="btn btn-warning btn-sm toggle-status" data-id="@x.ID" data-action="ActivePassive2">Pasif</button>
                                                 }
                                             </td>
                                         }
@@ -134,5 +135,183 @@
         </ul>
     </nav>
 </div>
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/toastr.min.js"></script>
+
+<script>
+    $(document).on('click', '.toggle-status', function (e) {
+        e.preventDefault(); // Varsayılan link davranışını engelle
+        var id = $(this).data('id');
+        var button = $(this);
+        var action = $(this).data('action'); // Hangi işlemin yapılacağını al
+
+        $.ajax({
+            url: '/LanetlerKralıAdmin/' + action + '/' + id, // URL'yi dinamik oluştur
+            type: 'POST',
+            success: function (result) {
+                // Durum değiştiyse butonu güncelle
+                if (result.status) {
+                    button.removeClass('btn-warning').addClass('btn-success').text('Aktif');
+                } else {
+                    button.removeClass('btn-success').addClass('btn-warning').text('Pasif');
+                }
+            },
+            error: function () {
+                alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+            }
+        });
+    });
+</script>
+
+@if (TempData["success"] != null)
+{
+    <script type="text/javascript">
+        toastr["success"]("@TempData["success"]", "Yeni Kayıt")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["error"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("@TempData["error"]", "Kayıt Hatası")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["success1"] != null)
+{
+    <script type="text/javascript">
+        toastr["success"]("@TempData["success1"]", "Güncelleme")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["error1"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("@TempData["error1"]", "Güncelleme Hatası")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["success2"] != null)
+{
+    <script type="text/javascript">
+        toastr["success"]("@TempData["success2"]", "Silme")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["error2"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("@TempData["error2"]", "Silme Hatası")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
 
 

@@ -31,6 +31,7 @@
             <label for="exampleInputPassword4">Anime Adı</label><br />
             <input type="text" id="anime-search" placeholder="Anime Ara">
             <select id="anime-dropdown" name="ANIMEID" required>
+                <option value="" disabled selected>Anime Seç</option>
                 @foreach (var anime in ViewBag.Anime)
                 {
                     <option value="@anime.ID" @(ViewBag.SelectedAnimeId == anime.ID ? "selected" : "")>@anime.ANIMENAME</option>

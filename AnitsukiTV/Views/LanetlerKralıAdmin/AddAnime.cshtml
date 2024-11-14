@@ -42,16 +42,16 @@
             @Html.TextBoxFor(x => x.ANIMENAME, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
         </div>
         <div class="form-group">
-            <label for="exampleInputName1">IMDb</label><br />
+            <label for="exampleInputName1">IMDb => Virgül kullanınız örnek(8,9)</label><br />
             @Html.TextBoxFor(x => x.IMDB, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
         </div>
         <div class="form-group">
-            <label for="exampleInputName1">My Anime List</label><br />
+            <label for="exampleInputName1">My Anime List => Virgül kullanınız örnek(8,9)</label><br />
             @Html.TextBoxFor(x => x.MYANIMELIST, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
         </div>
         <div class="form-group">
-            <label for="exampleInputName1">Yayın Yılı => Örnek (2020-12-12)</label><br />
-            @Html.TextBoxFor(x => x.DATE, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+            <label for="exampleInputName1">Yayın Yılı</label><br />
+            @Html.TextBoxFor(x => x.DATE, new { @type = "date", @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
         </div>
         <div class="form-group">
             <label for="exampleInputEmail3">Açıklama</label><br />

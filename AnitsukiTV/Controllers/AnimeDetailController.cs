@@ -112,15 +112,25 @@ namespace AnitsukiTV.Controllers
         {
             string username = HttpContext.User.Identity.Name;
             TBLUSER user = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault();
+            try
+            {
+                y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString()); 
+                y.STATUS = true;
+                y.TBLUSER = user;
 
-            y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
-            y.STATUS = true;
-            y.TBLUSER = user;
-            db.TBLANIMECOMMENT.Add(y);
-            db.SaveChanges();
-            string originalUrl = Request.Url.AbsolutePath;
-            Response.Redirect(originalUrl);
-            return PartialView();
+                db.TBLANIMECOMMENT.Add(y);
+                db.SaveChanges();
+                string originalUrl = Request.Url.AbsolutePath;
+                Response.Redirect(originalUrl);
+                return PartialView();
+            }
+            catch (Exception)
+            {
+                TempData["error"] = "Yorum yaparken bir hata oluştu. Lütfen tekrar deneyin.";
+                string originalUrl = Request.Url.AbsolutePath;
+                Response.Redirect(originalUrl);
+                return PartialView();
+            }
         }
 
 
@@ -130,14 +140,24 @@ namespace AnitsukiTV.Controllers
             string username = HttpContext.User.Identity.Name;
             TBLUSER user = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault();
 
-            y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
-            y.STATUS = true;
-            y.TBLUSER = user;
-            db.TBLANIMECOMMENT.Add(y);
-            db.SaveChanges();
+            try
+            {
+                y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
+                y.STATUS = true;
+                y.TBLUSER = user;
 
-            string url = $"/anime/{animeID}/{animeName.ToLower().Replace(" ", "-")}-{seasonNumber}-sezon-izle";
-            Response.Redirect(url);
+                db.TBLANIMECOMMENT.Add(y);
+                db.SaveChanges();
+
+                string url = $"/anime/{animeID}/{animeName.ToLower().Replace(" ", "-")}-{seasonNumber}-sezon-izle";
+                Response.Redirect(url);
+            }
+            catch (Exception)
+            {
+                TempData["error"] = "Yorum yaparken bir hata oluştu. Lütfen tekrar deneyin.";
+                string url = $"/anime/{animeID}/{animeName.ToLower().Replace(" ", "-")}-{seasonNumber}-sezon-izle";
+                return Redirect(url); 
+            }
             return View();
         }
 
@@ -333,14 +353,26 @@ namespace AnitsukiTV.Controllers
             string username = HttpContext.User.Identity.Name;
             TBLUSER user = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault();
 
-            y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
-            y.STATUS = true;
-            y.TBLUSER = user;
-            db.TBLEPISODECOMMENT.Add(y);
-            db.SaveChanges();
-            string originalUrl = Request.Url.AbsolutePath;
-            Response.Redirect(originalUrl);
-            return PartialView();
+            try
+            {
+                y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
+                y.STATUS = true;
+                y.TBLUSER = user;
+
+                db.TBLEPISODECOMMENT.Add(y);
+                db.SaveChanges();
+
+                string originalUrl = Request.Url.AbsolutePath;
+                Response.Redirect(originalUrl);
+                return PartialView();
+            }
+            catch (Exception)
+            {
+                TempData["error"] = "Yorum yaparken bir hata oluştu. Lütfen tekrar deneyin.";
+                string originalUrl = Request.Url.AbsolutePath;
+                Response.Redirect(originalUrl);
+                return PartialView();
+            }
         }
 
 
@@ -350,17 +382,25 @@ namespace AnitsukiTV.Controllers
             string username = HttpContext.User.Identity.Name;
             TBLUSER user = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault();
 
-            y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
-            y.STATUS = true;
-            y.TBLUSER = user;
-            db.TBLEPISODECOMMENT.Add(y);
-            db.SaveChanges();
+            try
+            {
+                y.DATE = Convert.ToDateTime(DateTime.Now.ToLongDateString());
+                y.STATUS = true;
+                y.TBLUSER = user;
 
-            string url = $"/{episodeID}/{animeName.ToLower().Replace(" ", "-")}-{seasonNumber}-sezon-{episodeNumber}-bolum-izle";
-            Response.Redirect(url);
-            return View();
+                db.TBLEPISODECOMMENT.Add(y);
+                db.SaveChanges();
 
-            
+                string url = $"/{episodeID}/{animeName.ToLower().Replace(" ", "-")}-{seasonNumber}-sezon-{episodeNumber}-bolum-izle";
+                Response.Redirect(url);
+                return View();
+            }
+            catch (Exception)
+            {
+                TempData["error"] = "Yorum yaparken bir hata oluştu. Lütfen tekrar deneyin.";
+                string url = $"/{episodeID}/{animeName.ToLower().Replace(" ", "-")}-{seasonNumber}-sezon-{episodeNumber}-bolum-izle";
+                return Redirect(url); 
+            }            
         }
 
 
@@ -404,17 +444,6 @@ namespace AnitsukiTV.Controllers
 
             return Json(new { likeCount, unlikeCount });
         }
-
-
-
-
-
-
-
-
-
-
-
 
         [HttpPost]
         public ActionResult LikeOrUnlikeComment2(int id, int userId, bool isLike)

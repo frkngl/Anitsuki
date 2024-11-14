@@ -24,6 +24,13 @@
         #anime-dropdown option {
             display: block;
         }
+
+    #season-dropdown {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #000000;
+        border-radius: 5px;
+    }
 </style>
 
 
@@ -37,7 +44,7 @@
                 <label>Resim Yükleme</label>
                 <br />
                 <img class="resim" width="400" height="250" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" />
-                <input class="form-control" id="resim" accept=".jpg, .jpeg, .png" type="file" onchange="$('.resim')[0].src = window.URL.createObjectURL(this.files[0])" name="Image"  />
+                <input class="form-control" id="resim" accept=".jpg, .jpeg, .png" type="file" onchange="$('.resim')[0].src = window.URL.createObjectURL(this.files[0])" name="Image" />
             </div>
             <div>
                 <div style="margin-bottom:10px;">
@@ -62,13 +69,13 @@
                     <label for="exampleInputPassword4">480</label>
                     <br />
                     <video controls class="Video2" width="400" height="250" style="border:1px solid #000000; object-fit:cover;"></video>
-                    <input class="form-control" id="resim" accept=".mp4" type="file" onchange="$('.Video2')[0].src = window.URL.createObjectURL(this.files[0])" name="Video2"  />
+                    <input class="form-control" id="resim" accept=".mp4" type="file" onchange="$('.Video2')[0].src = window.URL.createObjectURL(this.files[0])" name="Video2" />
                 </div>
                 <div>
                     <label for="exampleInputPassword4">1080</label>
                     <br />
                     <video controls class="Video4" width="400" height="250" style="border:1px solid #000000; object-fit:cover;"></video>
-                    <input class="form-control" id="resim" accept=".mp4" type="file" onchange="$('.Video4')[0].src = window.URL.createObjectURL(this.files[0])" name="Video4"  />
+                    <input class="form-control" id="resim" accept=".mp4" type="file" onchange="$('.Video4')[0].src = window.URL.createObjectURL(this.files[0])" name="Video4" />
                 </div>
             </div>
 
@@ -77,6 +84,7 @@
             <label for="exampleInputPassword4">Anime Adı</label><br />
             <input type="text" id="anime-search" placeholder="Anime Ara">
             <select id="anime-dropdown" name="ANIMEID" required onchange="getSeasonsByAnimeId(this.value)">
+                <option value="">Anime Seçiniz</option>
                 @foreach (var anime in ViewBag.Anime)
                 {
                     <option value="@anime.ID">@anime.ANIMENAME</option>
@@ -84,8 +92,10 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword4">Sezon ID</label><br />
-            @Html.TextBoxFor(x => x.SEASONID, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+            <label for="season-dropdown">Sezon ID</label><br />
+            <select id="season-dropdown" name="SEASONID" required>
+                <option value="">Sezon Seçin</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="exampleInputPassword4">Bölüm Numarası</label><br />
@@ -157,5 +167,47 @@
         else {
             alert('Lütfen geçerli bir video URL\'si girin.');
         }
+    });
+</script>
+
+<script>
+    function getSeasonsByAnimeId(animeId) {
+        // Sezon dropdown'unu temizle
+        var seasonDropdown = document.getElementById("season-dropdown");
+        seasonDropdown.innerHTML = '<option value="">Sezon Seçin</option>'; // İlk seçenek
+
+        // Eğer animeId yoksa çık
+        if (!animeId) return;
+
+        // AJAX çağrısı yap
+        fetch('/LanetlerKralıAdmin/GetSeasonsByAnimeId?animeId=' + animeId)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(function (season) {
+                    var option = document.createElement("option");
+                    option.value = season.ID; // SEASONID
+                    option.text = season.SEASONNAME ? season.SEASONNAME : season.SEASONNUMBER; // SEASONNAME yoksa SEASONNUMBER göster
+                    seasonDropdown.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Hata:', error));
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var animeList = document.getElementById("anime-dropdown");
+        var searchInput = document.getElementById("anime-search");
+
+        searchInput.addEventListener("input", function () {
+            var searchTerm = searchInput.value.toLowerCase();
+            for (var i = 0; i < animeList.options.length; i++) {
+                var option = animeList.options[i];
+                var optionText = option.text.toLowerCase();
+                if (optionText.indexOf(searchTerm) === -1) {
+                    option.style.display = "none";
+                } else {
+                    option.style.display = "block";
+                }
+            }
+        });
     });
 </script>

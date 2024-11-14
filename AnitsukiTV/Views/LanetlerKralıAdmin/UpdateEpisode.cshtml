@@ -25,6 +25,13 @@
         #anime-dropdown option {
             display: block;
         }
+
+    #season-dropdown {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #000000;
+        border-radius: 5px;
+    }
 </style>
 
 
@@ -92,7 +99,13 @@
     </div>
     <div class="form-group">
         <label for="exampleInputPassword4">Sezon ID</label><br />
-        @Html.TextBoxFor(x => x.SEASONID, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+        <select id="season-dropdown" name="SEASONID" required>
+            <option value="">Sezon Seçin</option>
+            @if (!string.IsNullOrEmpty(ViewBag.SelectedSeasonName))
+            {
+                <option value="@Model.TBLSEASON.ID" selected>@ViewBag.SelectedSeasonName</option>
+            }
+        </select>
     </div>
     <div class="form-group">
         <label for="exampleInputName1">Bölüm Sayısı</label><br />
@@ -168,6 +181,59 @@
             videoIframe.style.display = "none";
             otherVideo.style.display = "none";
         }
+    });
+</script>
+
+<script>
+    function getSeasonsByAnimeId(animeId) {
+    // Sezon dropdown'unu temizle
+    var seasonDropdown = document.getElementById("season-dropdown");
+    seasonDropdown.innerHTML = '<option value="">Sezon Seçin</option>'; // İlk seçenek
+
+    // Eğer animeId yoksa çık
+    if (!animeId) return;
+
+    // AJAX çağrısı yap
+    fetch('/LanetlerKralıAdmin/GetSeasonsByAnimeId?animeId=' + animeId)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(function (season) {
+                var option = document.createElement("option");
+                option.value = season.ID; // SEASONID
+                option.text = season.SEASONNAME ? season.SEASONNAME : season.SEASONNUMBER; // SEASONNAME yoksa SEASONNUMBER göster
+                seasonDropdown.appendChild(option);
+            });
+
+            // Mevcut sezonu seçili yap
+            seasonDropdown.value = '@ViewBag.SelectedSeasonId'; // Seçili sezonu ayarlayın
+        })
+        .catch(error => console.error('Hata:', error));
+}
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var animeList = document.getElementById("anime-dropdown");
+        var searchInput = document.getElementById("anime-search");
+
+        searchInput.addEventListener("input", function () {
+            var searchTerm = searchInput.value.toLowerCase();
+            for (var i = 0; i < animeList.options.length; i++) {
+                var option = animeList.options[i];
+                var optionText = option.text.toLowerCase();
+                if (optionText.indexOf(searchTerm) === -1) {
+                    option.style.display = "none";
+                } else {
+                    option.style.display = "block";
+                }
+            }
+        });
+
+        // Anime dropdown'u değiştiğinde sezonları güncelle
+        animeList.addEventListener('change', function () {
+            getSeasonsByAnimeId(this.value);
+        });
+
+        // Sayfa yüklendiğinde mevcut anime için sezonları yükle
+        getSeasonsByAnimeId('@ViewBag.SelectedAnimeId');
     });
 </script>
 

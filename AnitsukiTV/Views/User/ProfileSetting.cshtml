@@ -412,30 +412,55 @@
     </script>
 }
 
+@if (TempData["error10"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("@TempData["error10"]", "İşlem Hatası")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
 @*<script>
-    // script.js
-    const snowContainer = document.getElementById('snow-container');
+        // script.js
+        const snowContainer = document.getElementById('snow-container');
 
-    function createSnowflake() {
-        const snowflake = document.createElement('div');
-        const size = Math.random() * 5 + 2; // Kar tanesi boyutu
-        const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
-        const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            const size = Math.random() * 5 + 2; // Kar tanesi boyutu
+            const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
+            const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
 
-        snowflake.classList.add('snowflake');
-        snowflake.style.width = `${size}px`;
-        snowflake.style.height = `${size}px`;
-        snowflake.style.left = `${leftPosition}px`;
-        snowflake.style.animationDuration = `${animationDuration}s`;
+            snowflake.classList.add('snowflake');
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
+            snowflake.style.left = `${leftPosition}px`;
+            snowflake.style.animationDuration = `${animationDuration}s`;
 
-        snowContainer.appendChild(snowflake);
+            snowContainer.appendChild(snowflake);
 
-        // Kar tanesinin düşüşü tamamlandığında sil
-        setTimeout(() => {
-            snowflake.remove();
-        }, animationDuration * 1000);
-    }
+            // Kar tanesinin düşüşü tamamlandığında sil
+            setTimeout(() => {
+                snowflake.remove();
+            }, animationDuration * 1000);
+        }
 
-    // Kar tanelerini sürekli oluştur
-    setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
-</script>*@
+        // Kar tanelerini sürekli oluştur
+        setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
+    </script>*@

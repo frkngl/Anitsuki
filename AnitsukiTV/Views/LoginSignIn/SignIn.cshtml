@@ -75,7 +75,7 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Mail Adresini Oluşturun">
-                        <input style="color:#ffffff !important;" class="input100" type="text" name="MAIL">
+                        <input style="color:#ffffff !important;" class="input100" type="email" name="MAIL">
                         <span style="color:#ffffff !important;" class="focus-input100" data-placeholder="Email"></span>
                     </div>
 
@@ -224,3 +224,28 @@
         }
     </script>
 }
+@if (TempData["error4"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("Kayıt işlemi sırasında bir hata oluştu. Lütfen tekrar deneyin.", "İşlem Hatası")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
