@@ -138,7 +138,7 @@
                                     foreach (var notification in Model.Notifications)
                                     {
                                         <li style="display: flex; align-items: center; padding: 5px;">
-                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLowerInvariant().Replace(" ","-") })">
+                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
                                                 @if (notification.PROFILEPICTURE != null)
                                                 {
                                                     <img src="~/IMG/@notification.PROFILEPICTURE" style="width: 40px; object-fit:cover; height: 40px; border-radius: 50%; margin-right: 10px;" />
@@ -198,7 +198,7 @@
                                                             var Followers = y.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
                                                             ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
                                                         }
-                                                        <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLowerInvariant().Replace(" ","-") })">
+                                                        <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
                                                             @if (user.PICTURE != null)
                                                             {
                                                                 <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/IMG/@user.PICTURE" />
@@ -222,11 +222,11 @@
                                                         <button onclick="followUser (@user.ID, this)" style="background-color: transparent; border: none; color: #FF7F00;">
                                                             @if (ViewBag.FollowedUserIds.Contains(user.ID))
                                                             {
-                                                                <i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
+                                                                <i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
                                                             }
                                                             else
                                                             {
-                                                                <i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
+                                                                <i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
                                                             }
                                                         </button>
                                                     </div>
@@ -351,7 +351,7 @@
                         @foreach (var y in Model.Season.Where(y => y.STATUS == true))
                         {
                             var animeID = Model.Anime.FirstOrDefault().ID;
-                            var animeName = Model.Anime.FirstOrDefault().ANIMENAME.Replace(" ", "-").ToLower(); // Replace spaces with dashes and convert to lower case
+                            var animeName = Model.Anime.FirstOrDefault().ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"); // Replace spaces with dashes and convert to lower case
                             if (y.SEASONNAME == null)
                             {
                                 <li><a class="dropdown-item" href="@Url.RouteUrl("Anime Detay", new { animeID = animeID, animeName = animeName, seasonNumber = y.SEASONNUMBER })">@y.SEASONNUMBER Sezon</a></li>
@@ -369,7 +369,7 @@
                     @foreach (var z in Model.Episode.Where(z => z.STATUS == true))
                     {
                         <li>
-                            <a href="@Url.RouteUrl("Video", new {episodeID = z.ID, animeName = z.TBLANIME.ANIMENAME.Replace(" ","-").ToLowerInvariant(), seasonNumber = z.TBLSEASON.SEASONNUMBER, episodeNumber = z.EPINUMBER })">
+                            <a href="@Url.RouteUrl("Video", new {episodeID = z.ID, animeName = z.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = z.TBLSEASON.SEASONNUMBER, episodeNumber = z.EPINUMBER })">
                                 <div class="box">
                                     <div class="img">
                                         <i class="bi bi-play-circle"></i>
@@ -611,11 +611,11 @@
                 if (response.success) {
                     if (response.isFollowing) {
                         // Takip etme durumu
-                        $(button).html('<i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i>'); // Takipten çıkma simgesi
+                        $(button).html('<i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i>'); // Takipten çıkma simgesi
                         toastr.success('Artık bu kullanıcıyı takip ediyorsunuz.'); // Başarı bildirimi
                     } else {
                         // Takipten çıkma durumu
-                        $(button).html('<i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i>'); // Takip etme simgesi
+                        $(button).html('<i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i>'); // Takip etme simgesi
                         toastr.error('Artık bu kullanıcıyı takipten çıkıyorsunuz.'); // Hata bildirimi
                     }
                 } else {

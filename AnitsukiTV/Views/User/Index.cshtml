@@ -233,7 +233,7 @@
                                     foreach (var notification in Model.Notifications)
                                     {
                                         <li style="display: flex; align-items: center; padding: 5px;">
-                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLowerInvariant().Replace(" ", "-") })">
+                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
                                                 @if (notification.PROFILEPICTURE != null)
                                                 {
                                                     <img src="~/IMG/@notification.PROFILEPICTURE" style="width: 40px; object-fit:cover; height: 40px; border-radius: 50%; margin-right: 10px;" />
@@ -293,7 +293,7 @@
                                                             var Followers = y.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
                                                             ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
                                                         }
-                                                        <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLowerInvariant().Replace(" ","-") })">
+                                                        <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
                                                             @if (user.PICTURE != null)
                                                             {
                                                                 <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/IMG/@user.PICTURE" />
@@ -317,11 +317,11 @@
                                                         <button onclick="followUser (@user.ID, this)" style="background-color: transparent; border: none; color: #FF7F00;">
                                                             @if (ViewBag.FollowedUserIds.Contains(user.ID))
                                                             {
-                                                                <i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
+                                                                <i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
                                                             }
                                                             else
                                                             {
-                                                                <i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
+                                                                <i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
                                                             }
                                                         </button>
                                                     </div>
@@ -385,7 +385,7 @@
                 if (!ViewBag.IsCurrentUserProfile)
                 {
                     <div class="zort">
-                        <button onclick="followUserAlternative (@Model.User.ID, this)" style="background-color: transparent; border: none; display: flex; width: 100%; height: 100%; align-items: center; color: #FF7F00; justify-content: center;">
+                        <button onclick="followUserAlternative(@Model.User.ID, this)" style="background-color: transparent; border: none; display: flex; width: 100%; height: 100%; align-items: center; color: #FF7F00; justify-content: center;">
                             @if (ViewBag.IsFollowing)
                             {
                                 <i style="font-size:2.5rem;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
@@ -404,7 +404,7 @@
                 if (!ViewBag.IsCurrentUserProfile)
                 {
                     <div class="zort">
-                        <button onclick="followUser (@Model.User.ID, this)" style="background-color: transparent; border: none; display: flex; width: 100%; height: 100%; align-items: center; color: #FF7F00; justify-content: center;">
+                        <button onclick="followUserAlternative(@Model.User.ID, this)" style="background-color: transparent; border: none; display: flex; width: 100%; height: 100%; align-items: center; color: #FF7F00; justify-content: center;">
                             @if (ViewBag.IsFollowing)
                             {
                                 <i style="font-size:2.5rem;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
@@ -443,7 +443,7 @@
 
                                     <button type="button" style="background-color:#ffffff;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
+                                <div style="height:300px;" class="modal-body">
                                     <div id="followersContent" style="display: block;">
                                         <div class="search">
                                             <i class="fa-solid fa-magnifying-glass fa-xl"></i>
@@ -458,7 +458,7 @@
                                                 foreach (var user in Model.Followers.Where(s => s.STATUS == true))
                                                 {
                                                     <li style="margin:10px 0px;width:220px;">
-                                                        <a href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLowerInvariant().Replace(" ","-") })">
+                                                        <a href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
                                                             @if (user.PICTURE != null)
                                                             {
                                                                 <img style="width:50px; height:50px; margin-right:7px; object-fit:cover; border-radius:50%;" src="~/IMG/@user.PICTURE" /> @user.USERNAME
@@ -493,7 +493,7 @@
                                                 foreach (var user in Model.Following.Where(x=>x.STATUS == true))
                                                 {
                                                     <li style="margin:10px 0px;width:220px;">
-                                                        <a href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLowerInvariant().Replace(" ","-") })">
+                                                        <a href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
                                                             @if (user.PICTURE != null)
                                                             {
                                                                 <img style="width:50px; height:50px; margin-right:7px; object-fit:cover; border-radius:50%;" src="~/IMG/@user.PICTURE" /> @user.USERNAME
@@ -539,7 +539,7 @@
                         {
                             var season = s.TBLANIME.TBLSEASON.FirstOrDefault();
                             <li>
-                                <a href="@Url.RouteUrl("Anime Detay", new { animeID = s.TBLANIME.ID, animeName = s.TBLANIME.ANIMENAME.Replace(" ","-").ToLowerInvariant(), seasonNumber = season!= null ? season.SEASONNUMBER : 0 })">
+                                <a href="@Url.RouteUrl("Anime Detay", new { animeID = s.TBLANIME.ID, animeName = s.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = season!= null ? season.SEASONNUMBER : 0 })">
                                     <div class="box">
                                         <div class="img">
                                             <img src="~/IMG/@s.TBLANIME.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
@@ -583,7 +583,7 @@
                         {
                             var season = i.TBLANIME.TBLSEASON.FirstOrDefault();
                             <li>
-                                <a href="@Url.RouteUrl("Anime Detay", new { animeID = i.TBLANIME.ID, animeName = i.TBLANIME.ANIMENAME.Replace(" ","-").ToLowerInvariant(), seasonNumber = season!= null ? season.SEASONNUMBER : 0})">
+                                <a href="@Url.RouteUrl("Anime Detay", new { animeID = i.TBLANIME.ID, animeName = i.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = season!= null ? season.SEASONNUMBER : 0})">
                                     <div class="box">
                                         <div class="img">
                                             <img src="~/IMG/@i.TBLANIME.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
@@ -869,11 +869,11 @@
                 if (response.success) {
                     if (response.isFollowing) {
                         // Takip etme durumu
-                        $(button).html('<i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i>'); // Takipten çıkma simgesi
+                        $(button).html('<i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i>'); // Takipten çıkma simgesi
                         toastr.success('Artık bu kullanıcıyı takip ediyorsunuz.'); // Başarı bildirimi
                     } else {
                         // Takipten çıkma durumu
-                        $(button).html('<i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i>'); // Takip etme simgesi
+                        $(button).html('<i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i>'); // Takip etme simgesi
                         toastr.error('Artık bu kullanıcıyı takipten çıkıyorsunuz.'); // Hata bildirimi
                     }
                 } else {

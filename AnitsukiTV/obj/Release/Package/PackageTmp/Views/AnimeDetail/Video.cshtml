@@ -214,7 +214,7 @@
                                     foreach (var notification in Model.VideoInfo.Notification)
                                     {
                                         <li style="display: flex; align-items: center; padding: 5px;">
-                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLowerInvariant().Replace(" ","-") })">
+                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
                                                 @if (notification.PROFILEPICTURE != null)
                                                 {
                                                     <img src="~/IMG/@notification.PROFILEPICTURE" style="width: 40px; object-fit:cover; height: 40px; border-radius: 50%; margin-right: 10px;" />
@@ -274,7 +274,7 @@
                                                             var Followers = y.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
                                                             ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
                                                         }
-                                                        <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLowerInvariant().Replace(" ","-") })">
+                                                        <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
                                                             @if (user.PICTURE != null)
                                                             {
                                                                 <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/IMG/@user.PICTURE" />
@@ -298,11 +298,11 @@
                                                         <button onclick="followUser (@user.ID, this)" style="background-color: transparent; border: none; color: #FF7F00;">
                                                             @if (ViewBag.FollowedUserIds.Contains(user.ID))
                                                             {
-                                                                <i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
+                                                                <i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
                                                             }
                                                             else
                                                             {
-                                                                <i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
+                                                                <i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
                                                             }
                                                         </button>
                                                     </div>
@@ -374,14 +374,14 @@
             {
                 if (ez.URL != null)
                 {
-                    <iframe style="width:100%; height:70vh;" src="@ez.URL" allowfullscreen></iframe>
+                    <iframe style="width:100%; height:70vh;" src="@ez.URL" tabindex="0" allowfullscreen></iframe>
                 }
                 else
                 {
                     <video controls id="plyr">
                         @if (ez.EP2 != null)
                         {
-                            <source src="~/Videos/@ez.EP2" size="480" type="video/mp4" />
+                            <source src="~/Videos/@ez.EP2" size="480" type="video/mp4" tabindex="0"/>
                         }
                         @if (ez.EP3 != null)
                         {
@@ -394,7 +394,6 @@
                     </video>
                 }
             }
-
         </div>
         <div style="margin-top:25px !important;" class="head">
             <div class="episodeandcomment">
@@ -402,21 +401,21 @@
                     @foreach (var y in Model.VideoInfo.Episode)
                     {
                         @*<img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">*@
-                        <div style="width:100%; height:125px; margin-left:0px !important;" class="detail">
-                            <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                        <div style="width:100%; height:140px; margin-left:0px !important;" class="detail">
+                            <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin:0px 0px 2px 0px;" class="title">
                                 <a href="@Url.RouteUrl("Anime Detay", new {animeID = y.TBLANIME.ID, animeName = y.TBLANIME.ANIMENAME.Replace(" ","-").ToLowerInvariant(), seasonNumber = y.TBLSEASON.SEASONNUMBER })">@y.TBLANIME.ANIMENAME </a>
                             </div>
-                            <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="episodename">
+                            <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin: 2px 0px; " class="episodename">
                                 <span>S@(y.TBLSEASON.SEASONNUMBER)</span> - <span>B@(y.EPINUMBER)</span> @(y.EPISODENAME)
                             </div>
-                            <div class="time">
+                            <div style="margin: 2px 0px; " class="time">
                                 <i class="bi bi-clock"></i> @y.TIME
                             </div>
-                            <div class="date">
+                            <div style="margin: 2px 0px; " class="date">
                                 <i class="bi bi-calendar"></i> @y.DATE.Value.ToString("dd.MM.yyyy")
                             </div>
                             <div class="likeandunlikerating">
-                                <div class="rating">
+                                <div style="margin-bottom:2px;" class="rating">
                                     Beğendiniz mi?
                                 </div>
                                 <div class="likeandunlike">
@@ -465,7 +464,7 @@
                 @foreach (var ö in Model.VideoInfo.Episode)
                 {
                     <div class="fansub">
-                        <div class="title"><i class="bi bi-info-circle"></i> Çevirmenler</div>
+                        <div style="margin:0px 0px 2px 0px;" class="title"><i class="bi bi-info-circle"></i> Çevirmenler</div>
                         <div class="des">Çeviri: @ö.TBLANIME.TBLSEASON.FirstOrDefault().FANSUBAD</div>
                         <div class="des">Çevirmen: @ö.TBLANIME.TBLSEASON.FirstOrDefault().TRANSLATES</div>
                         <div class="sitelink">Site: <a target="_blank" href="@ö.TBLANIME.TBLSEASON.FirstOrDefault().WEBSITE"><i class="bi bi-globe"></i></a> <a target="_blank" href="@ö.TBLANIME.TBLSEASON.FirstOrDefault().DISCORD"><i class="bi bi-discord"></i></a></div>
@@ -486,15 +485,15 @@
                             </div>
                             @foreach (var episode in Model.VideoInfo.OncekiBolum.Where(x => x.STATUS == true))
                             {
-                                <a href="@Url.RouteUrl("Video", new { episodeID = episode.ID, animeName = episode.TBLANIME.ANIMENAME.Replace(" ","-").ToLowerInvariant(), seasonNumber = episode.TBLSEASON.SEASONNUMBER, episodeNumber = episode.EPINUMBER })">
+                                <a href="@Url.RouteUrl("Video", new { episodeID = episode.ID, animeName = episode.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = episode.TBLSEASON.SEASONNUMBER, episodeNumber = episode.EPINUMBER })">
                                     <div class="box">
                                         <img src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                                         <div class="animedetail">
-                                            <div class="episodename">
+                                            <div style="margin:0px 0px 4px 0px;" class="episodename">
                                                 <span>S@(episode.TBLSEASON.SEASONNUMBER)</span> -
                                                 <span>B@(episode.EPINUMBER)</span> @(episode.EPISODENAME)
                                             </div>
-                                            <div class="time">
+                                            <div style="margin:2px 0px;" class="time">
                                                 <i class="bi bi-clock"></i> @episode.TIME
                                             </div>
                                             <div class="date">
@@ -526,15 +525,15 @@
                             </div>
                             @foreach (var episode in Model.VideoInfo.SonrakiBolum.Where(x => x.STATUS == true))
                             {
-                                <a href="@Url.RouteUrl("Video", new { episodeID = episode.ID, animeName = episode.TBLANIME.ANIMENAME.Replace(" ","-").ToLowerInvariant(), seasonNumber = episode.TBLSEASON.SEASONNUMBER, episodeNumber = episode.EPINUMBER })">
+                                <a href="@Url.RouteUrl("Video", new { episodeID = episode.ID, animeName = episode.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = episode.TBLSEASON.SEASONNUMBER, episodeNumber = episode.EPINUMBER })">
                                     <div class="box">
                                         <img src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                                         <div class="animedetail">
-                                            <div class="episodename">
+                                            <div style="margin:0px 0px 4px 0px;" class="episodename">
                                                 <span>S@(episode.TBLSEASON.SEASONNUMBER)</span> -
                                                 <span>B@(episode.EPINUMBER)</span> @(episode.EPISODENAME)
                                             </div>
-                                            <div class="time">
+                                            <div style="margin:2px 0px;" class="time">
                                                 <i class="bi bi-clock"></i> @episode.TIME
                                             </div>
                                             <div class="date">
@@ -822,11 +821,11 @@
                 if (response.success) {
                     if (response.isFollowing) {
                         // Takip etme durumu
-                        $(button).html('<i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i>'); // Takipten çıkma simgesi
+                        $(button).html('<i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i>'); // Takipten çıkma simgesi
                         toastr.success('Artık bu kullanıcıyı takip ediyorsunuz.'); // Başarı bildirimi
                     } else {
                         // Takipten çıkma durumu
-                        $(button).html('<i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i>'); // Takip etme simgesi
+                        $(button).html('<i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i>'); // Takip etme simgesi
                         toastr.error('Artık bu kullanıcıyı takipten çıkıyorsunuz.'); // Hata bildirimi
                     }
                 } else {

@@ -135,7 +135,7 @@
                                     foreach (var notification in Model.Notifications)
                                     {
                                         <li style="display: flex; align-items: center; padding: 5px;">
-                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLowerInvariant().Replace(" ","-") })">
+                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
                                                 @if (notification.PROFILEPICTURE != null)
                                                 {
                                                     <img src="~/IMG/@notification.PROFILEPICTURE" style="width: 40px; object-fit:cover; height: 40px; border-radius: 50%; margin-right: 10px;" />
@@ -186,7 +186,7 @@
                                             <input type="text" autocomplete="off" name="searchTags11" id="searchTags11" placeholder="Arkadaş Ara..." />
                                         </div>
                                         <ul id="menuFull11" style="display:none; height:245px; overflow-y:auto;">
-                                            @foreach (var user in Model.Users.Where(x=>x.STATUS == true))
+                                            @foreach (var user in Model.Users.Where(x => x.STATUS == true))
                                             {
                                                 <li style="margin:10px 0px;width:100%; display:flex; justify-content:space-between; align-items:center;">
                                                     <div>
@@ -195,7 +195,7 @@
                                                             var Followers = y.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
                                                             ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
                                                         }
-                                                        <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLowerInvariant().Replace(" ","-") })">
+                                                        <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
                                                             @if (user.PICTURE != null)
                                                             {
                                                                 <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/IMG/@user.PICTURE" />
@@ -219,11 +219,11 @@
                                                         <button onclick="followUser (@user.ID, this)" style="background-color: transparent; border: none; color: #FF7F00;">
                                                             @if (ViewBag.FollowedUserIds.Contains(user.ID))
                                                             {
-                                                                <i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
+                                                                <i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
                                                             }
                                                             else
                                                             {
-                                                                <i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
+                                                                <i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
                                                             }
                                                         </button>
                                                     </div>
@@ -369,32 +369,32 @@
     });
 </script>
 @*<script>
-    // script.js
-    const snowContainer = document.getElementById('snow-container');
+        // script.js
+        const snowContainer = document.getElementById('snow-container');
 
-    function createSnowflake() {
-        const snowflake = document.createElement('div');
-        const size = Math.random() * 5 + 2; // Kar tanesi boyutu
-        const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
-        const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            const size = Math.random() * 5 + 2; // Kar tanesi boyutu
+            const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
+            const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
 
-        snowflake.classList.add('snowflake');
-        snowflake.style.width = `${size}px`;
-        snowflake.style.height = `${size}px`;
-        snowflake.style.left = `${leftPosition}px`;
-        snowflake.style.animationDuration = `${animationDuration}s`;
+            snowflake.classList.add('snowflake');
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
+            snowflake.style.left = `${leftPosition}px`;
+            snowflake.style.animationDuration = `${animationDuration}s`;
 
-        snowContainer.appendChild(snowflake);
+            snowContainer.appendChild(snowflake);
 
-        // Kar tanesinin düşüşü tamamlandığında sil
-        setTimeout(() => {
-            snowflake.remove();
-        }, animationDuration * 1000);
-    }
+            // Kar tanesinin düşüşü tamamlandığında sil
+            setTimeout(() => {
+                snowflake.remove();
+            }, animationDuration * 1000);
+        }
 
-    // Kar tanelerini sürekli oluştur
-    setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
-</script>*@
+        // Kar tanelerini sürekli oluştur
+        setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
+    </script>*@
 
 
 <script>
@@ -431,11 +431,11 @@
                 if (response.success) {
                     if (response.isFollowing) {
                         // Takip etme durumu
-                        $(button).html('<i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i>'); // Takipten çıkma simgesi
+                        $(button).html('<i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i>'); // Takipten çıkma simgesi
                         toastr.success('Artık bu kullanıcıyı takip ediyorsunuz.'); // Başarı bildirimi
                     } else {
                         // Takipten çıkma durumu
-                        $(button).html('<i style="font-size:1.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i>'); // Takip etme simgesi
+                        $(button).html('<i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i>'); // Takip etme simgesi
                         toastr.error('Artık bu kullanıcıyı takipten çıkıyorsunuz.'); // Hata bildirimi
                     }
                 } else {

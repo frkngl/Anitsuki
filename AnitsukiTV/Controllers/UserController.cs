@@ -55,7 +55,7 @@ namespace AnitsukiTV.Controllers
 
             // Kullanıcının profilini al
             string urlUsername = RouteData.Values["userName"].ToString();
-            var user = db.TBLUSER.Where(x => x.USERNAME.Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").ToLower() == urlUsername).FirstOrDefault();
+            var user = db.TBLUSER.Where(x => x.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") == urlUsername).FirstOrDefault();
 
             veri.User = user;
             ViewBag.UserName = user.USERNAME; // Kullanıcı adını ViewBag'e ekle
@@ -73,7 +73,7 @@ namespace AnitsukiTV.Controllers
             ViewBag.FollowingCount = veri.Following.Count(x=>x.STATUS == true);
 
             // Kullanıcının kendi profilini ziyaret edip etmediğini kontrol et
-            bool isCurrentUserProfile = (User.Identity.Name.ToLower() == urlUsername.ToLower());
+            bool isCurrentUserProfile = (User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") == urlUsername.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"));
             ViewBag.IsCurrentUserProfile = isCurrentUserProfile;
 
             // Kullanıcının takip edip etmediğini kontrol et
@@ -199,7 +199,7 @@ namespace AnitsukiTV.Controllers
                 return RedirectToAction("AccessDenied"); 
             }
 
-            int userID = db.TBLUSER.Where(x => x.USERNAME.Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").ToLower() == userName).FirstOrDefault().ID;
+            int userID = db.TBLUSER.Where(x => x.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") == userName).FirstOrDefault().ID;
             var user = db.TBLUSER.Find(userID);
             return View("ProfileSetting", user);
         }
