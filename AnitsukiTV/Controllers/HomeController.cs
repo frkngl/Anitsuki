@@ -35,6 +35,13 @@ namespace AnitsukiTV.Controllers
 
             if (currentUserId.HasValue)
             {
+
+                var followedUserFavorites = db.TBLFAVORITES.Where(f => f.USERID.HasValue && followedUserIds.Contains(f.USERID.Value)).Select(f => f.ANIMEID).Distinct().ToList();
+
+                // Takip edilen kullanıcıların favori animelerini al
+                veri.FriendsAnime = db.TBLANIME.Where(a => followedUserFavorites.Contains(a.ID) && a.STATUS == true).OrderBy(a => Guid.NewGuid()).Take(12).ToList();
+
+
                 // Kullanıcının bildirimlerini kontrol et ve 5 günden eski olanları temizle
                 var oldNotifications = db.TBLNOTIFICATIONS.Where(n => n.USERID == currentUserId.Value && n.ISCLEARED == false && n.CREATED < fiveDaysAgo).ToList();
 
