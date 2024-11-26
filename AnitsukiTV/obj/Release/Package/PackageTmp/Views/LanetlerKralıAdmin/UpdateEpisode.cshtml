@@ -171,18 +171,37 @@
                 videoIframe.src = "https://drive.google.com/file/d/" + fileId + "/preview";
                 videoIframe.style.display = "block";
                 otherVideo.style.display = "none";
-            } else {
-                // Diğer video URL'leri için
-                videoIframe.style.display = "none";
-                otherVideo.src = videoUrl;
-                otherVideo.style.display = "block";
             }
-        } else {
-            videoIframe.style.display = "none";
-            otherVideo.style.display = "none";
+            // Mail.ru URL kontrolü
+            else if (videoUrl.includes('mail.ru/video/embed/')) {
+                videoIframe.src = videoUrl; // Doğrudan kullan
+                videoIframe.style.display = "block";
+                otherVideo.style.display = "none";
+            }
+            // Ok.ru URL kontrolü
+            else if (videoUrl.includes('ok.ru/video/')) {
+                var videoId = videoUrl.split('video/')[1];
+                videoIframe.src = "https://ok.ru/videoembed/" + videoId; // Embed formatına dönüştür
+                videoIframe.style.display = "block";
+                otherVideo.style.display = "none";
+            }
+            // Sibnet URL kontrolü
+            else if (videoUrl.includes('video.sibnet.ru/video')) {
+                // Sibnet URL'sini doğrudan kullan
+                videoIframe.src = videoUrl; // Doğrudan URL'yi kullan
+                videoIframe.style.display = "block";
+                otherVideo.style.display = "none";
+            }
+            else {
+                alert('Lütfen geçerli bir video URL\'si girin.');
+            }
+        }
+        else {
+            alert('Lütfen geçerli bir video URL\'si girin.');
         }
     });
 </script>
+
 
 <script>
     function getSeasonsByAnimeId(animeId) {

@@ -487,7 +487,7 @@
                             {
                                 <a href="@Url.RouteUrl("Video", new { episodeID = episode.ID, animeName = episode.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = episode.TBLSEASON.SEASONNUMBER, episodeNumber = episode.EPINUMBER })">
                                     <div class="box">
-                                        <img src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                        <img style="object-fit:cover;" src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                                         <div class="animedetail">
                                             <div style="margin:0px 0px 4px 0px;" class="episodename">
                                                 <span>S@(episode.TBLSEASON.SEASONNUMBER)</span> -
@@ -527,7 +527,7 @@
                             {
                                 <a href="@Url.RouteUrl("Video", new { episodeID = episode.ID, animeName = episode.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = episode.TBLSEASON.SEASONNUMBER, episodeNumber = episode.EPINUMBER })">
                                     <div class="box">
-                                        <img src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                        <img style="object-fit:cover;" src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                                         <div class="animedetail">
                                             <div style="margin:0px 0px 4px 0px;" class="episodename">
                                                 <span>S@(episode.TBLSEASON.SEASONNUMBER)</span> -

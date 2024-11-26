@@ -755,7 +755,22 @@ namespace AnitsukiTV.Controllers
                 var fileId = url.Split(new[] { "/d/" }, StringSplitOptions.None)[1].Split('/')[0];
                 return "https://drive.google.com/file/d/" + fileId + "/preview";
             }
-            return url; 
+            else if (url.Contains("mail.ru/video/embed/"))
+            {
+                return url; // Doğrudan kullan
+            }
+            else if (url.Contains("ok.ru/video/"))
+            {
+                // Ok.ru video URL'sini embed formatına dönüştür
+                var videoId = url.Split(new[] { "video/" }, StringSplitOptions.None)[1];
+                return "https://ok.ru/videoembed/" + videoId;
+            }
+            else if (url.Contains("video.sibnet.ru/video"))
+            {
+                // Sibnet URL'sini doğrudan kullan
+                return url; // Doğrudan URL'yi döndür
+            }
+            return url; // Geçersiz URL ise orijinal URL'yi döndür
         }
 
 

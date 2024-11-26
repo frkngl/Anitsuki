@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="~/swiper/swiper-bundle.min.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/toastr.min.css" type="text/css" />
-    <link rel="stylesheet" href="~/css/Home40.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/Home62.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <!--TITLE IMG-->
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
@@ -79,7 +79,7 @@
             justify-content: space-around;
             align-items: start;
             flex-wrap: wrap;
-            overflow-y:auto;
+            overflow-y: auto;
         }
 
             .modal-body #menuFull11 a {
@@ -93,9 +93,34 @@
         }
 
         header #nabermudur ul {
-            max-height:300px;
-            overflow-y:auto;
+            max-height: 300px;
+            overflow-y: auto;
         }
+
+        .videoimg {
+            position: relative; 
+        }
+
+        .deadnote {
+            position: relative;
+            background: rgb(255,127,0);
+            background: radial-gradient(circle, rgba(255,127,0,1) 0%, rgba(0,0,0,1) 100%);
+            padding-top: 2.5rem;
+            padding-bottom: 2.5rem;
+           
+        }
+
+            .deadnote .buton {
+                transition: all 0.3s;
+                background-color: #000000 !important;
+                color: orange !important;
+                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                text-decoration:none;
+            }
+            .deadnote .buton:hover{
+                background-color: orange !important;
+                color:#000000 !important;
+            }
     </style>
 </head>
 <body>
@@ -316,18 +341,31 @@
                     @foreach (var l in Model.Episode.Where(l => l.STATUS == true).OrderByDescending(l => l.ID).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="@Url.RouteUrl("Video", new {episodeID = l.ID, animeName = l.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = l.TBLSEASON.SEASONNUMBER, episodeNumber = l.EPINUMBER })">
+                            <a href="@Url.RouteUrl("Video", new { episodeID = l.ID, animeName = l.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = l.TBLSEASON.SEASONNUMBER, episodeNumber = l.EPINUMBER })">
                                 <div class="videoimg">
                                     <img src="~/IMG/@l.TBLANIME.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (l.TBLANIME.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@l.TBLANIME.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
-
+                                    <div class="video-container">
+                                        @if (l.TBLANIME.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@l.TBLANIME.EDIT" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        <div class="anime-info" style="display: none;">
+                                            <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@l.TBLANIME.ANIMENAME</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Sezon Sayısı: @l.TBLSEASON.SEASONNUMBER</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Bölüm Sayısı: @l.EPINUMBER</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @l.TBLANIME.DATE.Value.ToString("yyyy")</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @l.TBLANIME.TBLCATEGORY.CATEGORYNAME, @l.TBLANIME.TYPE</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@l.TBLANIME.DETAIL.Substring(0, 162) ...</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="text">
                                     <div style="width:60%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -359,14 +397,28 @@
                             <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
                                     <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (l.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
+                                    <div class="video-container">
+                                        @if (l.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        <div class="anime-info" style="display: none;">
+                                            <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@l.ANIMENAME</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Toplam Sezon Sayısı: @l.TBLSEASON.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Toplam Bölüm Sayısı: @l.TBLEPISODE.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @l.DATE.Value.ToString("yyyy")</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @l.TBLCATEGORY.CATEGORYNAME, @l.TYPE</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@l.DETAIL.Substring(0, 162) ...</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -384,44 +436,44 @@
         </div>
     </div>
     @*<div class="category1" id="category2">
-        <div class="text">
-            <div class="title">
-                <i class="bi bi-patch-plus"></i> Takip Ettiğin Kullanıcıların Beğendiği Animeler 
+            <div class="text">
+                <div class="title">
+                    <i class="bi bi-patch-plus"></i> Takip Ettiğin Kullanıcıların Beğendiği Animeler
+                </div>
             </div>
-        </div>
-        <div class="splide" id="splide16">
-            <div class="splide__track">
-                <ul class="splide__list">
-                    @foreach (var l in Model.Anime.Where(l => l.STATUS == true).OrderByDescending(l => l.ID).Take(12))
-                    {
-                        <li class="splide__slide">
-                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
-                                <div class="videoimg">
-                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (l.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
-                                </div>
-                                <div class="text">
-                                    <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                        @l.ANIMENAME
+            <div class="splide" id="splide16">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        @foreach (var l in Model.Anime.Where(l => l.STATUS == true).OrderByDescending(l => l.ID).Take(12))
+                        {
+                            <li class="splide__slide">
+                                <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLowerInvariant().Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
+                                    <div class="videoimg">
+                                        <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                        @if (l.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                        }
                                     </div>
-                                    <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @l.DATE.Value.ToString("yyyy")
+                                    <div class="text">
+                                        <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
+                                            @l.ANIMENAME
+                                        </div>
+                                        <div style="width:30%; display:flex; justify-content:end;" class="season">
+                                            @l.DATE.Value.ToString("yyyy")
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-                    }
-                </ul>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
@@ -437,21 +489,35 @@
                             <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
                                     <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (l.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
+                                    <div class="video-container">
+                                        @if (l.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        <div class="anime-info" style="display: none;">
+                                            <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@l.ANIMENAME</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Toplam Sezon Sayısı: @l.TBLSEASON.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Toplam Bölüm Sayısı: @l.TBLEPISODE.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @l.DATE.Value.ToString("yyyy")</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @l.TBLCATEGORY.CATEGORYNAME, @l.TYPE</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@l.DETAIL.Substring(0, 162) ...</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
                                         @l.ANIMENAME
                                     </div>
                                     <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @l.MYANIMELIST
+                                        @l.DATE.Value.ToString("yyyy")
                                     </div>
                                 </div>
                             </a>
@@ -461,6 +527,42 @@
             </div>
         </div>
     </div>
+    <div class="deadnote">
+        <div class="yagami">
+            @{
+                var randomAnimes = Model.Anime.Where(x => x.STATUS == true).OrderBy(x => Guid.NewGuid()).ToList();
+
+                
+                var firstAnime = randomAnimes.ElementAtOrDefault(0);
+                if (firstAnime != null)
+                {
+                    var firstSeason = firstAnime.TBLSEASON.FirstOrDefault(season => season.SEASONNUMBER == 1);
+                    var firstEpisode = firstSeason?.TBLEPISODE.FirstOrDefault(episode => episode.EPINUMBER == 1);
+
+                    if (firstEpisode != null)
+                    {
+                        <img style="z-index:1;" class="img1" src="~/IMG/@firstAnime.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                        <img style="z-index:1;" class="img2" src="~/IMG/@firstAnime.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                        <div style="overflow-wrap: break-word; z-index: 1; overflow: auto; white-space: normal;" class="text">
+                            <div style="color:#ffffff;" class="title">
+                                @firstAnime.ANIMENAME
+                            </div>
+                            <div style="color:#ffffff !important;" class="des">
+                                @firstAnime.DETAIL.Substring(0, 150)...
+                            </div>
+                            <div class="button">
+                                <a href="@Url.RouteUrl("Video", new { episodeID = firstEpisode.ID, animeName = firstAnime.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = firstSeason.SEASONNUMBER, episodeNumber = firstEpisode.EPINUMBER })" class="buton">
+                                    <i class="bi bi-play"></i> İzlemeye Başla S@(firstSeason.SEASONNUMBER) - B@(firstEpisode.EPINUMBER)
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+
+        </div>
+    </div>
+
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
@@ -482,33 +584,46 @@
         <div class="splide" id="splide4">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var x in Model.Anime.Where(i => i.CATEGORYID == 1 && i.STATUS == true).OrderBy(x => Guid.NewGuid()).Take(12))
+                    @foreach (var l in Model.Anime.Where(i => i.CATEGORYID == 1 && i.STATUS == true).OrderBy(x => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = x.ID, animeName = x.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = x.TBLSEASON?.FirstOrDefault(y => y.ANIMEID == x.ID)?.SEASONNUMBER ?? 0})">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@x.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (x.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@x.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
+                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                    <div class="video-container">
+                                        @if (l.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        <div class="anime-info" style="display: none;">
+                                            <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@l.ANIMENAME</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Toplam Sezon Sayısı: @l.TBLSEASON.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Toplam Bölüm Sayısı: @l.TBLEPISODE.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @l.DATE.Value.ToString("yyyy")</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @l.TBLCATEGORY.CATEGORYNAME, @l.TYPE</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@l.DETAIL.Substring(0, 162) ...</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                        @x.ANIMENAME
+                                        @l.ANIMENAME
                                     </div>
                                     <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @x.DATE.Value.ToString("yyyy")
+                                        @l.DATE.Value.ToString("yyyy")
                                     </div>
                                 </div>
                             </a>
                         </li>
                     }
-
                 </ul>
             </div>
         </div>
@@ -534,27 +649,41 @@
         <div class="splide" id="splide5">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var y in Model.Anime.Where(i => i.CATEGORYID == 2 && i.STATUS == true).OrderBy(y => Guid.NewGuid()).Take(12))
+                    @foreach (var l in Model.Anime.Where(i => i.CATEGORYID == 2 && i.STATUS == true).OrderBy(y => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = y.ID, animeName = y.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = y.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == y.ID)?.SEASONNUMBER ?? 0})">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (y.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@y.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
+                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                    <div class="video-container">
+                                        @if (l.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        <div class="anime-info" style="display: none;">
+                                            <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@l.ANIMENAME</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Toplam Sezon Sayısı: @l.TBLSEASON.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Toplam Bölüm Sayısı: @l.TBLEPISODE.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @l.DATE.Value.ToString("yyyy")</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @l.TBLCATEGORY.CATEGORYNAME, @l.TYPE</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@l.DETAIL.Substring(0, 162) ...</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                        @y.ANIMENAME
+                                        @l.ANIMENAME
                                     </div>
                                     <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @y.DATE.Value.ToString("yyyy")
+                                        @l.DATE.Value.ToString("yyyy")
                                     </div>
                                 </div>
                             </a>
@@ -675,27 +804,41 @@
         <div class="splide" id="splide8">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var w in Model.Anime.Where(i => i.CATEGORYID == 5 && i.STATUS == true).OrderBy(w => Guid.NewGuid()).Take(12))
+                    @foreach (var l in Model.Anime.Where(i => i.CATEGORYID == 5 && i.STATUS == true).OrderBy(y => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = w.ID, animeName = w.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = w.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == w.ID)?.SEASONNUMBER ?? 0})">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@w.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (w.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@w.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
+                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                    <div class="video-container">
+                                        @if (l.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        <div class="anime-info" style="display: none;">
+                                            <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@l.ANIMENAME</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Toplam Sezon Sayısı: @l.TBLSEASON.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Toplam Bölüm Sayısı: @l.TBLEPISODE.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @l.DATE.Value.ToString("yyyy")</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @l.TBLCATEGORY.CATEGORYNAME, @l.TYPE</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@l.DETAIL.Substring(0, 162) ...</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                        @w.ANIMENAME
+                                        @l.ANIMENAME
                                     </div>
                                     <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @w.DATE.Value.ToString("yyyy")
+                                        @l.DATE.Value.ToString("yyyy")
                                     </div>
                                 </div>
                             </a>
@@ -705,6 +848,38 @@
             </div>
         </div>
     </div>
+    <div class="deadnote">
+        <div class="yagami">
+            @{
+                var secondAnime = randomAnimes.ElementAtOrDefault(1);
+                if (secondAnime != null)
+                {
+                    var secondSeason = secondAnime.TBLSEASON.FirstOrDefault(season => season.SEASONNUMBER == 1);
+                    var secondEpisode = secondSeason?.TBLEPISODE.FirstOrDefault(episode => episode.EPINUMBER == 1);
+
+                    if (secondEpisode != null)
+                    {
+                        <img style="z-index:1;" class="img1" src="~/IMG/@secondAnime.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                        <img style="z-index:1;" class="img2" src="~/IMG/@secondAnime.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                        <div style="overflow-wrap: break-word; z-index: 1; overflow: auto; white-space: normal;" class="text">
+                            <div style="color:#ffffff;" class="title">
+                                @secondAnime.ANIMENAME
+                            </div>
+                            <div style="color:#ffffff !important;" class="des">
+                                @secondAnime.DETAIL.Substring(0, 150)...
+                            </div>
+                            <div class="button">
+                                <a href="@Url.RouteUrl("Video", new { episodeID = secondEpisode.ID, animeName = secondAnime.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = secondSeason.SEASONNUMBER, episodeNumber = secondEpisode.EPINUMBER })" class="buton">
+                                    <i class="bi bi-play"></i> İzlemeye Başla S@(secondSeason.SEASONNUMBER) - B@(secondEpisode.EPINUMBER)
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
@@ -726,27 +901,41 @@
         <div class="splide" id="splide9">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var e in Model.Anime.Where(i => i.CATEGORYID == 6 && i.STATUS == true).OrderBy(e => Guid.NewGuid()).Take(12))
+                    @foreach (var l in Model.Anime.Where(i => i.CATEGORYID == 6 && i.STATUS == true).OrderBy(y => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = e.ID, animeName = e.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = e.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == e.ID)?.SEASONNUMBER ?? 0})">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@e.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (e.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@e.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
+                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                    <div class="video-container">
+                                        @if (l.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        <div class="anime-info" style="display: none;">
+                                            <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@l.ANIMENAME</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Toplam Sezon Sayısı: @l.TBLSEASON.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Toplam Bölüm Sayısı: @l.TBLEPISODE.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @l.DATE.Value.ToString("yyyy")</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @l.TBLCATEGORY.CATEGORYNAME, @l.TYPE</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@l.DETAIL.Substring(0, 162) ...</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                        @e.ANIMENAME
+                                        @l.ANIMENAME
                                     </div>
                                     <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @e.DATE.Value.ToString("yyyy")
+                                        @l.DATE.Value.ToString("yyyy")
                                     </div>
                                 </div>
                             </a>
@@ -777,27 +966,41 @@
         <div class="splide" id="splide10">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var r in Model.Anime.Where(i => i.CATEGORYID == 7 && i.STATUS == true).OrderBy(r => Guid.NewGuid()).Take(12))
+                    @foreach (var l in Model.Anime.Where(i => i.CATEGORYID == 7 && i.STATUS == true).OrderBy(y => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = r.ID, animeName = r.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = r.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == r.ID)?.SEASONNUMBER ?? 0})">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@r.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (r.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@r.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
+                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                    <div class="video-container">
+                                        @if (l.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        <div class="anime-info" style="display: none;">
+                                            <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@l.ANIMENAME</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Toplam Sezon Sayısı: @l.TBLSEASON.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Toplam Bölüm Sayısı: @l.TBLEPISODE.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @l.DATE.Value.ToString("yyyy")</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @l.TBLCATEGORY.CATEGORYNAME, @l.TYPE</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@l.DETAIL.Substring(0, 162) ...</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                        @r.ANIMENAME
+                                        @l.ANIMENAME
                                     </div>
                                     <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @r.DATE.Value.ToString("yyyy")
+                                        @l.DATE.Value.ToString("yyyy")
                                     </div>
                                 </div>
                             </a>
@@ -807,6 +1010,7 @@
             </div>
         </div>
     </div>
+
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
@@ -828,27 +1032,41 @@
         <div class="splide" id="splide11">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 8 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
+                    @foreach (var l in Model.Anime.Where(i => i.CATEGORYID == 8 && i.STATUS == true).OrderBy(y => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = t.ID, animeName = t.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = t.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == t.ID)?.SEASONNUMBER ?? 0})">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (t.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@t.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
+                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                    <div class="video-container">
+                                        @if (l.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        <div class="anime-info" style="display: none;">
+                                            <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@l.ANIMENAME</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Toplam Sezon Sayısı: @l.TBLSEASON.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Toplam Bölüm Sayısı: @l.TBLEPISODE.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @l.DATE.Value.ToString("yyyy")</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @l.TBLCATEGORY.CATEGORYNAME, @l.TYPE</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@l.DETAIL.Substring(0, 162) ...</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                        @t.ANIMENAME
+                                        @l.ANIMENAME
                                     </div>
                                     <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @t.DATE.Value.ToString("yyyy")
+                                        @l.DATE.Value.ToString("yyyy")
                                     </div>
                                 </div>
                             </a>
@@ -903,6 +1121,38 @@
                 </div>
             </div>
         </div>*@
+    <div class="deadnote">
+        <div class="yagami">
+            @{
+                var thirdAnime = randomAnimes.ElementAtOrDefault(2);
+                if (thirdAnime != null)
+                {
+                    var thirdSeason = thirdAnime.TBLSEASON.FirstOrDefault(season => season.SEASONNUMBER == 1);
+                    var thirdEpisode = thirdSeason?.TBLEPISODE.FirstOrDefault(episode => episode.EPINUMBER == 1);
+
+                    if (thirdEpisode != null)
+                    {
+                        <img style="z-index:1;" class="img1" src="~/IMG/@thirdAnime.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                        <img style="z-index:1;" class="img2" src="~/IMG/@thirdAnime.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                        <div style="overflow-wrap: break-word; z-index: 1; overflow: auto; white-space: normal;" class="text">
+                            <div style="color:#ffffff;" class="title">
+                                @thirdAnime.ANIMENAME
+                            </div>
+                            <div style="color:#ffffff !important;" class="des">
+                                @thirdAnime.DETAIL.Substring(0, 150)...
+                            </div>
+                            <div class="button">
+                                <a href="@Url.RouteUrl("Video", new { episodeID = thirdEpisode.ID, animeName = thirdAnime.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = thirdSeason.SEASONNUMBER, episodeNumber = thirdEpisode.EPINUMBER })" class="buton">
+                                    <i class="bi bi-play"></i> İzlemeye Başla S@(thirdSeason.SEASONNUMBER) - B@(thirdEpisode.EPINUMBER)
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+
+        </div>
+    </div>
     <div class="category1" id="category2">
         <div class="text">
             <div class="title">
@@ -924,27 +1174,41 @@
         <div class="splide" id="splide13">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 10 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
+                    @foreach (var l in Model.Anime.Where(i => i.CATEGORYID == 10 && i.STATUS == true).OrderBy(y => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = t.ID, animeName = t.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = t.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == t.ID)?.SEASONNUMBER ?? 0})">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (t.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@t.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
+                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                    <div class="video-container">
+                                        @if (l.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        <div class="anime-info" style="display: none;">
+                                            <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@l.ANIMENAME</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Toplam Sezon Sayısı: @l.TBLSEASON.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Toplam Bölüm Sayısı: @l.TBLEPISODE.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @l.DATE.Value.ToString("yyyy")</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @l.TBLCATEGORY.CATEGORYNAME, @l.TYPE</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@l.DETAIL.Substring(0, 162) ...</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                        @t.ANIMENAME
+                                        @l.ANIMENAME
                                     </div>
                                     <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @t.DATE.Value.ToString("yyyy")
+                                        @l.DATE.Value.ToString("yyyy")
                                     </div>
                                 </div>
                             </a>
@@ -975,27 +1239,41 @@
         <div class="splide" id="splide14">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 11 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
+                    @foreach (var l in Model.Anime.Where(i => i.CATEGORYID == 11 && i.STATUS == true).OrderBy(y => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = t.ID, animeName = t.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = t.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == t.ID)?.SEASONNUMBER ?? 0})">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (t.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@t.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
+                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                    <div class="video-container">
+                                        @if (l.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        <div class="anime-info" style="display: none;">
+                                            <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@l.ANIMENAME</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Toplam Sezon Sayısı: @l.TBLSEASON.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Toplam Bölüm Sayısı: @l.TBLEPISODE.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @l.DATE.Value.ToString("yyyy")</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @l.TBLCATEGORY.CATEGORYNAME, @l.TYPE</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@l.DETAIL.Substring(0, 162) ...</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                        @t.ANIMENAME
+                                        @l.ANIMENAME
                                     </div>
                                     <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @t.DATE.Value.ToString("yyyy")
+                                        @l.DATE.Value.ToString("yyyy")
                                     </div>
                                 </div>
                             </a>
@@ -1026,27 +1304,41 @@
         <div class="splide" id="splide15">
             <div class="splide__track">
                 <ul class="splide__list">
-                    @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 12 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
+                    @foreach (var l in Model.Anime.Where(i => i.CATEGORYID == 12 && i.STATUS == true).OrderBy(y => Guid.NewGuid()).Take(12))
                     {
                         <li class="splide__slide">
-                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = t.ID, animeName = t.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = t.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == t.ID)?.SEASONNUMBER ?? 0})">
+                            <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                 <div class="videoimg">
-                                    <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                    @if (t.EDIT != null)
-                                    {
-                                        <video class="video" src="~/Videos/@t.EDIT" playsinline preload="none"></video>
-                                    }
-                                    else
-                                    {
-                                        <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                    }
+                                    <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                    <div class="video-container">
+                                        @if (l.EDIT != null)
+                                        {
+                                            <video class="video" src="~/Videos/@l.EDIT" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        else
+                                        {
+                                            <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                            <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                            <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
+                                        }
+                                        <div class="anime-info" style="display: none;">
+                                            <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@l.ANIMENAME</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Toplam Sezon Sayısı: @l.TBLSEASON.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Toplam Bölüm Sayısı: @l.TBLEPISODE.Count()</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @l.DATE.Value.ToString("yyyy")</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @l.TBLCATEGORY.CATEGORYNAME, @l.TYPE</div>
+                                            <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@l.DETAIL.Substring(0, 162) ...</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="text">
                                     <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                        @t.ANIMENAME
+                                        @l.ANIMENAME
                                     </div>
                                     <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                        @t.DATE.Value.ToString("yyyy")
+                                        @l.DATE.Value.ToString("yyyy")
                                     </div>
                                 </div>
                             </a>
@@ -1098,11 +1390,11 @@
     </footer>
 </body>
 </html>
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/toastr.min.js"></script>
 <script src="~/Scripts/bootstrap.bundle.min.js"></script>
 <script src="~/swiper/swiper-bundle.min.js"></script>
 <script src="~/splidejs/splide/dist/js/splide.min.js"></script>
-<script src="~/Scripts/jquery-3.7.1.min.js"></script>
-<script src="~/Scripts/toastr.min.js"></script>
 <script src="~/js/splide3.js"></script>
 <script>
     document.querySelectorAll('nav a').forEach(link => {
@@ -1176,86 +1468,168 @@
 </script>
 
 <script>
-    const video = document.querySelectorAll(".splide__slide .video");
+    const videoElements = document.querySelectorAll(".splide__slide .video");
 
-    // Mobil cihazları kontrol etme fonksiyonu
-    function isMobileDevice() {
-        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    }
+    videoElements.forEach(video => {
+        let isMuted = true; // Başlangıçta ses durumu kapalı
+        video.muted = isMuted; // Video başlangıçta sessiz
 
-    video.forEach(video => {
-        let cached = false;
-        let source = video.src;
+        const videoContainer = video.parentElement;
+        const muteButton = videoContainer.querySelector('.mute-button');
+        const textSecretButton = videoContainer.querySelector('.text-secret-button');
+        const animeInfo = videoContainer.querySelector('.anime-info');
 
-        // Eğer mobil cihazda isek, video oynatma işlevselliğini devre dışı bırak
-        if (!isMobileDevice()) {
-            video.onmouseenter = () => {
-                if (!cached) {
-                    video.src = source;
-                    cached = true;
-                }
-                video.play();
-                video.volume = 0.05;
-                video.classList.add("active");
-            };
-
-            video.onmouseleave = () => {
-                video.pause();
-                video.src = "";
-                cached = false;
-                video.classList.remove("active");
-            };
-        } else {
-            // Mobil cihazlar için video öğesini gizleme veya farklı bir işlem yapma
-            video.style.display = 'none'; // İsterseniz bu satırı değiştirebilirsiniz
+        // Mobil cihazları kontrol etme fonksiyonu
+        function isMobileDevice() {
+            return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         }
 
-        //video.ontouchmove = () => {
-        //    if (!cached) {
-        //        video.src = source;
-        //        cached = true;
-        //    }
-        //    video.play();
-        //    video.volume = 0.05;
-        //    video.classList.add("active");
-        //};
+        // Video yükleme fonksiyonu
+        function loadVideo() {
+            if (video.dataset.src) {
+                video.src = video.dataset.src; // video'nun gerçek kaynağını yükle
+                video.load(); // Videoyu yükle
+                video.removeEventListener('load', loadVideo); // Yükleme işlemini tamamla
+            }
+        }
 
-        //video.ontouchend = () => {
-        //    video.pause();
-        //    video.src = "";
-        //    cached = false;
-        //    video.classList.remove("active");
-        //};
+        if (!isMobileDevice()) {
+            if (muteButton) {
+                muteButton.style.display = 'none'; // Başlangıçta mute butonunu gizle
+            }
+            if (animeInfo) {
+                animeInfo.style.display = 'none'; // Başlangıçta anime bilgilerini gizle
+            }
+
+            // Video görünür olduğunda yükleme
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        loadVideo(); // Video görünür olduğunda yükle
+                        observer.unobserve(entry.target); // Gözlemeyi durdur
+                    }
+                });
+            });
+
+            observer.observe(video); // Video'yu gözlemle
+
+            videoContainer.addEventListener('mouseenter', () => {
+                if (video.paused) { // Video duruyorsa oynat
+                    video.play().catch(error => {
+                        console.error("Video oynatılamadı:", error);
+                    });
+                }
+                video.classList.add("active");
+                if (muteButton) {
+                    muteButton.style.display = 'block'; // Mute butonunu göster
+                }
+                if (animeInfo) {
+                    animeInfo.style.display = 'block'; // Anime bilgilerini göster
+                }
+                if (textSecretButton) {
+                    textSecretButton.style.display = 'block'; // Text secret butonunu göster
+                }
+            });
+
+            videoContainer.addEventListener('mouseleave', () => {
+                // Video alanından ayrıldığında video duracak ve görünürlük kaybolacak
+                if (!video.paused) { // Video oynuyorsa durdur
+                    video.pause(); // Video duracak
+                }
+                video.classList.remove("active");
+                if (muteButton) {
+                    muteButton.style.display = 'none'; // Mute butonunu gizle
+                }
+                if (animeInfo) {
+                    animeInfo.style.display = 'none'; // Anime bilgilerini gizle
+                }
+                if (textSecretButton) {
+                    textSecretButton.style.display = 'none'; // Text secret butonunu gizle
+                }
+            });
+
+            // Mute butonuna tıklandığında ses aç/kapa
+            if (muteButton) {
+                muteButton.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Tıklamanın üst öğelere yayılmasını engelle
+                    event.preventDefault(); // Varsayılan davranışı engelle
+
+                    // Ses durumunu tersine çevir
+                    isMuted = !isMuted;
+                    video.muted = isMuted; // Video sesini aç/kapa
+
+                    // Eğer ses açılıyorsa, ses seviyesini artır
+                    if (!isMuted) {
+                        video.volume = 1; // Ses seviyesini artır
+                        muteButton.innerHTML = '<i class="bi bi-volume-up"></i>'; // Buton metnini değiştir
+                    } else {
+                        video.volume = 0; // Ses seviyesini sıfırla
+                        muteButton.innerHTML = '<i class="bi bi-volume-mute"></i>'; // Buton metnini değiştir
+                    }
+                });
+            }
+
+            // Text secret butonuna tıklandığında anime bilgilerini yukarı/aşağı kaydır
+            if (textSecretButton) {
+                let isInfoVisible = true; // Anime bilgisi başlangıçta görünür
+
+                textSecretButton.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Tıklamanın üst öğelere yayılmasını engelle
+                    event.preventDefault(); // Varsayılan davranışı engelle
+
+                    // Anime bilgilerini yukarı veya aşağı kaydır
+                    if (isInfoVisible) {
+                        animeInfo.style.transform = 'scale(1.025)'; // Aşağı kaydır
+                        animeInfo.style.opacity = '0'; // Aşağı kaydır
+                        textSecretButton.innerHTML = '<i class="bi bi-card-text"></i>';
+                    } else {
+                        animeInfo.style.transform = 'scale(1.025)';
+                        animeInfo.style.opacity = '1'; // Yukarı kaydır
+                        textSecretButton.innerHTML = '<i class="bi bi-card-text"></i>';
+                    }
+                    isInfoVisible = !isInfoVisible; // Görünürlük durumunu tersine çevir
+                });
+            }
+
+        } else {
+            video.style.display = 'none'; // Mobil cihazlar için video öğesini gizleme
+            if (muteButton) {
+                muteButton.style.display = 'none'; // Mobil cihazlarda mute butonunu gizle
+            }
+            if (textSecretButton) {
+                textSecretButton.style.display = 'none'; // Mobil cihazlarda text secret butonunu gizle
+            }
+        }
     });
 </script>
 
 @*<script>
-    // script.js
-    const snowContainer = document.getElementById('snow-container');
+        // script.js
+        const snowContainer = document.getElementById('snow-container');
 
-    function createSnowflake() {
-        const snowflake = document.createElement('div');
-        const size = Math.random() * 5 + 2; // Kar tanesi boyutu
-        const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
-        const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            const size = Math.random() * 5 + 2; // Kar tanesi boyutu
+            const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
+            const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
 
-        snowflake.classList.add('snowflake');
-        snowflake.style.width = `${size}px`;
-        snowflake.style.height = `${size}px`;
-        snowflake.style.left = `${leftPosition}px`;
-        snowflake.style.animationDuration = `${animationDuration}s`;
+            snowflake.classList.add('snowflake');
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
+            snowflake.style.left = `${leftPosition}px`;
+            snowflake.style.animationDuration = `${animationDuration}s`;
 
-        snowContainer.appendChild(snowflake);
+            snowContainer.appendChild(snowflake);
 
-        // Kar tanesinin düşüşü tamamlandığında sil
-        setTimeout(() => {
-            snowflake.remove();
-        }, animationDuration * 1000);
-    }
+            // Kar tanesinin düşüşü tamamlandığında sil
+            setTimeout(() => {
+                snowflake.remove();
+            }, animationDuration * 1000);
+        }
 
-    // Kar tanelerini sürekli oluştur
-    setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
-</script>*@
+        // Kar tanelerini sürekli oluştur
+        setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
+    </script>*@
 <script>
     // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
     jQuery.expr[':'].contains = function (a, i, m) {
@@ -1338,6 +1712,7 @@
         });
     });
 </script>
+
 
 
 

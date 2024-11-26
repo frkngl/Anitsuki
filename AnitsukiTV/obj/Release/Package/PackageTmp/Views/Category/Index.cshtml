@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/toastr.min.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="~/css/Category21.css" />
+    <link rel="stylesheet" href="~/css/Category27.css" />
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
     <style>
         .modal-body .searchhh {
@@ -94,6 +94,8 @@
             max-height: 300px;
             overflow-y: auto;
         }
+
+        
     </style>
 </head>
 <body>
@@ -189,7 +191,7 @@
                                             <input type="text" autocomplete="off" name="searchTags11" id="searchTags11" placeholder="Arkadaş Ara..." />
                                         </div>
                                         <ul id="menuFull11" style="display:none; height:245px; overflow-y:auto;">
-                                            @foreach (var user in Model.Users.Where(x=>x.STATUS == true))
+                                            @foreach (var user in Model.Users.Where(x => x.STATUS == true))
                                             {
                                                 <li style="margin:10px 0px;width:100%; display:flex; justify-content:space-between; align-items:center;">
                                                     <div>
@@ -296,23 +298,35 @@
             </div>
             <div style="color:#ffffff; font-size:1.1rem; display:flex;align-items:center; justify-content:center;">
                 <i style="margin-right:5px;" class="bi bi-tv"></i> @Model.Anime.Where(x => x.STATUS == true).Count()
-            </div>
+            </div>  
         </div>
         <ul id="menuFull">
             @foreach (var y in Model.Anime.Where(x => x.STATUS == true).OrderBy(x => Guid.NewGuid()))
             {
-                <li class="splide__slide">
+                <li style="margin-bottom:20px !important;" class="splide__slide">
                     <a href="@Url.RouteUrl("Anime Detay", new { animeID = y.ID, animeName = y.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = y.TBLSEASON?.FirstOrDefault(t => t.ANIMEID == y.ID)?.SEASONNUMBER ?? 0})">
                         <div class="videoimg">
                             <img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                             @if (y.EDIT != null)
                             {
                                 <video class="video" src="~/Videos/@y.EDIT" playsinline preload="none"></video>
+                                <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
                             }
                             else
                             {
                                 <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
+                                <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
                             }
+                            <div class="anime-info" style="display: none;">
+                                <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@y.ANIMENAME</div>
+                                <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Toplam Sezon Sayısı: @y.TBLSEASON.Count()</div>
+                                <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Toplam Bölüm Sayısı: @y.TBLEPISODE.Count()</div>
+                                <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @y.DATE.Value.ToString("yyyy")</div>
+                                <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @y.TBLCATEGORY.CATEGORYNAME, @y.TYPE</div>
+                                <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@y.DETAIL.Substring(0, 162) ...</div>
+                            </div>
                         </div>
                         <div class="text">
                             <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
@@ -432,56 +446,138 @@
     });
 </script>
 <script>
-    const video = document.querySelectorAll(".splide__slide .video");
+    const videoElements = document.querySelectorAll(".splide__slide .video");
 
+    videoElements.forEach(video => {
+        let isMuted = true; // Başlangıçta ses durumu kapalı
+        video.muted = isMuted; // Video başlangıçta sessiz
 
-    function isMobileDevice() {
-        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    }
+        const videoContainer = video.parentElement;
+        const muteButton = videoContainer.querySelector('.mute-button');
+        const textSecretButton = videoContainer.querySelector('.text-secret-button');
+        const animeInfo = videoContainer.querySelector('.anime-info');
 
-    video.forEach(video => {
-        let cached = false;
-        let source = video.src;
-
-
-        if (!isMobileDevice()) {
-            video.onmouseenter = () => {
-                if (!cached) {
-                    video.src = source;
-                    cached = true;
-                }
-                video.play();
-                video.volume = 0.05;
-                video.classList.add("active");
-            };
-
-            video.onmouseleave = () => {
-                video.pause();
-                video.src = "";
-                cached = false;
-                video.classList.remove("active");
-            };
-        } else {
-
-            video.style.display = 'none';
+        // Mobil cihazları kontrol etme fonksiyonu
+        function isMobileDevice() {
+            return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         }
 
-        //video.ontouchmove = () => {
-        //    if (!cached) {
-        //        video.src = source;
-        //        cached = true;
-        //    }
-        //    video.play();
-        //    video.volume = 0.05;
-        //    video.classList.add("active");
-        //};
+        // Video yükleme fonksiyonu
+        function loadVideo() {
+            if (video.dataset.src) {
+                video.src = video.dataset.src; // video'nun gerçek kaynağını yükle
+                video.load(); // Videoyu yükle
+                video.removeEventListener('load', loadVideo); // Yükleme işlemini tamamla
+            }
+        }
 
-        //video.ontouchend = () => {
-        //    video.pause();
-        //    video.src = "";
-        //    cached = false;
-        //    video.classList.remove("active");
-        //};
+        if (!isMobileDevice()) {
+            if (muteButton) {
+                muteButton.style.display = 'none'; // Başlangıçta mute butonunu gizle
+            }
+            if (animeInfo) {
+                animeInfo.style.display = 'none'; // Başlangıçta anime bilgilerini gizle
+            }
+
+            // Video görünür olduğunda yükleme
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        loadVideo(); // Video görünür olduğunda yükle
+                        observer.unobserve(entry.target); // Gözlemeyi durdur
+                    }
+                });
+            });
+
+            observer.observe(video); // Video'yu gözlemle
+
+            videoContainer.addEventListener('mouseenter', () => {
+                if (video.paused) { // Video duruyorsa oynat
+                    video.play().catch(error => {
+                        console.error("Video oynatılamadı:", error);
+                    });
+                }
+                video.classList.add("active");
+                if (muteButton) {
+                    muteButton.style.display = 'block'; // Mute butonunu göster
+                }
+                if (animeInfo) {
+                    animeInfo.style.display = 'block'; // Anime bilgilerini göster
+                }
+                if (textSecretButton) {
+                    textSecretButton.style.display = 'block'; // Text secret butonunu göster
+                }
+            });
+
+            videoContainer.addEventListener('mouseleave', () => {
+                // Video alanından ayrıldığında video duracak ve görünürlük kaybolacak
+                if (!video.paused) { // Video oynuyorsa durdur
+                    video.pause(); // Video duracak
+                }
+                video.classList.remove("active");
+                if (muteButton) {
+                    muteButton.style.display = 'none'; // Mute butonunu gizle
+                }
+                if (animeInfo) {
+                    animeInfo.style.display = 'none'; // Anime bilgilerini gizle
+                }
+                if (textSecretButton) {
+                    textSecretButton.style.display = 'none'; // Text secret butonunu gizle
+                }
+            });
+
+            // Mute butonuna tıklandığında ses aç/kapa
+            if (muteButton) {
+                muteButton.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Tıklamanın üst öğelere yayılmasını engelle
+                    event.preventDefault(); // Varsayılan davranışı engelle
+
+                    // Ses durumunu tersine çevir
+                    isMuted = !isMuted;
+                    video.muted = isMuted; // Video sesini aç/kapa
+
+                    // Eğer ses açılıyorsa, ses seviyesini artır
+                    if (!isMuted) {
+                        video.volume = 1; // Ses seviyesini artır
+                        muteButton.innerHTML = '<i class="bi bi-volume-up"></i>'; // Buton metnini değiştir
+                    } else {
+                        video.volume = 0; // Ses seviyesini sıfırla
+                        muteButton.innerHTML = '<i class="bi bi-volume-mute"></i>'; // Buton metnini değiştir
+                    }
+                });
+            }
+
+            // Text secret butonuna tıklandığında anime bilgilerini yukarı/aşağı kaydır
+            if (textSecretButton) {
+                let isInfoVisible = true; // Anime bilgisi başlangıçta görünür
+
+                textSecretButton.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Tıklamanın üst öğelere yayılmasını engelle
+                    event.preventDefault(); // Varsayılan davranışı engelle
+
+                    // Anime bilgilerini yukarı veya aşağı kaydır
+                    if (isInfoVisible) {
+                        animeInfo.style.transform = 'scale(1.025)'; // Aşağı kaydır
+                        animeInfo.style.opacity = '0'; // Aşağı kaydır
+                        textSecretButton.innerHTML = '<i class="bi bi-card-text"></i>';
+                    } else {
+                        animeInfo.style.transform = 'scale(1.025)';
+                        animeInfo.style.opacity = '1'; // Yukarı kaydır
+                        textSecretButton.innerHTML = '<i class="bi bi-card-text"></i>';
+                    }
+                    isInfoVisible = !isInfoVisible; // Görünürlük durumunu tersine çevir
+                });
+            }
+
+        } else {
+            video.style.display = 'none'; // Mobil cihazlar için video öğesini gizleme
+            if (muteButton) {
+                muteButton.style.display = 'none'; // Mobil cihazlarda mute butonunu gizle
+            }
+            if (textSecretButton) {
+                textSecretButton.style.display = 'none'; // Mobil cihazlarda text secret butonunu gizle
+            }
+        }
     });
 </script>
 
