@@ -191,7 +191,7 @@ namespace AnitsukiTV.Controllers
 
                     var mail = new MailMessage
                     {
-                        From = new MailAddress("info@anitsuki.com", "Anitsuki"),
+                        From = new MailAddress("anitsuki.destek@gmail.com", "Anitsuki"),
                         Subject = "Şifre Sıfırlama",
                         Body = $"Geçici şifreniz: {tempPassword}"
                     };
@@ -204,7 +204,7 @@ namespace AnitsukiTV.Controllers
                         EnableSsl = true,
                         DeliveryMethod = SmtpDeliveryMethod.Network,
                         UseDefaultCredentials = false, // Kullanıcı adı ve şifre kullanılacak
-                        Credentials = new NetworkCredential("info@anitsuki.com", "sgjdejpvzaudyvsy")
+                        Credentials = new NetworkCredential("anitsuki.destek@gmail.com", "ncqhddcxnnwbfnay")
                     })
                     {
                         smtpClient.Send(mail);
