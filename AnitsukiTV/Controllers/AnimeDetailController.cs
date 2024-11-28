@@ -25,6 +25,7 @@ namespace AnitsukiTV.Controllers
         {
             var degerler2 = db.TBLANIME.FirstOrDefault(x => x.ID == animeID);
             ViewBag.anime = degerler2.ANIMENAME;
+            ViewBag.animee = degerler2.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "");
             ViewBag.AnimeId = degerler2.ID;
 
             int sezonIDValue = db.TBLSEASON.FirstOrDefault(x => x.ANIMEID == animeID && x.SEASONNUMBER == seasonNumber)?.ID ?? 0;
@@ -35,6 +36,7 @@ namespace AnitsukiTV.Controllers
 
             var selectedSeason = db.TBLSEASON.FirstOrDefault(x => x.ID == sezonIDValue);
             ViewBag.Season = selectedSeason?.SEASONNAME ?? $"{selectedSeason?.SEASONNUMBER} Sezon";
+            ViewBag.Seasonnn = selectedSeason?.SEASONNUMBER;
 
             bool isFavorite = false;
             bool isWatchLater = false;

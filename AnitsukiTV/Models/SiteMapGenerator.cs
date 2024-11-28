@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Xml;
 
@@ -20,11 +21,12 @@ namespace AnitsukiTV.Models
                 // URL'leri ekleyin
                 AddNode(xmlDoc, urlSet, "Anasayfa", "https://anitsuki.com/", "daily", "1.0");
                 AddNode(xmlDoc, urlSet, "Animeler", "https://anitsuki.com/animeler", "daily", "0.9");
-                AddNode(xmlDoc, urlSet, "Bağış", "https://anitsuki.com/bagis", "daily", "0.8");
-                AddNode(xmlDoc, urlSet, "Hakkımızda", "https://anitsuki.com/hakkimizda", "daily", "0.8");
-                AddNode(xmlDoc, urlSet, "Gizlilik Politikası", "https://anitsuki.com/gizlilik-politikasi", "daily", "0.8");
-                AddNode(xmlDoc, urlSet, "Giriş", "https://anitsuki.com/giris", "daily", "0.8");
-                AddNode(xmlDoc, urlSet, "Kayıt", "https://anitsuki.com/kayit", "daily", "0.8");
+                AddNode(xmlDoc, urlSet, "Bağış", "https://anitsuki.com/bagis", "daily", "0.5");
+                AddNode(xmlDoc, urlSet, "Giriş", "https://anitsuki.com/giris", "daily", "0.5");
+                AddNode(xmlDoc, urlSet, "Kayıt", "https://anitsuki.com/kayit", "daily", "0.5");
+                AddNode(xmlDoc, urlSet, "Hakkımızda", "https://anitsuki.com/hakkimizda", "daily", "0.5");
+                AddNode(xmlDoc, urlSet, "Gizlilik Politikası", "https://anitsuki.com/gizlilik-politikasi", "daily", "0.5");
+                
 
                 // Sitemap dosyasını kaydedin
                 xmlDoc.Save(HttpContext.Current.Server.MapPath("~/sitemap.xml"));

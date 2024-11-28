@@ -64,6 +64,8 @@ namespace AnitsukiTV.Controllers
             veri.Category = db.TBLCATEGORY.ToList();
             veri.Anime = db.TBLANIME.Where(x => x.CATEGORYID == kategoriID && x.STATUS == true).OrderBy(x => Guid.NewGuid()).ToList();
             ViewBag.Category = degerler.CATEGORYNAME;
+            ViewBag.Category1 = degerler.CATEGORYNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "");
+            ViewBag.CategoryId = degerler.ID;
 
             // Giriş yapan kullanıcının ID'sini al (varsa)
             int? currentUserId = User.Identity.IsAuthenticated ? db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault()?.ID : (int?)null;

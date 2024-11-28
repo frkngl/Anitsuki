@@ -25,7 +25,7 @@
     <meta name="apple-mobile-web-app-title" content="anitsuki">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta property="og:title" content="@ViewBag.anime izle - anitsuki" />
-    <meta property="og:url" content="https://anitsuki.com/AnimeDetail/Index/@ViewBag.anime" />
+    <meta property="og:url" content="https://anitsuki.com/anime/@ViewBag.AnimeId/@ViewBag.animee-@ViewBag.Seasonnn-sezon-izle" />
     <meta property="og:type" content="video.tv_show" />
     <meta property="og:image" content="~/IMG/aylogo.png">
     <meta property="og:description" content="@ViewBag.anime izle, @ViewBag.anime animesini türkçe altyazılı ve full hd seçeneğiyle ücretsiz olarak izleyin." />
@@ -39,32 +39,26 @@
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
     <style>
-        .warningg{
-            display:flex;
-            position:fixed;
-            bottom:50%;
-            transform:translate(76%,50%);
-            right:0;
-            width:260px;
-            height:50px;
-            background-color:#313131;
-            z-index:999;
+        .warningg {
+            display: flex;
+            position: fixed;
+            bottom: 50%;
+            transform: translate(76%,50%);
+            right: 0;
+            width: 260px;
+            height: 50px;
+            background-color: #313131;
+            z-index: 999;
             border-top-left-radius: 20px;
-            border-bottom-left-radius:20px;
-            color:#ffffff;
-            transition:all 0.3s ease-in-out;
+            border-bottom-left-radius: 20px;
+            color: #ffffff;
+            transition: all 0.3s ease-in-out;
         }
+
             .warningg.active {
                 transform: translate(0%,50%);
             }
 
-        .toggle-icon {
-            transition: all 0.3s ease-in-out;
-        }
-
-            .toggle-icon.arrow-right {
-                transform: rotate(180deg);
-            }
             .warningg .harley {
                 display: flex;
                 align-items: center;
@@ -73,8 +67,9 @@
                 color: #ffffff;
                 margin: 3px 0px 0px 0px;
                 padding: 0px 5px;
-                cursor:pointer;
+                cursor: pointer;
             }
+
             .warningg .joker {
                 display: flex;
                 justify-content: center;
@@ -150,9 +145,9 @@
                 width: 100%;
                 height: calc(100vh - 140px);
                 display: flex;
-                justify-content: space-around;
+                flex-direction: column;
+                justify-content: start;
                 align-items: start;
-                flex-wrap: wrap;
                 overflow-y: auto;
             }
 
@@ -201,7 +196,7 @@
                 </div>
             }
         </div>
-       
+
     </div>
     <header>
         <div class="container-xl">
@@ -236,7 +231,7 @@
                                     foreach (var notification in Model.Notifications)
                                     {
                                         <li style="display: flex; align-items: center; padding: 5px;">
-                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
+                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                 @if (notification.PROFILEPICTURE != null)
                                                 {
                                                     <img src="~/IMG/@notification.PROFILEPICTURE" style="width: 40px; object-fit:cover; height: 40px; border-radius: 50%; margin-right: 10px;" />
@@ -291,7 +286,7 @@
                                                 var Followers = y.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
                                                 ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
                                             }
-                                            <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
+                                            <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                 @if (user.PICTURE != null)
                                                 {
                                                     <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/IMG/@user.PICTURE" />
@@ -333,16 +328,16 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
-                                string userNameUrl = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+                                string userNameUrl = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "");
 
                                 <button style="background-color:transparent; border:none; outline:none; color:orange;" class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     @if (currentUser != null && currentUser.PICTURE != null)
                                     {
-                                        <img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE" alt="User  Profile Picture">
+                                        <img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE">
                                     }
                                     else
                                     {
-                                        <img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png" alt="Default User Profile Picture">
+                                        <img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png">
                                     }
                                 </button>
                                 <ul style="background-color:#313131;" class="dropdown-menu">
@@ -443,7 +438,7 @@
                         @foreach (var y in Model.Season.Where(y => y.STATUS == true))
                         {
                             var animeID = Model.Anime.FirstOrDefault().ID;
-                            var animeName = Model.Anime.FirstOrDefault().ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"); // Replace spaces with dashes and convert to lower case
+                            var animeName = Model.Anime.FirstOrDefault().ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", ""); // Replace spaces with dashes and convert to lower case
                             if (y.SEASONNAME == null)
                             {
                                 <li><a class="dropdown-item" href="@Url.RouteUrl("Anime Detay", new { animeID = animeID, animeName = animeName, seasonNumber = y.SEASONNUMBER })">@y.SEASONNUMBER Sezon</a></li>
@@ -461,7 +456,7 @@
                     @foreach (var z in Model.Episode.Where(z => z.STATUS == true))
                     {
                         <li>
-                            <a href="@Url.RouteUrl("Video", new {episodeID = z.ID, animeName = z.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = z.TBLSEASON.SEASONNUMBER, episodeNumber = z.EPINUMBER })">
+                            <a href="@Url.RouteUrl("Video", new {episodeID = z.ID, animeName = z.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = z.TBLSEASON.SEASONNUMBER, episodeNumber = z.EPINUMBER })">
                                 <div class="box">
                                     <div class="img">
                                         <i class="bi bi-play-circle"></i>
@@ -513,7 +508,7 @@
                     İletişim
                 </div>
                 <ul>
-                    <li>info@anitsuki.com</li>
+                    <li>anitsuki.destek@gmail.com</li>
                 </ul>
             </div>
         </div>
@@ -642,32 +637,32 @@
 </script>
 
 @*<script>
-    // script.js
-    const snowContainer = document.getElementById('snow-container');
+        // script.js
+        const snowContainer = document.getElementById('snow-container');
 
-    function createSnowflake() {
-        const snowflake = document.createElement('div');
-        const size = Math.random() * 5 + 2; // Kar tanesi boyutu
-        const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
-        const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            const size = Math.random() * 5 + 2; // Kar tanesi boyutu
+            const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
+            const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
 
-        snowflake.classList.add('snowflake');
-        snowflake.style.width = `${size}px`;
-        snowflake.style.height = `${size}px`;
-        snowflake.style.left = `${leftPosition}px`;
-        snowflake.style.animationDuration = `${animationDuration}s`;
+            snowflake.classList.add('snowflake');
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
+            snowflake.style.left = `${leftPosition}px`;
+            snowflake.style.animationDuration = `${animationDuration}s`;
 
-        snowContainer.appendChild(snowflake);
+            snowContainer.appendChild(snowflake);
 
-        // Kar tanesinin düşüşü tamamlandığında sil
-        setTimeout(() => {
-            snowflake.remove();
-        }, animationDuration * 1000);
-    }
+            // Kar tanesinin düşüşü tamamlandığında sil
+            setTimeout(() => {
+                snowflake.remove();
+            }, animationDuration * 1000);
+        }
 
-    // Kar tanelerini sürekli oluştur
-    setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
-</script>*@
+        // Kar tanelerini sürekli oluştur
+        setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
+    </script>*@
 
 <script>
     // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
@@ -756,18 +751,26 @@
     const likewatchcount = document.querySelector('.warningg');
     const toggleIcon = document.querySelector('.toggle-icon');
 
-
     toggleButton.addEventListener('click', function (event) {
         event.preventDefault(); // Linkin varsayılan davranışını engelle
         likewatchcount.classList.toggle('active'); // active sınıfını ekle veya kaldır
-        toggleIcon.classList.toggle('arrow-right');
+
+        // İkonu değiştir
+        if (toggleIcon.classList.contains('bi-arrow-left-circle-fill')) {
+            toggleIcon.classList.remove('bi-arrow-left-circle-fill');
+            toggleIcon.classList.add('bi-arrow-right-circle-fill');
+        } else {
+            toggleIcon.classList.remove('bi-arrow-right-circle-fill');
+            toggleIcon.classList.add('bi-arrow-left-circle-fill');
+        }
     });
 
-    // Sayfanın herhangi bir yerine tıklandığında friendadd'ı kapat
+    // Sayfanın herhangi bir yerine tıklandığında likewatchcount'ı kapat
     document.addEventListener('click', function (event) {
         if (!likewatchcount.contains(event.target) && !toggleButton.contains(event.target)) {
             likewatchcount.classList.remove('active'); // active sınıfını kaldır
-            toggleIcon.classList.remove('arrow-right');
+            toggleIcon.classList.remove('bi-arrow-right-circle-fill');
+            toggleIcon.classList.add('bi-arrow-left-circle-fill'); // İkonu sol yap
         }
     });
 </script>

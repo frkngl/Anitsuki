@@ -26,7 +26,7 @@
     <meta name="apple-mobile-web-app-title" content="anitsuki">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta property="og:title" content="@Model.VideoInfo.AnimeTitle @Model.VideoInfo.SeasonNumber. Sezon @Model.VideoInfo.EpisodeNumber. Bölüm izle - anitsuki" />
-    <meta property="og:url" content="https://diziwatch.net/fullmetal-alchemist-brotherhood-1-sezon-1-bolum-izle-xth7k/" />
+    <meta property="og:url" content="https://anitsuki.com/@ViewBag.episodeID/@Model.VideoInfo.AnimeTitle.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","")-@Model.VideoInfo.SeasonNumber-sezon-@Model.VideoInfo.EpisodeNumber-bolum-izle" />
     <meta property="og:type" content="video.episode" />
     <meta property="og:image" content="~/IMG/aylogo.png">
     <meta property="og:description" content="@Model.VideoInfo.AnimeTitle @Model.VideoInfo.SeasonNumber. Sezon @Model.VideoInfo.EpisodeNumber. Bölüm izle, @Model.VideoInfo.AnimeTitle animesini türkçe altyazılı ve full hd seçeneğiyle ücretsiz olarak izleyin." />
@@ -183,9 +183,9 @@
                 width: 100%;
                 height: calc(100vh - 140px);
                 display: flex;
-                justify-content: space-around;
+                flex-direction: column;
+                justify-content: start;
                 align-items: start;
-                flex-wrap: wrap;
                 overflow-y: auto;
             }
 
@@ -251,7 +251,7 @@
                                     foreach (var notification in Model.VideoInfo.Notification)
                                     {
                                         <li style="display: flex; align-items: center; padding: 5px;">
-                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
+                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                 @if (notification.PROFILEPICTURE != null)
                                                 {
                                                     <img src="~/IMG/@notification.PROFILEPICTURE" style="width: 40px; object-fit:cover; height: 40px; border-radius: 50%; margin-right: 10px;" />
@@ -306,7 +306,7 @@
                                                 var Followers = y.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
                                                 ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
                                             }
-                                            <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
+                                            <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                 @if (user.PICTURE != null)
                                                 {
                                                     <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/IMG/@user.PICTURE" />
@@ -348,16 +348,16 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
-                                string userNameUrl = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+                                string userNameUrl = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "");
 
                                 <button style="background-color:transparent; border:none; outline:none; color:orange;" class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     @if (currentUser != null && currentUser.PICTURE != null)
                                     {
-                                        <img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE" alt="User  Profile Picture">
+                                        <img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE" />
                                     }
                                     else
                                     {
-                                        <img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png" alt="Default User Profile Picture">
+                                        <img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png" />
                                     }
                                 </button>
                                 <ul style="background-color:#313131;" class="dropdown-menu">
@@ -436,7 +436,7 @@
                         @*<img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">*@
                         <div style="width:100%; height:140px; margin-left:0px !important;" class="detail">
                             <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin:0px 0px 2px 0px;" class="title">
-                                <a href="@Url.RouteUrl("Anime Detay", new {animeID = y.TBLANIME.ID, animeName = y.TBLANIME.ANIMENAME.Replace(" ","-").ToLowerInvariant(), seasonNumber = y.TBLSEASON.SEASONNUMBER })">@y.TBLANIME.ANIMENAME </a>
+                                <a href="@Url.RouteUrl("Anime Detay", new {animeID = y.TBLANIME.ID, animeName = y.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = y.TBLSEASON.SEASONNUMBER })">@y.TBLANIME.ANIMENAME </a>
                             </div>
                             <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin: 2px 0px; " class="episodename">
                                 <span>S@(y.TBLSEASON.SEASONNUMBER)</span> - <span>B@(y.EPINUMBER)</span> @(y.EPISODENAME)
@@ -518,7 +518,7 @@
                             </div>
                             @foreach (var episode in Model.VideoInfo.OncekiBolum.Where(x => x.STATUS == true))
                             {
-                                <a href="@Url.RouteUrl("Video", new { episodeID = episode.ID, animeName = episode.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = episode.TBLSEASON.SEASONNUMBER, episodeNumber = episode.EPINUMBER })">
+                                <a href="@Url.RouteUrl("Video", new { episodeID = episode.ID, animeName = episode.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = episode.TBLSEASON.SEASONNUMBER, episodeNumber = episode.EPINUMBER })">
                                     <div class="box">
                                         <img style="object-fit:cover;" src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                                         <div class="animedetail">
@@ -558,7 +558,7 @@
                             </div>
                             @foreach (var episode in Model.VideoInfo.SonrakiBolum.Where(x => x.STATUS == true))
                             {
-                                <a href="@Url.RouteUrl("Video", new { episodeID = episode.ID, animeName = episode.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = episode.TBLSEASON.SEASONNUMBER, episodeNumber = episode.EPINUMBER })">
+                                <a href="@Url.RouteUrl("Video", new { episodeID = episode.ID, animeName = episode.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = episode.TBLSEASON.SEASONNUMBER, episodeNumber = episode.EPINUMBER })">
                                     <div class="box">
                                         <img style="object-fit:cover;" src="~/IMG/@episode.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                                         <div class="animedetail">
@@ -620,7 +620,7 @@
                     İletişim
                 </div>
                 <ul>
-                    <li>info@anitsuki.com</li>
+                    <li>anitsuki.destek@gmail.com</li>
                 </ul>
             </div>
         </div>

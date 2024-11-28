@@ -3,18 +3,18 @@
 
 <style>
     .comments .detail .user .name a {
-        color: #ffffff; 
-        text-decoration: none; 
+        color: #ffffff;
+        text-decoration: none;
         transition: all 0.2s;
     }
 
         .comments .detail .user .name a:hover {
-            color: #FF7F00; 
+            color: #FF7F00;
         }
 
     .like.active a,
     .unlike.active a {
-        color: orange; 
+        color: orange;
     }
 
     .like a,
@@ -49,7 +49,7 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 // Giriş yapmış kullanıcı
-                                <a href="@Url.RouteUrl("Profil", new { userName = x.TBLUSER.USERNAME })">@x.TBLUSER.USERNAME</a>
+                                <a href="@Url.RouteUrl("Profil", new { userName = x.TBLUSER.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">@x.TBLUSER.USERNAME</a>
                             }
                             else
                             {
@@ -184,7 +184,7 @@
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     // Giriş yapmış kullanıcı
-                                    <a href="@Url.RouteUrl("Profil", new { userName = y.TBLUSER.USERNAME })">@y.TBLUSER.USERNAME</a>
+                                    <a href="@Url.RouteUrl("Profil", new { userName = y.TBLUSER.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">@y.TBLUSER.USERNAME</a>
                                 }
                                 else
                                 {

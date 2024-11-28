@@ -46,7 +46,7 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 // Giriş yapmış kullanıcı
-                                <a href="@Url.RouteUrl("Profil", new { userName = x.TBLUSER.USERNAME })">@x.TBLUSER.USERNAME</a>
+                                <a href="@Url.RouteUrl("Profil", new { userName = x.TBLUSER.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">@x.TBLUSER.USERNAME</a>
                             }
                             else
                             {
@@ -181,7 +181,7 @@
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     // Giriş yapmış kullanıcı
-                                    <a href="@Url.RouteUrl("Profil", new { userName = y.TBLUSER.USERNAME })">@y.TBLUSER.USERNAME</a>
+                                    <a href="@Url.RouteUrl("Profil", new { userName = y.TBLUSER.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">@y.TBLUSER.USERNAME</a>
                                 }
                                 else
                                 {

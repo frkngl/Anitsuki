@@ -416,7 +416,7 @@ header {
 
     .content9 .userdetail {
         display: flex;
-        position: relative;
+        position:relative;
     }
 
         .content9 .userdetail img {

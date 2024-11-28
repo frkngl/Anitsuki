@@ -25,7 +25,7 @@
     <meta name="apple-mobile-web-app-title" content="anitsuki">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta property="og:title" content="@ViewBag.anime izle - anitsuki" />
-    <meta property="og:url" content="https://anitsuki.com/AnimeDetail/Index/@ViewBag.anime" />
+    <meta property="og:url" content="https://anitsuki.com/anime/@ViewBag.AnimeId/@ViewBag.animee-@ViewBag.Seasonnn-sezon-izle" />
     <meta property="og:type" content="video.tv_show" />
     <meta property="og:image" content="~/IMG/aylogo.png">
     <meta property="og:description" content="@ViewBag.anime izle, @ViewBag.anime animesini türkçe altyazılı ve full hd seçeneğiyle ücretsiz olarak izleyin." />
@@ -39,50 +39,126 @@
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
     <style>
-        .modal-body .searchhh {
-            position: relative;
-            width: 200px;
-            height: 35px;
-            margin-left: 50%;
-            transform: translateX(-50%);
-        }
-
-            .modal-body .searchhh .fa-magnifying-glass {
-                position: absolute;
-                top: 50%;
-                left: 5px;
-                z-index: 9;
-                font-size: 1rem;
-            }
-
-            .modal-body .searchhh input {
-                position: absolute;
-                top: 0;
-                left: 0;
-                background-color: #313131;
-                color: #ffffff;
-                border: none;
-                width: 100%;
-                height: 100%;
-                border-radius: 20px;
-                padding: 0px 0px 0px 28px;
-            }
-
-        .modal-body #menuFull11 {
-            list-style-type: none;
-            padding: 0px;
-            width: 100%;
+        .warningg {
             display: flex;
-            justify-content: space-around;
-            align-items: start;
-            flex-wrap: wrap;
-            overflow: auto;
+            position: fixed;
+            bottom: 50%;
+            transform: translate(76%,50%);
+            right: 0;
+            width: 260px;
+            height: 50px;
+            background-color: #313131;
+            z-index: 999;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            color: #ffffff;
+            transition: all 0.3s ease-in-out;
         }
 
-            .modal-body #menuFull11 a {
-                color: white;
-                text-decoration: none;
+            .warningg.active {
+                transform: translate(0%,50%);
             }
+
+            .warningg .harley {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                color: #ffffff;
+                margin: 3px 0px 0px 0px;
+                padding: 0px 5px;
+                cursor: pointer;
+            }
+
+            .warningg .joker {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                padding: 0px 5px 0px 0px;
+            }
+
+
+        .friendadd {
+            position: absolute;
+            width: 370px;
+            height: calc(100vh - 60px);
+            background-color: #000000;
+            box-shadow: 0px 0px 0px 0px #313131;
+            top: 60px;
+            right: 0;
+            transform: translateX(100%);
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+
+            .friendadd.active {
+                transform: translateX(0%);
+                box-shadow: -10px 10px 60px 5px #313131;
+            }
+
+            /* Mobil tam ekran stili */
+            .friendadd.full-screen {
+                position: fixed; /* Sabit konumda olmasını sağlar */
+                top: 60px;
+                right: 0;
+                width: 100%;
+                height: calc(100vh - 60px);
+                border-radius: 0; /* Kenar yuvarlamalarını kaldır */
+                z-index: 1000; /* Diğer öğelerin üstünde görünmesi için */
+            }
+
+            .friendadd .searchhh {
+                position: relative;
+                width: 200px;
+                height: 40px;
+                margin-left: 50%;
+                transform: translateX(-50%);
+                margin-top: 25px;
+                margin-bottom: 15px;
+            }
+
+                .friendadd .searchhh .fa-magnifying-glass {
+                    position: absolute;
+                    top: 50%;
+                    left: 10px;
+                    z-index: 9;
+                    font-size: 1rem;
+                }
+
+                .friendadd .searchhh input {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background-color: #313131;
+                    color: #ffffff;
+                    border: none;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 20px;
+                    padding: 0px 0px 0px 35px;
+                }
+
+            .friendadd #menuFull11 {
+                list-style-type: none;
+                padding: 0px 10px;
+                width: 100%;
+                height: calc(100vh - 140px);
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+                overflow-y: auto;
+            }
+
+                .friendadd #menuFull11::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .friendadd #menuFull11 a {
+                    color: white;
+                    text-decoration: none;
+                }
 
         .user ul li a:hover {
             background-color: #ffffff;
@@ -105,6 +181,23 @@
 
     </div>
     @*<div id="snow-container"></div>*@
+    <div class="warningg">
+        <div class="harley" id="harley">
+            <i class="bi bi-arrow-left-circle-fill toggle-icon"></i>
+        </div>
+        <div class="joker">
+            @foreach (var q in Model.Anime)
+            {
+                <div class="category">
+                    <i style="margin-right:5px;" class="bi bi-heart-fill"></i> Favoriye ekleyen @q.TBLFAVORITES.Count() kişi
+                </div>
+                <div class="category">
+                    <i style="margin-right:5px;" class="bi bi-clock-fill"></i>  Sonra izleyecek @q.TBLWATCHLATER.Count() kişi
+                </div>
+            }
+        </div>
+
+    </div>
     <header>
         <div class="container-xl">
             <div class="row">
@@ -138,7 +231,7 @@
                                     foreach (var notification in Model.Notifications)
                                     {
                                         <li style="display: flex; align-items: center; padding: 5px;">
-                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
+                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                 @if (notification.PROFILEPICTURE != null)
                                                 {
                                                     <img src="~/IMG/@notification.PROFILEPICTURE" style="width: 40px; object-fit:cover; height: 40px; border-radius: 50%; margin-right: 10px;" />
@@ -168,74 +261,65 @@
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <div style="margin-right:0px;" class="search">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i style="font-size:1.8rem !important;" class="bi bi-person-add"></i></a>
+                        <div style="margin-left:0px;" class="search">
+                            <a href="#" id="toggleFriendAdd">
+                                <i style="font-size:1.8rem !important;" class="bi bi-person-add"></i>
+                            </a>
                         </div>
                     }
                     <div style="margin-right:-10px;" class="search">
                         <a href="@Url.RouteUrl("Animeler")"><i class="bi bi-search"></i></a>
                     </div>
-                    <div style="margin-top: 100px;" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div style="background-color: #000000; box-shadow: 0px 0px 20px #FF7F00" class="modal-content">
-                                <div class="modal-header">
-                                    <h1 style="color:white;" class="modal-title fs-5" id="exampleModalLabel">Arkadaş Ara</h1>
-                                    <button type="button" style="background-color:#ffffff;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div style="height: 300px;" class="modal-body">
-                                    <div id="followersContent">
-                                        <div class="searchhh">
-                                            <i style="color:white;" class="fa-solid fa-magnifying-glass fa-xl"></i>
-                                            <input type="text" autocomplete="off" name="searchTags11" id="searchTags11" placeholder="Arkadaş Ara..." />
-                                        </div>
-                                        <ul id="menuFull11" style="display:none; height:245px; overflow-y:auto;">
-                                            @foreach (var user in Model.Users.Where(x=>x.STATUS == true))
-                                            {
-                                                <li style="margin:10px 0px;width:100%; display:flex; justify-content:space-between; align-items:center;">
-                                                    <div>
-                                                        @{
-                                                            AnitsukiTVEntities y = new AnitsukiTVEntities();
-                                                            var Followers = y.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
-                                                            ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
-                                                        }
-                                                        <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-") })">
-                                                            @if (user.PICTURE != null)
-                                                            {
-                                                                <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/IMG/@user.PICTURE" />
-                                                                <div>
-                                                                    <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
-                                                                    <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
-                                                                </div>
-                                                            }
-                                                            else
-                                                            {
-
-                                                                <img style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" src="~/IMG/stockuser.png" />
-                                                                <div>
-                                                                    <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
-                                                                    <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
-                                                                </div>
-                                                            }
-                                                        </a>
-                                                    </div>
-                                                    <div style="color:white;">
-                                                        <button onclick="followUser (@user.ID, this)" style="background-color: transparent; border: none; color: #FF7F00;">
-                                                            @if (ViewBag.FollowedUserIds.Contains(user.ID))
-                                                            {
-                                                                <i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
-                                                            }
-                                                            else
-                                                            {
-                                                                <i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
-                                                            }
-                                                        </button>
-                                                    </div>
-                                                </li>
-                                            }
-                                        </ul>
-                                    </div>
-                                </div>
+                    <div class="friendadd">
+                        <div id="followersContent">
+                            <div class="searchhh">
+                                <i style="color:white;" class="fa-solid fa-magnifying-glass fa-xl"></i>
+                                <input type="text" autocomplete="off" name="searchTags11" id="searchTags11" placeholder="Arkadaş Ara..." />
                             </div>
+                            <ul id="menuFull11" style="display: none; overflow-y: auto;">
+                                @foreach (var user in Model.Users.Where(x => x.STATUS == true))
+                                {
+                                    <li style="margin:10px 0px;width:100%; display:flex; justify-content:space-between; align-items:center;">
+                                        <div>
+                                            @{
+                                                AnitsukiTVEntities y = new AnitsukiTVEntities();
+                                                var Followers = y.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
+                                                ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
+                                            }
+                                            <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
+                                                @if (user.PICTURE != null)
+                                                {
+                                                    <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/IMG/@user.PICTURE" />
+                                                    <div>
+                                                        <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
+                                                        <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <img style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" src="~/IMG/stockuser.png" />
+                                                    <div>
+                                                        <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
+                                                        <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
+                                                    </div>
+                                                }
+                                            </a>
+                                        </div>
+                                        <div style="color:white;">
+                                            <button onclick="followUser  (@user.ID, this)" style="background-color: transparent; border: none; color: #FF7F00;">
+                                                @if (ViewBag.FollowedUserIds.Contains(user.ID))
+                                                {
+                                                    <i style="font-size:2.5rem;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
+                                                }
+                                                else
+                                                {
+                                                    <i style="font-size: 2.5rem;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
+                                                }
+                                            </button>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
                         </div>
                     </div>
                     <div class="user">
@@ -244,16 +328,16 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
-                                string userNameUrl = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-");
+                                string userNameUrl = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "");
 
                                 <button style="background-color:transparent; border:none; outline:none; color:orange;" class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     @if (currentUser != null && currentUser.PICTURE != null)
                                     {
-                                        <img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE" alt="User  Profile Picture">
+                                        <img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE">
                                     }
                                     else
                                     {
-                                        <img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png" alt="Default User Profile Picture">
+                                        <img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png">
                                     }
                                 </button>
                                 <ul style="background-color:#313131;" class="dropdown-menu">
@@ -272,7 +356,7 @@
         </div>
     </header>
     <div class="content3">
-        @foreach (var x in Model.Anime.Where(x=>x.STATUS == true))
+        @foreach (var x in Model.Anime.Where(x => x.STATUS == true))
         {
             <div class="watson">
                 <div class="watson-bg">
@@ -286,7 +370,7 @@
             </div>
             <div class="animeabout">
                 <div class="text">
-                    <div style="line-height:1;" class="title">
+                    <div style="line-height:1; overflow-wrap: break-word; white-space: normal;" class="title">
                         @x.ANIMENAME
                     </div>
                     <div class="like">
@@ -320,12 +404,12 @@
                         <i class="bi bi-play-circle"></i> Toplam Bölüm: @x.TBLEPISODE.Count()
                     </div>
                     <div class="createyear">
-                        <i class="bi bi-calendar"></i> Yapım yılı: @x.DATE.Value.ToString("yyyy")
+                        <i class="bi bi-calendar"></i> Yapım Yılı: @x.DATE.Value.ToString("yyyy")
                     </div>
                     <div class="category">
                         <i class="bi bi-ticket"></i> Tür: @x.TBLCATEGORY.CATEGORYNAME, @x.TYPE
                     </div>
-                    <div style="overflow-wrap: break-word; overflow: auto; white-space: normal;" o;" class="des">
+                    <div style="overflow-wrap: break-word; overflow: auto; white-space: normal;" class="des">
                         @x.DETAIL
                     </div>
                     <div class="imdbandmal">
@@ -354,7 +438,7 @@
                         @foreach (var y in Model.Season.Where(y => y.STATUS == true))
                         {
                             var animeID = Model.Anime.FirstOrDefault().ID;
-                            var animeName = Model.Anime.FirstOrDefault().ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"); // Replace spaces with dashes and convert to lower case
+                            var animeName = Model.Anime.FirstOrDefault().ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", ""); // Replace spaces with dashes and convert to lower case
                             if (y.SEASONNAME == null)
                             {
                                 <li><a class="dropdown-item" href="@Url.RouteUrl("Anime Detay", new { animeID = animeID, animeName = animeName, seasonNumber = y.SEASONNUMBER })">@y.SEASONNUMBER Sezon</a></li>
@@ -372,7 +456,7 @@
                     @foreach (var z in Model.Episode.Where(z => z.STATUS == true))
                     {
                         <li>
-                            <a href="@Url.RouteUrl("Video", new {episodeID = z.ID, animeName = z.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-"), seasonNumber = z.TBLSEASON.SEASONNUMBER, episodeNumber = z.EPINUMBER })">
+                            <a href="@Url.RouteUrl("Video", new {episodeID = z.ID, animeName = z.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = z.TBLSEASON.SEASONNUMBER, episodeNumber = z.EPINUMBER })">
                                 <div class="box">
                                     <div class="img">
                                         <i class="bi bi-play-circle"></i>
@@ -424,7 +508,7 @@
                     İletişim
                 </div>
                 <ul>
-                    <li>info@anitsuki.com</li>
+                    <li>anitsuki.destek@gmail.com</li>
                 </ul>
             </div>
         </div>
@@ -553,32 +637,32 @@
 </script>
 
 @*<script>
-    // script.js
-    const snowContainer = document.getElementById('snow-container');
+        // script.js
+        const snowContainer = document.getElementById('snow-container');
 
-    function createSnowflake() {
-        const snowflake = document.createElement('div');
-        const size = Math.random() * 5 + 2; // Kar tanesi boyutu
-        const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
-        const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            const size = Math.random() * 5 + 2; // Kar tanesi boyutu
+            const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
+            const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
 
-        snowflake.classList.add('snowflake');
-        snowflake.style.width = `${size}px`;
-        snowflake.style.height = `${size}px`;
-        snowflake.style.left = `${leftPosition}px`;
-        snowflake.style.animationDuration = `${animationDuration}s`;
+            snowflake.classList.add('snowflake');
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
+            snowflake.style.left = `${leftPosition}px`;
+            snowflake.style.animationDuration = `${animationDuration}s`;
 
-        snowContainer.appendChild(snowflake);
+            snowContainer.appendChild(snowflake);
 
-        // Kar tanesinin düşüşü tamamlandığında sil
-        setTimeout(() => {
-            snowflake.remove();
-        }, animationDuration * 1000);
-    }
+            // Kar tanesinin düşüşü tamamlandığında sil
+            setTimeout(() => {
+                snowflake.remove();
+            }, animationDuration * 1000);
+        }
 
-    // Kar tanelerini sürekli oluştur
-    setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
-</script>*@
+        // Kar tanelerini sürekli oluştur
+        setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
+    </script>*@
 
 <script>
     // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
@@ -660,6 +744,61 @@
                 }
             });
         });
+    });
+</script>
+<script>
+    const toggleButton = document.querySelector('.harley');
+    const likewatchcount = document.querySelector('.warningg');
+    const toggleIcon = document.querySelector('.toggle-icon');
+
+    toggleButton.addEventListener('click', function (event) {
+        event.preventDefault(); // Linkin varsayılan davranışını engelle
+        likewatchcount.classList.toggle('active'); // active sınıfını ekle veya kaldır
+
+        // İkonu değiştir
+        if (toggleIcon.classList.contains('bi-arrow-left-circle-fill')) {
+            toggleIcon.classList.remove('bi-arrow-left-circle-fill');
+            toggleIcon.classList.add('bi-arrow-right-circle-fill');
+        } else {
+            toggleIcon.classList.remove('bi-arrow-right-circle-fill');
+            toggleIcon.classList.add('bi-arrow-left-circle-fill');
+        }
+    });
+
+    // Sayfanın herhangi bir yerine tıklandığında likewatchcount'ı kapat
+    document.addEventListener('click', function (event) {
+        if (!likewatchcount.contains(event.target) && !toggleButton.contains(event.target)) {
+            likewatchcount.classList.remove('active'); // active sınıfını kaldır
+            toggleIcon.classList.remove('bi-arrow-right-circle-fill');
+            toggleIcon.classList.add('bi-arrow-left-circle-fill'); // İkonu sol yap
+        }
+    });
+</script>
+<script>
+    function isMobile() {
+        return /Mobi|Android|iPhone/i.test(navigator.userAgent);
+    }
+
+    const toggleButtonn = document.getElementById('toggleFriendAdd');
+    const friendAdd = document.querySelector('.friendadd');
+
+    // Sayfa yüklendiğinde, eğer mobil cihazsa friendAdd'i tam ekran yap
+    window.onload = function () {
+        if (isMobile()) {
+            friendAdd.classList.add('full-screen'); // Tam ekran sınıfını ekle
+        }
+    };
+
+    toggleButtonn.addEventListener('click', function (event) {
+        event.preventDefault(); // Linkin varsayılan davranışını engelle
+        friendAdd.classList.toggle('active'); // active sınıfını ekle veya kaldır
+    });
+
+    // Sayfanın herhangi bir yerine tıklandığında friendadd'ı kapat
+    document.addEventListener('click', function (event) {
+        if (!friendAdd.contains(event.target) && !toggleButtonn.contains(event.target)) {
+            friendAdd.classList.remove('active'); // active sınıfını kaldır
+        }
     });
 </script>
 
