@@ -58,7 +58,23 @@
                 border-radius: 0; /* Kenar yuvarlamalarını kaldır */
                 z-index: 1000; /* Diğer öğelerin üstünde görünmesi için */
             }
+            .friendadd #friendaddclose {
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                left: 10px;
+                background-color: #cccc;
+                display: none;
+            }
 
+                .friendadd #friendaddclose.active {
+                    position: absolute;
+                    width: 30px;
+                    height: 30px;
+                    left: 10px;
+                    background-color: #cccc;
+                    display: block;
+                }
             .friendadd .searchhh {
                 position: relative;
                 width: 200px;
@@ -204,7 +220,8 @@
                         <a href="@Url.RouteUrl("Animeler")"><i class="bi bi-search"></i></a>
                     </div>
                     <div class="friendadd">
-                        <div id="followersContent">
+                        <div style="position:relative;" id="followersContent">
+                            <button id="friendaddclose" class="btn-close"></button>
                             <div class="searchhh">
                                 <i style="color:white;" class="fa-solid fa-magnifying-glass fa-xl"></i>
                                 <input type="text" autocomplete="off" name="searchTags11" id="searchTags11" placeholder="Arkadaş Ara..." />
@@ -539,15 +556,22 @@
 
     const toggleButton = document.getElementById('toggleFriendAdd');
     const friendAdd = document.querySelector('.friendadd');
+    const toggleButton2 = document.getElementById('friendaddclose');
 
     // Sayfa yüklendiğinde, eğer mobil cihazsa friendAdd'i tam ekran yap
     window.onload = function () {
         if (isMobile()) {
             friendAdd.classList.add('full-screen'); // Tam ekran sınıfını ekle
+            toggleButton2.classList.add('active');
         }
     };
 
     toggleButton.addEventListener('click', function (event) {
+        event.preventDefault(); // Linkin varsayılan davranışını engelle
+        friendAdd.classList.toggle('active'); // active sınıfını ekle veya kaldır
+    });
+
+    toggleButton2.addEventListener('click', function (event) {
         event.preventDefault(); // Linkin varsayılan davranışını engelle
         friendAdd.classList.toggle('active'); // active sınıfını ekle veya kaldır
     });
