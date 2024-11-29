@@ -103,6 +103,11 @@ namespace AnitsukiTV
                 defaults: new { controller = "User", action = "ProfileSetting" }
             );
 
+            routes.MapRoute(
+                name: "Watch Together",
+                url: "watch-together",
+                defaults: new { controller = "WatchTogether", action = "Index" }
+            );
 
             routes.MapRoute(
                 name: "Default",

@@ -24,6 +24,7 @@ namespace AnitsukiTV.Models
         public List<TBLUSER> Following { get; set; }
         public List<TBLNOTIFICATIONS> Notifications { get; set; }
         public List<TBLANIME> FriendsAnime { get; set; }
+        public List<TBL404> Error { get; set; }
         public VideoViewModel VideoInfo { get; set; }
     }
 

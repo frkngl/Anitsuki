@@ -25,6 +25,7 @@ namespace AnitsukiTV.Models
                 AddNode(xmlDoc, urlSet, "Giriş", "https://anitsuki.com/giris", "daily", "0.5");
                 AddNode(xmlDoc, urlSet, "Kayıt", "https://anitsuki.com/kayit", "daily", "0.5");
                 AddNode(xmlDoc, urlSet, "Hakkımızda", "https://anitsuki.com/hakkimizda", "daily", "0.5");
+                AddNode(xmlDoc, urlSet, "Watch Together", "https://anitsuki.com/watch-together", "daily", "0.5");
                 AddNode(xmlDoc, urlSet, "Gizlilik Politikası", "https://anitsuki.com/gizlilik-politikasi", "daily", "0.5");
                 
 

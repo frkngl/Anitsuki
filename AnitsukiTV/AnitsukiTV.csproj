@@ -167,6 +167,7 @@
     <Compile Include="Controllers\LanetlerKralıAdminController.cs" />
     <Compile Include="Controllers\LoginSignInController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WatchTogetherController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1067,7 +1068,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="css\404Page1.css" />
+    <Content Include="css\404Page2.css" />
     <Content Include="css\About3.css" />
     <Content Include="css\AnimeDetail11.css" />
     <Content Include="css\Category27.css" />
@@ -1077,6 +1078,7 @@
     <Content Include="css\PrivacyandPolitic2.css" />
     <Content Include="css\User31.css" />
     <Content Include="css\VideoDetail3.css" />
+    <Content Include="css\watchtogether1.css" />
     <Content Include="IMG\AnitsukiQR.png" />
     <Content Include="IMG\aylogo.png" />
     <Content Include="IMG\footer2.png" />
@@ -1084,7 +1086,7 @@
     <Content Include="IMG\poster.png" />
     <Content Include="IMG\postermobil.png" />
     <Content Include="js\plyr.js" />
-    <Content Include="js\splide4.js" />
+    <Content Include="js\splide5.js" />
     <Content Include="IMG\LoginBackground.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -1406,6 +1408,7 @@
     <Content Include="Views\LanetlerKralıAdmin\AddError.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\UpdateError.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\ErrorDetail.cshtml" />
+    <Content Include="Views\WatchTogether\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

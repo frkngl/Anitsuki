@@ -332,7 +332,7 @@
                         <li><a href="@Url.RouteUrl("Anasayfa")" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
                         <li><a href="@Url.RouteUrl("Animeler")"><i class="fa-solid fa-list"></i> Animeler</a></li>
                         <li><a href="@Url.RouteUrl("Bağış")"><i class="bi bi-cash-stack"></i> Bağış</a></li>
-                        <li style="color:white;"><i class="bi bi-tv"></i> WT Yakında</li>
+                        <li><a href="@Url.RouteUrl("Watch Together")"><i class="bi bi-tv"></i> WT Yakında</a></li>
                     </ul>
                 </nav>
                 <div class="box col-2">
@@ -837,6 +837,7 @@
         return jQuery(a).text().toUpperCase()
             .indexOf(m[3].toUpperCase()) >= 0;
     };
+
     $(document).ready(function () {
         $("#searchTags").keyup(function () {
             var value = $("#searchTags").val();
@@ -845,6 +846,19 @@
             } else {
                 $("#menuFull li").hide();
                 $("#menuFull li:contains(" + value + ")").show();
+            }
+
+        });
+    });
+
+    $(document).ready(function () {
+        $("#searchTags9").keyup(function () {
+            var value = $("#searchTags9").val();
+            if (value.length == 0) {
+                $("#menuFull9 li").show();
+            } else {
+                $("#menuFull9 li").hide();
+                $("#menuFull9 li:contains(" + value + ")").show();
             }
 
         });
@@ -874,6 +888,23 @@
             }
 
         });
+    });
+
+    $(document).ready(function () {
+        $("#searchTags15").on("input", function () { // 'input' olayını kullanarak gerçek zamanlı filtreleme
+            var value = $(this).val(); // Mevcut giriş değerini al
+
+            if (value.length === 0) {
+                $("#menuFull15").hide(); // Eğer giriş boşsa kullanıcıları gizle
+            } else {
+                $("#menuFull15").show(); // Giriş değeri varsa kullanıcı listesini göster
+                $("#menuFull15 li").hide(); // İlk olarak tüm kullanıcıları gizle
+                $("#menuFull15 li:contains(" + value + ")").show(); // Giriş değerini içeren kullanıcıları göster
+            }
+        });
+
+        // Sayfa yüklendiğinde kullanıcı listesini gizle
+        $("#menuFull15").hide(); // Bu satır, sayfa yüklendiğinde kullanıcı listesinin gizlenmesini sağlar.
     });
 
     function followUser (followedUserId, element) {
@@ -946,31 +977,6 @@
     });
 }
 </script>
-
-<script>
-    // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
-    jQuery.expr[':'].contains = function (a, i, m) {
-        return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
-    };
-
-    $(document).ready(function () {
-        $("#searchTags15").on("input", function () { // 'input' olayını kullanarak gerçek zamanlı filtreleme
-            var value = $(this).val(); // Mevcut giriş değerini al
-
-            if (value.length === 0) {
-                $("#menuFull15").hide(); // Eğer giriş boşsa kullanıcıları gizle
-            } else {
-                $("#menuFull15").show(); // Giriş değeri varsa kullanıcı listesini göster
-                $("#menuFull15 li").hide(); // İlk olarak tüm kullanıcıları gizle
-                $("#menuFull15 li:contains(" + value + ")").show(); // Giriş değerini içeren kullanıcıları göster
-            }
-        });
-
-        // Sayfa yüklendiğinde kullanıcı listesini gizle
-        $("#menuFull15").hide(); // Bu satır, sayfa yüklendiğinde kullanıcı listesinin gizlenmesini sağlar.
-    });
-</script>
-
 <script>
     function followUser(followedUserId, button) {
         $.ajax({

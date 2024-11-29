@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 Sayfa Bulunamadı</title>
-    <link rel="stylesheet" href="~/css/404Page1.css" type="text/Css">
+    <link rel="stylesheet" href="~/css/404Page2.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="videos">
-                <video class="video" loop muted autoplay playsinline>
+                <video class="video" loop muted playsinline>
                     <source src="~/Videos/@x.VIDEO">
                 </video>
                 <div class="buttons">
@@ -57,12 +57,6 @@
     const btnToggle = document.querySelector('.toggle');
     const btnRestart = document.querySelector('.restart');
     const btnMuteUnmte = document.querySelector('.volume');
-
-    audio.addEventListener('loadedmetadata', () => {
-        const duration = audio.duration;
-        const targetTime = duration * 0.1;
-        audio.currentTime = targetTime;
-    });
 
     btnToggle.addEventListener("click", () => {
         if (audio.paused) {

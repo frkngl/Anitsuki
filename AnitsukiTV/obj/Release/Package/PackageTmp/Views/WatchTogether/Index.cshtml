@@ -1,45 +1,33 @@
 ﻿@using AnitsukiTV.Models
 @model TabeList
-
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Animeler - Anitsuki</title>
-    <meta name="description" content="Animeler, anime izle, türkanime, türk anime tv, tranimeizle, türkçe anime izle" />
-    <meta content="tr" http-equiv="Content-Language" />
-    <meta name="language" content="Turkish" />
-    <meta name="geo.placename" content="Turkey" />
-    <meta name="location" content="türkiye, tr, turkey" />
-    <meta name="robots" content="noarchive" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="anitsuki">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta property="og:title" content="Animeler - anitsuki" />
-    <meta property="og:url" content="https://anitsuki.com/animeler" />
-    <meta property="og:image" content="~/IMG/aylogo.png">
-    <meta property="og:description" content="Animeler" />
-    <meta name="robots" content="max-image-preview:large" />
+    <title>Anitsuki - Watch Together</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/toastr.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/watchtogether1.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <meta property="og:url" content="https://anitsuki.com/watch-together" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="~/splidejs/splide/dist/css/splide.min.css" type="text/css" />
-    <link rel="stylesheet" href="~/splidejs/splide/dist/css/themes/splide-skyblue.min.css" type="text/css" />
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="~/Content/toastr.min.css" type="text/css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="~/css/Category27.css" />
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
+    <meta property="og:image" content="~/IMG/aylogo.png">
     <style>
+        header #nabermudur ul {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
         .friendadd {
             position: absolute;
             width: 370px;
@@ -69,6 +57,7 @@
                 border-radius: 0; /* Kenar yuvarlamalarını kaldır */
                 z-index: 1000; /* Diğer öğelerin üstünde görünmesi için */
             }
+
             .friendadd #friendaddclose {
                 position: absolute;
                 width: 30px;
@@ -86,6 +75,7 @@
                     background-color: #cccc;
                     display: block;
                 }
+
             .friendadd .searchhh {
                 position: relative;
                 width: 200px;
@@ -123,7 +113,7 @@
                 width: 100%;
                 height: calc(100vh - 140px);
                 display: flex;
-                flex-direction:column;
+                flex-direction: column;
                 justify-content: start;
                 align-items: start;
                 overflow-y: auto;
@@ -148,7 +138,30 @@
             overflow-y: auto;
         }
 
-        
+        .videoimg {
+            position: relative;
+        }
+
+        .deadnote {
+            position: relative;
+            background: rgb(255,127,0);
+            background: radial-gradient(circle, rgba(255,127,0,1) 0%, rgba(0,0,0,1) 100%);
+            padding-top: 2.5rem;
+            padding-bottom: 2.5rem;
+        }
+
+            .deadnote .buton {
+                transition: all 0.3s;
+                background-color: #000000 !important;
+                color: orange !important;
+                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                text-decoration: none;
+            }
+
+                .deadnote .buton:hover {
+                    background-color: orange !important;
+                    color: #000000 !important;
+                }
     </style>
 </head>
 <body>
@@ -196,11 +209,11 @@
                                             <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                 @if (notification.PROFILEPICTURE != null)
                                                 {
-                                                    <img src="~/IMG/@notification.PROFILEPICTURE" style="width: 40px; object-fit:cover; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    <img src="~/IMG/@notification.PROFILEPICTURE" style=" object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
                                                 }
                                                 else
                                                 {
-                                                    <img src="~/IMG/stockuser.png" style="width: 40px; height: 40px; object-fit:cover; border-radius: 50%; margin-right: 10px;" />
+                                                    <img src="~/IMG/stockuser.png" style=" object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
                                                 }
                                                 <div style="color: #ffffff;">
                                                     <strong>@notification.USERNAME</strong><br />
@@ -228,6 +241,7 @@
                                 <i style="font-size:1.8rem !important;" class="bi bi-person-add"></i>
                             </a>
                         </div>
+
                     }
                     <div style="margin-right:-10px;" class="search">
                         <a href="@Url.RouteUrl("Animeler")"><i class="bi bi-search"></i></a>
@@ -285,6 +299,7 @@
                             </ul>
                         </div>
                     </div>
+
                     <div class="user">
                         <div style="height:60px; display:flex; align-items:center; margin-left:10px;" class="dropdown">
                             @{ AnitsukiTVEntities db = new AnitsukiTVEntities(); }
@@ -318,120 +333,69 @@
             </div>
         </div>
     </header>
-    <div class="content2">
-        <div class="searchcategory">
-            <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Hepsi
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="@Url.RouteUrl("Animeler")">Hepsi</a></li>
-                    @foreach (var x in Model.Category.Where(x => x.STATUS == true))
-                    {
-                        var categoryName = x.CATEGORYNAME.ToLower();
-                        categoryName = categoryName.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "");
-                        categoryName = Uri.EscapeDataString(categoryName);
-
-                        <li><a class="dropdown-item" href="@Url.RouteUrl("Kategori", new { kategoriID = x.ID, kategoriName = categoryName })">@x.CATEGORYNAME</a></li>
-                    }
-                </ul>
-            </div>
-            <div style="margin-right:10px;" class="search">
-                <i class="fa-solid fa-magnifying-glass fa-xl"></i>
-                <input type="text" autocomplete="off" name="searchTags" id="searchTags"
-                       placeholder="Anime adını yazınız" />
-            </div>
-            <div style="color:#ffffff; font-size:1.1rem; display:flex;align-items:center; justify-content:center;">
-                <i style="margin-right:5px;" class="bi bi-tv"></i> @Model.Anime.Where(x => x.STATUS == true).Count()
-            </div>  
-        </div>
-        <ul id="menuFull">
-            @foreach (var y in Model.Anime.Where(x => x.STATUS == true).OrderBy(x => Guid.NewGuid()))
-            {
-                <li style="margin-bottom:20px !important;" class="splide__slide">
-                    <a href="@Url.RouteUrl("Anime Detay", new { animeID = y.ID, animeName = y.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = y.TBLSEASON?.FirstOrDefault(t => t.ANIMEID == y.ID)?.SEASONNUMBER ?? 0})">
-                        <div class="videoimg">
-                            <img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                            @if (y.EDIT != null)
-                            {
-                                <video class="video" src="~/Videos/@y.EDIT" playsinline preload="none"></video>
-                                <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
-                                <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
-                            }
-                            else
-                            {
-                                <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
-                                <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
-                            }
-                            <div class="anime-info" style="display: none;">
-                                <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@y.ANIMENAME</div>
-                                <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Toplam Sezon Sayısı: @y.TBLSEASON.Count()</div>
-                                <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Toplam Bölüm Sayısı: @y.TBLEPISODE.Count()</div>
-                                <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @y.DATE.Value.ToString("yyyy")</div>
-                                <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @y.TBLCATEGORY.CATEGORYNAME, @y.TYPE</div>
-                                <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@y.DETAIL.Substring(0, 162) ...</div>
-                            </div>
-                        </div>
-                        <div class="text">
-                            <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                @y.ANIMENAME
-                            </div>
-                            <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                @y.DATE.Value.ToString("yyyy")
-                            </div>
-                        </div>
-                    </a>
-                </li>
-            }
-        </ul>
-    </div>
-    <footer>
-        <div class="footerimg">
-        </div>
-        <div class="detail">
-            <div class="page">
-                <div class="title">
-                    Sayfalar
-                </div>
-                <ul>
-                    <li><a href="@Url.RouteUrl("Hakkımızda")">Hakkımızda</a></li>
-                    <li><a href="@Url.RouteUrl("Gizlilik Politikası")">Gizlilik Politikası</a></li>
-                </ul>
-            </div>
-            <div class="social">
-                <div class="title">
-                    Sosyal Medyalar
-                </div>
-                <ul>
-                    <li><a target="_blank" href="https://www.youtube.com/channel/UC3AfwO_XmAvYEtw6FWZXZcw"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
-                    @*<li><a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a></li>*@
-                    <li><a target="_blank" href="https://www.instagram.com/anitsukitv/"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
-                    <li><a target="_blank" href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
-                </ul>
-            </div>
-            <div class="contact">
-                <div class="title">
-                    İletişim
-                </div>
-                <ul>
-                    <li>anitsuki.destek@gmail.com</li>
-                </ul>
-            </div>
-        </div>
-        <div class="copyright ">
-            <img src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+    <div class="error">
+        @foreach (var x in Model.Error.Where(x => x.STATUS == true).OrderBy(x => Guid.NewGuid()).Take(1))
+        {
             <div class="text">
-                Copyright © Anitsuki 2024. Tüm hakları saklıdır.
+                <div class="textdetail">
+                    <div class="title">
+                        Watch Together Yakında...
+                    </div>
+                    <div class="des">
+                        Watch Together sayfası yapımı plan aşamasında ne zaman yaparız belli değil bir bakmışsın aniden karşına çıkabilir burayı beklemek yerine al sana <b>@x.TEXT</b> animesinden bir sahne veriyorum.
+                    </div>
+                </div>
             </div>
-        </div>
-    </footer>
+            <div class="videos">
+                <video class="video" loop muted playsinline>
+                    <source src="~/Videos/@x.VIDEO">
+                </video>
+                <div class="buttons">
+                    <button class="material-symbols-outlined toggle">play_arrow</button>
+                    <button class="material-symbols-outlined restart">restart_alt</button>
+                    <button class="material-symbols-outlined volume">volume_off</button>
+                </div>
+            </div>
+        }
+    </div>
 </body>
-
 </html>
 <script src="~/Scripts/jquery-3.7.1.min.js"></script>
 <script src="~/Scripts/toastr.min.js"></script>
 <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+<script>
+    const audio = document.querySelector('.video');
+    const btnToggle = document.querySelector('.toggle');
+    const btnRestart = document.querySelector('.restart');
+    const btnMuteUnmte = document.querySelector('.volume');
+
+
+    btnToggle.addEventListener("click", () => {
+        if (audio.paused) {
+            audio.play();
+            btnToggle.textContent = "pause";
+        } else {
+            audio.pause();
+            btnToggle.textContent = "play_arrow";
+        }
+    });
+
+    btnRestart.addEventListener('click', () => {
+        audio.currentTime = 0;
+        audio.play();
+    });
+
+    btnMuteUnmte.addEventListener('click', () => {
+        if (audio.muted) {
+            audio.muted = false;
+            audio.volume = 0.08;
+            btnMuteUnmte.textContent = "volume_up";
+        } else {
+            audio.muted = true;
+            btnMuteUnmte.textContent = "volume_off";
+        }
+    });
+</script>
 <script>
     document.querySelectorAll('nav a').forEach(link => {
         link.classList.remove('active');
@@ -450,23 +414,6 @@
             event.preventDefault();
             event.stopPropagation();
         }
-    });
-
-    jQuery.expr[':'].contains = function (a, i, m) {
-        return jQuery(a).text().toUpperCase()
-            .indexOf(m[3].toUpperCase()) >= 0;
-    };
-    $(document).ready(function () {
-        $("#searchTags").keyup(function () {
-            var value = $("#searchTags").val();
-            if (value.length == 0) {
-                $("#menuFull li").show();
-            } else {
-                $("#menuFull li").hide();
-                $("#menuFull li:contains(" + value + ")").show();
-            }
-
-        });
     });
 </script>
 <script>
@@ -490,169 +437,34 @@
         }, 50);
     });
 </script>
-<script>
-    const videoElements = document.querySelectorAll(".splide__slide .video");
-
-    videoElements.forEach(video => {
-        let isMuted = true; // Başlangıçta ses durumu kapalı
-        video.muted = isMuted; // Video başlangıçta sessiz
-
-        const videoContainer = video.parentElement;
-        const muteButton = videoContainer.querySelector('.mute-button');
-        const textSecretButton = videoContainer.querySelector('.text-secret-button');
-        const animeInfo = videoContainer.querySelector('.anime-info');
-
-        // Mobil cihazları kontrol etme fonksiyonu
-        function isMobileDevice() {
-            return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        }
-
-        // Video yükleme fonksiyonu
-        function loadVideo() {
-            if (video.dataset.src) {
-                video.src = video.dataset.src; // video'nun gerçek kaynağını yükle
-                video.load(); // Videoyu yükle
-                video.removeEventListener('load', loadVideo); // Yükleme işlemini tamamla
-            }
-        }
-
-        if (!isMobileDevice()) {
-            if (muteButton) {
-                muteButton.style.display = 'none'; // Başlangıçta mute butonunu gizle
-            }
-            if (animeInfo) {
-                animeInfo.style.display = 'none'; // Başlangıçta anime bilgilerini gizle
-            }
-
-            // Video görünür olduğunda yükleme
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        loadVideo(); // Video görünür olduğunda yükle
-                        observer.unobserve(entry.target); // Gözlemeyi durdur
-                    }
-                });
-            });
-
-            observer.observe(video); // Video'yu gözlemle
-
-            videoContainer.addEventListener('mouseenter', () => {
-                if (video.paused) { // Video duruyorsa oynat
-                    video.play().catch(error => {
-                        console.error("Video oynatılamadı:", error);
-                    });
-                }
-                video.classList.add("active");
-                if (muteButton) {
-                    muteButton.style.display = 'block'; // Mute butonunu göster
-                }
-                if (animeInfo) {
-                    animeInfo.style.display = 'block'; // Anime bilgilerini göster
-                }
-                if (textSecretButton) {
-                    textSecretButton.style.display = 'block'; // Text secret butonunu göster
-                }
-            });
-
-            videoContainer.addEventListener('mouseleave', () => {
-                // Video alanından ayrıldığında video duracak ve görünürlük kaybolacak
-                if (!video.paused) { // Video oynuyorsa durdur
-                    video.pause(); // Video duracak
-                }
-                video.classList.remove("active");
-                if (muteButton) {
-                    muteButton.style.display = 'none'; // Mute butonunu gizle
-                }
-                if (animeInfo) {
-                    animeInfo.style.display = 'none'; // Anime bilgilerini gizle
-                }
-                if (textSecretButton) {
-                    textSecretButton.style.display = 'none'; // Text secret butonunu gizle
-                }
-            });
-
-            // Mute butonuna tıklandığında ses aç/kapa
-            if (muteButton) {
-                muteButton.addEventListener('click', (event) => {
-                    event.stopPropagation(); // Tıklamanın üst öğelere yayılmasını engelle
-                    event.preventDefault(); // Varsayılan davranışı engelle
-
-                    // Ses durumunu tersine çevir
-                    isMuted = !isMuted;
-                    video.muted = isMuted; // Video sesini aç/kapa
-
-                    // Eğer ses açılıyorsa, ses seviyesini artır
-                    if (!isMuted) {
-                        video.volume = 1; // Ses seviyesini artır
-                        muteButton.innerHTML = '<i class="bi bi-volume-up"></i>'; // Buton metnini değiştir
-                    } else {
-                        video.volume = 0; // Ses seviyesini sıfırla
-                        muteButton.innerHTML = '<i class="bi bi-volume-mute"></i>'; // Buton metnini değiştir
-                    }
-                });
-            }
-
-            // Text secret butonuna tıklandığında anime bilgilerini yukarı/aşağı kaydır
-            if (textSecretButton) {
-                let isInfoVisible = true; // Anime bilgisi başlangıçta görünür
-
-                textSecretButton.addEventListener('click', (event) => {
-                    event.stopPropagation(); // Tıklamanın üst öğelere yayılmasını engelle
-                    event.preventDefault(); // Varsayılan davranışı engelle
-
-                    // Anime bilgilerini yukarı veya aşağı kaydır
-                    if (isInfoVisible) {
-                        animeInfo.style.transform = 'scale(1.025)'; // Aşağı kaydır
-                        animeInfo.style.opacity = '0'; // Aşağı kaydır
-                        textSecretButton.innerHTML = '<i class="bi bi-card-text"></i>';
-                    } else {
-                        animeInfo.style.transform = 'scale(1.025)';
-                        animeInfo.style.opacity = '1'; // Yukarı kaydır
-                        textSecretButton.innerHTML = '<i class="bi bi-card-text"></i>';
-                    }
-                    isInfoVisible = !isInfoVisible; // Görünürlük durumunu tersine çevir
-                });
-            }
-
-        } else {
-            video.style.display = 'none'; // Mobil cihazlar için video öğesini gizleme
-            if (muteButton) {
-                muteButton.style.display = 'none'; // Mobil cihazlarda mute butonunu gizle
-            }
-            if (textSecretButton) {
-                textSecretButton.style.display = 'none'; // Mobil cihazlarda text secret butonunu gizle
-            }
-        }
-    });
-</script>
 
 @*<script>
-    // script.js
-    const snowContainer = document.getElementById('snow-container');
+        // script.js
+        const snowContainer = document.getElementById('snow-container');
 
-    function createSnowflake() {
-        const snowflake = document.createElement('div');
-        const size = Math.random() * 5 + 2; // Kar tanesi boyutu
-        const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
-        const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            const size = Math.random() * 5 + 2; // Kar tanesi boyutu
+            const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
+            const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
 
-        snowflake.classList.add('snowflake');
-        snowflake.style.width = `${size}px`;
-        snowflake.style.height = `${size}px`;
-        snowflake.style.left = `${leftPosition}px`;
-        snowflake.style.animationDuration = `${animationDuration}s`;
+            snowflake.classList.add('snowflake');
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
+            snowflake.style.left = `${leftPosition}px`;
+            snowflake.style.animationDuration = `${animationDuration}s`;
 
-        snowContainer.appendChild(snowflake);
+            snowContainer.appendChild(snowflake);
 
-        // Kar tanesinin düşüşü tamamlandığında sil
-        setTimeout(() => {
-            snowflake.remove();
-        }, animationDuration * 1000);
-    }
+            // Kar tanesinin düşüşü tamamlandığında sil
+            setTimeout(() => {
+                snowflake.remove();
+            }, animationDuration * 1000);
+        }
 
-    // Kar tanelerini sürekli oluştur
-    setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
-</script>*@
+        // Kar tanelerini sürekli oluştur
+        setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
+    </script>*@
 <script>
     // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
     jQuery.expr[':'].contains = function (a, i, m) {
@@ -687,11 +499,11 @@
                 if (response.success) {
                     if (response.isFollowing) {
                         // Takip etme durumu
-                        $(button).html('<i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i>'); // Takipten çıkma simgesi
+                        $(button).html('<i style="font-size:2.5rem;" class="bi bi-person-fill-dash"></i>'); // Takipten çıkma simgesi
                         toastr.success('Artık bu kullanıcıyı takip ediyorsunuz.'); // Başarı bildirimi
                     } else {
                         // Takipten çıkma durumu
-                        $(button).html('<i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i>'); // Takip etme simgesi
+                        $(button).html('<i style="font-size:2.5rem;" class="bi bi-person-fill-add"></i>'); // Takip etme simgesi
                         toastr.error('Artık bu kullanıcıyı takipten çıkıyorsunuz.'); // Hata bildirimi
                     }
                 } else {

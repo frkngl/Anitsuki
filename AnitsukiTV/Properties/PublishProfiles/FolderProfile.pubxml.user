@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\frkng\Desktop\Publish</_PublishTargetUrl>
-    <History>True|2024-11-28T23:09:37.8230705Z||;True|2024-11-28T16:32:26.8551169+03:00||;True|2024-11-26T11:24:18.7316960+03:00||;True|2024-11-25T17:49:33.0589977+03:00||;True|2024-11-24T14:43:05.1645703+03:00||;True|2024-11-16T20:10:00.3341403+03:00||;True|2024-11-15T02:14:38.7733834+03:00||;True|2024-11-10T18:06:05.0311902+03:00||;True|2024-11-10T12:02:52.8251984+03:00||;True|2024-11-10T12:00:51.5934562+03:00||;True|2024-11-01T00:48:07.0643869+03:00||;True|2024-10-30T13:25:36.3406716+03:00||;True|2024-10-26T18:48:01.7843172+03:00||;False|2024-10-26T18:47:17.7963406+03:00||;True|2024-10-24T20:57:50.9611956+03:00||;True|2024-10-24T03:53:51.4383131+03:00||;True|2024-10-22T19:07:31.0687711+03:00||;True|2024-10-22T14:59:15.4387407+03:00||;True|2024-10-21T14:54:20.6630848+03:00||;True|2024-10-21T14:18:38.0809556+03:00||;True|2024-10-14T01:03:48.3631328+03:00||;True|2024-10-14T00:27:28.5132347+03:00||;True|2024-10-13T23:31:30.9539729+03:00||;True|2024-10-10T23:47:08.7384512+03:00||;True|2024-10-10T16:26:21.6203063+03:00||;True|2024-10-10T15:42:19.8357892+03:00||;True|2024-10-10T15:41:27.2590863+03:00||;True|2024-09-26T13:35:09.4360599+03:00||;True|2024-09-26T13:34:07.5192476+03:00||;True|2024-09-25T16:56:52.8064897+03:00||;True|2024-09-25T16:42:50.0020850+03:00||;True|2024-09-24T17:42:49.7618071+03:00||;True|2024-09-16T20:37:18.7178360+03:00||;True|2024-09-14T00:04:10.6816289+03:00||;True|2024-09-13T17:44:57.9599547+03:00||;True|2024-09-13T17:19:45.8300612+03:00||;True|2024-09-13T16:57:48.7957199+03:00||;True|2024-09-12T20:26:14.5144820+03:00||;True|2024-09-11T18:24:30.2444466+03:00||;</History>
+    <History>True|2024-11-29T15:33:55.3450722Z||;True|2024-11-29T18:24:55.9580649+03:00||;True|2024-11-29T02:09:37.8230705+03:00||;True|2024-11-28T16:32:26.8551169+03:00||;True|2024-11-26T11:24:18.7316960+03:00||;True|2024-11-25T17:49:33.0589977+03:00||;True|2024-11-24T14:43:05.1645703+03:00||;True|2024-11-16T20:10:00.3341403+03:00||;True|2024-11-15T02:14:38.7733834+03:00||;True|2024-11-10T18:06:05.0311902+03:00||;True|2024-11-10T12:02:52.8251984+03:00||;True|2024-11-10T12:00:51.5934562+03:00||;True|2024-11-01T00:48:07.0643869+03:00||;True|2024-10-30T13:25:36.3406716+03:00||;True|2024-10-26T18:48:01.7843172+03:00||;False|2024-10-26T18:47:17.7963406+03:00||;True|2024-10-24T20:57:50.9611956+03:00||;True|2024-10-24T03:53:51.4383131+03:00||;True|2024-10-22T19:07:31.0687711+03:00||;True|2024-10-22T14:59:15.4387407+03:00||;True|2024-10-21T14:54:20.6630848+03:00||;True|2024-10-21T14:18:38.0809556+03:00||;True|2024-10-14T01:03:48.3631328+03:00||;True|2024-10-14T00:27:28.5132347+03:00||;True|2024-10-13T23:31:30.9539729+03:00||;True|2024-10-10T23:47:08.7384512+03:00||;True|2024-10-10T16:26:21.6203063+03:00||;True|2024-10-10T15:42:19.8357892+03:00||;True|2024-10-10T15:41:27.2590863+03:00||;True|2024-09-26T13:35:09.4360599+03:00||;True|2024-09-26T13:34:07.5192476+03:00||;True|2024-09-25T16:56:52.8064897+03:00||;True|2024-09-25T16:42:50.0020850+03:00||;True|2024-09-24T17:42:49.7618071+03:00||;True|2024-09-16T20:37:18.7178360+03:00||;True|2024-09-14T00:04:10.6816289+03:00||;True|2024-09-13T17:44:57.9599547+03:00||;True|2024-09-13T17:19:45.8300612+03:00||;True|2024-09-13T16:57:48.7957199+03:00||;True|2024-09-12T20:26:14.5144820+03:00||;True|2024-09-11T18:24:30.2444466+03:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -2692,10 +2692,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/19/2024 11:36:48</publishTime>
     </File>
     <File Include="bin/AnitsukiTV.dll">
-      <publishTime>11/29/2024 00:48:01</publishTime>
+      <publishTime>11/29/2024 18:29:10</publishTime>
     </File>
     <File Include="bin/AnitsukiTV.pdb">
-      <publishTime>11/29/2024 00:48:01</publishTime>
+      <publishTime>11/29/2024 18:29:10</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>11/19/2024 11:36:49</publishTime>
@@ -3003,6 +3003,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="css/404Page1.css">
       <publishTime>11/19/2024 11:36:49</publishTime>
     </File>
+    <File Include="css/404Page2.css">
+      <publishTime>11/29/2024 16:46:14</publishTime>
+    </File>
     <File Include="css/About1.css">
       <publishTime>10/10/2024 15:30:33</publishTime>
     </File>
@@ -3058,7 +3061,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/24/2024 14:11:52</publishTime>
     </File>
     <File Include="css/Home62.css">
-      <publishTime>11/25/2024 17:44:28</publishTime>
+      <publishTime>11/29/2024 17:03:16</publishTime>
     </File>
     <File Include="css/NotFound.css">
       <publishTime>10/19/2024 16:53:26</publishTime>
@@ -3098,6 +3101,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="css/VideoDetail3.css">
       <publishTime>11/19/2024 11:36:49</publishTime>
+    </File>
+    <File Include="css/watchtogether1.css">
+      <publishTime>11/29/2024 17:03:15</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>11/19/2024 11:36:49</publishTime>
@@ -3158,6 +3164,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="js/splide4.js">
       <publishTime>11/26/2024 14:36:18</publishTime>
+    </File>
+    <File Include="js/splide5.js">
+      <publishTime>11/29/2024 17:55:13</publishTime>
     </File>
     <File Include="js/video.js">
       <publishTime>09/14/2024 19:28:04</publishTime>
@@ -3586,7 +3595,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/28/2024 14:26:31</publishTime>
     </File>
     <File Include="Views/AnimeDetail/Index.cshtml">
-      <publishTime>11/29/2024 00:46:19</publishTime>
+      <publishTime>11/29/2024 17:26:25</publishTime>
     </File>
     <File Include="Views/AnimeDetail/LeaveComment.cshtml">
       <publishTime>11/19/2024 11:36:48</publishTime>
@@ -3595,28 +3604,28 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/19/2024 11:36:48</publishTime>
     </File>
     <File Include="Views/AnimeDetail/Video.cshtml">
-      <publishTime>11/29/2024 00:39:30</publishTime>
+      <publishTime>11/29/2024 17:27:02</publishTime>
     </File>
     <File Include="Views/Category/Index.cshtml">
-      <publishTime>11/29/2024 00:33:23</publishTime>
+      <publishTime>11/29/2024 17:25:48</publishTime>
     </File>
     <File Include="Views/Category/UseCategory.cshtml">
-      <publishTime>11/29/2024 00:33:33</publishTime>
+      <publishTime>11/29/2024 17:25:47</publishTime>
     </File>
     <File Include="Views/Error/NotFound.cshtml">
-      <publishTime>11/28/2024 15:33:27</publishTime>
+      <publishTime>11/29/2024 18:30:15</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
-      <publishTime>11/29/2024 00:27:19</publishTime>
+      <publishTime>11/29/2024 17:24:52</publishTime>
     </File>
     <File Include="Views/Home/Donate.cshtml">
-      <publishTime>11/29/2024 00:29:16</publishTime>
+      <publishTime>11/29/2024 17:25:07</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>11/29/2024 00:22:22</publishTime>
+      <publishTime>11/29/2024 18:01:19</publishTime>
     </File>
     <File Include="Views/Home/PrivacyPolicy.cshtml">
-      <publishTime>11/29/2024 00:24:07</publishTime>
+      <publishTime>11/29/2024 17:24:32</publishTime>
     </File>
     <File Include="Views/LanetlerKralıAdmin/AddAdmin.cshtml">
       <publishTime>11/19/2024 11:36:48</publishTime>
@@ -3754,10 +3763,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/10/2024 15:30:33</publishTime>
     </File>
     <File Include="Views/User/Index.cshtml">
-      <publishTime>11/29/2024 02:06:04</publishTime>
+      <publishTime>11/29/2024 17:27:53</publishTime>
     </File>
     <File Include="Views/User/ProfileSetting.cshtml">
-      <publishTime>11/28/2024 15:37:31</publishTime>
+      <publishTime>11/29/2024 17:27:51</publishTime>
+    </File>
+    <File Include="Views/WatchTogether/Index.cshtml">
+      <publishTime>11/29/2024 18:27:17</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>11/19/2024 11:36:48</publishTime>
