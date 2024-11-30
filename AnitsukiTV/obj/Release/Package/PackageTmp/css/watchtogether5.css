@@ -380,6 +380,7 @@ header {
 .error {
     width: 100%;
     height: calc(100vh - 60px);
+    margin-top:60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -471,8 +472,28 @@ header {
                 cursor: pointer;
             }
 
+@media only screen and (max-width: 1500px) {
+    .error {
+        width: 100%;
+        height: calc(100vh - 60px);
+        margin-top: 60px;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        flex-direction: column;
+    }
+}
 
 @media only screen and (max-width:1000px) {
+    .error {
+        width: 100%;
+        height: calc(100vh - 60px);
+        margin-top: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
     .error .text {
         width: 100%;
         height: auto;
@@ -554,6 +575,15 @@ header {
 }
 
 @media only screen and (max-width:800px) {
+    .error {
+        width: 100%;
+        height: calc(100vh - 60px);
+        margin-top: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
     .error .text {
         width: 100%;
         height: auto;
@@ -644,6 +674,15 @@ header {
 }
 
 @media only screen and (max-width:600px) {
+    .error {
+        width: 100%;
+        height: calc(100vh - 60px);
+        margin-top: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
     .error .text {
         width: 100%;
         height: auto;
