@@ -172,7 +172,7 @@
     <div class="loader">
 
     </div>
-    @*<div id="snow-container"></div>*@
+    <div id="snow-container"></div>
     <header>
         <div class="container-xl">
             <div class="row">
@@ -438,7 +438,7 @@
     });
 </script>
 
-@*<script>
+<script>
         // script.js
         const snowContainer = document.getElementById('snow-container');
 
@@ -464,7 +464,7 @@
 
         // Kar tanelerini sürekli oluştur
         setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
-    </script>*@
+    </script>
 <script>
     // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
     jQuery.expr[':'].contains = function (a, i, m) {
@@ -547,37 +547,40 @@
         });
     });
 </script>
-<script>
-    function isMobile() {
-        return /Mobi|Android|iPhone/i.test(navigator.userAgent);
-    }
-
-    const toggleButton = document.getElementById('toggleFriendAdd');
-    const friendAdd = document.querySelector('.friendadd');
-    const toggleButton2 = document.getElementById('friendaddclose');
-
-    // Sayfa yüklendiğinde, eğer mobil cihazsa friendAdd'i tam ekran yap
-    window.onload = function () {
-        if (isMobile()) {
-            friendAdd.classList.add('full-screen'); // Tam ekran sınıfını ekle
-            toggleButton2.classList.add('active');
+@if (User.Identity.IsAuthenticated)
+{
+    <script>
+        function isMobile() {
+            return /Mobi|Android|iPhone/i.test(navigator.userAgent);
         }
-    };
 
-    toggleButton.addEventListener('click', function (event) {
-        event.preventDefault(); // Linkin varsayılan davranışını engelle
-        friendAdd.classList.toggle('active'); // active sınıfını ekle veya kaldır
-    });
+        const toggleButton = document.getElementById('toggleFriendAdd');
+        const friendAdd = document.querySelector('.friendadd');
+        const toggleButton2 = document.getElementById('friendaddclose');
 
-    toggleButton2.addEventListener('click', function (event) {
-        event.preventDefault(); // Linkin varsayılan davranışını engelle
-        friendAdd.classList.toggle('active'); // active sınıfını ekle veya kaldır
-    });
+        // Sayfa yüklendiğinde, eğer mobil cihazsa friendAdd'i tam ekran yap
+        window.onload = function () {
+            if (isMobile()) {
+                friendAdd.classList.add('full-screen'); // Tam ekran sınıfını ekle
+                toggleButton2.classList.add('active');
+            }
+        };
 
-    // Sayfanın herhangi bir yerine tıklandığında friendadd'ı kapat
-    document.addEventListener('click', function (event) {
-        if (!friendAdd.contains(event.target) && !toggleButton.contains(event.target)) {
-            friendAdd.classList.remove('active'); // active sınıfını kaldır
-        }
-    });
-</script>
+        toggleButton.addEventListener('click', function (event) {
+            event.preventDefault(); // Linkin varsayılan davranışını engelle
+            friendAdd.classList.toggle('active'); // active sınıfını ekle veya kaldır
+        });
+
+        toggleButton2.addEventListener('click', function (event) {
+            event.preventDefault(); // Linkin varsayılan davranışını engelle
+            friendAdd.classList.toggle('active'); // active sınıfını ekle veya kaldır
+        });
+
+        // Sayfanın herhangi bir yerine tıklandığında friendadd'ı kapat
+        document.addEventListener('click', function (event) {
+            if (!friendAdd.contains(event.target) && !toggleButton.contains(event.target)) {
+                friendAdd.classList.remove('active'); // active sınıfını kaldır
+            }
+        });
+    </script>
+}

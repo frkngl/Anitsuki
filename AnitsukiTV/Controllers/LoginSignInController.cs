@@ -204,7 +204,7 @@ namespace AnitsukiTV.Controllers
                         EnableSsl = true,
                         DeliveryMethod = SmtpDeliveryMethod.Network,
                         UseDefaultCredentials = false, // Kullanıcı adı ve şifre kullanılacak
-                        Credentials = new NetworkCredential("anitsuki.destek@gmail.com", "ncqhddcxnnwbfnay")
+                        Credentials = new NetworkCredential("anitsuki.destek@gmail.com", "ipptzxguiuzaoosp")
                     })
                     {
                         smtpClient.Send(mail);

@@ -159,7 +159,7 @@
     <div class="loader">
 
     </div>
-    @*<div id="snow-container"></div>*@
+    <div id="snow-container"></div>
     <header>
         <div class="container-xl">
             <div class="row">
@@ -354,13 +354,13 @@
                             <img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
                             @if (y.EDIT != null)
                             {
-                                <video class="video" src="~/Videos/@y.EDIT" playsinline preload="none"></video>
+                                <video class="video" src="~/Videos/@y.EDIT" playsinline loop preload="none"></video>
                                 <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
                                 <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
                             }
                             else
                             {
-                                <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
+                                <video class="video" src="~/Videos/blackscreen.mp4" playsinline loop preload="none"></video>
                                 <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
                                 <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
                             }
@@ -626,7 +626,7 @@
     });
 </script>
 
-@*<script>
+<script>
     // script.js
     const snowContainer = document.getElementById('snow-container');
 
@@ -652,7 +652,7 @@
 
     // Kar tanelerini sürekli oluştur
     setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
-</script>*@
+</script>
 <script>
     // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
     jQuery.expr[':'].contains = function (a, i, m) {
@@ -735,6 +735,8 @@
         });
     });
 </script>
+@if (User.Identity.IsAuthenticated)
+{
 <script>
     function isMobile() {
         return /Mobi|Android|iPhone/i.test(navigator.userAgent);
@@ -769,3 +771,4 @@
         }
     });
 </script>
+}

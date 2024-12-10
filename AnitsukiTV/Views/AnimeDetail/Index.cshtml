@@ -196,7 +196,7 @@
     <div class="loader">
 
     </div>
-    @*<div id="snow-container"></div>*@
+    <div id="snow-container"></div>
     <div class="warningg">
         <div class="harley" id="harley">
             <i class="bi bi-arrow-left-circle-fill toggle-icon"></i>
@@ -653,7 +653,7 @@
     });
 </script>
 
-@*<script>
+<script>
         // script.js
         const snowContainer = document.getElementById('snow-container');
 
@@ -679,7 +679,7 @@
 
         // Kar tanelerini sürekli oluştur
         setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
-    </script>*@
+    </script>
 
 <script>
     // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
@@ -791,6 +791,8 @@
         }
     });
 </script>
+@if (User.Identity.IsAuthenticated)
+{
 <script>
     function isMobile() {
         return /Mobi|Android|iPhone/i.test(navigator.userAgent);
@@ -825,6 +827,8 @@
         }
     });
 </script>
+}
+
 
 
 
