@@ -43,14 +43,86 @@
     <link rel="stylesheet" href="~/css/plyr.css" type="text/css" />
     <link rel="shortcut icon" href="~/IMG/aylogo.png" />
     <style>
-        .fansub {
+        .warning {
             width: 100%;
-            height: 100px;
-            margin-top: 25px;
-            color: #ffffff;
-            padding-right: 1rem;
-            line-height: 20px;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(49, 49, 49, 0.9);
+            position: fixed;
+            z-index: 999999999;
+            top: 0px;
+            left: 0;
         }
+            .warning .modal-warning-box {
+                width: 350px;
+                height: 180px;
+                background-color: #000000;
+                border-radius: 20px;
+                padding: 10px;
+            }
+                .warning .modal-warning-box .text{
+                    color:white;
+                }
+
+                    .warning .modal-warning-box .text .title{
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                    }
+                        .warning .modal-warning-box .text .title .title1{
+                            font-size:1.5rem;
+                            font-weight:500;
+                        }
+                        .warning .modal-warning-box .text .title .title2 {
+                            width: 50px;
+                            height: 50px;
+                        }
+                    .warning .modal-warning-box .text .title .title2 img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit:cover;
+                    }
+
+                    .warning .modal-warning-box .text .des {
+                       height:70px;
+                       font-size:1rem;
+                       font-style:normal;
+                       padding-top:10px;
+                    }
+
+                .warning .modal-warning-box .okbtn{
+                    width:100%;
+                    height:auto;
+                    display:flex;
+                    padding-right:7px;
+                    justify-content:center;
+                    justify-content:end;
+                }
+
+                    .warning .modal-warning-box .okbtn button {
+                        padding: 3px;
+                        border-radius: 5px;
+                        border: none;
+                        outline: none;
+                        background-color: #FF7F00;
+                        font-size:1rem;
+                        transition:all 0.3s;
+                    }
+                        .warning .modal-warning-box .okbtn button:hover {
+                            background-color: #313131;
+                            color: #FF7F00;
+                        }
+
+                    .fansub {
+                        width: 100%;
+                        height: 100px;
+                        margin-top: 25px;
+                        color: #ffffff;
+                        padding-right: 1rem;
+                        line-height: 20px;
+                    }
 
             .fansub .title {
                 color: #FF7F00;
@@ -413,24 +485,46 @@
                     }
                 }
             }
-
+            <div class="warning" style="display: none;">
+                <div class="modal-warning-box">
+                    <div class="text">
+                        <div class="title">
+                            <div class="title1">
+                                <i class="bi bi-exclamation-triangle-fill"></i> Uyarı Mesajı
+                            </div>
+                            <div class="title2">
+                                <img src="~/IMG/aylogo.png" />
+                            </div>
+                        </div>
+                        <div class="des">
+                            Video kaynağı yanıt vermiyor.<br /> Sayfa yeniden yüklenecek.
+                        </div>
+                    </div>
+                    <div class="okbtn">
+                        <button id="okButton">Tamam</button>
+                    </div>
+                </div>
+            </div>
             @foreach (var ez in Model.VideoInfo.Episode)
             {
                 if (ez.URL != null)
                 {
                     <iframe id="myIframe" style="width:100%; height:70vh;" tabindex="0" allowfullscreen></iframe>
                     <script>
-                       window.addEventListener('load', function() {
-                       var iframe = document.getElementById('myIframe');
-                       iframe.src = '@ez.URL';
-                       var timeout = setTimeout(function() {
-                       alert('Video kaynağı yanıt vermiyor. Sayfa yeniden yüklenecek.');
-                       location.reload();  // Sayfayı yeniden yükle
-                       },10000);  // 15 saniye sonra timeout tetiklenecek (15000ms)
+                         window.addEventListener('load', function() {
+                         var iframe = document.getElementById('myIframe');
+                         iframe.src = '@ez.URL';
+                         var timeout = setTimeout(function() {
+                         document.querySelector('.warning').style.display = 'flex';
+                         }, 10000);
 
-                       iframe.onload = function() {
-                       clearTimeout(timeout);
-                       };
+                         iframe.onload = function() {
+                         clearTimeout(timeout);
+                         };
+
+                         document.getElementById('okButton').addEventListener('click', function () {
+                         location.reload(); 
+                         });
                     });
                     </script>
                 }
