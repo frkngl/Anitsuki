@@ -1081,6 +1081,7 @@
     <Content Include="css\watchtogether5.css" />
     <Content Include="IMG\AnitsukiQR.png" />
     <Content Include="IMG\aylogo.png" />
+    <Content Include="IMG\aylogotitle.png" />
     <Content Include="IMG\footer2.png" />
     <Content Include="IMG\logo.png" />
     <Content Include="IMG\poster.png" />

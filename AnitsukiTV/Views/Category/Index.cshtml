@@ -6,29 +6,34 @@
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Animeler - Anitsuki</title>
-    <meta name="description" content="Animeler, anime izle, türkanime, türk anime tv, tranimeizle, türkçe anime izle" />
-    <meta content="tr" http-equiv="Content-Language" />
+    <title>Tüm Animeler - Anitsuki | Türkçe Anime İzle</title>
+    <meta name="description" content="Anitsuki'de tüm animeleri keşfedin! En yeni ve popüler Türkçe anime serileri ve filmleri burada. Anime dünyasına adım atın ve favori animelerinizi izleyin." />
     <meta name="language" content="Turkish" />
     <meta name="geo.placename" content="Turkey" />
-    <meta name="location" content="türkiye, tr, turkey" />
-    <meta name="robots" content="noarchive" />
+    <meta name="location" content="Türkiye, TR, Turkey" />
+    <meta name="robots" content="index, follow, max-image-preview:large, noarchive" />
+    <meta name="apple-mobile-web-app-title" content="Anitsuki">
     <meta name="theme-color" content="#000000" />
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="anitsuki">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta property="og:title" content="Animeler - anitsuki" />
-    <meta property="og:url" content="https://anitsuki.com/animeler" />
-    <meta property="og:image" content="~/IMG/aylogo.png">
-    <meta property="og:description" content="Animeler" />
-    <meta name="robots" content="max-image-preview:large" />
+
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+
+    <meta property="og:title" content="Tüm Animeler - Anitsuki | Türkçe Anime İzle" />
+    <meta property="og:url" content="https://www.anitsuki.com/animeler" />
+    <meta property="og:image" content="https://www.anitsuki.com/IMG/aylogo.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Anitsuki'de tüm animeleri keşfedin! En yeni ve popüler Türkçe anime serileri ve filmleri burada. Anime dünyasına adım atın ve favori animelerinizi izleyin." />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -38,7 +43,9 @@
     <link rel="stylesheet" href="~/Content/toastr.min.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/Category27.css" />
-    <link rel="shortcut icon" href="~/IMG/aylogo.png" />
+
+    <link rel="shortcut icon" href="/IMG/aylogotitle.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/IMG/aylogotitle.png" type="image/png">
     <style>
         .friendadd {
             position: absolute;
@@ -69,6 +76,7 @@
                 border-radius: 0; /* Kenar yuvarlamalarını kaldır */
                 z-index: 1000; /* Diğer öğelerin üstünde görünmesi için */
             }
+
             .friendadd #friendaddclose {
                 position: absolute;
                 width: 30px;
@@ -86,6 +94,7 @@
                     background-color: #cccc;
                     display: block;
                 }
+
             .friendadd .searchhh {
                 position: relative;
                 width: 200px;
@@ -123,7 +132,7 @@
                 width: 100%;
                 height: calc(100vh - 140px);
                 display: flex;
-                flex-direction:column;
+                flex-direction: column;
                 justify-content: start;
                 align-items: start;
                 overflow-y: auto;
@@ -147,19 +156,17 @@
             max-height: 300px;
             overflow-y: auto;
         }
-
-        
     </style>
 </head>
 <body>
-    <link itemprop="thumbnailUrl" href="~/IMG/aylogo.png">
-    <span itemprop="thumbnail" itemscope itemtype="http://schema.org/ImageObject">
-        <link itemprop="url" href="~/IMG/aylogo.png">
-    </span>
     <div class="loader">
 
     </div>
-    <div id="snow-container"></div>
+    @if (ViewBag.IsFeatureActive)
+    {
+        <div id="snow-container"></div>
+    }
+
     <header>
         <div class="container-xl">
             <div class="row">
@@ -343,7 +350,7 @@
             </div>
             <div style="color:#ffffff; font-size:1.1rem; display:flex;align-items:center; justify-content:center;">
                 <i style="margin-right:5px;" class="bi bi-tv"></i> @Model.Anime.Where(x => x.STATUS == true).Count()
-            </div>  
+            </div>
         </div>
         <ul id="menuFull">
             @foreach (var y in Model.Anime.Where(x => x.STATUS == true).OrderBy(x => Guid.NewGuid()))
@@ -422,7 +429,7 @@
         <div class="copyright ">
             <img src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
             <div class="text">
-                Copyright © Anitsuki 2024. Tüm hakları saklıdır.
+                Copyright © Anitsuki @DateTime.Now.Year. Tüm hakları saklıdır.
             </div>
         </div>
     </footer>
@@ -626,33 +633,37 @@
     });
 </script>
 
-<script>
-    // script.js
-    const snowContainer = document.getElementById('snow-container');
+@if (ViewBag.IsFeatureActive)
+{
+    <script>
+        // script.js
+        const snowContainer = document.getElementById('snow-container');
 
-    function createSnowflake() {
-        const snowflake = document.createElement('div');
-        const size = Math.random() * 5 + 2; // Kar tanesi boyutu
-        const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
-        const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            const size = Math.random() * 5 + 2; // Kar tanesi boyutu
+            const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
+            const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
 
-        snowflake.classList.add('snowflake');
-        snowflake.style.width = `${size}px`;
-        snowflake.style.height = `${size}px`;
-        snowflake.style.left = `${leftPosition}px`;
-        snowflake.style.animationDuration = `${animationDuration}s`;
+            snowflake.classList.add('snowflake');
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
+            snowflake.style.left = `${leftPosition}px`;
+            snowflake.style.animationDuration = `${animationDuration}s`;
 
-        snowContainer.appendChild(snowflake);
+            snowContainer.appendChild(snowflake);
 
-        // Kar tanesinin düşüşü tamamlandığında sil
-        setTimeout(() => {
-            snowflake.remove();
-        }, animationDuration * 1000);
-    }
+            // Kar tanesinin düşüşü tamamlandığında sil
+            setTimeout(() => {
+                snowflake.remove();
+            }, animationDuration * 1000);
+        }
 
-    // Kar tanelerini sürekli oluştur
-    setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
-</script>
+        // Kar tanelerini sürekli oluştur
+        setInterval(createSnowflake, 500); // Her 100 ms'de bir kar tanesi oluştur
+    </script>
+}
+
 <script>
     // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
     jQuery.expr[':'].contains = function (a, i, m) {
@@ -737,38 +748,38 @@
 </script>
 @if (User.Identity.IsAuthenticated)
 {
-<script>
-    function isMobile() {
-        return /Mobi|Android|iPhone/i.test(navigator.userAgent);
-    }
-
-    const toggleButton = document.getElementById('toggleFriendAdd');
-    const friendAdd = document.querySelector('.friendadd');
-    const toggleButton2 = document.getElementById('friendaddclose');
-
-    // Sayfa yüklendiğinde, eğer mobil cihazsa friendAdd'i tam ekran yap
-    window.onload = function () {
-        if (isMobile()) {
-            friendAdd.classList.add('full-screen'); // Tam ekran sınıfını ekle
-            toggleButton2.classList.add('active');
+    <script>
+        function isMobile() {
+            return /Mobi|Android|iPhone/i.test(navigator.userAgent);
         }
-    };
 
-    toggleButton.addEventListener('click', function (event) {
-        event.preventDefault(); // Linkin varsayılan davranışını engelle
-        friendAdd.classList.toggle('active'); // active sınıfını ekle veya kaldır
-    });
+        const toggleButton = document.getElementById('toggleFriendAdd');
+        const friendAdd = document.querySelector('.friendadd');
+        const toggleButton2 = document.getElementById('friendaddclose');
 
-    toggleButton2.addEventListener('click', function (event) {
-        event.preventDefault(); // Linkin varsayılan davranışını engelle
-        friendAdd.classList.toggle('active'); // active sınıfını ekle veya kaldır
-    });
+        // Sayfa yüklendiğinde, eğer mobil cihazsa friendAdd'i tam ekran yap
+        window.onload = function () {
+            if (isMobile()) {
+                friendAdd.classList.add('full-screen'); // Tam ekran sınıfını ekle
+                toggleButton2.classList.add('active');
+            }
+        };
 
-    // Sayfanın herhangi bir yerine tıklandığında friendadd'ı kapat
-    document.addEventListener('click', function (event) {
-        if (!friendAdd.contains(event.target) && !toggleButton.contains(event.target)) {
-            friendAdd.classList.remove('active'); // active sınıfını kaldır
-        }
-    });
-</script>
+        toggleButton.addEventListener('click', function (event) {
+            event.preventDefault(); // Linkin varsayılan davranışını engelle
+            friendAdd.classList.toggle('active'); // active sınıfını ekle veya kaldır
+        });
+
+        toggleButton2.addEventListener('click', function (event) {
+            event.preventDefault(); // Linkin varsayılan davranışını engelle
+            friendAdd.classList.toggle('active'); // active sınıfını ekle veya kaldır
+        });
+
+        // Sayfanın herhangi bir yerine tıklandığında friendadd'ı kapat
+        document.addEventListener('click', function (event) {
+            if (!friendAdd.contains(event.target) && !toggleButton.contains(event.target)) {
+                friendAdd.classList.remove('active'); // active sınıfını kaldır
+            }
+        });
+    </script>
 }

@@ -18,26 +18,74 @@ namespace AnitsukiTV.Models
                 urlSet.SetAttribute("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
                 xmlDoc.AppendChild(urlSet);
 
-                // URL'leri ekleyin
-                AddNode(xmlDoc, urlSet, "Anasayfa", "https://anitsuki.com/", "daily", "1.0");
-                AddNode(xmlDoc, urlSet, "Animeler", "https://anitsuki.com/animeler", "daily", "0.9");
-                AddNode(xmlDoc, urlSet, "Bağış", "https://anitsuki.com/bagis", "daily", "0.5");
-                AddNode(xmlDoc, urlSet, "Giriş", "https://anitsuki.com/giris", "daily", "0.5");
-                AddNode(xmlDoc, urlSet, "Kayıt", "https://anitsuki.com/kayit", "daily", "0.5");
-                AddNode(xmlDoc, urlSet, "Hakkımızda", "https://anitsuki.com/hakkimizda", "daily", "0.5");
-                AddNode(xmlDoc, urlSet, "Watch Together", "https://anitsuki.com/watch-together", "daily", "0.5");
-                AddNode(xmlDoc, urlSet, "Gizlilik Politikası", "https://anitsuki.com/gizlilik-politikasi", "daily", "0.5");
-                
+                AddNode(xmlDoc, urlSet, "Anasayfa", "https://www.anitsuki.com/", "daily", "1.0");
+                AddNode(xmlDoc, urlSet, "Animeler", "https://www.anitsuki.com/animeler", "daily", "0.8");
+                AddNode(xmlDoc, urlSet, "Bağış", "https://www.anitsuki.com/bagis", "daily", "0.5");
+                AddNode(xmlDoc, urlSet, "Giriş", "https://www.anitsuki.com/giris", "daily", "0.5");
+                AddNode(xmlDoc, urlSet, "Kayıt", "https://www.anitsuki.com/kayit", "daily", "0.5");
+                AddNode(xmlDoc, urlSet, "Hakkımızda", "https://www.anitsuki.com/hakkimizda", "daily", "0.5");
+                AddNode(xmlDoc, urlSet, "Watch Together", "https://www.anitsuki.com/watch-together", "daily", "0.5");
+                AddNode(xmlDoc, urlSet, "Gizlilik Politikası", "https://www.anitsuki.com/gizlilik-politikasi", "daily", "0.5");
 
-                // Sitemap dosyasını kaydedin
+                using (var db = new AnitsukiTVEntities())
+                {
+                    var animes = db.TBLANIME.Where(x=>x.STATUS == true).ToList();
+
+                    foreach (var anime in animes)
+                    {
+                        var animeNameFormatted = anime.ANIMENAME.ToLower()
+                            .Replace("ı", "i").Replace("ç", "c").Replace("ö", "o")
+                            .Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s")
+                            .Replace(" ", "-").Replace("?", "").Replace("!", "")
+                            .Replace(">", "").Replace("<", "").Replace("&", "")
+                            .Replace("%", "").Replace("$", "").Replace("#", "")
+                            .Replace("@", "").Replace(":", "").Replace(";", "")
+                            .Replace("/", "").Replace("\\", "").Replace(".", "")
+                            .Replace(",", "");
+
+                        var seasons = db.TBLSEASON.Where(s => s.ANIMEID == anime.ID && s.STATUS == true).ToList();
+                        foreach (var season in seasons)
+                        {
+                            AddNode(xmlDoc, urlSet, anime.ANIMENAME,
+                                $"https://www.anitsuki.com/anime/{anime.ID}/{animeNameFormatted}-{season.SEASONNUMBER}-sezon-izle", "weekly", "0.8");
+
+                            var episodes = db.TBLEPISODE.Where(e => e.TBLSEASON.SEASONNUMBER == season.SEASONNUMBER && e.TBLSEASON.ANIMEID == anime.ID).ToList();
+                            foreach (var episode in episodes)
+                            {
+                                var episodeUrl = $"https://www.anitsuki.com/{episode.ID}/{animeNameFormatted}-{season.SEASONNUMBER}-sezon-{episode.EPINUMBER}-bolum-izle";
+                                AddNode(xmlDoc, urlSet, $"{anime.ANIMENAME} - Bölüm {episode.EPINUMBER}",
+                                    episodeUrl, "weekly", "0.9");
+                            }
+                        }
+                    }
+
+
+                    var categories = db.TBLCATEGORY.Where(x=>x.STATUS == true).ToList();
+                    foreach (var category in categories)
+                    {
+                        var categoryNameFormatted = category.CATEGORYNAME.ToLower()
+                            .Replace("ı", "i").Replace("ç", "c").Replace("ö", "o")
+                            .Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s")
+                            .Replace(" ", "-").Replace("?", "").Replace("!", "")
+                            .Replace(">", "").Replace("<", "").Replace("&", "")
+                            .Replace("%", "").Replace("$", "").Replace("#", "")
+                            .Replace("@", "").Replace(":", "").Replace(";", "")
+                            .Replace("/", "").Replace("\\", "").Replace(".", "")
+                            .Replace(",", "");
+
+                        var categoryUrl = $"https://www.anitsuki.com/animeler/{category.ID}/{categoryNameFormatted}-izle";
+                        AddNode(xmlDoc, urlSet, category.CATEGORYNAME, categoryUrl, "weekly", "0.7");
+                    }
+                }
+
                 xmlDoc.Save(HttpContext.Current.Server.MapPath("~/sitemap.xml"));
             }
             catch (Exception ex)
             {
-                // Hata mesajını loglama
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
+
 
         private static void AddNode(XmlDocument xmlDoc, XmlElement urlSet, string nodeName, string url, string changeFreq = "daily", string priority = "0.5")
         {

@@ -87,6 +87,15 @@ namespace AnitsukiTV.Controllers
                 ViewBag.IsFollowing = false;
             }
 
+            DateTime startDate = new DateTime(DateTime.Now.Year, 12, 25);
+            DateTime endDate = new DateTime(DateTime.Now.Year + (DateTime.Now.Month == 1 && DateTime.Now.Day <= 5 ? 0 : 1), 1, 5);
+
+            // Get the current date
+            DateTime currentDate = DateTime.Now;
+
+            // Check if the current date is within the activation range
+            ViewBag.IsFeatureActive = currentDate >= startDate && currentDate <= endDate;
+
             return View(veri);
         }
 
@@ -201,6 +210,16 @@ namespace AnitsukiTV.Controllers
 
             int userID = db.TBLUSER.Where(x => x.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "") == userName).FirstOrDefault().ID;
             var user = db.TBLUSER.Find(userID);
+
+            DateTime startDate = new DateTime(DateTime.Now.Year, 12, 25);
+            DateTime endDate = new DateTime(DateTime.Now.Year + (DateTime.Now.Month == 1 && DateTime.Now.Day <= 5 ? 0 : 1), 1, 5);
+
+            // Get the current date
+            DateTime currentDate = DateTime.Now;
+
+            // Check if the current date is within the activation range
+            ViewBag.IsFeatureActive = currentDate >= startDate && currentDate <= endDate;
+
             return View("ProfileSetting", user);
         }
 

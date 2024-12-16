@@ -1,36 +1,39 @@
 ﻿@using AnitsukiTV.Models
 @model TabeList
 
-
-
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>@ViewBag.Category - Anitsuki</title>
-    <meta name="description" content="Animeler, @ViewBag.Category izle, anime izle, türkanime, türk anime tv, tranimeizle, türkçe anime izle" />
-    <meta content="tr" http-equiv="Content-Language" />
+    <title>@ViewBag.Category Animeleri - Anitsuki | Anime İzle</title>
+    <meta name="description" content="Anitsuki'de en yeni ve favori @ViewBag.Category animelerini keşfedin. Türkçe anime izle, en iyi içeriklere ulaşın ve anime dünyasında kaybolun!" />
     <meta name="language" content="Turkish" />
     <meta name="geo.placename" content="Turkey" />
-    <meta name="location" content="türkiye, tr, turkey" />
-    <meta name="robots" content="noarchive" />
+    <meta name="location" content="Türkiye, TR, Turkey" />
+    <meta name="robots" content="index, follow, max-image-preview:large, noarchive" />
     <meta name="theme-color" content="#000000" />
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="anitsuki">
+    <meta name="apple-mobile-web-app-title" content="Anitsuki">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta property="og:title" content="Animeler - anitsuki" />
-    <meta property="og:url" content="https://anitsuki.com/animeler/@ViewBag.CategoryId/@ViewBag.Category1-izle" />
-    <meta property="og:description" content="Animeler" />
-    <meta property="og:image" content="~/IMG/aylogo.png">
-    <meta name="robots" content="max-image-preview:large" />
+
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+
+    <meta property="og:title" content="@ViewBag.Category Animeleri - Anitsuki | Anime İzle" />
+    <meta property="og:url" content="https://www.anitsuki.com/animeler/@ViewBag.CategoryId/@ViewBag.Category1-izle" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Anitsuki'de en yeni ve favori @ViewBag.Category animelerini keşfedin. Türkçe anime izle, en iyi içeriklere ulaşın ve anime dünyasında kaybolun!" />
+    <meta property="og:image" content="https://www.anitsuki.com/IMG/aylogo.png">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -40,8 +43,9 @@
     <link rel="stylesheet" href="~/Content/toastr.min.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/Category27.css" />
-    <link rel="shortcut icon" href="~/IMG/aylogo.png" />
 
+    <link rel="shortcut icon" href="/IMG/aylogotitle.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/IMG/aylogotitle.png" type="image/png">
     <style>
         .friendadd {
             position: absolute;
@@ -155,14 +159,14 @@
     </style>
 </head>
 <body>
-    <link itemprop="thumbnailUrl" href="~/IMG/aylogo.png">
-    <span itemprop="thumbnail" itemscope itemtype="http://schema.org/ImageObject">
-        <link itemprop="url" href="~/IMG/aylogo.png">
-    </span>
     <div class="loader">
 
     </div>
-    <div id="snow-container"></div>
+    @if (ViewBag.IsFeatureActive)
+    {
+        <div id="snow-container"></div>
+    }
+
     <header>
         <div class="container-xl">
             <div class="row">
@@ -425,7 +429,7 @@
         <div class="copyright ">
             <img src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
             <div class="text">
-                Copyright © Anitsuki 2024. Tüm hakları saklıdır.
+                Copyright © Anitsuki @DateTime.Now.Year. Tüm hakları saklıdır.
             </div>
         </div>
     </footer>
@@ -626,7 +630,10 @@
         }
     });
 </script>
-<script>
+
+@if (ViewBag.IsFeatureActive)
+{
+    <script>
         // script.js
         const snowContainer = document.getElementById('snow-container');
 
@@ -651,8 +658,10 @@
         }
 
         // Kar tanelerini sürekli oluştur
-        setInterval(createSnowflake, 100); // Her 100 ms'de bir kar tanesi oluştur
+        setInterval(createSnowflake, 500); // Her 100 ms'de bir kar tanesi oluştur
     </script>
+}
+
 <script>
     // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
     jQuery.expr[':'].contains = function (a, i, m) {
