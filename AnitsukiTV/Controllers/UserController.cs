@@ -251,7 +251,7 @@ namespace AnitsukiTV.Controllers
                     }
 
                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(UserImage.FileName);
-                    var path = Path.Combine(Server.MapPath("~/IMG/"), fileName);
+                    var path = Path.Combine(Server.MapPath("~/USERIMG/"), fileName);
 
                     WebImage Websize = new WebImage(UserImage.InputStream);
                     if (Websize.Width > 750)

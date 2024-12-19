@@ -199,7 +199,6 @@ namespace AnitsukiTV.Controllers
             return View();
         }
 
-
         [HttpPost]
         public ActionResult AddCategory(TBLCATEGORY add)
         {
@@ -289,39 +288,66 @@ namespace AnitsukiTV.Controllers
             try
             {
                 TBLANIME anime = new TBLANIME();
-                anime.ANIMENAME = add.ANIMENAME;
-                anime.DETAIL = add.DETAIL;
-                anime.IMDB = add.IMDB;
-                anime.STATUS = false;
-                anime.ADMINSTATUS = false;
-                anime.TYPE = add.TYPE;
-                anime.DATE = add.DATE;
-                anime.MYANIMELIST = add.MYANIMELIST;
-                anime.CATEGORYID = add.CATEGORYID;
 
-                if (Image != null && Image.ContentLength > 0)
+                try
                 {
-                    var file = new FileInfo(Image.FileName);
-                    var fileName = Path.GetFileName(Image.FileName);
-                    fileName = Guid.NewGuid().ToString() + file.Extension;
-                    var path = Path.Combine(Server.MapPath("~/IMG/"), fileName);
-                    Image.SaveAs(path);
-                    anime.BANNER = fileName;
+                    if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp")
+                    {
+                        var file = new FileInfo(Image.FileName);
+                        var fileName = Path.GetFileNameWithoutExtension(Image.FileName);
+                        var extension = file.Extension;
+                        var path = Path.Combine(Server.MapPath("~/IMG/"), fileName + extension);
+                        int count = 1;
+                        while (System.IO.File.Exists(path))
+                        {
+                            path = Path.Combine(Server.MapPath("~/IMG/"), $"{fileName}({count}){extension}");
+                            count++;
+                        }
+
+                        Image.SaveAs(path);
+                        anime.BANNER = Path.GetFileName(path); // Dosya ismini kaydet
+                    }
+                    else
+                    {
+                        throw new Exception("Banner tarafındaki resim formatı .png, .jpeg, .jpg, .webp formatlarını seçiniz!");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    anime.BANNER = null;
+                    TempData["banner"] = ex.Message;
+                    return RedirectToAction("Anime");
                 }
 
-                if (Banner != null && Banner.ContentLength > 0)
+                try
                 {
-                    string yol = Path.Combine("~/IMG/" + Banner.FileName);
-                    Banner.SaveAs(Server.MapPath(yol));
-                    anime.BIGBANNER = Banner.FileName.ToString();
+                    if (Banner.ContentType == "image/jpeg" || Banner.ContentType == "image/jpg" || Banner.ContentType == "image/png" || Banner.ContentType == "image/webp")
+                    {
+                        var bannerFile = new FileInfo(Banner.FileName);
+                        var bannerFileName = Path.GetFileNameWithoutExtension(Banner.FileName); // Dosya ismini uzantı olmadan al
+                        var extension = bannerFile.Extension; // Dosya uzantısını al
+                        var yol = Path.Combine("~/IMG/", Banner.FileName); // İlk yol
+                        var fullPath = Server.MapPath(yol); // Tam yol
+
+                        // Çakışma kontrolü
+                        int count = 1;
+                        while (System.IO.File.Exists(fullPath))
+                        {
+                            // Eğer dosya varsa, isme bir sayı ekle
+                            fullPath = Path.Combine(Server.MapPath("~/IMG/"), $"{bannerFileName}({count}){extension}");
+                            count++;
+                        }
+                            Banner.SaveAs(fullPath);
+                            anime.BIGBANNER = Path.GetFileName(fullPath);
+                    }
+                    else
+                    {
+                        throw new Exception("Big Banner tarafındaki resim formatı .png, .jpeg, .jpg, .webp formatlarını seçiniz!");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    anime.BIGBANNER = null;
+                    TempData["bigbanner"] = ex.Message;
+                    return RedirectToAction("Anime");
                 }
 
                 if (Video != null && Video.ContentLength > 0)
@@ -336,6 +362,15 @@ namespace AnitsukiTV.Controllers
                     anime.EDIT = null;
                 }
 
+                anime.ANIMENAME = add.ANIMENAME;
+                anime.DETAIL = add.DETAIL;
+                anime.IMDB = add.IMDB;
+                anime.STATUS = false;
+                anime.ADMINSTATUS = false;
+                anime.TYPE = add.TYPE;
+                anime.DATE = add.DATE;
+                anime.MYANIMELIST = add.MYANIMELIST;
+                anime.CATEGORYID = add.CATEGORYID;
                 db.TBLANIME.Add(anime);
                 db.SaveChanges();
                 TempData["success"] = "Anime başarıyla eklendi.";
@@ -362,65 +397,90 @@ namespace AnitsukiTV.Controllers
             try
             {
                 var updateanime1 = db.TBLANIME.Find(update.ID);
+
                 if (Image != null && Image.ContentLength > 0)
                 {
-                    if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp" || Image.ContentType == "image/jfif")
+                    try
                     {
-                        var anipath = Request.MapPath("~/IMG/" + updateanime1.BANNER);
-                        if (System.IO.File.Exists(anipath))
+                        if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp")
                         {
-                            System.IO.File.Delete(anipath);
-                        }
-                        var file = new FileInfo(Image.FileName);
-                        var fileName = Path.GetFileName(Image.FileName);
-                        fileName = Guid.NewGuid().ToString() + file.Extension;
-                        var path = Path.Combine(Server.MapPath("~/IMG/"), fileName);
+                            var anipath = Request.MapPath("~/IMG/" + updateanime1.BANNER);
+                            if (System.IO.File.Exists(anipath))
+                            {
+                                System.IO.File.Delete(anipath);
+                            }
 
-                        try
-                        {
+                            var file = new FileInfo(Image.FileName);
+                            var fileName = Path.GetFileNameWithoutExtension(Image.FileName); // Dosya ismini uzantı olmadan al
+                            var extension = file.Extension; // Dosya uzantısını al
+                            var path = Path.Combine(Server.MapPath("~/IMG/"), fileName + extension);
+
+                            // Çakışma kontrolü
+                            int count = 1;
+                            while (System.IO.File.Exists(path))
+                            {
+                                // Eğer dosya varsa, isme bir sayı ekle
+                                path = Path.Combine(Server.MapPath("~/IMG/"), $"{fileName}({count}){extension}");
+                                count++;
+                            }
                             Image.SaveAs(path);
-                            updateanime1.BANNER = fileName;
+                            updateanime1.BANNER = Path.GetFileName(path); // Dosya ismini kaydet
                         }
-                        catch
+                        else
                         {
-                            return View();
+                            throw new Exception("Banner tarafındaki resim formatı .png, .jpeg, .jpg, .webp formatlarını seçiniz!");
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        return View();
-                    }
-                }
-
-                if (Banner != null && Banner.ContentLength > 0)
-                {
-                    if (Banner.ContentType == "image/jpeg" || Banner.ContentType == "image/jpg" || Banner.ContentType == "image/png" || Banner.ContentType == "image/webp" || Banner.ContentType == "image/jfif")
-                    {
-                        var bannerPath = Request.MapPath("~/IMG/" + updateanime1.BIGBANNER);
-                        if (System.IO.File.Exists(bannerPath))
-                        {
-                            System.IO.File.Delete(bannerPath);
-                        }
-                        var bannerFile = new FileInfo(Banner.FileName);
-                        var bannerFileName = Path.GetFileName(Banner.FileName);
-                        bannerFileName = Guid.NewGuid().ToString() + bannerFile.Extension;
-                        var bannerPath2 = Path.Combine(Server.MapPath("~/IMG/"), bannerFileName);
-
-                        try
-                        {
-                            Banner.SaveAs(bannerPath2);
-                            updateanime1.BIGBANNER = bannerFileName;
-                        }
-                        catch
-                        {
-                            return RedirectToAction("Anime");
-                        }
-                    }
-                    else
-                    {
+                        TempData["banner1"] = ex.Message;
                         return RedirectToAction("Anime");
                     }
                 }
+                
+
+                
+                if (Banner != null && Banner.ContentLength > 0)
+                {
+                    try
+                    {
+                        if (Banner.ContentType == "image/jpeg" || Banner.ContentType == "image/jpg" || Banner.ContentType == "image/png" || Banner.ContentType == "image/webp")
+                        {
+                            var bannerPath = Request.MapPath("~/IMG/" + updateanime1.BIGBANNER);
+                            if (System.IO.File.Exists(bannerPath))
+                            {
+                                System.IO.File.Delete(bannerPath);
+                            }
+
+                            var bannerFile = new FileInfo(Banner.FileName);
+                            var bannerFileName = Path.GetFileNameWithoutExtension(Banner.FileName); // Dosya ismini uzantı olmadan al
+                            var extension = bannerFile.Extension; // Dosya uzantısını al
+                            var bannerPath2 = Path.Combine(Server.MapPath("~/IMG/"), bannerFileName + extension);
+
+                            // Çakışma kontrolü
+                            int count = 1;
+                            while (System.IO.File.Exists(bannerPath2))
+                            {
+                                // Eğer dosya varsa, isme bir sayı ekle
+                                bannerPath2 = Path.Combine(Server.MapPath("~/IMG/"), $"{bannerFileName}({count}){extension}");
+                                count++;
+                            }
+                            Banner.SaveAs(bannerPath2);
+                            updateanime1.BIGBANNER = Path.GetFileName(bannerPath2); // Dosya ismini kaydet
+                        }
+                        else
+                        {
+                            throw new Exception("Big Banner resim formatı .png, .jpeg, .jpg, .webp formatlarını seçiniz!");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        TempData["bigbanner1"] = ex.Message;
+                        return RedirectToAction("Anime");
+                    }
+                }
+                
+                
 
                 if (Video != null && Video.ContentLength > 0)
                 {
@@ -432,7 +492,7 @@ namespace AnitsukiTV.Controllers
                     }
                     catch 
                     {
-                        return View();
+                        return RedirectToAction("Anime");
                     }
                 }
 
@@ -446,14 +506,13 @@ namespace AnitsukiTV.Controllers
 
                 db.SaveChanges();
                 TempData["success1"] = "Anime başarıyla güncellendi.";
+                return RedirectToAction("Anime");
             }
             catch (Exception ex)
             {
                 TempData["error1"] = "Anime güncellenirken bir hata oluştu: " + ex.Message;
-                return View();
+                return RedirectToAction("Anime");
             }
-
-            return RedirectToAction("Anime");
         }
 
         [HttpPost]
@@ -532,11 +591,40 @@ namespace AnitsukiTV.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddSeason(TBLSEASON add)
+        public ActionResult AddSeason(TBLSEASON add, HttpPostedFileBase Image)
         {
             try
             {
                 TBLSEASON season = new TBLSEASON();
+
+                try
+                {
+                    if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp")
+                    {
+                        var file = new FileInfo(Image.FileName);
+                        var fileName = Path.GetFileNameWithoutExtension(Image.FileName); // Dosya ismini uzantı olmadan al
+                        var extension = file.Extension; // Dosya uzantısını al
+                        var path = Path.Combine(Server.MapPath("~/IMG/"), fileName + extension); // İlk yol
+                        int count = 1;
+                        while (System.IO.File.Exists(path))
+                        {
+                            path = Path.Combine(Server.MapPath("~/IMG/"), $"{fileName}({count}){extension}");
+                            count++;
+                        }
+                        Image.SaveAs(path); // Dosyayı kaydet
+                        season.BANNER = Path.GetFileName(path);
+                    }
+                    else
+                    {
+                        throw new Exception("Banner resim formatı .png, .jpeg, .jpg, .webp formatlarını seçiniz!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["banner"] = ex.Message;
+                    return RedirectToAction("Season");
+                }
+
                 season.ANIMEID = add.ANIMEID;
                 season.SEASONNUMBER = add.SEASONNUMBER;
                 season.SEASONNAME = add.SEASONNAME;
@@ -548,13 +636,13 @@ namespace AnitsukiTV.Controllers
                 db.TBLSEASON.Add(season);
                 db.SaveChanges();
                 TempData["success"] = "Sezon başarıyla eklendi.";
+                return RedirectToAction("Season");
             }
             catch (Exception ex)
             {
                 TempData["error"] = "Sezon eklenirken bir hata oluştu: " + ex.Message;
+                return RedirectToAction("Season");
             }
-            
-            return RedirectToAction("Season");
         }
 
 
@@ -566,11 +654,64 @@ namespace AnitsukiTV.Controllers
             return View("UpdateSeason", FindSeason);
         }
 
-        public ActionResult SeasonSave(TBLSEASON sea)
+        public ActionResult SeasonSave(TBLSEASON sea, HttpPostedFileBase Image)
         {
             try
             {
                 var updateseason = db.TBLSEASON.Find(sea.ID);
+
+                if (Image != null && Image.ContentLength > 0)
+                {
+                    try
+                    {
+                        if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp")
+                        {
+                            var anipath = Request.MapPath("~/IMG/" + updateseason.BANNER);
+                            if (System.IO.File.Exists(anipath))
+                            {
+                                System.IO.File.Delete(anipath);
+                            }
+
+                            var file = new FileInfo(Image.FileName);
+                            var fileName = Path.GetFileNameWithoutExtension(Image.FileName); // Dosya ismini uzantı olmadan al
+                            var extension = file.Extension; // Dosya uzantısını al
+                            var path = Path.Combine(Server.MapPath("~/IMG/"), fileName + extension); // İlk yol
+                            // Çakışma kontrolü
+                            int count = 1;
+                            while (System.IO.File.Exists(path))
+                            {
+                                // Eğer dosya varsa, isme bir sayı ekle
+                                path = Path.Combine(Server.MapPath("~/IMG/"), $"{fileName}({count}){extension}");
+                                count++;
+                            }
+                            Image.SaveAs(path); // Dosyayı kaydet
+                            updateseason.BANNER = Path.GetFileName(path); // Dosya ismini güncelle
+                            //try
+                            //{
+                            //    WebImage rr = new WebImage(Image.InputStream);
+                            //    if (rr.Width > 1000)
+                            //        rr.Resize(1000, 1000);
+                            //    rr.Save(path);
+                            //    updateepisode.BANNER = fileName;
+                            //}
+                            //catch (Exception ex)
+                            //{
+                            //    TempData["error3"] = "Resim güncellenirken bir hata oluştu: " + ex.Message;
+                            //    return View();
+                            //}
+                        }
+                        else
+                        {
+                            throw new Exception("Banner resim formatı .png, .jpeg, .jpg, .webp formatlarını seçiniz!");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        TempData["banner1"] = ex.Message;
+                        return RedirectToAction("Season");
+                    }
+                   
+                }
                 updateseason.ANIMEID = sea.ANIMEID;
                 updateseason.SEASONNUMBER = sea.SEASONNUMBER;
                 updateseason.SEASONNAME = sea.SEASONNAME;
@@ -646,27 +787,16 @@ namespace AnitsukiTV.Controllers
 
 
         [HttpPost]
-        public ActionResult AddEpisode(TBLEPISODE add, HttpPostedFileBase Image, HttpPostedFileBase Video, HttpPostedFileBase Video2, HttpPostedFileBase Video3, HttpPostedFileBase Video4)
+        public ActionResult AddEpisode(TBLEPISODE add, HttpPostedFileBase Video, HttpPostedFileBase Video2, HttpPostedFileBase Video3, HttpPostedFileBase Video4)
         {
             try
             {
-                if (Image != null && Image.ContentLength > 0)
-                {
-                    if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp" || Image.ContentType == "image/jfif")
-                    {
-                        var file = new FileInfo(Image.FileName);
-                        var fileName = Path.GetFileName(Image.FileName);
-                        fileName = Guid.NewGuid().ToString() + file.Extension;
-                        var path = Path.Combine(Server.MapPath("~/IMG/"), fileName);
-                        Image.SaveAs(path);
-
                         TBLEPISODE episode = new TBLEPISODE();
                         episode.ANIMEID = add.ANIMEID;
                         episode.SEASONID = add.SEASONID;
                         episode.EPINUMBER = add.EPINUMBER;
                         episode.STATUS = false;
                         episode.EPISODENAME = add.EPISODENAME;
-                        episode.BANNER = fileName;
                         episode.TIME = add.TIME;
                         episode.DATE = Convert.ToDateTime(DateTime.Now.ToShortDateString());
 
@@ -702,13 +832,7 @@ namespace AnitsukiTV.Controllers
                         db.SaveChanges();
                         TempData["success"] = "Bölüm başarıyla eklendi.";
                         return RedirectToAction("Episode");
-                    }
-                    else
-                    {
-                        return View();
-                    }
-                }
-                return View();
+                    
             }
             catch (Exception ex)
             {
@@ -772,57 +896,11 @@ namespace AnitsukiTV.Controllers
         }
 
         [HttpPost]
-        public ActionResult EpisodeSave(TBLEPISODE update, HttpPostedFileBase Image, HttpPostedFileBase Video, HttpPostedFileBase Video2, HttpPostedFileBase Video3, HttpPostedFileBase Video4)
+        public ActionResult EpisodeSave(TBLEPISODE update, HttpPostedFileBase Video, HttpPostedFileBase Video2, HttpPostedFileBase Video3, HttpPostedFileBase Video4)
         {
             try
             {
                 var updateepisode = db.TBLEPISODE.Find(update.ID);
-
-                if (Image != null && Image.ContentLength > 0)
-                {
-                    if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp" || Image.ContentType == "image/jfif")
-                    {
-                        var anipath = Request.MapPath("~/IMG/" + updateepisode.BANNER);
-                        if (System.IO.File.Exists(anipath))
-                        {
-                            System.IO.File.Delete(anipath);
-                        }
-                        var file = new FileInfo(Image.FileName);
-                        var fileName = Path.GetFileName(Image.FileName);
-                        fileName = Guid.NewGuid().ToString() + file.Extension;
-                        var path = Path.Combine(Server.MapPath("~/IMG/"), fileName);
-
-                        try
-                        {
-                            Image.SaveAs(path);
-                            updateepisode.BANNER = fileName;
-                        }
-                        catch (Exception ex)
-                        {
-
-                            TempData["error3"] = "Resim güncellenirken bir hata oluştu: " + ex.Message;
-                            return RedirectToAction("Episode");
-                        }
-                        //try
-                        //{
-                        //    WebImage rr = new WebImage(Image.InputStream);
-                        //    if (rr.Width > 1000)
-                        //        rr.Resize(1000, 1000);
-                        //    rr.Save(path);
-                        //    updateepisode.BANNER = fileName;
-                        //}
-                        //catch (Exception ex)
-                        //{
-                        //    TempData["error3"] = "Resim güncellenirken bir hata oluştu: " + ex.Message;
-                        //    return View();
-                        //}
-                    }
-                    else
-                    {
-                        return RedirectToAction("Episode");
-                    }
-                }
-
                 if (!string.IsNullOrEmpty(update.URL))
                 {
                     updateepisode.URL = FormatVideoUrl(update.URL);

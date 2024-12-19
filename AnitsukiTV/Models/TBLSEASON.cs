@@ -29,6 +29,7 @@ namespace AnitsukiTV.Models
         public string TRANSLATES { get; set; }
         public string DISCORD { get; set; }
         public string WEBSITE { get; set; }
+        public string BANNER { get; set; }
     
         public virtual TBLANIME TBLANIME { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

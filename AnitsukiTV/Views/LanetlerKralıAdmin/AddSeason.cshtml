@@ -27,6 +27,14 @@
 @using (Html.BeginForm("AddSeason", "LanetlerKralıAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <form class="forms-sample">
+        <div style="width:100%; display:flex;justify-content:center;">
+            <div>
+                <label>Resim Yükleme</label>
+                <br />
+                <img class="resim" width="400" height="250" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" />
+                <input class="form-control" id="resim" accept=".webp" type="file" onchange="$('.resim')[0].src = window.URL.createObjectURL(this.files[0])" name="Image" />
+            </div>
+        </div>
         <div class="form-group">
             <label for="exampleInputPassword4">Anime Adı</label><br />
             <input type="text" id="anime-search" placeholder="Anime Ara">

@@ -34,11 +34,11 @@
             <div class="comment1">
                 @if (x.TBLUSER.PICTURE != null)
                 {
-                    <img src="~/IMG/@x.TBLUSER.PICTURE">
+                    <img src="~/USERIMG/@x.TBLUSER.PICTURE">
                 }
                 else
                 {
-                    <img src="~/IMG/stockuser.png" />
+                    <img src="~/USERIMG/stockuser.png" />
                 }
                 <div class="detail">
                     <div class="user">
@@ -86,11 +86,11 @@
                                                 <input hidden type="text" name="ANIMEID" value="@ViewBag.anime" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
                                                 if (x.TBLUSER.PICTURE != null)
                                                 {
-                                                    <img hidden src="~/IMG/@x.TBLUSER.PICTURE" alt="Profil Fotoğrafı" />
+                                                    <img hidden src="~/USERIMG/@x.TBLUSER.PICTURE" alt="Profil Fotoğrafı" />
                                                 }
                                                 else
                                                 {
-                                                    <img hidden src="~/IMG/stockuser.png" />
+                                                    <img hidden src="~/USERIMG/stockuser.png" />
                                                 }
                                                 if (x.TBLUSER != null && !string.IsNullOrEmpty(x.TBLUSER.USERNAME))
                                                 {
@@ -169,11 +169,11 @@
                 <div class="comment2">
                     @if (y.TBLUSER.PICTURE != null)
                     {
-                        <img src="~/IMG/@y.TBLUSER.PICTURE">
+                        <img src="~/USERIMG/@y.TBLUSER.PICTURE">
                     }
                     else
                     {
-                        <img src="~/IMG/stockuser.png" />
+                        <img src="~/USERIMG/stockuser.png" />
                     }
                     <div class="detail">
                         <div class="user">
@@ -221,11 +221,11 @@
                                                     <input hidden type="text" name="ANIMEID" value="@ViewBag.anime" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
                                                     if (y.TBLUSER.PICTURE != null)
                                                     {
-                                                        <img hidden src="~/IMG/@y.TBLUSER.PICTURE" alt="Profil Fotoğrafı" />
+                                                        <img hidden src="~/USERIMG/@y.TBLUSER.PICTURE" alt="Profil Fotoğrafı" />
                                                     }
                                                     else
                                                     {
-                                                        <img hidden src="~/IMG/stockuser.png" />
+                                                        <img hidden src="~/USERIMG/stockuser.png" />
                                                     }
                                                     if (y.TBLUSER != null && !string.IsNullOrEmpty(y.TBLUSER.USERNAME))
                                                     {

@@ -29,9 +29,9 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Resim</th>
                             <th>Anime Adı</th>
                             <th>Sezon Numarası</th>
-                            <th>Sezon İsmi</th>
                             <th>FanSub Ad</th>
                             <th>Translate</th>
                             <th>WebSite</th>
@@ -58,9 +58,9 @@
                         {
                             <tr>
                                 <td><div style="width: 75px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.ID</div></td>
+                                <td><img style="width:150px; height:100px; object-fit:cover; border-radius:0%;" src="~/IMG/@x.BANNER" /></td>
                                 <td><div style="width: 150px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.TBLANIME.ANIMENAME</div></td>
                                 <td><div style="width: 100px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.SEASONNUMBER Sezon</div></td>
-                                <td><div style="width: 150px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.SEASONNAME</div></td>
                                 <td><div style="width: 100px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.FANSUBAD</div></td>
                                 <td><div style="width: 100px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.TRANSLATES</div></td>
                                 <td><div style="width: 150px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.WEBSITE</div></td>
@@ -281,6 +281,56 @@
 {
     <script type="text/javascript">
         toastr["error"]("@TempData["error2"]", "Silme Hatası")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["banner"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("@TempData["banner"]", "Resim Yükleme Hatası")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["banner1"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("@TempData["banner1"]", "Resim Yükleme Hatası")
 
         toastr.options = {
             "closeButton": false,

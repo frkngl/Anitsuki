@@ -27,7 +27,7 @@
     <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
 
     <meta property="og:title" content="Profil Ayarları - Anitsuki" />
-    <meta property="og:image" content="https://www.anitsuki.com/IMG/aylogo.png">
+    <meta property="og:image" content="https://www.anitsuki.com/WEBIMG/aylogo.png">
     <meta property="og:type" content="website" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -36,9 +36,9 @@
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/User31.css" />
-    <link rel="shortcut icon" href="/IMG/aylogotitle.png" type="image/png" />
-    <link rel="apple-touch-icon" href="/IMG/aylogotitle.png" type="image/png">
+    <link rel="stylesheet" href="~/css/User33.css" />
+    <link rel="shortcut icon" href="~/WEBIMG/aylogotitle.png" type="image/png" />
+    <link rel="apple-touch-icon" href="~/WEBIMG/aylogotitle.png" type="image/png">
 </head>
 <body>
 
@@ -54,7 +54,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="logo col-2">
-                    <a href="@Url.RouteUrl("Anasayfa")"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
+                    <a href="@Url.RouteUrl("Anasayfa")"><img src="~/WEBIMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/WEBIMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
                 </div>
 
                 <input style="display: none;" type="checkbox" id="check">
@@ -102,11 +102,11 @@
                     <div style="margin-bottom: 30px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
                         @if (Model.PICTURE == null)
                         {
-                            <img class="resim" style="margin-bottom:20px;  object-fit: cover; border: 2px solid #FF7F00; width:250px; height:250px;" src="~/IMG/stockuser.png" />
+                            <img class="resim" style="margin-bottom:20px;  object-fit: cover; border: 2px solid #FF7F00; width:250px; height:250px;" src="~/USERIMG/stockuser.png" />
                         }
                         else
                         {
-                            <img class="resim" style="margin-bottom:20px;  object-fit: cover; border: 2px solid #FF7F00; width:250px; height:250px;" src="~/IMG/@Model.PICTURE" />
+                            <img class="resim" style="margin-bottom:20px;  object-fit: cover; border: 2px solid #FF7F00; width:250px; height:250px;" src="~/USERIMG/@Model.PICTURE" />
                             @Html.HiddenFor(x => x.PICTURE)
 
                         }
@@ -177,7 +177,7 @@
             </div>
         </div>
         <div class="copyright ">
-            <img src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+            <img src="~/WEBIMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
             <div class="text">
                 Copyright © Anitsuki @DateTime.Now.Year. Tüm hakları saklıdır.
             </div>

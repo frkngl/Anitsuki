@@ -29,7 +29,7 @@
 
     <meta property="og:title" content="Anitsuki - Watch Together" />
     <meta property="og:url" content="https://www.anitsuki.com/watch-together" />
-    <meta property="og:image" content="https://www.anitsuki.com/IMG/aylogo.png">
+    <meta property="og:image" content="https://www.anitsuki.com/WEBIMG/aylogo.png">
     <meta property="og:type" content="website" />
     <meta property="og:description" content="Anitsuki Watch Together sayfası yapım aşamasında. Yakında özel içeriklere ve topluluk özelliklerine erişim sağlayabileceksiniz. Bizi takip edin!" />
 
@@ -43,8 +43,8 @@
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="shortcut icon" href="/IMG/aylogotitle.png" type="image/png" />
-    <link rel="apple-touch-icon" href="/IMG/aylogotitle.png" type="image/png">
+    <link rel="shortcut icon" href="~/WEBIMG/aylogotitle.png" type="image/png" />
+    <link rel="apple-touch-icon" href="~/WEBIMG/aylogotitle.png" type="image/png">
     <style>
         header #nabermudur ul {
             max-height: 300px;
@@ -200,7 +200,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="logo col-2">
-                    <a href="@Url.RouteUrl("Anasayfa")"><img src="~/IMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/IMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
+                    <a href="@Url.RouteUrl("Anasayfa")"><img src="~/WEBIMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/WEBIMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
                 </div>
 
                 <input style="display: none;" type="checkbox" id="check">
@@ -232,11 +232,11 @@
                                             <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                 @if (notification.PROFILEPICTURE != null)
                                                 {
-                                                    <img src="~/IMG/@notification.PROFILEPICTURE" style=" object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    <img src="~/USERIMG/@notification.PROFILEPICTURE" style=" object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
                                                 }
                                                 else
                                                 {
-                                                    <img src="~/IMG/stockuser.png" style=" object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    <img src="~/USERIMG/stockuser.png" style=" object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
                                                 }
                                                 <div style="color: #ffffff;">
                                                     <strong>@notification.USERNAME</strong><br />
@@ -289,7 +289,7 @@
                                             <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                 @if (user.PICTURE != null)
                                                 {
-                                                    <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/IMG/@user.PICTURE" />
+                                                    <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/USERIMG/@user.PICTURE" />
                                                     <div>
                                                         <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
                                                         <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
@@ -297,7 +297,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <img style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" src="~/IMG/stockuser.png" />
+                                                    <img style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" src="~/USERIMG/stockuser.png" />
                                                     <div>
                                                         <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
                                                         <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
@@ -334,11 +334,11 @@
                                 <button style="background-color:transparent; border:none; outline:none; color:orange;" class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     @if (currentUser != null && currentUser.PICTURE != null)
                                     {
-                                        <img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/IMG/@currentUser.PICTURE">
+                                        <img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/USERIMG/@currentUser.PICTURE">
                                     }
                                     else
                                     {
-                                        <img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/IMG/stockuser.png">
+                                        <img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/USERIMG/stockuser.png">
                                     }
                                 </button>
                                 <ul style="background-color:#313131;" class="dropdown-menu">

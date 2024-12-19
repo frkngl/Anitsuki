@@ -108,7 +108,6 @@
     <Property Name="EPISODENAME" Type="nvarchar" MaxLength="100" />
     <Property Name="DATE" Type="datetime" />
     <Property Name="TIME" Type="nvarchar" MaxLength="10" />
-    <Property Name="BANNER" Type="nvarchar" MaxLength="250" />
     <Property Name="STATUS" Type="bit" />
   </EntityType>
   <EntityType Name="TBLEPISODECOMMENT">
@@ -183,6 +182,7 @@
     <Property Name="TRANSLATES" Type="nvarchar" MaxLength="200" />
     <Property Name="DISCORD" Type="nvarchar" MaxLength="200" />
     <Property Name="WEBSITE" Type="nvarchar" MaxLength="200" />
+    <Property Name="BANNER" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="TBLUSER">
     <Key>

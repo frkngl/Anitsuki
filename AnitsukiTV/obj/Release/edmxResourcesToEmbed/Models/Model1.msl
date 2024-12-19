@@ -107,7 +107,6 @@
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLEPISODE">
         <MappingFragment StoreEntitySet="TBLEPISODE">
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
-          <ScalarProperty Name="BANNER" ColumnName="BANNER" />
           <ScalarProperty Name="TIME" ColumnName="TIME" />
           <ScalarProperty Name="DATE" ColumnName="DATE" />
           <ScalarProperty Name="EPISODENAME" ColumnName="EPISODENAME" />
@@ -190,6 +189,7 @@
     <EntitySetMapping Name="TBLSEASON">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLSEASON">
         <MappingFragment StoreEntitySet="TBLSEASON">
+          <ScalarProperty Name="BANNER" ColumnName="BANNER" />
           <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
           <ScalarProperty Name="DISCORD" ColumnName="DISCORD" />
           <ScalarProperty Name="TRANSLATES" ColumnName="TRANSLATES" />

@@ -1069,32 +1069,33 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="css\404Page2.css" />
-    <Content Include="css\About3.css" />
-    <Content Include="css\AnimeDetail11.css" />
-    <Content Include="css\Category27.css" />
-    <Content Include="css\Donate2.css" />
-    <Content Include="css\Home62.css" />
+    <Content Include="css\About4.css" />
+    <Content Include="css\AnimeDetail12.css" />
+    <Content Include="css\Category28.css" />
+    <Content Include="css\Donate3.css" />
+    <Content Include="css\Home63.css" />
     <Content Include="css\plyr.css" />
-    <Content Include="css\PrivacyandPolitic2.css" />
-    <Content Include="css\User31.css" />
-    <Content Include="css\VideoDetail3.css" />
+    <Content Include="css\PrivacyandPolitic3.css" />
+    <Content Include="css\User33.css" />
+    <Content Include="css\VideoDetail4.css" />
     <Content Include="css\watchtogether5.css" />
-    <Content Include="IMG\AnitsukiQR.png" />
-    <Content Include="IMG\aylogo.png" />
-    <Content Include="IMG\aylogotitle.png" />
-    <Content Include="IMG\footer2.png" />
-    <Content Include="IMG\logo.png" />
-    <Content Include="IMG\poster.png" />
-    <Content Include="IMG\postermobil.png" />
     <Content Include="js\plyr.js" />
     <Content Include="js\splide5.js" />
-    <Content Include="IMG\LoginBackground.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="USERIMG\stockuser.png" />
+    <Content Include="WEBIMG\AnitsukiQR.png" />
+    <Content Include="WEBIMG\aylogo.png" />
+    <Content Include="WEBIMG\aylogotitle.png" />
+    <Content Include="WEBIMG\footer2.png" />
+    <Content Include="WEBIMG\LoginBackground.png" />
+    <Content Include="WEBIMG\logo.png" />
+    <Content Include="WEBIMG\poster.png" />
+    <Content Include="WEBIMG\postermobil.png" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -1116,7 +1117,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="IMG\stockuser.png" />
     <Content Include="Login\css\main.css" />
     <Content Include="Login\css\util.css" />
     <Content Include="Login\fonts\font-awesome-4.7.0\css\font-awesome.css" />
@@ -1413,6 +1413,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="IMG\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

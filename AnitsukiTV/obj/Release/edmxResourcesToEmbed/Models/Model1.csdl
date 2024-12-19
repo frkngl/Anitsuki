@@ -231,7 +231,6 @@
     <Property Name="EPISODENAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="DATE" Type="DateTime" Precision="3" />
     <Property Name="TIME" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="BANNER" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="STATUS" Type="Boolean" />
     <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME" FromRole="TBLEPISODE" ToRole="TBLANIME" />
     <NavigationProperty Name="TBLSEASON" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" FromRole="TBLEPISODE" ToRole="TBLSEASON" />
@@ -322,6 +321,7 @@
     <Property Name="TRANSLATES" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="DISCORD" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="WEBSITE" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="BANNER" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" FromRole="TBLSEASON" ToRole="TBLANIME" />
     <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" FromRole="TBLSEASON" ToRole="TBLEPISODE" />
   </EntityType>

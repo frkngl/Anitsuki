@@ -32,7 +32,6 @@ namespace AnitsukiTV.Models
         public string EPISODENAME { get; set; }
         public Nullable<System.DateTime> DATE { get; set; }
         public string TIME { get; set; }
-        public string BANNER { get; set; }
         public Nullable<bool> STATUS { get; set; }
     
         public virtual TBLANIME TBLANIME { get; set; }
