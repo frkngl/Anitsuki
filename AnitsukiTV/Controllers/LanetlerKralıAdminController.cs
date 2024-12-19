@@ -305,13 +305,7 @@ namespace AnitsukiTV.Controllers
                     var fileName = Path.GetFileName(Image.FileName);
                     fileName = Guid.NewGuid().ToString() + file.Extension;
                     var path = Path.Combine(Server.MapPath("~/IMG/"), fileName);
-
-                    WebImage rr = new WebImage(Image.InputStream);
-
-                    if (rr.Width > 1000)
-                        rr.Resize(1000, 1000);
-                    rr.Save(path);
-
+                    Image.SaveAs(path);
                     anime.BANNER = fileName;
                 }
                 else
@@ -370,7 +364,7 @@ namespace AnitsukiTV.Controllers
                 var updateanime1 = db.TBLANIME.Find(update.ID);
                 if (Image != null && Image.ContentLength > 0)
                 {
-                    if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/jfif")
+                    if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp" || Image.ContentType == "image/jfif")
                     {
                         var anipath = Request.MapPath("~/IMG/" + updateanime1.BANNER);
                         if (System.IO.File.Exists(anipath))
@@ -384,10 +378,7 @@ namespace AnitsukiTV.Controllers
 
                         try
                         {
-                            WebImage rr = new WebImage(Image.InputStream);
-                            if (rr.Width > 1000)
-                                rr.Resize(1000, 1000);
-                            rr.Save(path);
+                            Image.SaveAs(path);
                             updateanime1.BANNER = fileName;
                         }
                         catch
@@ -403,7 +394,7 @@ namespace AnitsukiTV.Controllers
 
                 if (Banner != null && Banner.ContentLength > 0)
                 {
-                    if (Banner.ContentType == "image/jpeg" || Banner.ContentType == "image/jpg" || Banner.ContentType == "image/png" || Banner.ContentType == "image/jfif")
+                    if (Banner.ContentType == "image/jpeg" || Banner.ContentType == "image/jpg" || Banner.ContentType == "image/png" || Banner.ContentType == "image/webp" || Banner.ContentType == "image/jfif")
                     {
                         var bannerPath = Request.MapPath("~/IMG/" + updateanime1.BIGBANNER);
                         if (System.IO.File.Exists(bannerPath))
@@ -422,12 +413,12 @@ namespace AnitsukiTV.Controllers
                         }
                         catch
                         {
-                            return View();
+                            return RedirectToAction("Anime");
                         }
                     }
                     else
                     {
-                        return View();
+                        return RedirectToAction("Anime");
                     }
                 }
 
@@ -661,18 +652,13 @@ namespace AnitsukiTV.Controllers
             {
                 if (Image != null && Image.ContentLength > 0)
                 {
-                    if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/jfif")
+                    if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp" || Image.ContentType == "image/jfif")
                     {
                         var file = new FileInfo(Image.FileName);
                         var fileName = Path.GetFileName(Image.FileName);
                         fileName = Guid.NewGuid().ToString() + file.Extension;
                         var path = Path.Combine(Server.MapPath("~/IMG/"), fileName);
-
-                        WebImage rr = new WebImage(Image.InputStream);
-
-                        if (rr.Width > 1000)
-                            rr.Resize(1000, 1000);
-                        rr.Save(path);
+                        Image.SaveAs(path);
 
                         TBLEPISODE episode = new TBLEPISODE();
                         episode.ANIMEID = add.ANIMEID;
@@ -794,7 +780,7 @@ namespace AnitsukiTV.Controllers
 
                 if (Image != null && Image.ContentLength > 0)
                 {
-                    if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/jfif")
+                    if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp" || Image.ContentType == "image/jfif")
                     {
                         var anipath = Request.MapPath("~/IMG/" + updateepisode.BANNER);
                         if (System.IO.File.Exists(anipath))
@@ -808,21 +794,32 @@ namespace AnitsukiTV.Controllers
 
                         try
                         {
-                            WebImage rr = new WebImage(Image.InputStream);
-                            if (rr.Width > 1000)
-                                rr.Resize(1000, 1000);
-                            rr.Save(path);
+                            Image.SaveAs(path);
                             updateepisode.BANNER = fileName;
                         }
                         catch (Exception ex)
                         {
+
                             TempData["error3"] = "Resim güncellenirken bir hata oluştu: " + ex.Message;
-                            return View();
+                            return RedirectToAction("Episode");
                         }
+                        //try
+                        //{
+                        //    WebImage rr = new WebImage(Image.InputStream);
+                        //    if (rr.Width > 1000)
+                        //        rr.Resize(1000, 1000);
+                        //    rr.Save(path);
+                        //    updateepisode.BANNER = fileName;
+                        //}
+                        //catch (Exception ex)
+                        //{
+                        //    TempData["error3"] = "Resim güncellenirken bir hata oluştu: " + ex.Message;
+                        //    return View();
+                        //}
                     }
                     else
                     {
-                        return View();
+                        return RedirectToAction("Episode");
                     }
                 }
 

@@ -360,7 +360,7 @@
         </header>
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-                @foreach (var ğ in Model.Anime.Where(x => x.ADMINSTATUS == true))
+                @foreach (var ğ in Model.Anime.Where(x => x.ADMINSTATUS == true).OrderBy(y => Guid.NewGuid()))
                 {
                     <div class="swiper-slide">
                         <img src="~/IMG/@ğ.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
