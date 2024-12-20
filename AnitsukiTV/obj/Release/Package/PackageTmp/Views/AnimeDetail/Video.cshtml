@@ -1,0 +1,1082 @@
+﻿@using AnitsukiTV.Models
+@model TabeList
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>@Model.VideoInfo.AnimeTitle @Model.VideoInfo.SeasonNumber. Sezon @Model.VideoInfo.EpisodeNumber. Bölüm izle - Anitsuki</title>
+    <meta name="description" content="@Model.VideoInfo.AnimeTitle @Model.VideoInfo.SeasonNumber. Sezon @Model.VideoInfo.EpisodeNumber. Bölüm izle, @Model.VideoInfo.AnimeTitle animesini Türkçe altyazılı ve Full HD seçeneğiyle ücretsiz izleyin." />
+    <meta name="language" content="Turkish" />
+    <meta name="geo.placename" content="Turkey" />
+    <meta name="location" content="Türkiye, TR, Turkey" />
+    <meta name="robots" content="index, follow, max-image-preview:large, noarchive" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Anitsuki">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="//my.mail.ru">
+    <link rel="dns-prefetch" href="//video.sibnet.ru">
+    <link rel="dns-prefetch" href="//ok.ru">
+
+    <meta property="og:title" content="@Model.VideoInfo.AnimeTitle @Model.VideoInfo.SeasonNumber. Sezon @Model.VideoInfo.EpisodeNumber. Bölüm izle - Anitsuki" />
+    <meta property="og:url" content="https://www.anitsuki.com/@ViewBag.episodeID/@Model.VideoInfo.AnimeTitle.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","")-@Model.VideoInfo.SeasonNumber-sezon-@Model.VideoInfo.EpisodeNumber-bolum-izle" />
+    <meta property="og:type" content="video.episode" />
+    <meta property="og:image" content="https://www.anitsuki.com/WEBIMG/aylogo.png">
+    <meta property="og:description" content="@Model.VideoInfo.AnimeTitle @Model.VideoInfo.SeasonNumber. Sezon @Model.VideoInfo.EpisodeNumber. Bölüm izle, @Model.VideoInfo.AnimeTitle animesini Türkçe altyazılı ve Full HD seçeneğiyle ücretsiz izleyin." />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/VideoDetail4.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/plyr.css" type="text/css" />
+
+    <link rel="shortcut icon" href="~/WEBIMG/aylogotitle.png" type="image/png" />
+    <link rel="apple-touch-icon" href="~/WEBIMG/aylogotitle.png" type="image/png">
+    <style>
+        .warning {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(49, 49, 49, 0.9);
+            position: fixed;
+            z-index: 999999999;
+            top: 0px;
+            left: 0;
+        }
+
+            .warning .modal-warning-box {
+                width: 350px;
+                height: 180px;
+                background-color: #000000;
+                border-radius: 20px;
+                padding: 10px;
+            }
+
+                .warning .modal-warning-box .text {
+                    color: white;
+                }
+
+                    .warning .modal-warning-box .text .title {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+
+                        .warning .modal-warning-box .text .title .title1 {
+                            font-size: 1.5rem;
+                            font-weight: 500;
+                        }
+
+                        .warning .modal-warning-box .text .title .title2 {
+                            width: 50px;
+                            height: 50px;
+                        }
+
+                            .warning .modal-warning-box .text .title .title2 img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+
+                    .warning .modal-warning-box .text .des {
+                        height: 70px;
+                        font-size: 1rem;
+                        font-style: normal;
+                        padding-top: 10px;
+                    }
+
+                .warning .modal-warning-box .okbtn {
+                    width: 100%;
+                    height: auto;
+                    display: flex;
+                    padding-right: 7px;
+                    justify-content: center;
+                    justify-content: end;
+                }
+
+                    .warning .modal-warning-box .okbtn button {
+                        padding: 3px;
+                        border-radius: 5px;
+                        border: none;
+                        outline: none;
+                        background-color: #FF7F00;
+                        font-size: 1rem;
+                        transition: all 0.3s;
+                    }
+
+                        .warning .modal-warning-box .okbtn button:hover {
+                            background-color: #313131;
+                            color: #FF7F00;
+                        }
+
+        .fansub {
+            width: 100%;
+            height: 100px;
+            margin-top: 25px;
+            color: #ffffff;
+            padding-right: 1rem;
+            line-height: 20px;
+        }
+
+            .fansub .title {
+                color: #FF7F00;
+                font-size: 1rem;
+                font-weight: 600;
+            }
+
+            .fansub .des {
+                color: #ffffff;
+                font-size: 1rem;
+            }
+
+            .fansub .sitelink {
+                color: #ffffff;
+                font-size: 1rem;
+            }
+
+                .fansub .sitelink a {
+                    color: #ffffff;
+                    font-size: 1rem;
+                    margin: 0px 5px;
+                }
+
+        .videoposter {
+            position: relative;
+            width: 100%;
+        }
+
+            .videoposter .poster {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+            }
+
+                .videoposter .poster img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    filter: brightness(0.6);
+                }
+
+                .videoposter .poster i {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                    z-index: 2;
+                    font-size: 4rem;
+                    color: #ffffff;
+                    cursor: pointer;
+                }
+
+        .like1.active a,
+        .unlike1.active a {
+            color: orange;
+        }
+
+        .like1 a,
+        .unlike1 a {
+            color: white;
+        }
+
+        .friendadd {
+            position: absolute;
+            width: 370px;
+            height: calc(100vh - 60px);
+            background-color: #000000;
+            box-shadow: 0px 0px 0px 0px #313131;
+            top: 60px;
+            right: 0;
+            transform: translateX(100%);
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+
+            .friendadd.active {
+                transform: translateX(0%);
+                box-shadow: -10px 10px 60px 5px #313131;
+            }
+
+            /* Mobil tam ekran stili */
+            .friendadd.full-screen {
+                position: fixed; /* Sabit konumda olmasını sağlar */
+                top: 60px;
+                right: 0;
+                width: 100%;
+                height: calc(100vh - 60px);
+                border-radius: 0; /* Kenar yuvarlamalarını kaldır */
+                z-index: 1000; /* Diğer öğelerin üstünde görünmesi için */
+            }
+
+            .friendadd #friendaddclose {
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                left: 10px;
+                background-color: #cccc;
+                display: none;
+            }
+
+                .friendadd #friendaddclose.active {
+                    position: absolute;
+                    width: 30px;
+                    height: 30px;
+                    left: 10px;
+                    background-color: #cccc;
+                    display: block;
+                }
+
+            .friendadd .searchhh {
+                position: relative;
+                width: 200px;
+                height: 40px;
+                margin-left: 50%;
+                transform: translateX(-50%);
+                margin-top: 25px;
+                margin-bottom: 15px;
+            }
+
+                .friendadd .searchhh .fa-magnifying-glass {
+                    position: absolute;
+                    top: 50%;
+                    left: 10px;
+                    z-index: 9;
+                    font-size: 1rem;
+                }
+
+                .friendadd .searchhh input {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background-color: #313131;
+                    color: #ffffff;
+                    border: none;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 20px;
+                    padding: 0px 0px 0px 35px;
+                }
+
+            .friendadd #menuFull11 {
+                list-style-type: none;
+                padding: 0px 10px;
+                width: 100%;
+                height: calc(100vh - 140px);
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+                overflow-y: auto;
+            }
+
+                .friendadd #menuFull11::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .friendadd #menuFull11 a {
+                    color: white;
+                    text-decoration: none;
+                }
+
+        .user ul li a:hover {
+            background-color: #ffffff;
+            color: #000000 !important;
+        }
+
+        header #nabermudur ul {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+
+    </div>
+    @if (ViewBag.IsFeatureActive)
+    {
+        <div id="snow-container"></div>
+    }
+
+    <header style="background-color: #000000;">
+        <div class="container-xl">
+            <div class="row">
+                <div class="logo col-2">
+                    <a href="@Url.RouteUrl("Anasayfa")"><img src="~/WEBIMG/logo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"><img class="logomobile" src="~/WEBIMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki"></a>
+                </div>
+
+                <input style="display: none;" type="checkbox" id="check">
+                <label for="check" class="hamburger-btn col-1">
+                    <span></span>
+                </label>
+
+                <nav class="col-8">
+                    <ul>
+                        <li><a href="@Url.RouteUrl("Anasayfa")" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
+                        <li><a href="@Url.RouteUrl("Animeler")"><i class="fa-solid fa-list"></i> Animeler</a></li>
+                        <li><a href="@Url.RouteUrl("Bağış")"><i class="bi bi-cash-stack"></i> Bağış</a></li>
+                        <li><a href="@Url.RouteUrl("Watch Together")"><i class="bi bi-tv"></i> WT Yakında</a></li>
+                    </ul>
+                </nav>
+                <div class="box col-2">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div id="nabermudur" style="margin-right:5px;" class="search">
+                            <button style="background-color:transparent; border:none; outline:none; color:orange;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i id="notification-icon" style="font-size:1.5rem;" class="bi bi-bell"></i>
+                            </button>
+                            <ul id="nabermudurr" style="background-color:#313131;" class="dropdown-menu">
+                                @if (Model.VideoInfo.Notification.Any(n => n.ISCLEARED == false))
+                                {
+                                    foreach (var notification in Model.VideoInfo.Notification)
+                                    {
+                                        <li style="display: flex; align-items: center; padding: 5px;">
+                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
+                                                @if (notification.PROFILEPICTURE != null)
+                                                {
+                                                    <img src="~/USERIMG/@notification.PROFILEPICTURE" style="width: 40px; object-fit:cover; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/USERIMG/stockuser.png" style="width: 40px; height: 40px; object-fit:cover; border-radius: 50%; margin-right: 10px;" />
+                                                }
+                                                <div style="color: #ffffff;">
+                                                    <strong>@notification.USERNAME</strong><br />
+                                                    <span style="font-size: 0.9rem;">@notification.MESSAGE</span><br />
+                                                    <span style="font-size: 0.8rem; color: #cccccc;">@notification.CREATED.Value.ToString("dd.MM.yyyy")</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    }
+                                    <li>
+                                        <button id="clear-notifications" style="margin: 0px; width: 100%; padding: 5px 12px; color: #ffffff; background: none; border: none;">Temizle</button>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li style="color:white; text-align:center;">Bildirim Kutusu Boş</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div style="margin-left:0px;" class="search">
+                            <a href="#" id="toggleFriendAdd">
+                                <i style="font-size:1.8rem !important;" class="bi bi-person-add"></i>
+                            </a>
+                        </div>
+                    }
+                    <div style="margin-right:-10px;" class="search">
+                        <a href="@Url.RouteUrl("Animeler")"><i class="bi bi-search"></i></a>
+                    </div>
+                    <div class="friendadd">
+                        <div style="position:relative;" id="followersContent">
+                            <button id="friendaddclose" class="btn-close"></button>
+                            <div class="searchhh">
+                                <i style="color:white;" class="fa-solid fa-magnifying-glass fa-xl"></i>
+                                <input type="text" autocomplete="off" name="searchTags11" id="searchTags11" placeholder="Arkadaş Ara..." />
+                            </div>
+                            <ul id="menuFull11" style="display: none; overflow-y: auto;">
+                                @foreach (var user in Model.VideoInfo.Users.Where(x => x.STATUS == true))
+                                {
+                                    <li style="margin:10px 0px;width:100%; display:flex; justify-content:space-between; align-items:center;">
+                                        <div>
+                                            @{
+                                                AnitsukiTVEntities y = new AnitsukiTVEntities();
+                                                var Followers = y.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
+                                                ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
+                                            }
+                                            <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
+                                                @if (user.PICTURE != null)
+                                                {
+                                                    <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/USERIMG/@user.PICTURE" />
+                                                    <div>
+                                                        <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
+                                                        <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <img style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" src="~/USERIMG/stockuser.png" />
+                                                    <div>
+                                                        <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
+                                                        <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
+                                                    </div>
+                                                }
+                                            </a>
+                                        </div>
+                                        <div style="color:white;">
+                                            <button onclick="followUser  (@user.ID, this)" style="background-color: transparent; border: none; color: #FF7F00;">
+                                                @if (ViewBag.FollowedUserIds.Contains(user.ID))
+                                                {
+                                                    <i style="font-size:2.5rem;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
+                                                }
+                                                else
+                                                {
+                                                    <i style="font-size: 2.5rem;" class="bi bi-person-fill-add"></i> <!-- Takip etme simgesi -->
+                                                }
+                                            </button>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="user">
+                        <div style="height:60px; display:flex; align-items:center; margin-left:10px;" class="dropdown">
+                            @{ AnitsukiTVEntities db = new AnitsukiTVEntities(); }
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
+                                string userNameUrl = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "");
+
+                                <button style="background-color:transparent; border:none; outline:none; color:orange;" class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @if (currentUser != null && currentUser.PICTURE != null)
+                                    {
+                                        <img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/USERIMG/@currentUser.PICTURE" />
+                                    }
+                                    else
+                                    {
+                                        <img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/USERIMG/stockuser.png" />
+                                    }
+                                </button>
+                                <ul style="background-color:#313131;" class="dropdown-menu">
+                                    <li><a style="margin:0px; padding:5px 12px; color:white;" class="dropdown-item" href="@Url.RouteUrl("Profil", new { userName = userNameUrl })"><i style="font-size:1.3rem;" class="bi bi-person"></i> Profil</a></li>
+                                    <li><a style="margin:0px; padding: 5px 15px; color: white;" class="dropdown-item" href="/signout"><i style="font-size:1.3rem;" class="bi bi-box-arrow-right"></i> Çıkış Yap</a></li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <a style="margin-left:-15px !important;" href="@Url.RouteUrl("Giriş")"><i class="bi bi-person"></i></a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="content">
+        <div class="videoposter">
+            @foreach (var vv in Model.VideoInfo.Episode)
+            {
+                if (vv.URL != null)
+                {
+                    <div style="display: none;" class="poster">
+                        <img src="~/IMG/@vv.TBLSEASON.BANNER" />
+                        <i class="bi bi-play-circle"></i>
+                    </div>
+                }
+                else
+                {
+                    if (vv.TBLSEASON.BANNER != null)
+                    {
+                        <div class="poster">
+                            <img src="~/IMG/@vv.TBLSEASON.BANNER" />
+                            <i class="bi bi-play-circle"></i>
+                        </div>
+                    }
+                }
+            }
+            <div class="warning" style="display: none;">
+                <div class="modal-warning-box">
+                    <div class="text">
+                        <div class="title">
+                            <div class="title1">
+                                <i class="bi bi-exclamation-triangle-fill"></i> Uyarı Mesajı
+                            </div>
+                            <div class="title2">
+                                <img src="~/WEBIMG/aylogo.png" />
+                            </div>
+                        </div>
+                        <div class="des">
+                            Video kaynağı yanıt vermiyor.<br /> Sayfa yeniden yüklenecek.
+                        </div>
+                    </div>
+                    <div class="okbtn">
+                        <button id="okButton">Tamam</button>
+                    </div>
+                </div>
+            </div>
+            @foreach (var ez in Model.VideoInfo.Episode)
+            {
+                if (ez.URL != null)
+                {
+                    <iframe id="myIframe" style="width:100%; height:70vh;" tabindex="0" allowfullscreen></iframe>
+                    <script>
+                         window.addEventListener('load', function() {
+                         var iframe = document.getElementById('myIframe');
+                         iframe.src = '@ez.URL';
+                         var timeout = setTimeout(function() {
+                         document.querySelector('.warning').style.display = 'flex';
+                         }, 10000);
+
+                         iframe.onload = function() {
+                         clearTimeout(timeout);
+                         };
+
+                         document.getElementById('okButton').addEventListener('click', function () {
+                         location.reload();
+                         });
+                    });
+                    </script>
+                }
+                else
+                {
+                    <video controls id="plyr">
+                        @if (ez.EP2 != null)
+                        {
+                            <source src="~/Videos/@ez.EP2" size="480" type="video/mp4" tabindex="0" />
+                        }
+                        @if (ez.EP3 != null)
+                        {
+                            <source src="~/Videos/@ez.EP3" size="720" type="video/mp4" />
+                        }
+                        @if (ez.EP4 != null)
+                        {
+                            <source src="~/Videos/@ez.EP4" size="1080" type="video/mp4" />
+                        }
+                    </video>
+                }
+            }
+        </div>
+        <div style="margin-top:25px !important;" class="head">
+            <div class="episodeandcomment">
+                <div style="padding-right: 1rem; width: 100%;" class="episodetail">
+                    @foreach (var y in Model.VideoInfo.Episode)
+                    {
+                        @*<img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">*@
+                        <div style="width:100%; height:140px; margin-left:0px !important;" class="detail">
+                            <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin:0px 0px 2px 0px;" class="title">
+                                <a href="@Url.RouteUrl("Anime Detay", new {animeID = y.TBLANIME.ID, animeName = y.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = y.TBLSEASON.SEASONNUMBER })">@y.TBLANIME.ANIMENAME </a>
+                            </div>
+                            <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin: 2px 0px; " class="episodename">
+                                <span>S@(y.TBLSEASON.SEASONNUMBER)</span> - <span>B@(y.EPINUMBER)</span> @(y.EPISODENAME)
+                            </div>
+                            <div style="margin: 2px 0px; " class="time">
+                                <i class="bi bi-clock"></i> @y.TIME
+                            </div>
+                            <div style="margin: 2px 0px; " class="date">
+                                <i class="bi bi-calendar"></i> @y.DATE.Value.ToString("dd.MM.yyyy")
+                            </div>
+                            <div class="likeandunlikerating">
+                                <div style="margin-bottom:2px;" class="rating">
+                                    Beğendiniz mi?
+                                </div>
+                                <div class="likeandunlike">
+                                    @{
+                                        var userID = db.TBLUSER.Where(u => u.USERNAME == User.Identity.Name).Select(u => u.ID).FirstOrDefault();
+                                        var likeExist = y.TBLEPISODELIKE.Any(y => y.USERID == userID);
+                                        var liked = y.TBLEPISODELIKE.FirstOrDefault(y => y.USERID == userID)?.LIKESTATUS;
+                                    }
+
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <div class="like1 @(liked.HasValue && liked.Value ? "active" : "")" style="margin-right:10px;" data-comment-id="@y.ID">
+                                            <a style="text-decoration: none; cursor: pointer; color: @(liked.HasValue && liked.Value ? "orange" : "white");" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, true)">
+                                                <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
+                                                <span id="like-count-@y.ID">@y.TBLEPISODELIKE.Where(z => z.LIKESTATUS == true).Count()</span>
+                                            </a>
+                                        </div>
+
+                                        <div class="unlike1 @(liked.HasValue && !liked.Value ? "active" : "")" data-comment-id="@y.ID">
+                                            <a style="text-decoration: none; cursor: pointer; color: @(liked.HasValue && !liked.Value ? "orange" : "white");" onclick="handleLikeOrUnlike1(this, @y.ID, @userID, false)">
+                                                <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
+                                                <span id="unlike-count-@y.ID">@y.TBLEPISODELIKE.Where(z => z.LIKESTATUS == false).Count()</span>
+                                            </a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div style="margin-right:15px;" class="like1" data-comment-id="@y.ID">
+                                            <a style="text-decoration:none; color:white;" href="@Url.RouteUrl("Giriş")">
+                                                <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
+                                                @y.TBLEPISODELIKE.Where(z => z.LIKESTATUS == true).Count()
+                                            </a>
+                                        </div>
+                                        <div class="unlike1" data-comment-id="@y.ID">
+                                            <a style="text-decoration:none; color:white;" href="@Url.RouteUrl("Giriş")">
+                                                <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
+                                                @y.TBLEPISODELIKE.Where(z => z.LIKESTATUS == false).Count()
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                @foreach (var ö in Model.VideoInfo.Episode)
+                {
+                    <div class="fansub">
+                        <div style="margin:0px 0px 2px 0px;" class="title"><i class="bi bi-info-circle"></i> Çevirmenler</div>
+                        <div class="des">Çeviri: @ö.TBLANIME.TBLSEASON.FirstOrDefault().FANSUBAD</div>
+                        <div class="des">Çevirmen: @ö.TBLANIME.TBLSEASON.FirstOrDefault().TRANSLATES</div>
+                        <div class="sitelink">Site: <a target="_blank" href="@ö.TBLANIME.TBLSEASON.FirstOrDefault().WEBSITE"><i class="bi bi-globe"></i></a> <a target="_blank" href="@ö.TBLANIME.TBLSEASON.FirstOrDefault().DISCORD"><i class="bi bi-discord"></i></a></div>
+                    </div>
+                }
+                @Html.Action("LeaveComment1", "AnimeDetail", new { id = ViewBag.episodeID })
+                <div class="commentboxes">
+                    @Html.Action("Comment1", "AnimeDetail", new { id = ViewBag.episodeID })
+                </div>
+            </div>
+            <div class="nextandprevepisode">
+                @{
+                    if (Model.VideoInfo.OncekiBolum != null && Model.VideoInfo.OncekiBolum.Any())
+                    {
+                        <div class="prev">
+                            <div class="title">
+                                <i class="bi bi-arrow-left"></i> Önceki Bölüm
+                            </div>
+                            @foreach (var episode in Model.VideoInfo.OncekiBolum.Where(x => x.STATUS == true))
+                            {
+                                <a href="@Url.RouteUrl("Video", new { episodeID = episode.ID, animeName = episode.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = episode.TBLSEASON.SEASONNUMBER, episodeNumber = episode.EPINUMBER })">
+                                    <div class="box">
+                                        <img style="object-fit:cover;" src="~/IMG/@episode.TBLSEASON.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                        <div class="animedetail">
+                                            <div style="margin:0px 0px 4px 0px;" class="episodename">
+                                                <span>S@(episode.TBLSEASON.SEASONNUMBER)</span> -
+                                                <span>B@(episode.EPINUMBER)</span> @(episode.EPISODENAME)
+                                            </div>
+                                            <div style="margin:2px 0px;" class="time">
+                                                <i class="bi bi-clock"></i> @episode.TIME
+                                            </div>
+                                            <div class="date">
+                                                <i class="bi bi-calendar"></i> @episode.DATE.Value.ToString("dd.MM.yyyy")
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="prev">
+                            <div class="title">
+                                <i class="bi bi-eye"></i> İlk Bölümdesiniz
+                            </div>
+                        </div>
+                    }
+                }
+
+                @{
+                    if (Model.VideoInfo.SonrakiBolum != null && Model.VideoInfo.SonrakiBolum.Any())
+                    {
+                        <div class="next">
+                            <div class="title">
+                                Sonraki Bölüm
+                                <i class="bi bi-arrow-right"></i>
+                            </div>
+                            @foreach (var episode in Model.VideoInfo.SonrakiBolum.Where(x => x.STATUS == true))
+                            {
+                                <a href="@Url.RouteUrl("Video", new { episodeID = episode.ID, animeName = episode.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = episode.TBLSEASON.SEASONNUMBER, episodeNumber = episode.EPINUMBER })">
+                                    <div class="box">
+                                        <img style="object-fit:cover;" src="~/IMG/@episode.TBLSEASON.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                                        <div class="animedetail">
+                                            <div style="margin:0px 0px 4px 0px;" class="episodename">
+                                                <span>S@(episode.TBLSEASON.SEASONNUMBER)</span> -
+                                                <span>B@(episode.EPINUMBER)</span> @(episode.EPISODENAME)
+                                            </div>
+                                            <div style="margin:2px 0px;" class="time">
+                                                <i class="bi bi-clock"></i> @episode.TIME
+                                            </div>
+                                            <div class="date">
+                                                <i class="bi bi-calendar"></i> @episode.DATE.Value.ToString("dd.MM.yyyy")
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="next">
+                            <div class="title">
+                                Güncel Bölümdesiniz
+                                <i class="bi bi-check2"></i>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footerimg">
+        </div>
+        <div class="detail">
+            <div class="page">
+                <div class="title">
+                    Sayfalar
+                </div>
+                <ul>
+                    <li><a href="@Url.RouteUrl("Hakkımızda")">Hakkımızda</a></li>
+                    <li><a href="@Url.RouteUrl("Gizlilik Politikası")">Gizlilik Politikası</a></li>
+                </ul>
+            </div>
+            <div class="social">
+                <div class="title">
+                    Sosyal Medyalar
+                </div>
+                <ul>
+                    <li><a target="_blank" href="https://www.youtube.com/channel/UC3AfwO_XmAvYEtw6FWZXZcw"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
+                    @*<li><a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a></li>*@
+                    <li><a target="_blank" href="https://www.instagram.com/anitsukitv/"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
+                    <li><a target="_blank" href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
+                </ul>
+            </div>
+            <div class="contact">
+                <div class="title">
+                    İletişim
+                </div>
+                <ul>
+                    <li>anitsuki.destek@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright ">
+            <img src="~/WEBIMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+            <div class="text">
+                Copyright © Anitsuki @DateTime.Now.Year. Tüm hakları saklıdır.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/toastr.min.js"></script>
+<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+<script src="~/js/plyr.js"></script>
+<script>
+    document.querySelectorAll('nav a').forEach(link => {
+        link.classList.remove('active');
+
+        if (link.href === window.location.href) {
+            link.classList.add('active');
+        }
+    });
+    window.addEventListener("load", () => {
+        const loader = document.querySelector(".loader");
+
+        loader.classList.add("loader-hidden");
+    })
+    document.addEventListener('keydown', function (event) {
+        if (event.code === 'Space' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'INPUT') {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    });
+</script>
+<script>
+    function handleLikeOrUnlike1(element, commentId, userId, isLike) {
+        var likeButton, unlikeButton, likeCountSpan, unlikeCountSpan;
+
+        if (isLike) {
+            likeButton = $(element);
+            unlikeButton = likeButton.parent().siblings(".unlike1").find("a");
+            likeCountSpan = likeButton.find("span");
+            unlikeCountSpan = unlikeButton.find("span");
+        } else {
+            unlikeButton = $(element);
+            likeButton = unlikeButton.parent().siblings(".like1").find("a");
+            unlikeCountSpan = unlikeButton.find("span");
+            likeCountSpan = likeButton.find("span");
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/AnimeDetail/LikeOrUnlikeComment2",
+            data: { id: commentId, userId: userId, isLike: isLike },
+            success: function (data) {
+                likeCountSpan.text(data.likeCount);
+                unlikeCountSpan.text(data.unlikeCount);
+                if (isLike) {
+                    if (data.likeCount > 0) {
+                        likeButton.addClass("active").css('color', '#FF7F00');
+                        unlikeButton.removeClass("active").css('color', '#ffffff')
+                    } else {
+                        likeButton.addClass("active").css('color', '#FF7F00');
+                        unlikeButton.removeClass("active").css('color', '#ffffff');
+                    }
+                } else {
+                    if (data.unlikeCount > 0) {
+                        unlikeButton.addClass("active").css('color', '#FF7F00');
+                        likeButton.removeClass("active").css('color', '#ffffff');
+                    } else {
+                        unlikeButton.addClass("active").css('color', '#FF7F00');
+                        likeButton.removeClass("active").css('color', '#ffffff');
+                    }
+                }
+            }
+        });
+    }
+</script>
+<script>
+    const togglePositionalHeaderStyles = () => {
+        if (window.scrollY > 0 && !header.classList.contains("header-change")) {
+            header.classList.add("header-change");
+        };
+        if (window.scrollY === 0 && header.classList.contains("header-change")) {
+            header.classList.remove("header-change");
+        };
+    };
+
+    let timeoutID = null;
+    const header = document.querySelector("header");
+    togglePositionalHeaderStyles();
+    window.addEventListener("scroll", () => {
+        togglePositionalHeaderStyles();
+        if (timeoutID) clearTimeout(timeoutID);
+        timeoutID = setTimeout(() => {
+            togglePositionalHeaderStyles();
+        }, 50);
+    });
+</script>
+
+<script>
+    const poster = document.querySelector('.poster');
+    const video = document.getElementById('plyr');
+
+    const player = new Plyr('#plyr', {
+        speed: {
+            selected: 1,
+            options: [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
+        },
+        controls: [
+            'rewind',
+            'play',
+            'fast-forward',
+            'progress',
+            'current-time',
+            'mute',
+            'volume',
+            'settings',
+            'pip',
+            'fullscreen',
+            'progressareatime'
+        ],
+        i18n: {
+            speed: 'Hız',
+            normal: 'Normal',
+            quality: 'Kalite'
+        },
+        keyboard: {
+            focused: true,
+            global: true,
+        },
+        fullscreen: {
+            enabled: true,
+            fallback: true,
+            iosNative: true,
+        }
+    });
+
+    poster.addEventListener('click', () => {
+        poster.style.display = "none";
+        player.play();
+    });
+
+    player.on('fullscreen', () => {
+        poster.style.display = "block";
+    });
+
+
+    //document.addEventListener('keydown', (event) => {
+    //    const textarea = document.querySelector('textarea[name="COMMENT"]'); // Yorum alanını seçin
+
+    //    // Eğer textarea üzerinde odak varsa, boşluk tuşunun varsayılan davranışını engellemeyin
+    //    if (document.activeElement === textarea) {
+    //        // Burada boşluk tuşuna basıldığında hiçbir şey yapma
+    //        return; // Yorum alanında boşluk tuşu çalışsın
+    //    }
+
+    //    // Eğer video oynatıcı aktifse, boşluk tuşunu video kontrolü için kullanın
+    //    if (event.code === 'Space') {
+    //        event.preventDefault(); // Varsayılan boşluk davranışını engelle
+    //        if (player.playing) {
+    //            player.pause(); // Video duraklat
+    //        } else {
+    //            player.play(); // Video oynat
+    //        }
+    //    }
+    //});
+</script>
+
+@if (ViewBag.IsFeatureActive)
+{
+    <script>
+        // script.js
+        const snowContainer = document.getElementById('snow-container');
+
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            const size = Math.random() * 5 + 2; // Kar tanesi boyutu
+            const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
+            const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
+
+            snowflake.classList.add('snowflake');
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
+            snowflake.style.left = `${leftPosition}px`;
+            snowflake.style.animationDuration = `${animationDuration}s`;
+
+            snowContainer.appendChild(snowflake);
+
+            // Kar tanesinin düşüşü tamamlandığında sil
+            setTimeout(() => {
+                snowflake.remove();
+            }, animationDuration * 1000);
+        }
+
+        // Kar tanelerini sürekli oluştur
+        setInterval(createSnowflake, 500); // Her 100 ms'de bir kar tanesi oluştur
+    </script>
+}
+
+
+<script>
+    // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
+    jQuery.expr[':'].contains = function (a, i, m) {
+        return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+    };
+
+    $(document).ready(function () {
+        $("#searchTags11").on("input", function () { // 'input' olayını kullanarak gerçek zamanlı filtreleme
+            var value = $(this).val(); // Mevcut giriş değerini al
+
+            if (value.length === 0) {
+                $("#menuFull11").hide(); // Eğer giriş boşsa kullanıcıları gizle
+            } else {
+                $("#menuFull11").show(); // Giriş değeri varsa kullanıcı listesini göster
+                $("#menuFull11 li").hide(); // İlk olarak tüm kullanıcıları gizle
+                $("#menuFull11 li:contains(" + value + ")").show(); // Giriş değerini içeren kullanıcıları göster
+            }
+        });
+
+        // Sayfa yüklendiğinde kullanıcı listesini gizle
+        $("#menuFull11").hide(); // Bu satır, sayfa yüklendiğinde kullanıcı listesinin gizlenmesini sağlar.
+    });
+</script>
+
+<script>
+    function followUser(followedUserId, button) {
+        $.ajax({
+            type: "POST",
+            url: "/User/FollowUser ",
+            data: { followedUserId: followedUserId },
+            success: function (response) {
+                if (response.success) {
+                    if (response.isFollowing) {
+                        // Takip etme durumu
+                        $(button).html('<i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-dash"></i>'); // Takipten çıkma simgesi
+                        toastr.success('Artık bu kullanıcıyı takip ediyorsunuz.'); // Başarı bildirimi
+                    } else {
+                        // Takipten çıkma durumu
+                        $(button).html('<i style="font-size:2.5rem; margin-right:5px;" class="bi bi-person-fill-add"></i>'); // Takip etme simgesi
+                        toastr.error('Artık bu kullanıcıyı takipten çıkıyorsunuz.'); // Hata bildirimi
+                    }
+                } else {
+                    toastr.error(response.message || 'Kullanıcıyı takip etmeye/çıkarma işleminde bir hata oluştu.'); // Hata bildirimi
+                }
+            },
+            error: function () {
+                toastr.error('İsteğinizi işleme alırken bir hata oluştu.'); // Genel hata bildirimi
+            }
+        });
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        // Eğer yeni bildirim varsa ikon dolu olacak
+        var hasNewNotification = @Model.VideoInfo.Notification.Any(n => n.ISCLEARED == false).ToString().ToLower();
+        if (hasNewNotification) {
+            $('#notification-icon').removeClass('bi-bell').addClass('bi-bell-fill');
+        }
+
+        $('#notification-icon').click(function () {
+            // İkon tıklandığında dolu ikon boş ikona dönüşecek
+            $(this).removeClass('bi-bell-fill').addClass('bi-bell');
+        });
+
+        $('#clear-notifications').click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/User/ClearNotifications",
+                success: function (data) {
+                    if (data.success) {
+                        $('#nabermudurr').empty();
+                        $('#nabermudurr').append('<li style="color:white; text-align:center;">Bildirim Kutusu Boş</li>');
+                        $('#notification-icon').removeClass('bi-bell-fill').addClass('bi-bell'); // İkonu boş yap
+                        toastr.success(data.message, "Bildirimler Temizlendi");
+                    } else {
+                        toastr.error(data.message, "Hata");
+                    }
+                }
+            });
+        });
+    });
+</script>
+@if (User.Identity.IsAuthenticated)
+{
+    <script>
+        function isMobile() {
+            return /Mobi|Android|iPhone/i.test(navigator.userAgent);
+        }
+
+        const toggleButton = document.getElementById('toggleFriendAdd');
+        const friendAdd = document.querySelector('.friendadd');
+        const toggleButton2 = document.getElementById('friendaddclose');
+
+        // Sayfa yüklendiğinde, eğer mobil cihazsa friendAdd'i tam ekran yap
+        window.onload = function () {
+            if (isMobile()) {
+                friendAdd.classList.add('full-screen'); // Tam ekran sınıfını ekle
+                toggleButton2.classList.add('active');
+            }
+        };
+
+        toggleButton.addEventListener('click', function (event) {
+            event.preventDefault(); // Linkin varsayılan davranışını engelle
+            friendAdd.classList.toggle('active'); // active sınıfını ekle veya kaldır
+        });
+
+        toggleButton2.addEventListener('click', function (event) {
+            event.preventDefault(); // Linkin varsayılan davranışını engelle
+            friendAdd.classList.toggle('active'); // active sınıfını ekle veya kaldır
+        });
+
+        // Sayfanın herhangi bir yerine tıklandığında friendadd'ı kapat
+        document.addEventListener('click', function (event) {
+            if (!friendAdd.contains(event.target) && !toggleButton.contains(event.target)) {
+                friendAdd.classList.remove('active'); // active sınıfını kaldır
+            }
+        });
+    </script>
+}
+
+
+

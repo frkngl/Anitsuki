@@ -20,12 +20,7 @@ namespace AnitsukiTV.Models
 
                 AddNode(xmlDoc, urlSet, "Anasayfa", "https://www.anitsuki.com/", "daily", "1.0");
                 AddNode(xmlDoc, urlSet, "Animeler", "https://www.anitsuki.com/animeler", "daily", "0.8");
-                AddNode(xmlDoc, urlSet, "Bağış", "https://www.anitsuki.com/bagis", "daily", "0.5");
-                AddNode(xmlDoc, urlSet, "Giriş", "https://www.anitsuki.com/giris", "daily", "0.5");
-                AddNode(xmlDoc, urlSet, "Kayıt", "https://www.anitsuki.com/kayit", "daily", "0.5");
-                AddNode(xmlDoc, urlSet, "Hakkımızda", "https://www.anitsuki.com/hakkimizda", "daily", "0.5");
-                AddNode(xmlDoc, urlSet, "Watch Together", "https://www.anitsuki.com/watch-together", "daily", "0.5");
-                AddNode(xmlDoc, urlSet, "Gizlilik Politikası", "https://www.anitsuki.com/gizlilik-politikasi", "daily", "0.5");
+                AddNode(xmlDoc, urlSet, "Watch Together", "https://www.anitsuki.com/watch-together", "daily", "0.7");
 
                 using (var db = new AnitsukiTVEntities())
                 {

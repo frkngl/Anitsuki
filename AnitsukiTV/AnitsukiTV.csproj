@@ -1341,7 +1341,6 @@
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="robots.txt" />
     <Content Include="Videos\blackscreen.mp4" />
-    <Content Include="Videos\BlendS.mp4" />
     <Content Include="Videos\yolsilindiri.mp4" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -1,0 +1,20 @@
+﻿@model AnitsukiTV.Models.TBLCATEGORY
+
+@{
+    ViewBag.Title = "AddCategory";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("AddCategory", "LanetlerKralıAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <form class="forms-sample">
+        <div class="form-group">
+            <label for="exampleInputName1">Kategori</label>
+            @Html.TextBoxFor(x => x.CATEGORYNAME, new { @style = "width:100%; border:1px solid #000000;" })
+        </div>
+        <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+        <a style="color:#ffffff;" href="/LanetlerKralıAdmin/Category" class="btn btn-light">Vazgeç</a>
+    </form>
+}
+
