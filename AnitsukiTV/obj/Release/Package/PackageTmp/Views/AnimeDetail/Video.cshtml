@@ -25,8 +25,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
     <meta http-equiv="x-dns-prefetch-control" content="on">
-    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
-    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
     <link rel="dns-prefetch" href="//my.mail.ru">
     <link rel="dns-prefetch" href="//video.sibnet.ru">
     <link rel="dns-prefetch" href="//ok.ru">
@@ -37,13 +35,11 @@
     <meta property="og:image" content="https://www.anitsuki.com/WEBIMG/aylogo.png">
     <meta property="og:description" content="@Model.VideoInfo.AnimeTitle @Model.VideoInfo.SeasonNumber. Sezon @Model.VideoInfo.EpisodeNumber. Bölüm izle, @Model.VideoInfo.AnimeTitle animesini Türkçe altyazılı ve Full HD seçeneğiyle ücretsiz izleyin." />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="~/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" />
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="~/css/VideoDetail4.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/VideoDetail.css" type="text/css" />
     <link rel="stylesheet" href="~/css/plyr.css" type="text/css" />
 
     <link rel="shortcut icon" href="~/WEBIMG/aylogotitle.png" type="image/png" />
@@ -412,7 +408,7 @@
                                             <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                 @if (user.PICTURE != null)
                                                 {
-                                                    <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/USERIMG/@user.PICTURE" />
+                                                    <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/USERIMG/@user.PICTURE" loading="lazy" />
                                                     <div>
                                                         <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
                                                         <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
@@ -420,7 +416,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <img style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" src="~/USERIMG/stockuser.png" />
+                                                    <img style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" src="~/USERIMG/stockuser.png" loading="lazy" />
                                                     <div>
                                                         <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
                                                         <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
