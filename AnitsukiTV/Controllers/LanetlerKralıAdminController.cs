@@ -291,7 +291,7 @@ namespace AnitsukiTV.Controllers
 
                 try
                 {
-                    if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp")
+                    if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp" || Image.ContentType == "image/avif")
                     {
                         var file = new FileInfo(Image.FileName);
                         var fileName = Path.GetFileNameWithoutExtension(Image.FileName);
@@ -309,7 +309,7 @@ namespace AnitsukiTV.Controllers
                     }
                     else
                     {
-                        throw new Exception("Banner tarafındaki resim formatı .png, .jpeg, .jpg, .webp formatlarını seçiniz!");
+                        throw new Exception("Banner tarafındaki resim formatı .png, .jpeg, .jpg, .webp .avif formatlarını seçiniz!");
                     }
                 }
                 catch (Exception ex)
@@ -320,7 +320,7 @@ namespace AnitsukiTV.Controllers
 
                 try
                 {
-                    if (Banner.ContentType == "image/jpeg" || Banner.ContentType == "image/jpg" || Banner.ContentType == "image/png" || Banner.ContentType == "image/webp")
+                    if (Banner.ContentType == "image/jpeg" || Banner.ContentType == "image/jpg" || Banner.ContentType == "image/png" || Banner.ContentType == "image/webp" || Banner.ContentType == "image/avif")
                     {
                         var bannerFile = new FileInfo(Banner.FileName);
                         var bannerFileName = Path.GetFileNameWithoutExtension(Banner.FileName); // Dosya ismini uzantı olmadan al
@@ -341,7 +341,7 @@ namespace AnitsukiTV.Controllers
                     }
                     else
                     {
-                        throw new Exception("Big Banner tarafındaki resim formatı .png, .jpeg, .jpg, .webp formatlarını seçiniz!");
+                        throw new Exception("Big Banner tarafındaki resim formatı .png, .jpeg, .jpg, .webp .avif formatlarını seçiniz!");
                     }
                 }
                 catch (Exception ex)
@@ -402,7 +402,7 @@ namespace AnitsukiTV.Controllers
                 {
                     try
                     {
-                        if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp")
+                        if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp" || Image.ContentType == "image/avif")
                         {
                             var anipath = Request.MapPath("~/IMG/" + updateanime1.BANNER);
                             if (System.IO.File.Exists(anipath))
@@ -428,7 +428,7 @@ namespace AnitsukiTV.Controllers
                         }
                         else
                         {
-                            throw new Exception("Banner tarafındaki resim formatı .png, .jpeg, .jpg, .webp formatlarını seçiniz!");
+                            throw new Exception("Banner tarafındaki resim formatı .png, .jpeg, .jpg, .webp .avif formatlarını seçiniz!");
                         }
                     }
                     catch (Exception ex)
@@ -444,7 +444,7 @@ namespace AnitsukiTV.Controllers
                 {
                     try
                     {
-                        if (Banner.ContentType == "image/jpeg" || Banner.ContentType == "image/jpg" || Banner.ContentType == "image/png" || Banner.ContentType == "image/webp")
+                        if (Banner.ContentType == "image/jpeg" || Banner.ContentType == "image/jpg" || Banner.ContentType == "image/png" || Banner.ContentType == "image/webp" || Banner.ContentType == "image/avif")
                         {
                             var bannerPath = Request.MapPath("~/IMG/" + updateanime1.BIGBANNER);
                             if (System.IO.File.Exists(bannerPath))
@@ -470,7 +470,7 @@ namespace AnitsukiTV.Controllers
                         }
                         else
                         {
-                            throw new Exception("Big Banner resim formatı .png, .jpeg, .jpg, .webp formatlarını seçiniz!");
+                            throw new Exception("Big Banner resim formatı .png, .jpeg, .jpg, .webp .avif formatlarını seçiniz!");
                         }
                     }
                     catch (Exception ex)
@@ -599,7 +599,7 @@ namespace AnitsukiTV.Controllers
 
                 try
                 {
-                    if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp")
+                    if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp" || Image.ContentType == "image/avif")
                     {
                         var file = new FileInfo(Image.FileName);
                         var fileName = Path.GetFileNameWithoutExtension(Image.FileName); // Dosya ismini uzantı olmadan al
@@ -616,7 +616,7 @@ namespace AnitsukiTV.Controllers
                     }
                     else
                     {
-                        throw new Exception("Banner resim formatı .png, .jpeg, .jpg, .webp formatlarını seçiniz!");
+                        throw new Exception("Banner resim formatı .png, .jpeg, .jpg, .webp .avif formatlarını seçiniz!");
                     }
                 }
                 catch (Exception ex)
@@ -664,7 +664,7 @@ namespace AnitsukiTV.Controllers
                 {
                     try
                     {
-                        if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp")
+                        if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/jpg" || Image.ContentType == "image/png" || Image.ContentType == "image/webp" || Image.ContentType == "image/avif")
                         {
                             var anipath = Request.MapPath("~/IMG/" + updateseason.BANNER);
                             if (System.IO.File.Exists(anipath))
@@ -702,7 +702,7 @@ namespace AnitsukiTV.Controllers
                         }
                         else
                         {
-                            throw new Exception("Banner resim formatı .png, .jpeg, .jpg, .webp formatlarını seçiniz!");
+                            throw new Exception("Banner resim formatı .png, .jpeg, .jpg, .webp .avif formatlarını seçiniz!");
                         }
                     }
                     catch (Exception ex)
