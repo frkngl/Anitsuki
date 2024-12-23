@@ -253,7 +253,7 @@
                                             <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                 @if (user.PICTURE != null)
                                                 {
-                                                    <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/USERIMG/@user.PICTURE" loading="lazy"/>
+                                                    <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/USERIMG/@user.PICTURE" loading="lazy" />
                                                     <div>
                                                         <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
                                                         <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
@@ -261,7 +261,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <img style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" src="~/USERIMG/stockuser.png" loading="lazy"/>
+                                                    <img style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" src="~/USERIMG/stockuser.png" loading="lazy" />
                                                     <div>
                                                         <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
                                                         <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
@@ -347,7 +347,7 @@
             </div>
         </div>
         <ul id="menuFull">
-            @foreach (var y in Model.Anime.Where(x => x.STATUS == true).OrderBy(x => Guid.NewGuid()))
+            @foreach (var y in Model.Anime.Where(x => x.STATUS == true).OrderByDescending(x => x.ID))
             {
                 <li style="margin-bottom:20px !important;" class="splide__slide">
                     <a href="@Url.RouteUrl("Anime Detay", new { animeID = y.ID, animeName = y.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = y.TBLSEASON?.FirstOrDefault(t => t.ANIMEID == y.ID)?.SEASONNUMBER ?? 0})">
@@ -386,6 +386,107 @@
                 </li>
             }
         </ul>
+        <div style="width:100%; display:flex; justify-content:center;">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination custom-pagination">
+                    @if (ViewBag.CurrentPage > 1)
+                    {
+                        <li class="page-item">
+                            <a class="page-link"
+                               style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
+                               href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    }
+
+                    @if (ViewBag.PageCount <= 5)
+                    {
+                        // Eğer toplam sayfa sayısı 5 veya daha az ise, tüm sayfaları göster
+                        for (int i = 1; i <= ViewBag.PageCount; i++)
+                        {
+                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                <a class="page-link"
+                                   style="@(i == ViewBag.CurrentPage ? "background-color: #FF7F00 !important; border: 1px solid #FF7F00 !important; color: #000000;" : "background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;")"
+                                   href="@Url.Action("Index", new { page = i })">@i</a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        // Eğer toplam sayfa sayısı 5'ten fazla ise, sayfa numaralarını kısalt
+                        if (ViewBag.CurrentPage < 4)
+                        {
+                            for (int i = 1; i <= 3; i++)
+                            {
+                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                    <a class="page-link"
+                                       style="@(i == ViewBag.CurrentPage ? "background-color: #FF7F00 !important; border: 1px solid #FF7F00 !important; color: #000000;" : "background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;")"
+                                       href="@Url.Action("Index", new { page = i })">@i</a>
+                                </li>
+                            }
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                   style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
+                                   href="@Url.Action("Index", new { page = ViewBag.PageCount })">@ViewBag.PageCount</a>
+                            </li>
+                        }
+                        else if (ViewBag.CurrentPage > ViewBag.PageCount - 3)
+                        {
+                            <li class="page-item">
+                                <a class="page-link"
+                                   style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
+                                   href="@Url.Action("Index", new { page = 1 })">1</a>
+                            </li>
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                            for (int i = ViewBag.PageCount - 2; i <= ViewBag.PageCount; i++)
+                            {
+                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                    <a class="page-link"
+                                       style="@(i == ViewBag.CurrentPage ? "background-color: #FF7F00 !important; border: 1px solid #FF7F00 !important; color: #000000;" : "background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;")"
+                                       href="@Url.Action("Index", new { page = i })">@i</a>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="page-item">
+                                <a class="page-link"
+                                   style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
+                                   href="@Url.Action("Index", new { page = 1 })">1</a>
+                            </li>
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                            for (int i = ViewBag.CurrentPage - 1; i <= ViewBag.CurrentPage + 1; i++)
+                            {
+                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                    <a class="page-link"
+                                       style="@(i == ViewBag.CurrentPage ? "background-color: #FF7F00 !important; border: 1px solid #FF7F00 !important; color: #000000;" : "background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;")"
+                                       href="@Url.Action("Index", new { page = i })">@i</a>
+                                </li>
+                            }
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                   style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
+                                   href="@Url.Action("Index", new { page = ViewBag.PageCount })">@ViewBag.PageCount</a>
+                            </li>
+                        }
+                    }
+
+                    @if (ViewBag.CurrentPage < ViewBag.PageCount)
+                    {
+                        <li class="page-item">
+                            <a class="page-link"
+                               style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
+                               href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
     </div>
     <footer>
         <div class="footerimg">

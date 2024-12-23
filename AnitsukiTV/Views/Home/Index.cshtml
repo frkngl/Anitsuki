@@ -43,7 +43,14 @@
     <link rel="shortcut icon" href="~/WEBIMG/aylogotitle.png" type="image/png" />
     <link rel="apple-touch-icon" href="~/WEBIMG/aylogotitle.png" type="image/png">
     <style>
+        img.lazy {
+            opacity: 0; /* Başlangıçta görünmez */
+            transition: opacity 0.5s ease-in; /* Geçiş efekti */
+        }
 
+        img {
+            opacity: 1; /* Yüklenince görünür hale gelir */
+        }
         header #nabermudur ul {
             max-height: 300px;
             overflow-y: auto;
@@ -229,11 +236,13 @@
                                                 <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                     @if (notification.PROFILEPICTURE != null)
                                                     {
-                                                        <img src="~/USERIMG/@notification.PROFILEPICTURE" style=" object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                        <div class="skeleton"></div>
+                                                        <img data-src="USERIMG/@notification.PROFILEPICTURE" class="lazy" style=" object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
                                                     }
                                                     else
                                                     {
-                                                        <img src="~/USERIMG/stockuser.png" style=" object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                        <div class="skeleton"></div>
+                                                        <img data-src="USERIMG/stockuser.png" class="lazy" style=" object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
                                                     }
                                                     <div style="color: #ffffff;">
                                                         <strong>@notification.USERNAME</strong><br />
@@ -286,7 +295,8 @@
                                                 <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                     @if (user.PICTURE != null)
                                                     {
-                                                        <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/USERIMG/@user.PICTURE" loading="lazy" />
+                                                        <div class="skeleton"></div>
+                                                        <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" data-src="USERIMG/@user.PICTURE" class="lazy" />
                                                         <div>
                                                             <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
                                                             <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
@@ -294,7 +304,8 @@
                                                     }
                                                     else
                                                     {
-                                                        <img style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" src="~/USERIMG/stockuser.png" loading="lazy" />
+                                                        <div class="skeleton"></div>
+                                                        <img style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" data-src="USERIMG/stockuser.png" class="lazy" />
                                                         <div>
                                                             <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
                                                             <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
@@ -358,8 +369,8 @@
                 @foreach (var ğ in Model.Anime.Where(x => x.ADMINSTATUS == true).OrderBy(y => Guid.NewGuid()))
                 {
                     <div class="swiper-slide">
-                        <img class="bigbanner1" src="~/IMG/@ğ.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                        <img class="bigbanner2" src="~/IMG/@ğ.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                        <img class="bigbanner1" src="~/IMG/@ğ.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" />
+                        <img class="bigbanner2" src="~/IMG/@ğ.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" />
                         <div class="inside">
                             <div class="title">
                                 @ğ.ANIMENAME
@@ -402,7 +413,8 @@
                                 <li class="splide__slide">
                                     <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                         <div class="videoimg">
-                                            <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                            <div class="skeleton"></div>
+                                            <img data-src="IMG/@l.BANNER" class="lazy" alt="anime izle, türkçe altyazı anime izle, anitsuki" />
                                             <div class="video-container">
                                                 @if (l.EDIT != null)
                                                 {
@@ -465,7 +477,8 @@
                                 <li class="splide__slide">
                                     <a href="@Url.RouteUrl("Video", new { episodeID = l.ID, animeName = l.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = l.TBLSEASON.SEASONNUMBER, episodeNumber = l.EPINUMBER })">
                                         <div class="videoimg">
-                                            <img src="~/IMG/@l.TBLANIME.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                            <div class="skeleton"></div>
+                                            <img data-src="IMG/@l.TBLANIME.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" class="lazy" />
                                             <div class="video-container">
                                                 @if (l.TBLANIME.EDIT != null)
                                                 {
@@ -521,7 +534,8 @@
                                 <li class="splide__slide">
                                     <a href="@Url.RouteUrl("Video", new { episodeID = l.ID, animeName = l.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = l.TBLSEASON.SEASONNUMBER, episodeNumber = l.EPINUMBER })">
                                         <div class="videoimg">
-                                            <img src="~/IMG/@l.TBLANIME.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                            <div class="skeleton"></div>
+                                            <img data-src="IMG/@l.TBLANIME.BANNER" class="lazy" alt="anime izle, türkçe altyazı anime izle, anitsuki" />
                                             <div class="video-container">
                                                 @if (l.TBLANIME.EDIT != null)
                                                 {
@@ -575,7 +589,8 @@
                             <li class="splide__slide">
                                 <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                     <div class="videoimg">
-                                        <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                        <div class="skeleton"></div>
+                                        <img data-src="IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" class="lazy" />
                                         <div class="video-container">
                                             @if (l.EDIT != null)
                                             {
@@ -628,7 +643,8 @@
                             <li class="splide__slide">
                                 <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                     <div class="videoimg">
-                                        <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                        <div class="skeleton"></div>
+                                        <img data-src="IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" class="lazy" />
                                         <div class="video-container">
                                             @if (l.EDIT != null)
                                             {
@@ -681,8 +697,9 @@
 
                         if (firstEpisode != null)
                         {
-                            <img style="z-index:1;" class="img1" src="~/IMG/@firstAnime.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
-                            <img style="z-index:1;" class="img2" src="~/IMG/@firstAnime.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                            <div class="skeleton"></div>
+                            <img style="z-index:1;" class="img1 lazy" data-src="IMG/@firstAnime.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                            <img style="z-index:1;" class="img2 lazy" data-src="IMG/@firstAnime.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                             <div style="overflow-wrap: break-word; z-index: 1; overflow: auto; white-space: normal;" class="text">
                                 <div style="color:#ffffff;" class="title">
                                     @firstAnime.ANIMENAME
@@ -729,7 +746,8 @@
                             <li class="splide__slide">
                                 <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                     <div class="videoimg">
-                                        <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                        <div class="skeleton"></div>
+                                        <img data-src="IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" class="lazy" />
                                         <div class="video-container">
                                             @if (l.EDIT != null)
                                             {
@@ -794,7 +812,8 @@
                             <li class="splide__slide">
                                 <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                     <div class="videoimg">
-                                        <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                        <div class="skeleton"></div>
+                                        <img data-src="IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" class="lazy" />
                                         <div class="video-container">
                                             @if (l.EDIT != null)
                                             {
@@ -833,96 +852,6 @@
                 </div>
             </div>
         </div>
-        @*<div class="category1" id="category2">
-                <div class="text">
-                    <div class="title">
-                        <i class="fa-solid fa-list"></i> Shoujo Animeler
-                    </div>
-                    <div class="all">
-                        @foreach (var f in Model.Category.Where(i => i.ID == 3))
-                        {
-                            <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                        }
-                    </div>
-                </div>
-                <div class="splide" id="splide6">
-                    <div class="splide__track">
-                        <ul class="splide__list">
-                            @foreach (var z in Model.Anime.Where(i => i.CATEGORYID == 3 && i.STATUS == true).OrderBy(z => Guid.NewGuid()).Take(12))
-                            {
-                                <li class="splide__slide">
-                                    <a href="/AnimeDetail/Index/@z.ID">
-                                        <div class="videoimg">
-                                            <img src="~/IMG/@z.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                            @if (z.EDIT != null)
-                                            {
-                                                <video class="video" src="~/Videos/@z.EDIT" playsinline preload="none"></video>
-                                            }
-                                            else
-                                            {
-                                                <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                            }
-                                        </div>
-                                        <div class="text">
-                                            <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                                @z.ANIMENAME
-                                            </div>
-                                            <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                                @z.DATE.Value.ToString("yyyy")
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="category1" id="category2">
-                <div class="text">
-                    <div class="title">
-                        <i class="fa-solid fa-list"></i> Josei Animeler
-                    </div>
-                    <div class="all">
-                        @foreach (var f in Model.Category.Where(i => i.ID == 4))
-                        {
-                            <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                        }
-                    </div>
-                </div>
-                <div class="splide" id="splide7">
-                    <div class="splide__track">
-                        <ul class="splide__list">
-                            @foreach (var q in Model.Anime.Where(i => i.CATEGORYID == 4 && i.STATUS == true).OrderBy(q => Guid.NewGuid()).Take(12))
-                            {
-                                <li class="splide__slide">
-                                    <a href="/AnimeDetail/Index/@q.ID">
-                                        <div class="videoimg">
-                                            <img src="~/IMG/@q.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                            @if (q.EDIT != null)
-                                            {
-                                                <video class="video" src="~/Videos/@q.EDIT" playsinline preload="none"></video>
-                                            }
-                                            else
-                                            {
-                                                <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                            }
-                                        </div>
-                                        <div class="text">
-                                            <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                                @q.ANIMENAME
-                                            </div>
-                                            <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                                @q.DATE.Value.ToString("yyyy")
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </div>*@
         <div class="category1" id="category2">
             <div class="text">
                 <div class="title">
@@ -949,7 +878,8 @@
                             <li class="splide__slide">
                                 <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                     <div class="videoimg">
-                                        <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                        <div class="skeleton"></div>
+                                        <img data-src="IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" class="lazy" />
                                         <div class="video-container">
                                             @if (l.EDIT != null)
                                             {
@@ -999,8 +929,9 @@
 
                         if (secondEpisode != null)
                         {
-                            <img style="z-index:1;" class="img1" src="~/IMG/@secondAnime.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
-                            <img style="z-index:1;" class="img2" src="~/IMG/@secondAnime.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                            <div class="skeleton"></div>
+                            <img style="z-index:1;" class="img1 lazy" data-src="IMG/@secondAnime.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                            <img style="z-index:1;" class="img2 lazy" data-src="IMG/@secondAnime.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                             <div style="overflow-wrap: break-word; z-index: 1; overflow: auto; white-space: normal;" class="text">
                                 <div style="color:#ffffff;" class="title">
                                     @secondAnime.ANIMENAME
@@ -1046,7 +977,8 @@
                             <li class="splide__slide">
                                 <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                     <div class="videoimg">
-                                        <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                        <div class="skeleton"></div>
+                                        <img data-src="IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" class="lazy" />
                                         <div class="video-container">
                                             @if (l.EDIT != null)
                                             {
@@ -1111,7 +1043,8 @@
                             <li class="splide__slide">
                                 <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                     <div class="videoimg">
-                                        <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                        <div class="skeleton"></div>
+                                        <img data-src="IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" class="lazy" />
                                         <div class="video-container">
                                             @if (l.EDIT != null)
                                             {
@@ -1177,7 +1110,8 @@
                             <li class="splide__slide">
                                 <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                     <div class="videoimg">
-                                        <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                        <div class="skeleton"></div>
+                                        <img data-src="IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" class="lazy" />
                                         <div class="video-container">
                                             @if (l.EDIT != null)
                                             {
@@ -1216,51 +1150,6 @@
                 </div>
             </div>
         </div>
-        @*<div class="category1" id="category2">
-                <div class="text">
-                    <div class="title">
-                        <i class="fa-solid fa-list"></i> Gore Animeler
-                    </div>
-                    <div class="all">
-                        @foreach (var f in Model.Category.Where(i => i.ID == 9))
-                        {
-                            <a href="/Category/UseCategory/@f.ID"><i class="bi bi-box-arrow-up-left"></i> Tümünü Göster</a>
-                        }
-                    </div>
-                </div>
-                <div class="splide" id="splide12">
-                    <div class="splide__track">
-                        <ul class="splide__list">
-                            @foreach (var t in Model.Anime.Where(i => i.CATEGORYID == 9 && i.STATUS == true).OrderBy(t => Guid.NewGuid()).Take(12))
-                            {
-                                <li class="splide__slide">
-                                    <a href="/AnimeDetail/Index/@t.ID">
-                                        <div class="videoimg">
-                                            <img src="~/IMG/@t.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                                            @if (t.EDIT != null)
-                                            {
-                                                <video class="video" src="~/Videos/@t.EDIT" playsinline preload="none"></video>
-                                            }
-                                            else
-                                            {
-                                                <video class="video" src="~/Videos/blackscreen.mp4" playsinline preload="none"></video>
-                                            }
-                                        </div>
-                                        <div class="text">
-                                            <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                                @t.ANIMENAME
-                                            </div>
-                                            <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                                @t.DATE.Value.ToString("yyyy")
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </div>*@
         <div class="deadnote">
             <div class="yagami">
                 @{
@@ -1272,8 +1161,9 @@
 
                         if (thirdEpisode != null)
                         {
-                            <img style="z-index:1;" class="img1" src="~/IMG/@thirdAnime.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
-                            <img style="z-index:1;" class="img2" src="~/IMG/@thirdAnime.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                            <div class="skeleton"></div>
+                            <img style="z-index:1;" class="img1 lazy" data-src="IMG/@thirdAnime.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                            <img style="z-index:1;" class="img2 lazy" data-src="IMG/@thirdAnime.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
                             <div style="overflow-wrap: break-word; z-index: 1; overflow: auto; white-space: normal;" class="text">
                                 <div style="color:#ffffff;" class="title">
                                     @thirdAnime.ANIMENAME
@@ -1319,7 +1209,8 @@
                             <li class="splide__slide">
                                 <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                     <div class="videoimg">
-                                        <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                        <div class="skeleton"></div>
+                                        <img data-src="IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" class="lazy" />
                                         <div class="video-container">
                                             @if (l.EDIT != null)
                                             {
@@ -1384,7 +1275,8 @@
                             <li class="splide__slide">
                                 <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                     <div class="videoimg">
-                                        <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                        <div class="skeleton"></div>
+                                        <img data-src="IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" class="lazy" />
                                         <div class="video-container">
                                             @if (l.EDIT != null)
                                             {
@@ -1449,7 +1341,8 @@
                             <li class="splide__slide">
                                 <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                                     <div class="videoimg">
-                                        <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
+                                        <div class="skeleton"></div>
+                                        <img data-src="IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" class="lazy" />
                                         <div class="video-container">
                                             @if (l.EDIT != null)
                                             {
@@ -1587,7 +1480,7 @@
         effect: "fade",
         centeredSlides: true,
         autoplay: {
-            delay: 4000,
+            delay: 10000,
             disableOnInteraction: false
         },
         pagination: {
@@ -1951,4 +1844,39 @@
         }).mount();
     </script>
 }
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const lazyImages = document.querySelectorAll("img[data-src]");
+
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const skeleton = img.previousElementSibling; // Skeleton loader
+
+                    // Resim yüklenirken skeleton göster
+                    skeleton.style.display = "block";
+
+                    // Resim kaynağını ayarla
+                    img.src = img.dataset.src;
+
+                    // Resim yüklendiğinde
+                    img.onload = () => {
+                        skeleton.style.display = "none"; // Skeleton'ı gizle
+                        img.style.display = "block"; // Resmi göster
+                        img.classList.remove("lazy"); // Lazy sınıfını kaldır
+                    };
+
+                    observer.unobserve(img); // Resmi gözlemden kaldır
+                }
+            });
+        });
+
+        lazyImages.forEach(image => {
+            imageObserver.observe(image); // Her resmi gözlemle
+        });
+    });
+</script>
 
