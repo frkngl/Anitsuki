@@ -21,7 +21,7 @@ namespace AnitsukiTV.Controllers
 
             // Pagination settings
             var pageSize = 50;
-            var animeQuery = db.TBLANIME.Where(x => x.STATUS == true); // Only get active animes
+            var animeQuery = db.TBLANIME.Where(x => x.STATUS == true);
             var totalAnimeCount = animeQuery.Count(); // Get total count for pagination
             var paginatedAnime = animeQuery.OrderByDescending(x => x.ID) // Random order
                                             .Skip((page - 1) * pageSize)
@@ -29,6 +29,7 @@ namespace AnitsukiTV.Controllers
                                             .ToList(); // Get paginated results
 
             veri.Anime = paginatedAnime;
+            ViewBag.TotalAnimeCount = totalAnimeCount;
 
             // Giriş yapan kullanıcının ID'sini al (varsa)
             int? currentUserId = User.Identity.IsAuthenticated ? db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault()?.ID : (int?)null;
@@ -42,10 +43,10 @@ namespace AnitsukiTV.Controllers
             ViewBag.FollowedUserIds = followedUserIds;
 
             // DateTime.Now.AddDays(-7) ifadesini bir değişkene atayın
-            var fiveDaysAgo = DateTime.Now.AddDays(-7);
+            var fiveDaysAgo = DateTime.Now.AddDays(-5);
 
             if (currentUserId.HasValue)
-    {
+            {
                 // Kullanıcının bildirimlerini kontrol et ve 5 günden eski olanları temizle
                 var oldNotifications = db.TBLNOTIFICATIONS.Where(n => n.USERID == currentUserId.Value && n.ISCLEARED == false && n.CREATED < fiveDaysAgo).ToList();
 
@@ -64,7 +65,7 @@ namespace AnitsukiTV.Controllers
                 veri.Notifications = new List<TBLNOTIFICATIONS>();
             }
 
-            DateTime startDate = new DateTime(DateTime.Now.Year, 12, 25);
+            DateTime startDate = new DateTime(DateTime.Now.Year, 12, 20);
             DateTime endDate = new DateTime(DateTime.Now.Year + (DateTime.Now.Month == 1 && DateTime.Now.Day <= 5 ? 0 : 1), 1, 5);
 
             // Get the current date
@@ -89,7 +90,6 @@ namespace AnitsukiTV.Controllers
         {
             var degerler = db.TBLCATEGORY.FirstOrDefault(x => x.ID == kategoriID);
             veri.Category = db.TBLCATEGORY.ToList();
-
             // Pagination settings
             var pageSize = 50; // Sayfa başına gösterilecek anime sayısı
             veri.Anime = db.TBLANIME
@@ -108,6 +108,7 @@ namespace AnitsukiTV.Controllers
             ViewBag.PageCount = (int)Math.Ceiling(totalAnimeCount / (double)pageSize);
             ViewBag.CurrentPage = page;
 
+            ViewBag.totalanimecount = totalAnimeCount;
             // Sayfa numaralarını kısaltmak için gerekli değişkenler
             ViewBag.StartPage = Math.Max(1, page - 2); // Gösterilecek ilk sayfa
             ViewBag.EndPage = Math.Min(ViewBag.PageCount, page + 2); // Gösterilecek son sayfa
@@ -124,7 +125,7 @@ namespace AnitsukiTV.Controllers
             ViewBag.FollowedUserIds = followedUserIds;
 
             // DateTime.Now.AddDays(-7) ifadesini bir değişkene atayın
-            var fiveDaysAgo = DateTime.Now.AddDays(-7);
+            var fiveDaysAgo = DateTime.Now.AddDays(-5);
 
             if (currentUserId.HasValue)
             {
@@ -146,7 +147,7 @@ namespace AnitsukiTV.Controllers
                 veri.Notifications = new List<TBLNOTIFICATIONS>();
             }
 
-            DateTime startDate = new DateTime(DateTime.Now.Year, 12, 25);
+            DateTime startDate = new DateTime(DateTime.Now.Year, 12, 20);
             DateTime endDate = new DateTime(DateTime.Now.Year + (DateTime.Now.Month == 1 && DateTime.Now.Day <= 5 ? 0 : 1), 1, 5);
 
             // Get the current date

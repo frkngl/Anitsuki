@@ -1262,7 +1262,7 @@ footer {
     footer .footerimg {
         width: 100%;
         height: 100%;
-        background-image: url(../WEBIMG/footer2.png);
+        background-image: url(../WEBIMG/footer.avif);
         background-position: center;
         background-size: cover;
         filter: brightness(0.8);
@@ -1421,7 +1421,7 @@ footer {
         footer .footerimg {
             width: 100%;
             height: 100%;
-            background-image: url(../WEBIMG/footer2.png);
+            background-image: url(../WEBIMG/footer.avif);
             background-position: center;
             background-size: cover;
             filter: brightness(0.8);

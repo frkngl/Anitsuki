@@ -5229,7 +5229,7 @@
     <Content Include="fontawesome\svgs\solid\yin-yang.svg" />
     <Content Include="fontawesome\svgs\solid\z.svg" />
     <Content Include="js\plyr.js" />
-    <Content Include="js\splide5.js" />
+    <Content Include="js\splide.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -5240,7 +5240,6 @@
     <Content Include="WEBIMG\AnitsukiQR.png" />
     <Content Include="WEBIMG\aylogo.png" />
     <Content Include="WEBIMG\aylogotitle.png" />
-    <Content Include="WEBIMG\footer2.png" />
     <Content Include="WEBIMG\LoginBackground.png" />
     <Content Include="WEBIMG\logo.png" />
     <Content Include="WEBIMG\poster.png" />
@@ -5615,6 +5614,7 @@
     <Content Include="Views\LanetlerKralıAdmin\UpdateError.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\ErrorDetail.cshtml" />
     <Content Include="Views\WatchTogether\Index.cshtml" />
+    <Content Include="WEBIMG\footer.avif" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

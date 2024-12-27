@@ -1,37 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\frkng\\Desktop\\GitHub\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|c:\\users\\frkng\\desktop\\github\\anitsukitv\\css\\home.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{2387D833-501C-4ED0-9D55-B0655B56D893}|AnitsukiTV\\AnitsukiTV.csproj|solutionrelative:anitsukitv\\css\\home.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 1,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedHeight": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Home.css",
-              "DocumentMoniker": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\css\\Home.css",
-              "RelativeDocumentMoniker": "AnitsukiTV\\css\\Home.css",
-              "ToolTip": "C:\\Users\\frkng\\Desktop\\GitHub\\AnitsukiTV\\css\\Home.css",
-              "RelativeToolTip": "AnitsukiTV\\css\\Home.css",
-              "ViewState": "AgIAANgIAAAAAAAAAAAuwPwIAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-12-23T16:50:06.475Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

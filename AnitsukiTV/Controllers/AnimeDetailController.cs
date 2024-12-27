@@ -66,7 +66,7 @@ namespace AnitsukiTV.Controllers
             ViewBag.FollowedUserIds = followedUserIds;
 
             // DateTime.Now.AddDays(-7) ifadesini bir değişkene atayın
-            var fiveDaysAgo = DateTime.Now.AddDays(-7);
+            var fiveDaysAgo = DateTime.Now.AddDays(-5);
 
             if (currentUserId.HasValue)
             {
@@ -88,7 +88,7 @@ namespace AnitsukiTV.Controllers
                 veri.Notifications = new List<TBLNOTIFICATIONS>();
             }
 
-            DateTime startDate = new DateTime(DateTime.Now.Year, 12, 25);
+            DateTime startDate = new DateTime(DateTime.Now.Year, 12, 20);
             DateTime endDate = new DateTime(DateTime.Now.Year + (DateTime.Now.Month == 1 && DateTime.Now.Day <= 5 ? 0 : 1), 1, 5);
 
             // Get the current date
@@ -302,7 +302,7 @@ namespace AnitsukiTV.Controllers
             ViewBag.FollowedUserIds = followedUserIds;
 
             // DateTime.Now.AddDays(-7) ifadesini bir değişkene atayın
-            var fiveDaysAgo = DateTime.Now.AddDays(-7);
+            var fiveDaysAgo = DateTime.Now.AddDays(-5);
 
             if (currentUserId.HasValue)
             {
@@ -339,7 +339,7 @@ namespace AnitsukiTV.Controllers
                 }
             };
 
-            DateTime startDate = new DateTime(DateTime.Now.Year, 12, 25);
+            DateTime startDate = new DateTime(DateTime.Now.Year, 12, 20);
             DateTime endDate = new DateTime(DateTime.Now.Year + (DateTime.Now.Month == 1 && DateTime.Now.Day <= 5 ? 0 : 1), 1, 5);
 
             // Get the current date

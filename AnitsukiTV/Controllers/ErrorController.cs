@@ -14,7 +14,7 @@ namespace AnitsukiTV.Controllers
         {
             var degerler = db.TBL404.ToList();
 
-            DateTime startDate = new DateTime(DateTime.Now.Year, 12, 25);
+            DateTime startDate = new DateTime(DateTime.Now.Year, 12, 20);
             DateTime endDate = new DateTime(DateTime.Now.Year + (DateTime.Now.Month == 1 && DateTime.Now.Day <= 5 ? 0 : 1), 1, 5);
 
             // Get the current date

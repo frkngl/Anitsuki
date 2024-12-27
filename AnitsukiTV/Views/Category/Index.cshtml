@@ -343,7 +343,7 @@
                        placeholder="Anime adını yazınız" />
             </div>
             <div style="color:#ffffff; font-size:1.1rem; display:flex;align-items:center; justify-content:center;">
-                <i style="margin-right:5px;" class="bi bi-tv"></i> @Model.Anime.Where(x => x.STATUS == true).Count()
+                <i style="margin-right:5px;" class="bi bi-tv"></i>  @ViewBag.TotalAnimeCount
             </div>
         </div>
         <ul id="menuFull">
@@ -553,23 +553,24 @@
             event.stopPropagation();
         }
     });
-
+</script>
+<script>
     jQuery.expr[':'].contains = function (a, i, m) {
-        return jQuery(a).text().toUpperCase()
-            .indexOf(m[3].toUpperCase()) >= 0;
-    };
-    $(document).ready(function () {
-        $("#searchTags").keyup(function () {
-            var value = $("#searchTags").val();
-            if (value.length == 0) {
-                $("#menuFull li").show();
-            } else {
-                $("#menuFull li").hide();
-                $("#menuFull li:contains(" + value + ")").show();
-            }
+    return jQuery(a).text().toUpperCase()
+        .indexOf(m[3].toUpperCase()) >= 0;
+};
+$(document).ready(function () {
+    $("#searchTags").keyup(function () {
+        var value = $("#searchTags").val();
+        if (value.length == 0) {
+            $("#menuFull li").show();
+        } else {
+            $("#menuFull li").hide();
+            $("#menuFull li:contains(" + value + ")").show();
+        }
 
-        });
     });
+});
 </script>
 <script>
     const togglePositionalHeaderStyles = () => {

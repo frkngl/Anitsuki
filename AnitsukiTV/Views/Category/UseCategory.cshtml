@@ -343,7 +343,7 @@
                        placeholder="Anime adını yazınız" />
             </div>
             <div style="color:#ffffff; font-size:1.1rem; display:flex;align-items:center; justify-content:center;">
-                <i style="margin-right:5px;" class="bi bi-tv"></i> @Model.Anime.Where(x => x.STATUS == true).Count()
+                <i style="margin-right:5px;" class="bi bi-tv"></i> @ViewBag.totalanimecount
             </div>
         </div>
         <ul id="menuFull">

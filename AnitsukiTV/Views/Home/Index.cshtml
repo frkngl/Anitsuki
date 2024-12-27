@@ -236,13 +236,11 @@
                                                 <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                     @if (notification.PROFILEPICTURE != null)
                                                     {
-                                                        <div class="skeleton"></div>
-                                                        <img data-src="USERIMG/@notification.PROFILEPICTURE" class="lazy" style=" object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                        <img src="~/USERIMG/@notification.PROFILEPICTURE" style=" object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
                                                     }
                                                     else
                                                     {
-                                                        <div class="skeleton"></div>
-                                                        <img data-src="USERIMG/stockuser.png" class="lazy" style=" object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                        <img src="~/USERIMG/stockuser.png" style=" object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
                                                     }
                                                     <div style="color: #ffffff;">
                                                         <strong>@notification.USERNAME</strong><br />
@@ -270,7 +268,6 @@
                                     <i style="font-size:1.8rem !important;" class="bi bi-person-add"></i>
                                 </a>
                             </div>
-
                         }
                         <div style="margin-right:-10px;" class="search">
                             <a href="@Url.RouteUrl("Animeler")"><i class="bi bi-search"></i></a>
@@ -366,7 +363,7 @@
         </header>
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-                @foreach (var ğ in Model.Anime.Where(x => x.ADMINSTATUS == true).OrderBy(y => Guid.NewGuid()))
+                @foreach (var ğ in Model.Anime.Where(x => x.ADMINSTATUS == true).OrderBy(y => Guid.NewGuid()).Take(6))
                 {
                     <div class="swiper-slide">
                         <img class="bigbanner1" src="~/IMG/@ğ.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" />
@@ -697,9 +694,8 @@
 
                         if (firstEpisode != null)
                         {
-                            <div class="skeleton"></div>
-                            <img style="z-index:1;" class="img1 lazy" data-src="IMG/@firstAnime.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
-                            <img style="z-index:1;" class="img2 lazy" data-src="IMG/@firstAnime.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                            <img style="z-index:1;" class="img1" src="~/IMG/@firstAnime.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" >
+                            <img style="z-index:1;" class="img2" src="~/IMG/@firstAnime.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" >
                             <div style="overflow-wrap: break-word; z-index: 1; overflow: auto; white-space: normal;" class="text">
                                 <div style="color:#ffffff;" class="title">
                                     @firstAnime.ANIMENAME
@@ -929,9 +925,8 @@
 
                         if (secondEpisode != null)
                         {
-                            <div class="skeleton"></div>
-                            <img style="z-index:1;" class="img1 lazy" data-src="IMG/@secondAnime.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
-                            <img style="z-index:1;" class="img2 lazy" data-src="IMG/@secondAnime.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                            <img style="z-index:1;" class="img1" src="~/IMG/@secondAnime.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" >
+                            <img style="z-index:1;" class="img2" src="~/IMG/@secondAnime.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" >
                             <div style="overflow-wrap: break-word; z-index: 1; overflow: auto; white-space: normal;" class="text">
                                 <div style="color:#ffffff;" class="title">
                                     @secondAnime.ANIMENAME
@@ -1161,9 +1156,8 @@
 
                         if (thirdEpisode != null)
                         {
-                            <div class="skeleton"></div>
-                            <img style="z-index:1;" class="img1 lazy" data-src="IMG/@thirdAnime.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
-                            <img style="z-index:1;" class="img2 lazy" data-src="IMG/@thirdAnime.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki">
+                            <img style="z-index:1;" class="img1" src="~/IMG/@thirdAnime.BIGBANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" >
+                            <img style="z-index:1;" class="img2" src="~/IMG/@thirdAnime.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" >
                             <div style="overflow-wrap: break-word; z-index: 1; overflow: auto; white-space: normal;" class="text">
                                 <div style="color:#ffffff;" class="title">
                                     @thirdAnime.ANIMENAME
@@ -1423,12 +1417,12 @@
         </footer>
     </body>
 </html>
-<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/jquery-3.7.1.min.js" ></script>
 <script src="~/Scripts/toastr.min.js"></script>
 <script src="~/Scripts/bootstrap.bundle.min.js"></script>
 <script src="~/swiper/swiper-bundle.min.js"></script>
 <script src="~/splidejs/splide/dist/js/splide.min.js"></script>
-<script src="~/js/splide5.js"></script>
+<script src="~/js/splide.js"></script>
 <script>
     document.querySelectorAll('nav a').forEach(link => {
         link.classList.remove('active');
@@ -1787,7 +1781,7 @@
         });
     </script>
 }
-@if (User.Identity.IsAuthenticated)
+@if (User.Identity.IsAuthenticated && Model.FriendsAnime.Any())
 {
     <script>
         new Splide('#splide16', {
