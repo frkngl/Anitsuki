@@ -61,7 +61,7 @@ namespace AnitsukiTV.Controllers
             }
 
             DateTime startDate = new DateTime(DateTime.Now.Year, 12, 20);
-            DateTime endDate = new DateTime(DateTime.Now.Year + (DateTime.Now.Month == 1 && DateTime.Now.Day <= 5 ? 0 : 1), 1, 5);
+            DateTime endDate = new DateTime(DateTime.Now.Year + 1, 1, 2);
 
             // Get the current date
             DateTime currentDate = DateTime.Now;
@@ -111,7 +111,7 @@ namespace AnitsukiTV.Controllers
             }
 
             DateTime startDate = new DateTime(DateTime.Now.Year, 12, 20);
-            DateTime endDate = new DateTime(DateTime.Now.Year + (DateTime.Now.Month == 1 && DateTime.Now.Day <= 5 ? 0 : 1), 1, 5);
+            DateTime endDate = new DateTime(DateTime.Now.Year + 1, 1, 2);
 
             // Get the current date
             DateTime currentDate = DateTime.Now;
@@ -160,7 +160,7 @@ namespace AnitsukiTV.Controllers
             }
 
             DateTime startDate = new DateTime(DateTime.Now.Year, 12, 20);
-            DateTime endDate = new DateTime(DateTime.Now.Year + (DateTime.Now.Month == 1 && DateTime.Now.Day <= 5 ? 0 : 1), 1, 5);
+            DateTime endDate = new DateTime(DateTime.Now.Year + 1, 1, 2);
 
             // Get the current date
             DateTime currentDate = DateTime.Now;
@@ -210,7 +210,7 @@ namespace AnitsukiTV.Controllers
             }
 
             DateTime startDate = new DateTime(DateTime.Now.Year, 12, 20);
-            DateTime endDate = new DateTime(DateTime.Now.Year + (DateTime.Now.Month == 1 && DateTime.Now.Day <= 5 ? 0 : 1), 1, 5);
+            DateTime endDate = new DateTime(DateTime.Now.Year + 1, 1, 2);
 
             // Get the current date
             DateTime currentDate = DateTime.Now;

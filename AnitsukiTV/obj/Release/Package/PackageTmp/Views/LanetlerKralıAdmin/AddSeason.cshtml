@@ -1,0 +1,98 @@
+﻿@model AnitsukiTV.Models.TBLSEASON
+@{
+    ViewBag.Title = "AddSeason";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    #anime-search {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    #anime-dropdown {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #000000;
+        border-radius: 5px;
+    }
+
+        #anime-dropdown option {
+            display: block;
+        }
+</style>
+
+@using (Html.BeginForm("AddSeason", "LanetlerKralıAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <form class="forms-sample">
+        <div style="width:100%; display:flex;justify-content:center;">
+            <div>
+                <label>Resim Yükleme</label>
+                <br />
+                <img class="resim" width="400" height="250" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" />
+                <input class="form-control" id="resim" accept=".avif" type="file" onchange="$('.resim')[0].src = window.URL.createObjectURL(this.files[0])" name="Image" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword4">Anime Adı</label><br />
+            <input type="text" id="anime-search" placeholder="Anime Ara">
+            <select id="anime-dropdown" name="ANIMEID" required>
+                <option value="" disabled selected>Anime Seç</option>
+                @foreach (var anime in ViewBag.Anime)
+                {
+                    <option value="@anime.ID" @(ViewBag.SelectedAnimeId == anime.ID ? "selected" : "")>@anime.ANIMENAME</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">Sezon Sayısı</label>
+            @Html.TextBoxFor(x => x.SEASONNUMBER, new { @style = "width:100%; border:1px solid #000000;", @required = "required" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">Sezon Adı</label>
+            @Html.TextBoxFor(x => x.SEASONNAME, new { @style = "width:100%; border:1px solid #000000;", })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">FanSub</label><br />
+            @Html.TextBoxFor(x => x.FANSUBAD, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">Çevirici</label><br />
+            @Html.TextBoxFor(x => x.TRANSLATES, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">Website</label><br />
+            @Html.TextBoxFor(x => x.WEBSITE, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">Discord</label><br />
+            @Html.TextBoxFor(x => x.DISCORD, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+        </div>
+        <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+        <a style="color:#ffffff;" href="/LanetlerKralıAdmin/Season" class="btn btn-light">Vazgeç</a>
+    </form>
+}
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var animeList = document.getElementById("anime-dropdown");
+        var searchInput = document.getElementById("anime-search");
+
+        searchInput.addEventListener("input", function () {
+            var searchTerm = searchInput.value.toLowerCase();
+            for (var i = 0; i < animeList.options.length; i++) {
+                var option = animeList.options[i];
+                var optionText = option.text.toLowerCase();
+                if (optionText.indexOf(searchTerm) === -1) {
+                    option.style.display = "none";
+                } else {
+                    option.style.display = "block";
+                }
+            }
+        });
+    });
+</script>
+

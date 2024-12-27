@@ -1,0 +1,253 @@
+﻿@model AnitsukiTV.Models.TBLEPISODE
+@{
+    ViewBag.Title = "UpdateEpisode";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.7.0.slim.min.js"></script>
+
+<style>
+    #anime-search {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    #anime-dropdown {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #000000;
+        border-radius: 5px;
+    }
+
+        #anime-dropdown option {
+            display: block;
+        }
+
+    #season-dropdown {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #000000;
+        border-radius: 5px;
+    }
+</style>
+
+
+
+
+
+
+@using (Html.BeginForm("EpisodeSave", "LanetlerKralıAdmin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        <label for="exampleInputName1">ID</label>
+        @Html.TextBoxFor(x => x.ID, new { @style = "width:100%; border:1px solid #000000;", @readonly = "readonly" })
+    </div>
+    <div style="width:100%; height:auto; display:flex; align-items:center;justify-content:space-around;" class="form-group">
+        <div>
+            <div style="margin-bottom:10px;">
+                <label for="videoUrlInput">Video URL</label><br />
+                <iframe id="videoIframe" width="400" height="250" style="border:1px solid #000000; display:block;" frameborder="0" allowfullscreen></iframe>
+                <video controls id="otherVideo" width="400" height="250" style="border:1px solid #000000; display:none; object-fit:cover;"></video>
+                <div class="d-flex">
+                    @Html.TextBoxFor(x => x.URL, new { @class = "form-control", @id = "videoUrlInput", @placeholder = "YouTube veya Google Drive video URL'sini buraya yapıştırın", @style = "width:100%; border:1px solid #000000; padding:3px;" })
+                    <button class="btn btn-primary" type="button" id="previewButton">Önizle</button>
+                </div>
+            </div>
+            <div>
+                <label for="exampleInputPassword4">720</label><br />
+                <video width="400" height="250" style="object-fit:cover;" controls class="video2" src="~/Videos/@Model.EP3"></video>
+                <input type="file" id="resim" accept=".mp4" class=" form-control" onchange="$('.video2')[0].src = window.URL.createObjectURL(this.files[0])" name="Video2" />
+            </div>
+        </div>
+        <div>
+            <div style="margin-bottom:10px;">
+                <label for="exampleInputPassword4">480</label><br />
+                <video width="400" height="250" style="object-fit:cover;" controls class="video3" src="~/Videos/@Model.EP2"></video>
+                <input type="file" id="resim" accept=".mp4" class=" form-control" onchange="$('.video3')[0].src = window.URL.createObjectURL(this.files[0])" name="Video3" />
+            </div>
+            <div>
+                <label for="exampleInputPassword4">1080</label><br />
+                <video width="400" height="250" style="object-fit:cover;" controls class="video4" src="~/Videos/@Model.EP4"></video>
+                <input type="file" id="resim" accept=".mp4" class=" form-control" onchange="$('.video4')[0].src = window.URL.createObjectURL(this.files[0])" name="Video4" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword4">Anime Adı</label><br />
+        <input type="text" id="anime-search" placeholder="Anime Ara">
+        <select id="anime-dropdown" name="ANIMEID" required>
+            @foreach (var anime in ViewBag.Anime)
+            {
+                if (anime.ID == ViewBag.SelectedAnimeId)
+                {
+                    <option value="@anime.ID" selected>@anime.ANIMENAME</option>
+                }
+                else
+                {
+                    <option value="@anime.ID">@anime.ANIMENAME</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword4">Sezon ID</label><br />
+        <select id="season-dropdown" name="SEASONID" required>
+            <option value="">Sezon Seçin</option>
+            @if (!string.IsNullOrEmpty(ViewBag.SelectedSeasonName))
+            {
+                <option value="@Model.TBLSEASON.ID" selected>@ViewBag.SelectedSeasonName</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">Bölüm Sayısı</label><br />
+        @Html.TextBoxFor(x => x.EPINUMBER, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName1">Bölüm İsmi</label><br />
+        @Html.TextBoxFor(x => x.EPISODENAME, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail3">Süre</label><br />
+        @Html.TextBoxFor(x => x.TIME, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+    </div>
+    <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+    <a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/Episode">Vazgeç</a>
+}
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var animeList = document.getElementById("anime-dropdown");
+        var searchInput = document.getElementById("anime-search");
+
+        searchInput.addEventListener("input", function () {
+            var searchTerm = searchInput.value.toLowerCase();
+            for (var i = 0; i < animeList.options.length; i++) {
+                var option = animeList.options[i];
+                var optionText = option.text.toLowerCase();
+                if (optionText.indexOf(searchTerm) === -1) {
+                    option.style.display = "none";
+                } else {
+                    option.style.display = "block";
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    document.getElementById('previewButton').addEventListener('click', function () {
+        var videoUrl = document.getElementById('videoUrlInput').value;
+        var videoIframe = document.getElementById('videoIframe');
+        var otherVideo = document.getElementById('otherVideo');
+
+        if (videoUrl) {
+            // YouTube URL kontrolü
+            if (videoUrl.includes('youtube.com/watch?v=')) {
+                var videoId = videoUrl.split('v=')[1];
+                if (videoId) {
+                    var ampersandPosition = videoId.indexOf('&');
+                    if (ampersandPosition !== -1) {
+                        videoId = videoId.substring(0, ampersandPosition);
+                    }
+                    videoIframe.src = "https://www.youtube.com/embed/" + videoId;
+                    videoIframe.style.display = "block";
+                    otherVideo.style.display = "none";
+                }
+            }
+            // Google Drive URL kontrolü
+            else if (videoUrl.includes('drive.google.com/file/d/')) {
+                var fileId = videoUrl.split('/d/')[1].split('/')[0];
+                videoIframe.src = "https://drive.google.com/file/d/" + fileId + "/preview";
+                videoIframe.style.display = "block";
+                otherVideo.style.display = "none";
+            }
+            // Mail.ru URL kontrolü
+            else if (videoUrl.includes('mail.ru/video/embed/')) {
+                videoIframe.src = videoUrl; // Doğrudan kullan
+                videoIframe.style.display = "block";
+                otherVideo.style.display = "none";
+            }
+            // Ok.ru URL kontrolü
+            else if (videoUrl.includes('ok.ru/video/')) {
+                var videoId = videoUrl.split('video/')[1];
+                videoIframe.src = "https://ok.ru/videoembed/" + videoId; // Embed formatına dönüştür
+                videoIframe.style.display = "block";
+                otherVideo.style.display = "none";
+            }
+            // Sibnet URL kontrolü
+            else if (videoUrl.includes('video.sibnet.ru/video')) {
+                // Sibnet URL'sini doğrudan kullan
+                videoIframe.src = videoUrl; // Doğrudan URL'yi kullan
+                videoIframe.style.display = "block";
+                otherVideo.style.display = "none";
+            }
+            else {
+                alert('Lütfen geçerli bir video URL\'si girin.');
+            }
+        }
+        else {
+            alert('Lütfen geçerli bir video URL\'si girin.');
+        }
+    });
+</script>
+
+
+<script>
+    function getSeasonsByAnimeId(animeId) {
+    // Sezon dropdown'unu temizle
+    var seasonDropdown = document.getElementById("season-dropdown");
+    seasonDropdown.innerHTML = '<option value="">Sezon Seçin</option>'; // İlk seçenek
+
+    // Eğer animeId yoksa çık
+    if (!animeId) return;
+
+    // AJAX çağrısı yap
+    fetch('/LanetlerKralıAdmin/GetSeasonsByAnimeId?animeId=' + animeId)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(function (season) {
+                var option = document.createElement("option");
+                option.value = season.ID; // SEASONID
+                option.text = season.SEASONNAME ? season.SEASONNAME : season.SEASONNUMBER; // SEASONNAME yoksa SEASONNUMBER göster
+                seasonDropdown.appendChild(option);
+            });
+
+            // Mevcut sezonu seçili yap
+            seasonDropdown.value = '@ViewBag.SelectedSeasonId'; // Seçili sezonu ayarlayın
+        })
+        .catch(error => console.error('Hata:', error));
+}
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var animeList = document.getElementById("anime-dropdown");
+        var searchInput = document.getElementById("anime-search");
+
+        searchInput.addEventListener("input", function () {
+            var searchTerm = searchInput.value.toLowerCase();
+            for (var i = 0; i < animeList.options.length; i++) {
+                var option = animeList.options[i];
+                var optionText = option.text.toLowerCase();
+                if (optionText.indexOf(searchTerm) === -1) {
+                    option.style.display = "none";
+                } else {
+                    option.style.display = "block";
+                }
+            }
+        });
+
+        // Anime dropdown'u değiştiğinde sezonları güncelle
+        animeList.addEventListener('change', function () {
+            getSeasonsByAnimeId(this.value);
+        });
+
+        // Sayfa yüklendiğinde mevcut anime için sezonları yükle
+        getSeasonsByAnimeId('@ViewBag.SelectedAnimeId');
+    });
+</script>
+

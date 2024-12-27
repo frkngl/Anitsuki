@@ -1,0 +1,65 @@
+﻿@model AnitsukiTV.Models.TBLANIME
+
+@{
+    ViewBag.Title = "AddAnime";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("AddAnime", "LanetlerKralıAdmin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <form class="forms-sample">
+        <div style="width:100%; height:auto; display:flex;align-items:center; justify-content:space-around;" class="form-group">
+            <div>
+                <label>Resim Yükleme</label>
+                <br />
+                <img class="resim" width="250" height="400" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" />
+                <input class="form-control" id="resim" accept=".avif" type="file" onchange="$('.resim')[0].src = window.URL.createObjectURL(this.files[0])" name="Image" required />
+            </div>
+            <div>
+                <label for="exampleInputPassword4">Büyük Banner</label>
+                <br />
+                <img class="resim1" width="400" height="250" style="margin-bottom:10px;border:1px solid #000000;object-fit:cover;" />
+                <input class="form-control" id="resim" accept=".avif" type="file" onchange="$('.resim1')[0].src = window.URL.createObjectURL(this.files[0])" name="Banner" required />
+            </div>
+            <div>
+                <label for="exampleInputPassword4">Edit</label>
+                <br />
+                <video controls class="Video" width="250" height="400" style="border:1px solid #000000; object-fit:cover;"></video>
+                <input class="form-control" id="resim" accept=".mp4" type="file" onchange="$('.Video')[0].src = window.URL.createObjectURL(this.files[0])" name="Video" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword4">Kategori</label><br />
+            @Html.DropDownListFor(x => x.CATEGORYID, new SelectList(ViewBag.Categories, "ID", "CATEGORYNAME"), "Kategori Seçiniz", new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword4">Tür</label><br />
+            @Html.TextBoxFor(x => x.TYPE, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">Anime Adı</label><br />
+            @Html.TextBoxFor(x => x.ANIMENAME, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">IMDb => Nokta kullanınız örnek(8.9)</label><br />
+            @Html.TextBoxFor(x => x.IMDB, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">My Anime List => Nokta kullanınız örnek(8.9)</label><br />
+            @Html.TextBoxFor(x => x.MYANIMELIST, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">Yayın Yılı</label><br />
+            @Html.TextBoxFor(x => x.DATE, new { @type = "date", @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail3">Açıklama</label><br />
+            @Html.TextAreaFor(x => x.DETAIL, 10, 2, new { @style = "width:100%; border:1px solid #000000;padding:3px;", @required = "@required" })
+        </div>
+        <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+        <a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/Anime">Vazgeç</a>
+    </form>
+
+}
+
