@@ -15,18 +15,24 @@ namespace AnitsukiTV.Controllers
         TabeList veri = new TabeList();
 
         [Route("animeler")]
-        public ActionResult Index(int page = 1)
+        public ActionResult Index(string searchTags = null, int page = 1)
         {
             veri.Category = db.TBLCATEGORY.ToList();
 
             // Pagination settings
             var pageSize = 50;
             var animeQuery = db.TBLANIME.Where(x => x.STATUS == true);
-            var totalAnimeCount = animeQuery.Count(); // Get total count for pagination
-            var paginatedAnime = animeQuery.OrderByDescending(x => x.ID) // Random order
+
+            if (!string.IsNullOrEmpty(searchTags))
+            {
+                animeQuery = animeQuery.Where(a => a.ANIMENAME.Contains(searchTags));
+            }
+
+            var totalAnimeCount = animeQuery.Count();
+            var paginatedAnime = animeQuery.OrderByDescending(x => x.ID)
                                             .Skip((page - 1) * pageSize)
                                             .Take(pageSize)
-                                            .ToList(); // Get paginated results
+                                            .ToList();
 
             veri.Anime = paginatedAnime;
             ViewBag.TotalAnimeCount = totalAnimeCount;
@@ -35,10 +41,10 @@ namespace AnitsukiTV.Controllers
             int? currentUserId = User.Identity.IsAuthenticated ? db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault()?.ID : (int?)null;
 
             // Giriş yapan kullanıcı hariç tüm kullanıcıları al
-            veri.Users = currentUserId.HasValue? db.TBLUSER.Where(u => u.ID != currentUserId.Value).ToList() : db.TBLUSER.ToList();
+            veri.Users = currentUserId.HasValue ? db.TBLUSER.Where(u => u.ID != currentUserId.Value).ToList() : db.TBLUSER.ToList();
 
             // Kullanıcının takip ettiği kullanıcıların ID'lerini al (varsa)
-            var followedUserIds = currentUserId.HasValue? db.TBLFOLLOWERS.Where(f => f.FOLLOWERID == currentUserId.Value).Select(f => f.FOLLOWEDID.Value).ToList() : new List<int>();
+            var followedUserIds = currentUserId.HasValue ? db.TBLFOLLOWERS.Where(f => f.FOLLOWERID == currentUserId.Value).Select(f => f.FOLLOWEDID.Value).ToList() : new List<int>();
 
             ViewBag.FollowedUserIds = followedUserIds;
 
@@ -77,6 +83,7 @@ namespace AnitsukiTV.Controllers
             // Set pagination info in ViewBag
             ViewBag.PageCount = (int)Math.Ceiling(totalAnimeCount / (double)pageSize);
             ViewBag.CurrentPage = page;
+            ViewBag.SearchTags = searchTags; // Search term for pagination links
 
             // Sayfa numaralarını kısaltmak için gerekli değişkenler
             ViewBag.StartPage = Math.Max(1, page - 2); // Gösterilecek ilk sayfa
@@ -86,14 +93,22 @@ namespace AnitsukiTV.Controllers
         }
 
         [Route("animeler/{kategoriID}/{kategoriName}-izle")]
-        public ActionResult UseCategory(int kategoriID, string kategoriName, int page = 1)
+        public ActionResult UseCategory(int kategoriID, string kategoriName, int page = 1, string searchTags = null)
         {
             var degerler = db.TBLCATEGORY.FirstOrDefault(x => x.ID == kategoriID);
             veri.Category = db.TBLCATEGORY.ToList();
+
             // Pagination settings
             var pageSize = 50; // Sayfa başına gösterilecek anime sayısı
-            veri.Anime = db.TBLANIME
-                .Where(x => x.CATEGORYID == kategoriID && x.STATUS == true)
+            var animeQuery = db.TBLANIME
+                .Where(x => x.CATEGORYID == kategoriID && x.STATUS == true);
+
+            if (!string.IsNullOrEmpty(searchTags))
+            {
+                animeQuery = animeQuery.Where(a => a.ANIMENAME.Contains(searchTags));
+            }
+
+            veri.Anime = animeQuery
                 .OrderByDescending(x => x.ID)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -104,9 +119,10 @@ namespace AnitsukiTV.Controllers
             ViewBag.CategoryId = degerler.ID;
 
             // Toplam anime sayısını al
-            var totalAnimeCount = db.TBLANIME.Count(x => x.CATEGORYID == kategoriID && x.STATUS == true);
+            var totalAnimeCount = animeQuery.Count();
             ViewBag.PageCount = (int)Math.Ceiling(totalAnimeCount / (double)pageSize);
             ViewBag.CurrentPage = page;
+            ViewBag.SearchTags = searchTags; // Arama terimini ViewBag'e ekleyin
 
             ViewBag.totalanimecount = totalAnimeCount;
             // Sayfa numaralarını kısaltmak için gerekli değişkenler
@@ -117,10 +133,10 @@ namespace AnitsukiTV.Controllers
             int? currentUserId = User.Identity.IsAuthenticated ? db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault()?.ID : (int?)null;
 
             // Giriş yapan kullanıcı hariç tüm kullanıcıları al
-            veri.Users = currentUserId.HasValue? db.TBLUSER.Where(u => u.ID != currentUserId.Value).ToList() : db.TBLUSER.ToList();
+            veri.Users = currentUserId.HasValue ? db.TBLUSER.Where(u => u.ID != currentUserId.Value).ToList() : db.TBLUSER.ToList();
 
             // Kullanıcının takip ettiği kullanıcıların ID'lerini al (varsa)
-            var followedUserIds = currentUserId.HasValue? db.TBLFOLLOWERS.Where(f => f.FOLLOWERID == currentUserId.Value).Select(f => f.FOLLOWEDID.Value).ToList() : new List<int>();
+            var followedUserIds = currentUserId.HasValue ? db.TBLFOLLOWERS.Where(f => f.FOLLOWERID == currentUserId.Value).Select(f => f.FOLLOWEDID.Value).ToList() : new List<int>();
 
             ViewBag.FollowedUserIds = followedUserIds;
 

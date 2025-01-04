@@ -191,7 +191,7 @@
                             <ul id="nabermudurr" style="background-color:#313131;" class="dropdown-menu">
                                 @if (Model.Notifications.Any(n => n.ISCLEARED == false))
                                 {
-                                    foreach (var notification in Model.Notifications)
+                                    foreach (var notification in Model.Notifications.OrderByDescending(x => x.ID))
                                     {
                                         <li style="display: flex; align-items: center; padding: 5px;">
                                             <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
@@ -347,7 +347,7 @@
             </div>
         </div>
         <ul id="menuFull">
-            @foreach (var y in Model.Anime.Where(x => x.STATUS == true).OrderByDescending(x => x.ID))
+            @foreach (var y in Model.Anime)
             {
                 <li style="margin-bottom:20px !important;" class="splide__slide">
                     <a href="@Url.RouteUrl("Anime Detay", new { animeID = y.ID, animeName = y.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = y.TBLSEASON?.FirstOrDefault(t => t.ANIMEID == y.ID)?.SEASONNUMBER ?? 0})">
@@ -395,27 +395,25 @@
                         <li class="page-item">
                             <a class="page-link"
                                style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
-                               href="@Url.Action("UseCategory", new { kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = ViewBag.CurrentPage - 1 })" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
+                               href="@Url.Action("UseCategory", new { searchTags = ViewBag.SearchTags, kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = ViewBag.CurrentPage - 1 })" aria-label="Previous">
+                                <span aria-hidden="true">«</span>
                             </a>
                         </li>
                     }
 
                     @if (ViewBag.PageCount <= 5)
                     {
-                        // Eğer toplam sayfa sayısı 5 veya daha az ise, tüm sayfaları göster
                         for (int i = 1; i <= ViewBag.PageCount; i++)
                         {
                             <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
                                 <a class="page-link"
                                    style="@(i == ViewBag.CurrentPage ? "background-color: #FF7F00 !important; border: 1px solid #FF7F00 !important; color: #000000;" : "background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;")"
-                                   href="@Url.Action("UseCategory", new { kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = i })">@i</a>
+                                   href="@Url.Action("UseCategory", new { searchTags = ViewBag.SearchTags, kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = i })">@i</a>
                             </li>
                         }
                     }
                     else
                     {
-                        // Eğer toplam sayfa sayısı 5'ten fazla ise, sayfa numaralarını kısalt
                         if (ViewBag.CurrentPage < 4)
                         {
                             for (int i = 1; i <= 3; i++)
@@ -423,14 +421,14 @@
                                 <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
                                     <a class="page-link"
                                        style="@(i == ViewBag.CurrentPage ? "background-color: #FF7F00 !important; border: 1px solid #FF7F00 !important; color: #000000;" : "background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;")"
-                                       href="@Url.Action("UseCategory", new { kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = i })">@i</a>
+                                       href="@Url.Action("UseCategory", new { searchTags = ViewBag.SearchTags, kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = i })">@i</a>
                                 </li>
                             }
                             <li class="page-item disabled"><span class="page-link">...</span></li>
                             <li class="page-item">
                                 <a class="page-link"
                                    style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
-                                   href="@Url.Action("UseCategory", new { kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = ViewBag.PageCount })">@ViewBag.PageCount</a>
+                                   href="@Url.Action("UseCategory", new { searchTags = ViewBag.SearchTags, kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = ViewBag.PageCount })">@ViewBag.PageCount</a>
                             </li>
                         }
                         else if (ViewBag.CurrentPage > ViewBag.PageCount - 3)
@@ -438,7 +436,7 @@
                             <li class="page-item">
                                 <a class="page-link"
                                    style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
-                                   href="@Url.Action("UseCategory", new { kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = 1 })">1</a>
+                                   href="@Url.Action("UseCategory", new { searchTags = ViewBag.SearchTags, kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = 1 })">1</a>
                             </li>
                             <li class="page-item disabled"><span class="page-link">...</span></li>
                             for (int i = ViewBag.PageCount - 2; i <= ViewBag.PageCount; i++)
@@ -446,48 +444,48 @@
                                 <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
                                     <a class="page-link"
                                        style="@(i == ViewBag.CurrentPage ? "background-color: #FF7F00 !important; border: 1px solid #FF7F00 !important; color: #000000;" : "background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;")"
-                                       href="@Url.Action("UseCategory", new { kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = i })">@i</a>
-                        </li>
+                                       href="@Url.Action("UseCategory", new { searchTags = ViewBag.SearchTags, kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = i })">@i</a>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="page-item">
+                                <a class="page-link"
+                                   style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
+                                   href="@Url.Action("UseCategory", new { searchTags = ViewBag.SearchTags, kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = 1 })">1</a>
+                            </li>
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                            for (int i = ViewBag.CurrentPage - 1; i <= ViewBag.CurrentPage + 1; i++)
+                            {
+                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                    <a class="page-link"
+                                       style="@(i == ViewBag.CurrentPage ? "background-color: #FF7F00 !important; border: 1px solid #FF7F00 !important; color: #000000;" : "background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;")"
+                                       href="@Url.Action("UseCategory", new { searchTags = ViewBag.SearchTags, kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = i })">@i</a>
+                                </li>
+                            }
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                   style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
+                                   href="@Url.Action("UseCategory", new { searchTags = ViewBag.SearchTags, kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = ViewBag.PageCount })">@ViewBag.PageCount</a>
+                            </li>
+                        }
                     }
-                }
-                else
-                {
-                    <li class="page-item">
-                        <a class="page-link"
-                           style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
-                           href="@Url.Action("UseCategory", new { kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = 1 })">1</a>
-                    </li>
-                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                    for (int i = ViewBag.CurrentPage - 1; i <= ViewBag.CurrentPage + 1; i++)
-                    {
-                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                            <a class="page-link"
-                               style="@(i == ViewBag.CurrentPage ? "background-color: #FF7F00 !important; border: 1px solid #FF7F00 !important; color: #000000;" : "background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;")"
-                               href="@Url.Action("UseCategory", new { kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = i })">@i</a>
-                        </li>
-                    }
-                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                    <li class="page-item">
-                        <a class="page-link"
-                           style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
-                           href="@Url.Action("UseCategory", new { kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = ViewBag.PageCount })">@ViewBag.PageCount</a>
-                    </li>
-                }
-            }
 
-            @if (ViewBag.CurrentPage < ViewBag.PageCount)
-            {
-                <li class="page-item">
-                    <a class="page-link"
-                       style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
-                       href="@Url.Action("UseCategory", new { kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = ViewBag.CurrentPage + 1 })" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            }
-        </ul>
-    </nav>
-</div>
+                    @if (ViewBag.CurrentPage < ViewBag.PageCount)
+                    {
+                        <li class="page-item">
+                            <a class="page-link"
+                               style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
+                               href="@Url.Action("UseCategory", new { searchTags = ViewBag.SearchTags, kategoriID = ViewBag.CategoryId, kategoriName = ViewBag.Category1, page = ViewBag.CurrentPage + 1 })" aria-label="Next">
+                                <span aria-hidden="true">»</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
     </div>
     <footer>
         <div class="footerimg">
@@ -509,20 +507,21 @@
                 <ul>
                     <li><a target="_blank" href="https://www.youtube.com/channel/UC3AfwO_XmAvYEtw6FWZXZcw"><i class="fa-brands fa-youtube fa-l"></i> Youtube</a></li>
                     @*<li><a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a></li>*@
-                    <li><a target="_blank" href="https://www.instagram.com/anitsukitv/"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a>
-                                </li>
-                                <li><a target="_blank" href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
-                            </ul>
-                    </div>
-                    <div class="contact">
-                        <div class="title">
-                            İletişim
-                        </div>
-                        <ul>
-                            <li>anitsuki.destek@gmail.com</li>
-                        </ul>
-                    </div>
+                    <li>
+                        <a target="_blank" href="https://www.instagram.com/anitsukitv/"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a>
+                    </li>
+                    <li><a target="_blank" href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
+                </ul>
+            </div>
+            <div class="contact">
+                <div class="title">
+                    İletişim
                 </div>
+                <ul>
+                    <li>anitsuki.destek@gmail.com</li>
+                </ul>
+            </div>
+        </div>
         <div class="copyright ">
             <img src="~/WEBIMG/aylogo.png" alt="anime izle, türkçe altyazı anime izle, anitsuki">
             <div class="text">
@@ -558,17 +557,165 @@
         return jQuery(a).text().toUpperCase()
             .indexOf(m[3].toUpperCase()) >= 0;
     };
+
     $(document).ready(function () {
-        $("#searchTags").keyup(function () {
-            var value = $("#searchTags").val();
-            if (value.length == 0) {
-                $("#menuFull li").show();
-            } else {
-                $("#menuFull li").hide();
-                $("#menuFull li:contains(" + value + ")").show();
+        $("#searchTags").on("keyup", function () {
+            var searchTags = $(this).val();
+            $.ajax({
+                url: '@Url.Action("UseCategory")',
+                type: 'GET',
+                data: { searchTags: searchTags, kategoriID: @ViewBag.CategoryId, kategoriName: '@ViewBag.Category1', page: 1 },
+                success: function(result) {
+                    $("#menuFull").html($(result).find("#menuFull").html());
+                    $(".custom-pagination").html($(result).find(".custom-pagination").html());
+
+                    // AJAX ile gelen yeni içerik için etkileşimleri yeniden başlat
+                    initializeInteractions();
+                }
+            });
+        });
+    });
+
+    // Yeni içerik yüklendiğinde etkileşimleri başlatan fonksiyon
+    function initializeInteractions() {
+        const videoElements = document.querySelectorAll(".splide__slide .video");
+
+        videoElements.forEach(video => {
+            let isMuted = true; // Başlangıçta ses durumu kapalı
+            video.muted = isMuted; // Video başlangıçta sessiz
+
+            const videoContainer = video.parentElement;
+            const muteButton = videoContainer.querySelector('.mute-button');
+            const textSecretButton = videoContainer.querySelector('.text-secret-button');
+            const animeInfo = videoContainer.querySelector('.anime-info');
+
+            // Mobil cihazları kontrol etme fonksiyonu
+            function isMobileDevice() {
+                return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
             }
 
+            // Video yükleme fonksiyonu
+            function loadVideo() {
+                if (video.dataset.src) {
+                    video.src = video.dataset.src; // video'nun gerçek kaynağını yükle
+                    video.load(); // Videoyu yükle
+                    video.removeEventListener('load', loadVideo); // Yükleme işlemini tamamla
+                }
+            }
+
+            if (!isMobileDevice()) {
+                if (muteButton) {
+                    muteButton.style.display = 'none'; // Başlangıçta mute butonunu gizle
+                }
+                if (animeInfo) {
+                    animeInfo.style.display = 'none'; // Başlangıçta anime bilgilerini gizle
+                }
+
+                // Video görünür olduğunda yükleme
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            loadVideo(); // Video görünür olduğunda yükle
+                            observer.unobserve(entry.target); // Gözlemeyi durdur
+                        }
+                    });
+                });
+
+                observer.observe(video); // Video'yu gözlemle
+
+                videoContainer.addEventListener('mouseenter', () => {
+                    if (video.paused) { // Video duruyorsa oynat
+                        video.play().catch(error => {
+                            console.error("Video oynatılamadı:", error);
+                        });
+                    }
+                    video.classList.add("active");
+                    if (muteButton) {
+                        muteButton.style.display = 'block'; // Mute butonunu göster
+                    }
+                    if (animeInfo) {
+                        animeInfo.style.display = 'block'; // Anime bilgilerini göster
+                    }
+                    if (textSecretButton) {
+                        textSecretButton.style.display = 'block'; // Text secret butonunu göster
+                    }
+                });
+
+                videoContainer.addEventListener('mouseleave', () => {
+                    // Video alanından ayrıldığında video duracak ve görünürlük kaybolacak
+                    if (!video.paused) { // Video oynuyorsa durdur
+                        video.pause(); // Video duracak
+                    }
+                    video.classList.remove("active");
+                    if (muteButton) {
+                        muteButton.style.display = 'none'; // Mute butonunu gizle
+                    }
+                    if (animeInfo) {
+                        animeInfo.style.display = 'none'; // Anime bilgilerini gizle
+                    }
+                    if (textSecretButton) {
+                        textSecretButton.style.display = 'none'; // Text secret butonunu gizle
+                    }
+                });
+
+                // Mute butonuna tıklandığında ses aç/kapa
+                if (muteButton) {
+                    muteButton.addEventListener('click', (event) => {
+                        event.stopPropagation(); // Tıklamanın üst öğelere yayılmasını engelle
+                        event.preventDefault(); // Varsayılan davranışı engelle
+
+                        // Ses durumunu tersine çevir
+                        isMuted = !isMuted;
+                        video.muted = isMuted; // Video sesini aç/kapa
+
+                        // Eğer ses açılıyorsa, ses seviyesini artır
+                        if (!isMuted) {
+                            video.volume = 0.5; // Ses seviyesini artır
+                            muteButton.innerHTML = '<i class="bi bi-volume-up"></i>'; // Buton metnini değiştir
+                        } else {
+                            video.volume = 0; // Ses seviyesini sıfırla
+                            muteButton.innerHTML = '<i class="bi bi-volume-mute"></i>'; // Buton metnini değiştir
+                        }
+                    });
+                }
+
+                // Text secret butonuna tıklandığında anime bilgilerini yukarı/aşağı kaydır
+                if (textSecretButton) {
+                    let isInfoVisible = true; // Anime bilgisi başlangıçta görünür
+
+                    textSecretButton.addEventListener('click', (event) => {
+                        event.stopPropagation(); // Tıklamanın üst öğelere yayılmasını engelle
+                        event.preventDefault(); // Varsayılan davranışı engelle
+
+                        // Anime bilgilerini yukarı veya aşağı kaydır
+                        if (isInfoVisible) {
+                            animeInfo.style.transform = 'scale(1.025)'; // Aşağı kaydır
+                            animeInfo.style.opacity = '0'; // Aşağı kaydır
+                            textSecretButton.innerHTML = '<i class="bi bi-card-text"></i>';
+                        } else {
+                            animeInfo.style.transform = 'scale(1.025)';
+                            animeInfo.style.opacity = '1'; // Yukarı kaydır
+                            textSecretButton.innerHTML = '<i class="bi bi-card-text"></i>';
+                        }
+                        isInfoVisible = !isInfoVisible; // Görünürlük durumunu tersine çevir
+                    });
+                }
+
+            } else {
+                video.style.display = 'none'; // Mobil cihazlar için video öğesini gizleme
+                if (muteButton) {
+                    muteButton.style.display = 'none'; // Mobil cihazlarda mute butonunu gizle
+                }
+                if (textSecretButton) {
+                    textSecretButton.style.display = 'none'; // Mobil cihazlarda text secret butonunu gizle
+                }
+            }
         });
+    }
+
+    // AJAX isteği bittikten sonra etkileşimleri yeniden başlat
+    $(document).ajaxComplete(function() {
+        initializeInteractions();
     });
 </script>
 <script>

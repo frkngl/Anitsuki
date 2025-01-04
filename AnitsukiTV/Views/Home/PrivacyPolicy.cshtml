@@ -187,7 +187,7 @@
                             <ul id="nabermudurr" style="background-color:#313131;" class="dropdown-menu">
                                 @if (Model.Notifications.Any(n => n.ISCLEARED == false))
                                 {
-                                    foreach (var notification in Model.Notifications)
+                                    foreach (var notification in Model.Notifications.OrderByDescending(x => x.ID))
                                     {
                                         <li style="display: flex; align-items: center; padding: 5px;">
                                             <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">

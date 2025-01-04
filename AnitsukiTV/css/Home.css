@@ -13,8 +13,6 @@
     padding: 0;
     box-sizing: border-box;
     outline: none;
-    scrollbar-width: thin; /* Kaydırıcının inceliği */
-    scrollbar-color: #FF7F00 #000000; /* Kaydırıcı rengi ve arka plan rengi */
 }
 
 html,

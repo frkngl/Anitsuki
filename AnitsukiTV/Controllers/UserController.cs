@@ -244,9 +244,9 @@ namespace AnitsukiTV.Controllers
                         return View(user);
                     }
 
-                    if (UserImage.ContentLength > 15 * 1024 * 1024) // 15 MB
+                    if (UserImage.ContentLength > 5 * 1024 * 1024) // 15 MB
                     {
-                        TempData["error5"] = "Lütfen 15 MB'den küçük bir dosya seçiniz!";
+                        TempData["error5"] = "Lütfen 5 MB'den küçük bir dosya seçiniz!";
                         return View(user);
                     }
 
