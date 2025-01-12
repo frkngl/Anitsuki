@@ -20,6 +20,7 @@ namespace AnitsukiTV.Controllers
         // GET: User
         public ActionResult Index()
         {
+            veri.Anime = db.TBLANIME.ToList();
             // Giriş yapan kullanıcının ID'sini al (varsa)
             int? currentUserId = User.Identity.IsAuthenticated ? db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault()?.ID : (int?)null;
 

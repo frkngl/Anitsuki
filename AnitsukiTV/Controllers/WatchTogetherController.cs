@@ -16,6 +16,7 @@ namespace AnitsukiTV.Controllers
         [Route("watch-together")]
         public ActionResult Index()
         {
+            veri.Anime = db.TBLANIME.ToList();
             veri.Error = db.TBL404.ToList();
 
             // Giriş yapan kullanıcının ID'sini al (varsa)

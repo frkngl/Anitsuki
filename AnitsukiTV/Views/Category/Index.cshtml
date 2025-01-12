@@ -41,12 +41,19 @@
     <link rel="shortcut icon" href="~/WEBIMG/aylogotitle.png" type="image/png" />
     <link rel="apple-touch-icon" href="~/WEBIMG/aylogotitle.png" type="image/png">
     <style>
+        img.lazy {
+            opacity: 0; /* Başlangıçta görünmez */
+            transition: opacity 0.5s ease-in; /* Geçiş efekti */
+        }
+
+        img {
+            opacity: 1; /* Yüklenince görünür hale gelir */
+        }
         .friendadd {
             position: absolute;
             width: 370px;
             height: calc(100vh - 60px);
-            background-color: #000000;
-            box-shadow: 0px 0px 0px 0px #313131;
+            background-color: #101010;
             top: 60px;
             right: 0;
             transform: translateX(100%);
@@ -57,10 +64,8 @@
 
             .friendadd.active {
                 transform: translateX(0%);
-                box-shadow: -10px 10px 60px 5px #313131;
             }
 
-            /* Mobil tam ekran stili */
             .friendadd.full-screen {
                 position: fixed; /* Sabit konumda olmasını sağlar */
                 top: 60px;
@@ -69,6 +74,7 @@
                 height: calc(100vh - 60px);
                 border-radius: 0; /* Kenar yuvarlamalarını kaldır */
                 z-index: 1000; /* Diğer öğelerin üstünde görünmesi için */
+                box-shadow: none;
             }
 
             .friendadd #friendaddclose {
@@ -124,7 +130,7 @@
                 list-style-type: none;
                 padding: 0px 10px;
                 width: 100%;
-                height: calc(100vh - 140px);
+                height: calc(100vh - 150px);
                 display: flex;
                 flex-direction: column;
                 justify-content: start;
@@ -150,6 +156,18 @@
             max-height: 300px;
             overflow-y: auto;
         }
+
+        #nabermudur button {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            color: orange;
+            transition: all 0.3s;
+        }
+
+            #nabermudur button:hover {
+                color: #ffffff;
+            }
     </style>
 </head>
 <body>
@@ -185,7 +203,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <div id="nabermudur" style="margin-right:5px;" class="search">
-                            <button style="background-color:transparent; border:none; outline:none; color:orange;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i id="notification-icon" style="font-size:1.5rem;" class="bi bi-bell"></i>
                             </button>
                             <ul id="nabermudurr" style="background-color:#313131;" class="dropdown-menu">
@@ -194,17 +212,19 @@
                                     foreach (var notification in Model.Notifications.OrderByDescending(x => x.ID))
                                     {
                                         <li style="display: flex; align-items: center; padding: 5px;">
-                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
+                                            <a style="display: flex; position:relative; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                 @if (notification.PROFILEPICTURE != null)
                                                 {
-                                                    <img src="~/USERIMG/@notification.PROFILEPICTURE" style="width: 40px; object-fit:cover; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    <div style="position:absolute;" class="skeleton2"></div>
+                                                    <img data-src="/USERIMG/@notification.PROFILEPICTURE" class="lazy" style="object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
                                                 }
                                                 else
                                                 {
-                                                    <img src="~/USERIMG/stockuser.png" style="width: 40px; height: 40px; object-fit:cover; border-radius: 50%; margin-right: 10px;" />
+                                                    <div style="position:absolute;" class="skeleton2"></div>
+                                                    <img data-src="/USERIMG/stockuser.png" class="lazy" style="object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
                                                 }
                                                 <div style="color: #ffffff;">
-                                                    <strong>@notification.USERNAME</strong><br />
+                                                    <strong style="font-size:0.9rem;">@notification.USERNAME</strong><br />
                                                     <span style="font-size: 0.9rem;">@notification.MESSAGE</span><br />
                                                     <span style="font-size: 0.8rem; color: #cccccc;">@notification.CREATED.Value.ToString("dd.MM.yyyy")</span>
                                                 </div>
@@ -224,15 +244,13 @@
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <div style="margin-left:0px;" class="search">
+                        <div style="margin-right:-10px;" class="search">
                             <a href="#" id="toggleFriendAdd">
                                 <i style="font-size:1.8rem !important;" class="bi bi-person-add"></i>
                             </a>
                         </div>
                     }
-                    <div style="margin-right:-10px;" class="search">
-                        <a href="@Url.RouteUrl("Animeler")"><i class="bi bi-search"></i></a>
-                    </div>
+
                     <div class="friendadd">
                         <div style="position:relative;" id="followersContent">
                             <button id="friendaddclose" class="btn-close"></button>
@@ -250,20 +268,22 @@
                                                 var Followers = y.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
                                                 ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
                                             }
-                                            <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
+                                            <a style="display:flex;position:relative;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                 @if (user.PICTURE != null)
                                                 {
-                                                    <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/USERIMG/@user.PICTURE" loading="lazy" />
+                                                    <div style="position:absolute;" class="skeleton1"></div>
+                                                    <img data-src="/USERIMG/@user.PICTURE" class="lazy" style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" />
                                                     <div>
-                                                        <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
+                                                        <strong style="font-size:0.9rem;">@user.USERNAME</strong><br />
                                                         <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
                                                     </div>
                                                 }
                                                 else
                                                 {
-                                                    <img style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" src="~/USERIMG/stockuser.png" loading="lazy" />
+                                                    <div style="position:absolute;" class="skeleton1"></div>
+                                                    <img data-src="/USERIMG/stockuser.png" class="lazy" style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" />
                                                     <div>
-                                                        <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
+                                                        <strong style="font-size:0.9rem;">@user.USERNAME</strong><br />
                                                         <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
                                                     </div>
                                                 }
@@ -304,7 +324,7 @@
                                         <img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/USERIMG/stockuser.png">
                                     }
                                 </button>
-                                <ul style="background-color:#313131;" class="dropdown-menu">
+                                <ul style="background-color:#313131;" class="dropdown-menu dropdown-menu-end">
                                     <li><a style="margin:0px; padding:5px 12px; color:white;" class="dropdown-item" href="@Url.RouteUrl("Profil", new { userName = userNameUrl })"><i style="font-size:1.3rem;" class="bi bi-person"></i> Profil</a></li>
                                     <li><a style="margin:0px; padding: 5px 15px; color: white;" class="dropdown-item" href="/signout"><i style="font-size:1.3rem;" class="bi bi-box-arrow-right"></i> Çıkış Yap</a></li>
                                 </ul>
@@ -347,39 +367,59 @@
             </div>
         </div>
         <ul id="menuFull">
-            @foreach (var y in Model.Anime)
+            @foreach (var l in Model.Anime)
             {
                 <li style="margin-bottom:20px !important;" class="splide__slide">
-                    <a href="@Url.RouteUrl("Anime Detay", new { animeID = y.ID, animeName = y.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = y.TBLSEASON?.FirstOrDefault(t => t.ANIMEID == y.ID)?.SEASONNUMBER ?? 0})">
+                    <a href="@Url.RouteUrl("Anime Detay", new { animeID = l.ID, animeName = l.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = l.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == l.ID)?.SEASONNUMBER ?? 0})">
                         <div class="videoimg">
-                            <img src="~/IMG/@y.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki" loading="lazy" />
-                            @if (y.EDIT != null)
-                            {
-                                <video class="video" src="~/Videos/@y.EDIT" playsinline loop preload="none"></video>
+                            <img src="~/IMG/@l.BANNER" alt="anime izle, türkçe altyazı anime izle, anitsuki"/>
+                            <div class="video-container" data-animeid="@l.ID">
+                                @if (l.EDIT != null)
+                                {
+                                    <video class="video" src="~/Videos/@l.EDIT" playsinline loop preload="none"></video>
+                                }
+                                else
+                                {
+                                    <video class="video" src="~/Videos/blackscreen.mp4" playsinline loop preload="none"></video>
+                                }
                                 <div class="mute-button"><i class="bi bi-volume-mute"></i></div>
                                 <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
-                            }
-                            else
-                            {
-                                <video class="video" src="~/Videos/blackscreen.mp4" playsinline loop preload="none"></video>
-                                <div class="mute-button" style="display:none;"><i class="bi bi-volume-mute"></i></div>
-                                <div class="text-secret-button" style="display:none;"><i class="bi bi-card-text"></i></div>
-                            }
-                            <div class="anime-info" style="display: none;">
-                                <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@y.ANIMENAME</div>
-                                <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Toplam Sezon Sayısı: @y.TBLSEASON.Count()</div>
-                                <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Toplam Bölüm Sayısı: @y.TBLEPISODE.Count()</div>
-                                <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @y.DATE.Value.ToString("yyyy")</div>
-                                <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @y.TBLCATEGORY.CATEGORYNAME, @y.TYPE</div>
-                                <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@y.DETAIL.Substring(0, 162) ...</div>
+                                <div data-action="watchlater" class="watchlater" onclick="addWatchLater(@l.ID, this)">
+                                    @if (ViewBag.isWatchLater.ContainsKey(l.ID) && ViewBag.isWatchLater[l.ID])
+                                    {
+                                        <i class="bi bi-clock-fill"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="bi bi-clock"></i>
+                                    }
+                                </div>
+                                <div data-action="favorite" class="favorite" onclick="addFavorite(@l.ID, this)">
+                                    @if (ViewBag.IsFavorite.ContainsKey(l.ID) && ViewBag.IsFavorite[l.ID])
+                                    {
+                                        <i class="bi bi-heart-fill"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="bi bi-heart"></i>
+                                    }
+                                </div>
+                                <div class="anime-info" style="display: none;">
+                                    <div style="font-size: 1.1rem; color:orange; font-style: normal; font-weight: 600; margin: 5px 0px 10px 0px; line-height: normal; ">@l.ANIMENAME</div>
+                                    <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-collection-play"></i> Toplam Sezon Sayısı: @l.TBLSEASON.Count()</div>
+                                    <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin:3px 0px;"><i class="bi bi-play-circle"></i> Toplam Bölüm Sayısı: @l.TBLEPISODE.Count()</div>
+                                    <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-calendar"></i> Yayın Yılı: @l.DATE.Value.ToString("yyyy")</div>
+                                    <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 3px 0px;"><i class="bi bi-ticket"></i> Kategori: @l.TBLCATEGORY.CATEGORYNAME, @l.TYPE</div>
+                                    <div style="font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal; margin: 10px 0px">@l.DETAIL.Substring(0, 162) ...</div>
+                                </div>
                             </div>
                         </div>
                         <div class="text">
                             <div style="width:70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="title">
-                                @y.ANIMENAME
+                                @l.ANIMENAME
                             </div>
                             <div style="width:30%; display:flex; justify-content:end;" class="season">
-                                @y.DATE.Value.ToString("yyyy")
+                                @l.DATE.Value.ToString("yyyy")
                             </div>
                         </div>
                     </a>
@@ -423,7 +463,7 @@
                                        href="@Url.Action("Index", new { searchTags = ViewBag.SearchTags, page = i })">@i</a>
                                 </li>
                             }
-                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                            <li class="page-item disabled"><span style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;" class="page-link">...</span></li>
                             <li class="page-item">
                                 <a class="page-link"
                                    style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
@@ -437,7 +477,7 @@
                                    style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
                                    href="@Url.Action("Index", new { searchTags = ViewBag.SearchTags, page = 1 })">1</a>
                             </li>
-                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                            <li class="page-item disabled"><span style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;" class="page-link">...</span></li>
                             for (int i = ViewBag.PageCount - 2; i <= ViewBag.PageCount; i++)
                             {
                                 <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
@@ -454,7 +494,7 @@
                                    style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
                                    href="@Url.Action("Index", new { searchTags = ViewBag.SearchTags, page = 1 })">1</a>
                             </li>
-                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                            <li class="page-item disabled"><span style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;" class="page-link">...</span></li>
                             for (int i = ViewBag.CurrentPage - 1; i <= ViewBag.CurrentPage + 1; i++)
                             {
                                 <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
@@ -463,7 +503,7 @@
                                        href="@Url.Action("Index", new { searchTags = ViewBag.SearchTags, page = i })">@i</a>
                                 </li>
                             }
-                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                            <li class="page-item disabled"><span style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;" class="page-link">...</span></li>
                             <li class="page-item">
                                 <a class="page-link"
                                    style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
@@ -553,12 +593,238 @@
     });
 </script>
 <script>
+    // jQuery ile özel bir :contains filtresi tanımlıyoruz
     jQuery.expr[':'].contains = function (a, i, m) {
         return jQuery(a).text().toUpperCase()
             .indexOf(m[3].toUpperCase()) >= 0;
     };
 
+    // Video elementlerini seçiyoruz
+    const videoElements = document.querySelectorAll(".splide__slide .video");
+    const actionInProgress = {};
+
+    // Mobil cihaz olup olmadığını kontrol ediyoruz
+    function isMobileDevice() {
+        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
+    // Video'nun yüklenmesini sağlıyoruz
+    function loadVideo(video) {
+        if (video.dataset.src) {
+            video.src = video.dataset.src;
+            video.load();
+        }
+    }
+
+    // İkon durumunu güncelliyoruz
+    function updateIconState(element, condition, trueIcon, falseIcon) {
+        if (condition) {
+            element.innerHTML = trueIcon;
+        } else {
+            element.innerHTML = falseIcon;
+        }
+    }
+
+    // Video'nun başlatılması ve kontrol butonlarının işlenmesi
+    function initializeVideo(video) {
+        let isMuted = true;
+        video.muted = isMuted;
+
+        const videoContainer = video.parentElement;
+        const muteButton = videoContainer.querySelector('.mute-button');
+        const textSecretButton = videoContainer.querySelector('.text-secret-button');
+        const watchlater = videoContainer.querySelector('.watchlater');
+        const favorite = videoContainer.querySelector('.favorite');
+        const animeInfo = videoContainer.querySelector('.anime-info');
+
+        if (!isMobileDevice()) {
+            // Mobil olmayan cihazlar için yapılandırma
+            if (muteButton) muteButton.style.display = 'none';
+            if (animeInfo) animeInfo.style.display = 'none';
+            if (watchlater) watchlater.style.display = 'none';
+            if (favorite) favorite.style.display = 'none';
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        loadVideo(video);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+            observer.observe(video);
+
+            videoContainer.addEventListener('mouseenter', () => {
+                if (video.paused) video.play().catch(console.error);
+                video.classList.add("active");
+                if (muteButton) muteButton.style.display = 'block';
+                if (animeInfo) animeInfo.style.display = 'block';
+                if (textSecretButton) textSecretButton.style.display = 'block';
+                if (watchlater) watchlater.style.display = 'block';
+                if (favorite) favorite.style.display = 'block';
+            });
+
+            videoContainer.addEventListener('mouseleave', () => {
+                if (!video.paused) video.pause();
+                video.classList.remove("active");
+                if (muteButton) muteButton.style.display = 'none';
+                if (animeInfo) animeInfo.style.display = 'none';
+                if (textSecretButton) textSecretButton.style.display = 'none';
+                if (watchlater) watchlater.style.display = 'none';
+                if (favorite) favorite.style.display = 'none';
+            });
+
+            // Ses kontrolü
+            if (muteButton) {
+                muteButton.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    isMuted = !isMuted;
+                    video.muted = isMuted;
+                    updateIconState(muteButton, isMuted, '<i class="bi bi-volume-mute"></i>', '<i class="bi bi-volume-up"></i>');
+                    if (!isMuted) video.volume = 0.5;
+                });
+            }
+
+            // Favori ve Daha Sonra İzle butonları
+            if (watchlater) {
+                checkStatus(videoContainer.dataset.animeid, 'WatchLater', watchlater, '<i style="color:#ffffff;" class="bi bi-clock-fill"></i>', '<i style="color:#ffffff;" class="bi bi-clock"></i>');
+                watchlater.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    const animeID = videoContainer.dataset.animeid;
+                    if (!actionInProgress[animeID + 'WatchLater']) {
+                        actionInProgress[animeID + 'WatchLater'] = true;
+                        addWatchLater(animeID, watchlater).finally(() => {
+                            actionInProgress[animeID + 'WatchLater'] = false;
+                        });
+                    }
+                });
+            }
+
+            if (favorite) {
+                checkStatus(videoContainer.dataset.animeid, 'Favorite', favorite, '<i style="color:#ffffff;" class="bi bi-heart-fill"></i>', '<i style="color:#ffffff;" class="bi bi-heart"></i>');
+                favorite.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    const animeID = videoContainer.dataset.animeid;
+                    if (!actionInProgress[animeID + 'Favorite']) {
+                        actionInProgress[animeID + 'Favorite'] = true;
+                        addFavorite(animeID, favorite).finally(() => {
+                            actionInProgress[animeID + 'Favorite'] = false;
+                        });
+                    }
+                });
+            }
+
+            // Gizli metin butonu
+            if (textSecretButton) {
+                let isInfoVisible = true;
+                textSecretButton.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    if (isInfoVisible) {
+                        animeInfo.style.transform = 'scale(1.025)';
+                        animeInfo.style.opacity = '0';
+                        textSecretButton.innerHTML = '<i class="bi bi-card-text"></i>';
+                    } else {
+                        animeInfo.style.transform = 'scale(1.025)';
+                        animeInfo.style.opacity = '1';
+                        textSecretButton.innerHTML = '<i class="bi bi-card-text"></i>';
+                    }
+                    isInfoVisible = !isInfoVisible;
+                });
+            }
+
+        } else {
+            // Mobil cihazlar için elementleri gizleme
+            video.style.display = 'none';
+            if (muteButton) muteButton.style.display = 'none';
+            if (textSecretButton) textSecretButton.style.display = 'none';
+            if (watchlater) watchlater.style.display = 'none';
+            if (favorite) favorite.style.display = 'none';
+        }
+    }
+
+    // Durum kontrolü
+    function checkStatus(animeID, action, element, trueIcon, falseIcon) {
+        $.ajax({
+            type: "GET",
+            url: `/AnimeDetail/Check${action}?animeID=${animeID}`,
+            success: function(data) {
+                updateIconState(element, data.isActive, trueIcon, falseIcon);
+            }
+        });
+    }
+
+    // Favori ekleme işlevi
+    function addFavorite(animeID, elem) {
+        if (elem.dataset.actionInProgress === 'true') return Promise.resolve();
+        elem.dataset.actionInProgress = 'true';
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "POST",
+                url: "/AnimeDetail/AddFavorite",
+                data: { animeID: animeID },
+                success: function (data) {
+                    if (data.success) {
+                        updateIconState(elem, data.isFavorite, '<i style="color:#ffffff;" class="bi bi-heart-fill"></i>', '<i style="color:#ffffff;" class="bi bi-heart"></i>');
+                        if (data.isFavorite) {
+                            toastr["success"](data.message, "Ekleme işlemi");
+                        } else {
+                            toastr["error"](data.message, "Çıkarma işlemi");
+                        }
+                        resolve(data);
+                    } else {
+                        window.location.href = "@Url.RouteUrl("Giriş")";
+                        reject();
+                    }
+                },
+                error: reject,
+                complete: function() {
+                    elem.dataset.actionInProgress = 'false';
+                }
+            });
+        });
+    }
+
+    // Daha sonra izle ekleme işlevi
+    function addWatchLater(animeID, element) {
+        if (element.dataset.actionInProgress === 'true') return Promise.resolve();
+        element.dataset.actionInProgress = 'true';
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "POST",
+                url: "/AnimeDetail/WatchLater",
+                data: { animeID: animeID },
+                success: function (data) {
+                    if (data.success) {
+                        updateIconState(element, data.isWatchLater, '<i style="color:#ffffff;" class="bi bi-clock-fill"></i>', '<i style="color:#ffffff;" class="bi bi-clock"></i>');
+                        if (data.isWatchLater) {
+                            toastr["success"](data.message, "Ekleme işlemi");
+                        } else {
+                            toastr["error"](data.message, "Çıkarma işlemi");
+                        }
+                        resolve(data);
+                    } else {
+                        window.location.href = "@Url.RouteUrl("Giriş")";
+                        reject();
+                    }
+                },
+                error: reject,
+                complete: function() {
+                    element.dataset.actionInProgress = 'false';
+                }
+            });
+        });
+    }
+
+    // Sayfa yüklendiğinde ve arama yapıldığında
     $(document).ready(function () {
+        // Her video için başlatma işlemleri
+        videoElements.forEach(initializeVideo);
+
+        // Arama fonksiyonu
         $("#searchTags").on("keyup", function () {
             var searchTags = $(this).val();
             $.ajax({
@@ -569,153 +835,22 @@
                     $("#menuFull").html($(result).find("#menuFull").html());
                     $(".custom-pagination").html($(result).find(".custom-pagination").html());
 
-                    // AJAX ile gelen yeni içerik için etkileşimleri yeniden başlat
-                    initializeInteractions();
+                    // Yeni video elementlerini tekrar başlatmak için
+                    const newVideoElements = document.querySelectorAll(".splide__slide .video");
+                    newVideoElements.forEach(initializeVideo);
                 }
             });
         });
-    });
 
-    // Yeni içerik yüklendiğinde etkileşimleri başlatan fonksiyon
-    function initializeInteractions() {
-        const videoElements = document.querySelectorAll(".splide__slide .video");
-
-        videoElements.forEach(video => {
-            let isMuted = true; // Başlangıçta ses durumu kapalı
-            video.muted = isMuted; // Video başlangıçta sessiz
-
-            const videoContainer = video.parentElement;
-            const muteButton = videoContainer.querySelector('.mute-button');
-            const textSecretButton = videoContainer.querySelector('.text-secret-button');
-            const animeInfo = videoContainer.querySelector('.anime-info');
-
-            // Mobil cihazları kontrol etme fonksiyonu
-            function isMobileDevice() {
-                return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-            }
-
-            // Video yükleme fonksiyonu
-            function loadVideo() {
-                if (video.dataset.src) {
-                    video.src = video.dataset.src; // video'nun gerçek kaynağını yükle
-                    video.load(); // Videoyu yükle
-                    video.removeEventListener('load', loadVideo); // Yükleme işlemini tamamla
-                }
-            }
-
-            if (!isMobileDevice()) {
-                if (muteButton) {
-                    muteButton.style.display = 'none'; // Başlangıçta mute butonunu gizle
-                }
-                if (animeInfo) {
-                    animeInfo.style.display = 'none'; // Başlangıçta anime bilgilerini gizle
-                }
-
-                // Video görünür olduğunda yükleme
-                const observer = new IntersectionObserver(entries => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            loadVideo(); // Video görünür olduğunda yükle
-                            observer.unobserve(entry.target); // Gözlemeyi durdur
-                        }
-                    });
-                });
-
-                observer.observe(video); // Video'yu gözlemle
-
-                videoContainer.addEventListener('mouseenter', () => {
-                    if (video.paused) { // Video duruyorsa oynat
-                        video.play().catch(error => {
-                            console.error("Video oynatılamadı:", error);
-                        });
-                    }
-                    video.classList.add("active");
-                    if (muteButton) {
-                        muteButton.style.display = 'block'; // Mute butonunu göster
-                    }
-                    if (animeInfo) {
-                        animeInfo.style.display = 'block'; // Anime bilgilerini göster
-                    }
-                    if (textSecretButton) {
-                        textSecretButton.style.display = 'block'; // Text secret butonunu göster
-                    }
-                });
-
-                videoContainer.addEventListener('mouseleave', () => {
-                    // Video alanından ayrıldığında video duracak ve görünürlük kaybolacak
-                    if (!video.paused) { // Video oynuyorsa durdur
-                        video.pause(); // Video duracak
-                    }
-                    video.classList.remove("active");
-                    if (muteButton) {
-                        muteButton.style.display = 'none'; // Mute butonunu gizle
-                    }
-                    if (animeInfo) {
-                        animeInfo.style.display = 'none'; // Anime bilgilerini gizle
-                    }
-                    if (textSecretButton) {
-                        textSecretButton.style.display = 'none'; // Text secret butonunu gizle
-                    }
-                });
-
-                // Mute butonuna tıklandığında ses aç/kapa
-                if (muteButton) {
-                    muteButton.addEventListener('click', (event) => {
-                        event.stopPropagation(); // Tıklamanın üst öğelere yayılmasını engelle
-                        event.preventDefault(); // Varsayılan davranışı engelle
-
-                        // Ses durumunu tersine çevir
-                        isMuted = !isMuted;
-                        video.muted = isMuted; // Video sesini aç/kapa
-
-                        // Eğer ses açılıyorsa, ses seviyesini artır
-                        if (!isMuted) {
-                            video.volume = 0.5; // Ses seviyesini artır
-                            muteButton.innerHTML = '<i class="bi bi-volume-up"></i>'; // Buton metnini değiştir
-                        } else {
-                            video.volume = 0; // Ses seviyesini sıfırla
-                            muteButton.innerHTML = '<i class="bi bi-volume-mute"></i>'; // Buton metnini değiştir
-                        }
-                    });
-                }
-
-                // Text secret butonuna tıklandığında anime bilgilerini yukarı/aşağı kaydır
-                if (textSecretButton) {
-                    let isInfoVisible = true; // Anime bilgisi başlangıçta görünür
-
-                    textSecretButton.addEventListener('click', (event) => {
-                        event.stopPropagation(); // Tıklamanın üst öğelere yayılmasını engelle
-                        event.preventDefault(); // Varsayılan davranışı engelle
-
-                        // Anime bilgilerini yukarı veya aşağı kaydır
-                        if (isInfoVisible) {
-                            animeInfo.style.transform = 'scale(1.025)'; // Aşağı kaydır
-                            animeInfo.style.opacity = '0'; // Aşağı kaydır
-                            textSecretButton.innerHTML = '<i class="bi bi-card-text"></i>';
-                        } else {
-                            animeInfo.style.transform = 'scale(1.025)';
-                            animeInfo.style.opacity = '1'; // Yukarı kaydır
-                            textSecretButton.innerHTML = '<i class="bi bi-card-text"></i>';
-                        }
-                        isInfoVisible = !isInfoVisible; // Görünürlük durumunu tersine çevir
-                    });
-                }
-
-            } else {
-                video.style.display = 'none'; // Mobil cihazlar için video öğesini gizleme
-                if (muteButton) {
-                    muteButton.style.display = 'none'; // Mobil cihazlarda mute butonunu gizle
-                }
-                if (textSecretButton) {
-                    textSecretButton.style.display = 'none'; // Mobil cihazlarda text secret butonunu gizle
-                }
-            }
+        // İkon durumlarını kontrol etme
+        $('.favorite, .watchlater').each(function() {
+            var action = $(this).data('action');
+            var animeID = $(this).closest('.video-container').data('animeid');
+            checkStatus(animeID, action.charAt(0).toUpperCase() + action.slice(1), this,
+                action === 'favorite' ? '<i style="color:#ffffff;" class="bi bi-heart-fill"></i>' : '<i style="color:#ffffff;" class="bi bi-clock-fill"></i>',
+                action === 'favorite' ? '<i style="color:#ffffff;" class="bi bi-heart"></i>' : '<i style="color:#ffffff;" class="bi bi-clock"></i>'
+            );
         });
-    }
-
-    // AJAX isteği bittikten sonra etkileşimleri yeniden başlat
-    $(document).ajaxComplete(function() {
-        initializeInteractions();
     });
 </script>
 <script>
@@ -739,141 +874,7 @@
         }, 50);
     });
 </script>
-<script>
-    const videoElements = document.querySelectorAll(".splide__slide .video");
 
-    videoElements.forEach(video => {
-        let isMuted = true; // Başlangıçta ses durumu kapalı
-        video.muted = isMuted; // Video başlangıçta sessiz
-
-        const videoContainer = video.parentElement;
-        const muteButton = videoContainer.querySelector('.mute-button');
-        const textSecretButton = videoContainer.querySelector('.text-secret-button');
-        const animeInfo = videoContainer.querySelector('.anime-info');
-
-        // Mobil cihazları kontrol etme fonksiyonu
-        function isMobileDevice() {
-            return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        }
-
-        // Video yükleme fonksiyonu
-        function loadVideo() {
-            if (video.dataset.src) {
-                video.src = video.dataset.src; // video'nun gerçek kaynağını yükle
-                video.load(); // Videoyu yükle
-                video.removeEventListener('load', loadVideo); // Yükleme işlemini tamamla
-            }
-        }
-
-        if (!isMobileDevice()) {
-            if (muteButton) {
-                muteButton.style.display = 'none'; // Başlangıçta mute butonunu gizle
-            }
-            if (animeInfo) {
-                animeInfo.style.display = 'none'; // Başlangıçta anime bilgilerini gizle
-            }
-
-            // Video görünür olduğunda yükleme
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        loadVideo(); // Video görünür olduğunda yükle
-                        observer.unobserve(entry.target); // Gözlemeyi durdur
-                    }
-                });
-            });
-
-            observer.observe(video); // Video'yu gözlemle
-
-            videoContainer.addEventListener('mouseenter', () => {
-                if (video.paused) { // Video duruyorsa oynat
-                    video.play().catch(error => {
-                        console.error("Video oynatılamadı:", error);
-                    });
-                }
-                video.classList.add("active");
-                if (muteButton) {
-                    muteButton.style.display = 'block'; // Mute butonunu göster
-                }
-                if (animeInfo) {
-                    animeInfo.style.display = 'block'; // Anime bilgilerini göster
-                }
-                if (textSecretButton) {
-                    textSecretButton.style.display = 'block'; // Text secret butonunu göster
-                }
-            });
-
-            videoContainer.addEventListener('mouseleave', () => {
-                // Video alanından ayrıldığında video duracak ve görünürlük kaybolacak
-                if (!video.paused) { // Video oynuyorsa durdur
-                    video.pause(); // Video duracak
-                }
-                video.classList.remove("active");
-                if (muteButton) {
-                    muteButton.style.display = 'none'; // Mute butonunu gizle
-                }
-                if (animeInfo) {
-                    animeInfo.style.display = 'none'; // Anime bilgilerini gizle
-                }
-                if (textSecretButton) {
-                    textSecretButton.style.display = 'none'; // Text secret butonunu gizle
-                }
-            });
-
-            // Mute butonuna tıklandığında ses aç/kapa
-            if (muteButton) {
-                muteButton.addEventListener('click', (event) => {
-                    event.stopPropagation(); // Tıklamanın üst öğelere yayılmasını engelle
-                    event.preventDefault(); // Varsayılan davranışı engelle
-
-                    // Ses durumunu tersine çevir
-                    isMuted = !isMuted;
-                    video.muted = isMuted; // Video sesini aç/kapa
-
-                    // Eğer ses açılıyorsa, ses seviyesini artır
-                    if (!isMuted) {
-                        video.volume = 0.5; // Ses seviyesini artır
-                        muteButton.innerHTML = '<i class="bi bi-volume-up"></i>'; // Buton metnini değiştir
-                    } else {
-                        video.volume = 0; // Ses seviyesini sıfırla
-                        muteButton.innerHTML = '<i class="bi bi-volume-mute"></i>'; // Buton metnini değiştir
-                    }
-                });
-            }
-
-            // Text secret butonuna tıklandığında anime bilgilerini yukarı/aşağı kaydır
-            if (textSecretButton) {
-                let isInfoVisible = true; // Anime bilgisi başlangıçta görünür
-
-                textSecretButton.addEventListener('click', (event) => {
-                    event.stopPropagation(); // Tıklamanın üst öğelere yayılmasını engelle
-                    event.preventDefault(); // Varsayılan davranışı engelle
-
-                    // Anime bilgilerini yukarı veya aşağı kaydır
-                    if (isInfoVisible) {
-                        animeInfo.style.transform = 'scale(1.025)'; // Aşağı kaydır
-                        animeInfo.style.opacity = '0'; // Aşağı kaydır
-                        textSecretButton.innerHTML = '<i class="bi bi-card-text"></i>';
-                    } else {
-                        animeInfo.style.transform = 'scale(1.025)';
-                        animeInfo.style.opacity = '1'; // Yukarı kaydır
-                        textSecretButton.innerHTML = '<i class="bi bi-card-text"></i>';
-                    }
-                    isInfoVisible = !isInfoVisible; // Görünürlük durumunu tersine çevir
-                });
-            }
-
-        } else {
-            video.style.display = 'none'; // Mobil cihazlar için video öğesini gizleme
-            if (muteButton) {
-                muteButton.style.display = 'none'; // Mobil cihazlarda mute butonunu gizle
-            }
-            if (textSecretButton) {
-                textSecretButton.style.display = 'none'; // Mobil cihazlarda text secret butonunu gizle
-            }
-        }
-    });
-</script>
 
 @if (ViewBag.IsFeatureActive)
 {
@@ -908,20 +909,24 @@
 
 <script>
     // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
-    jQuery.expr[':'].contains = function (a, i, m) {
-        return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+    jQuery.expr[':'].usernameContains = function (a, i, m) {
+        var username = $(a).find('strong:first-of-type').text().toUpperCase();
+        return username.indexOf(m[3].toUpperCase()) >= 0;
     };
 
     $(document).ready(function () {
         $("#searchTags11").on("input", function () { // 'input' olayını kullanarak gerçek zamanlı filtreleme
             var value = $(this).val(); // Mevcut giriş değerini al
 
-            if (value.length === 0) {
-                $("#menuFull11").hide(); // Eğer giriş boşsa kullanıcıları gizle
+            if (value.length < 2) {
+                $("#menuFull11").hide(); // Eğer giriş 2 karakterden azsa kullanıcıları gizle
             } else {
                 $("#menuFull11").show(); // Giriş değeri varsa kullanıcı listesini göster
                 $("#menuFull11 li").hide(); // İlk olarak tüm kullanıcıları gizle
-                $("#menuFull11 li:contains(" + value + ")").show(); // Giriş değerini içeren kullanıcıları göster
+
+                // Giriş değerini içeren kullanıcı adlarını bul ve hepsini göster
+                var matchingItems = $("#menuFull11 li:usernameContains(" + value + ")");
+                matchingItems.show();
             }
         });
 
@@ -1025,3 +1030,37 @@
         });
     </script>
 }
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const lazyImages = document.querySelectorAll("img[data-src]");
+
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const skeleton = img.previousElementSibling; // Skeleton loader
+
+                    // Resim yüklenirken skeleton göster
+                    skeleton.style.display = "block";
+
+                    // Resim kaynağını ayarla
+                    img.src = img.dataset.src;
+
+                    // Resim yüklendiğinde
+                    img.onload = () => {
+                        skeleton.style.display = "none"; // Skeleton'ı gizle
+                        img.style.display = "block"; // Resmi göster
+                        img.classList.remove("lazy"); // Lazy sınıfını kaldır
+                    };
+
+                    observer.unobserve(img); // Resmi gözlemden kaldır
+                }
+            });
+        });
+
+        lazyImages.forEach(image => {
+            imageObserver.observe(image); // Her resmi gözlemle
+        });
+    });
+</script>

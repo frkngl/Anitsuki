@@ -37,6 +37,27 @@ namespace AnitsukiTV.Controllers
             veri.Anime = paginatedAnime;
             ViewBag.TotalAnimeCount = totalAnimeCount;
 
+            Dictionary<int, bool> isFavorite = new Dictionary<int, bool>();
+            Dictionary<int, bool> isWatchLater = new Dictionary<int, bool>();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                int userID = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault().ID;
+
+                // Favori ve Watchlater durumlarını kontrol et
+                foreach (var anime in veri.Anime)
+                {
+                    var favorite = db.TBLFAVORITES.FirstOrDefault(x => x.USERID == userID && x.ANIMEID == anime.ID);
+                    isFavorite.Add(anime.ID, favorite != null);
+
+                    var watchlater = db.TBLWATCHLATER.FirstOrDefault(x => x.USERID == userID && x.ANIMEID == anime.ID);
+                    isWatchLater.Add(anime.ID, watchlater != null);
+                }
+            }
+
+            ViewBag.IsFavorite = isFavorite;
+            ViewBag.isWatchLater = isWatchLater;
+
             // Giriş yapan kullanıcının ID'sini al (varsa)
             int? currentUserId = User.Identity.IsAuthenticated ? db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault()?.ID : (int?)null;
 
@@ -117,6 +138,27 @@ namespace AnitsukiTV.Controllers
             ViewBag.Category = degerler.CATEGORYNAME;
             ViewBag.Category1 = degerler.CATEGORYNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "");
             ViewBag.CategoryId = degerler.ID;
+
+            Dictionary<int, bool> isFavorite = new Dictionary<int, bool>();
+            Dictionary<int, bool> isWatchLater = new Dictionary<int, bool>();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                int userID = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault().ID;
+
+                // Favori ve Watchlater durumlarını kontrol et
+                foreach (var anime in veri.Anime)
+                {
+                    var favorite = db.TBLFAVORITES.FirstOrDefault(x => x.USERID == userID && x.ANIMEID == anime.ID);
+                    isFavorite.Add(anime.ID, favorite != null);
+
+                    var watchlater = db.TBLWATCHLATER.FirstOrDefault(x => x.USERID == userID && x.ANIMEID == anime.ID);
+                    isWatchLater.Add(anime.ID, watchlater != null);
+                }
+            }
+
+            ViewBag.IsFavorite = isFavorite;
+            ViewBag.isWatchLater = isWatchLater;
 
             // Toplam anime sayısını al
             var totalAnimeCount = animeQuery.Count();

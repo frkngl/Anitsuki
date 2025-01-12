@@ -104,10 +104,10 @@ body {
     border: 15px solid #313131;
     border-top-color: #FF7F00;
     border-radius: 50%;
-    animation: loading 0.75s ease infinite;
+    animation: loadingg 0.75s ease infinite;
 }
 
-@keyframes loading {
+@keyframes loadingg {
     from {
         transform: rotate(0turn);
     }
@@ -471,6 +471,43 @@ header {
                 font-size: 3.5rem;
                 cursor: pointer;
             }
+
+.skeleton3 {
+    background: linear-gradient(90deg, #1a1a1a 25%, #333333 50%, #1a1a1a 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 10px;
+    width: 25%;
+    height: 120px;
+}
+
+.skeleton2 {
+    background: linear-gradient(90deg, #1a1a1a 25%, #333333 50%, #1a1a1a 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.skeleton1 {
+    background: linear-gradient(90deg, #1a1a1a 25%, #333333 50%, #1a1a1a 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
 
 @media only screen and (max-width: 1500px) {
     .error {

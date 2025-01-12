@@ -35,6 +35,16 @@
     <link rel="shortcut icon" href="~/WEBIMG/aylogotitle.png" type="image/png" />
     <link rel="apple-touch-icon" href="~/WEBIMG/aylogotitle.png" type="image/png">
     <style>
+
+        img.lazy {
+            opacity: 0; /* Başlangıçta görünmez */
+            transition: opacity 0.5s ease-in; /* Geçiş efekti */
+        }
+
+        img {
+            opacity: 1; /* Yüklenince görünür hale gelir */
+        }
+
         .userdetail .detail .date button {
             color: #ffffff;
             text-decoration: none;
@@ -49,8 +59,7 @@
             position: absolute;
             width: 370px;
             height: calc(100vh - 60px);
-            background-color: #000000;
-            box-shadow: 0px 0px 0px 0px #313131;
+            background-color: #101010;
             top: 60px;
             right: 0;
             transform: translateX(100%);
@@ -61,7 +70,6 @@
 
             .friendadd2.active {
                 transform: translateX(0%);
-                box-shadow: -10px 10px 60px 5px #313131;
             }
 
             /* Mobil tam ekran stili */
@@ -164,6 +172,7 @@
                             left: 5px;
                             z-index: 9;
                             font-size: 1rem;
+                            color:#ffffff;
                         }
 
                         .friendadd2 .modal-body #followersContentt .search input,
@@ -180,7 +189,7 @@
                             padding: 0px 0px 0px 28px;
                         }
 
-                    .friendadd2 .modal-body #followersContentt #menuFull11,
+                    .friendadd2 .modal-body #followersContentt #menuFull11111,
                     .friendadd2 .modal-body #followingContent #menuFull12 {
                         list-style-type: none;
                         padding: 0px;
@@ -188,16 +197,16 @@
                         display: flex;
                         flex-direction: column;
                         align-items: center;
-                        height: calc(100vh - 145px);
+                        height: calc(100vh - 150px);
                         overflow-y: auto;
                     }
 
-                        .friendadd2 .modal-body #followersContentt #menuFull11::-webkit-scrollbar,
+                        .friendadd2 .modal-body #followersContentt #menuFull11111::-webkit-scrollbar,
                         .friendadd2 .modal-body #followingContent #menuFull12::-webkit-scrollbar {
                             display: none;
                         }
 
-                        .friendadd2 .modal-body #followersContentt #menuFull11 a,
+                        .friendadd2 .modal-body #followersContentt #menuFull11111 a,
                         .friendadd2 .modal-body #followingContent #menuFull12 a {
                             color: white;
                             text-decoration: none;
@@ -208,8 +217,7 @@
             position: absolute;
             width: 370px;
             height: calc(100vh - 60px);
-            background-color: #000000;
-            box-shadow: 0px 0px 0px 0px #313131;
+            background-color: #101010;
             top: 60px;
             right: 0;
             transform: translateX(100%);
@@ -220,10 +228,8 @@
 
             .friendadd.active {
                 transform: translateX(0%);
-                box-shadow: -10px 10px 60px 5px #313131;
             }
 
-            /* Mobil tam ekran stili */
             .friendadd.full-screen {
                 position: fixed; /* Sabit konumda olmasını sağlar */
                 top: 60px;
@@ -232,6 +238,7 @@
                 height: calc(100vh - 60px);
                 border-radius: 0; /* Kenar yuvarlamalarını kaldır */
                 z-index: 1000; /* Diğer öğelerin üstünde görünmesi için */
+                box-shadow: none;
             }
 
             .friendadd #friendaddclose {
@@ -283,11 +290,11 @@
                     padding: 0px 0px 0px 35px;
                 }
 
-            .friendadd #menuFull15 {
+            .friendadd #menuFull11 {
                 list-style-type: none;
                 padding: 0px 10px;
                 width: 100%;
-                height: calc(100vh - 140px);
+                height: calc(100vh - 150px);
                 display: flex;
                 flex-direction: column;
                 justify-content: start;
@@ -295,11 +302,123 @@
                 overflow-y: auto;
             }
 
-                .friendadd #menuFull15::-webkit-scrollbar {
+                .friendadd #menuFull11::-webkit-scrollbar {
                     display: none;
                 }
 
-                .friendadd #menuFull15 a {
+                .friendadd #menuFull11 a {
+                    color: white;
+                    text-decoration: none;
+                }
+
+
+        .anime {
+            position: absolute;
+            width: 370px;
+            height: calc(100vh - 60px);
+            background-color: #101010;
+            top: 60px;
+            right: 0;
+            transform: translateX(100%);
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+
+            .anime.active {
+                transform: translateX(0%);
+            }
+
+
+            /* Mobil tam ekran stili */
+            .anime.full-screen {
+                position: fixed; /* Sabit konumda olmasını sağlar */
+                top: 60px;
+                right: 0;
+                width: 100%;
+                height: calc(100vh - 60px);
+                border-radius: 0; /* Kenar yuvarlamalarını kaldır */
+                z-index: 1000; /* Diğer öğelerin üstünde görünmesi için */
+                box-shadow: none;
+            }
+
+
+            .anime #animeclose {
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                left: 10px;
+                background-color: #cccc;
+                display: none;
+            }
+
+
+
+                .anime #animeclose.active {
+                    position: absolute;
+                    width: 30px;
+                    height: 30px;
+                    left: 10px;
+                    background-color: #cccc;
+                    display: block;
+                }
+
+
+
+            .anime .searchhhh {
+                position: relative;
+                width: 200px;
+                height: 40px;
+                margin-left: 50%;
+                transform: translateX(-50%);
+                margin-top: 25px;
+                margin-bottom: 15px;
+            }
+
+
+                .anime .searchhhh .fa-magnifying-glass {
+                    position: absolute;
+                    top: 50%;
+                    left: 10px;
+                    z-index: 9;
+                    font-size: 1rem;
+                }
+
+
+
+                .anime .searchhhh input {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background-color: #313131;
+                    color: #ffffff;
+                    border: none;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 20px;
+                    padding: 0px 0px 0px 35px;
+                }
+
+
+
+            .anime #menuFull1111 {
+                list-style-type: none;
+                padding: 0px 10px;
+                width: 100%;
+                height: calc(100vh - 150px);
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+                overflow-y: auto;
+            }
+
+
+                .anime #menuFull1111::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .anime #menuFull1111 a {
                     color: white;
                     text-decoration: none;
                 }
@@ -313,6 +432,18 @@
             max-height: 300px;
             overflow-y: auto;
         }
+
+        #nabermudur button {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            color: orange;
+            transition: all 0.3s;
+        }
+
+            #nabermudur button:hover {
+                color: #ffffff;
+            }
     </style>
 </head>
 <body>
@@ -348,7 +479,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <div id="nabermudur" style="margin-right:5px;" class="search">
-                            <button style="background-color:transparent; border:none; outline:none; color:orange;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i id="notification-icon" style="font-size:1.5rem;" class="bi bi-bell"></i>
                             </button>
                             <ul id="nabermudurr" style="background-color:#313131;" class="dropdown-menu">
@@ -357,17 +488,19 @@
                                     foreach (var notification in Model.Notifications.OrderByDescending(x => x.ID))
                                     {
                                         <li style="display: flex; align-items: center; padding: 5px;">
-                                            <a style="display: flex; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "") })">
+                                            <a style="display: flex; position:relative; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                 @if (notification.PROFILEPICTURE != null)
                                                 {
-                                                    <img src="~/USERIMG/@notification.PROFILEPICTURE" style="width: 40px; object-fit:cover; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    <div style="position:absolute;" class="skeleton2"></div>
+                                                    <img data-src="/USERIMG/@notification.PROFILEPICTURE" class="lazy" style="object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
                                                 }
                                                 else
                                                 {
-                                                    <img src="~/USERIMG/stockuser.png" style="width: 40px; height: 40px; object-fit:cover; border-radius: 50%; margin-right: 10px;" />
+                                                    <div style="position:absolute;" class="skeleton2"></div>
+                                                    <img data-src="/USERIMG/stockuser.png" class="lazy" style="object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
                                                 }
                                                 <div style="color: #ffffff;">
-                                                    <strong>@notification.USERNAME</strong><br />
+                                                    <strong style="font-size:0.9rem;">@notification.USERNAME</strong><br />
                                                     <span style="font-size: 0.9rem;">@notification.MESSAGE</span><br />
                                                     <span style="font-size: 0.8rem; color: #cccccc;">@notification.CREATED.Value.ToString("dd.MM.yyyy")</span>
                                                 </div>
@@ -394,16 +527,46 @@
                         </div>
                     }
                     <div style="margin-right:-10px;" class="search">
-                        <a href="@Url.RouteUrl("Animeler")"><i class="bi bi-search"></i></a>
+                        <a href="#" id="toggleAnime">
+                            <i class="bi bi-search"></i>
+                        </a>
                     </div>
+
+                    <div class="anime">
+                        <div style="position:relative;" id="animeContent">
+                            <button id="animeclose" class="btn-close"></button>
+                            <div class="searchhhh">
+                                <i style="color:white;" class="fa-solid fa-magnifying-glass fa-xl"></i>
+                                <input type="text" autocomplete="off" name="searchTags1111" id="searchTags1111" placeholder="Anime Ara..." />
+                            </div>
+                            <ul id="menuFull1111" style="display: none; overflow-y: auto;">
+                                @foreach (var anime in Model.Anime.Where(x => x.STATUS == true))
+                                {
+                                    <li style="margin:10px 0px;width:100%; display:flex; justify-content:space-between; align-items:center;">
+                                        <div style="width:100%;">
+                                            <a style="display:flex;position:relative;" href="@Url.RouteUrl("Anime Detay", new { animeID = anime.ID, animeName = anime.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = anime.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == anime.ID)?.SEASONNUMBER ?? 0})">
+                                                <div style="position:absolute;" class="skeleton3"></div>
+                                                <img data-src="/IMG/@anime.BANNER" class="lazy" style="width:25%; height:120px; object-fit:cover; margin-right:7px; border-radius:5px;" />
+                                                <div style="overflow-wrap: break-word; overflow: auto; white-space: normal; width:75%; line-height:1;">
+                                                    <strong style="font-size:0.9rem; color:orange;">@anime.ANIMENAME</strong><br />
+                                                    <span style="font-size: 0.8rem; color: #cccccc;">@anime.DETAIL.Substring(0, 130)</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+
                     <div class="friendadd">
                         <div style="position:relative;" id="followersContent">
                             <button id="friendaddclose" class="btn-close"></button>
                             <div class="searchhh">
                                 <i style="color:white;" class="fa-solid fa-magnifying-glass fa-xl"></i>
-                                <input type="text" autocomplete="off" name="searchTags15" id="searchTags15" placeholder="Arkadaş Ara..." />
+                                <input type="text" autocomplete="off" name="searchTags11" id="searchTags11" placeholder="Arkadaş Ara..." />
                             </div>
-                            <ul id="menuFull15" style="display: none; overflow-y: auto;">
+                            <ul id="menuFull11" style="display: none; overflow-y: auto;">
                                 @foreach (var user in Model.Users.Where(x => x.STATUS == true))
                                 {
                                     <li style="margin:10px 0px;width:100%; display:flex; justify-content:space-between; align-items:center;">
@@ -413,20 +576,22 @@
                                                 var Followers = y.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
                                                 ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
                                             }
-                                            <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "") })">
+                                            <a style="display:flex;position:relative;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                 @if (user.PICTURE != null)
                                                 {
-                                                    <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/USERIMG/@user.PICTURE" loading="lazy" />
+                                                    <div style="position:absolute;" class="skeleton1"></div>
+                                                    <img data-src="/USERIMG/@user.PICTURE" class="lazy" style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" />
                                                     <div>
-                                                        <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
+                                                        <strong style="font-size:0.9rem;">@user.USERNAME</strong><br />
                                                         <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
                                                     </div>
                                                 }
                                                 else
                                                 {
-                                                    <img style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" src="~/USERIMG/stockuser.png" loading="lazy" />
+                                                    <div style="position:absolute;" class="skeleton1"></div>
+                                                    <img data-src="/USERIMG/stockuser.png" class="lazy" style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" />
                                                     <div>
-                                                        <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
+                                                        <strong style="font-size:0.9rem;">@user.USERNAME</strong><br />
                                                         <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
                                                     </div>
                                                 }
@@ -459,12 +624,12 @@
                             <div id="followersContentt">
                                 <div class="search">
                                     <i class="fa-solid fa-magnifying-glass fa-xl"></i>
-                                    <input type="text" autocomplete="off" name="searchTags11" id="searchTags11" placeholder="Takipçi Ara..." />
+                                    <input type="text" autocomplete="off" name="searchTags11111" id="searchTags11111" placeholder="Takipçi Ara..." />
                                     <div style="position:absolute; right:-40px;top:50%; transform:translateY(-50%);font-size:1rem; font-weight:bold; color:#ffffff;">
                                         <i class="bi bi-people-fill"></i>  @ViewBag.FollowersCount
                                     </div>
                                 </div>
-                                <ul id="menuFull11">
+                                <ul id="menuFull11111">
                                     @if (Model.Followers.Any())
                                     {
                                         foreach (var user in Model.Followers.Where(s => s.STATUS == true))
@@ -475,10 +640,11 @@
                                                 ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
                                             }
                                             <li style="margin:10px 0px;width:250px;">
-                                                <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "") })">
+                                                <a style="display: flex; position: relative;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "") })">
                                                     @if (user.PICTURE != null)
                                                     {
-                                                        <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/USERIMG/@user.PICTURE" loading="lazy" />
+                                                        <div style="position:absolute;" class="skeleton1"></div>
+                                                        <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" data-src="/USERIMG/@user.PICTURE" class="lazy" />
                                                         <div>
                                                             <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
                                                             <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
@@ -486,7 +652,8 @@
                                                     }
                                                     else
                                                     {
-                                                        <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/USERIMG/stockuser.png" loading="lazy" />
+                                                        <div style="position:absolute;" class="skeleton1"></div>
+                                                        <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" data-src="/USERIMG/stockuser.png" class="lazy" />
                                                         <div>
                                                             <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
                                                             <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
@@ -523,10 +690,11 @@
                                                 ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
                                             }
                                             <li style="margin:10px 0px;width:250px;">
-                                                <a style="display:flex;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "") })">
+                                                <a style="display: flex; position: relative;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "") })">
                                                     @if (user.PICTURE != null)
                                                     {
-                                                        <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/USERIMG/@user.PICTURE" loading="lazy" />
+                                                        <div style="position:absolute;" class="skeleton1"></div>
+                                                        <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" data-src="/USERIMG/@user.PICTURE" class="lazy" />
                                                         <div>
                                                             <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
                                                             <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
@@ -534,7 +702,8 @@
                                                     }
                                                     else
                                                     {
-                                                        <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" src="~/USERIMG/stockuser.png" loading="lazy" />
+                                                        <div style="position:absolute;" class="skeleton1"></div>
+                                                        <img style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" data-src="/USERIMG/stockuser.png" class="lazy" />
                                                         <div>
                                                             <span style="font-size: 0.9rem;">@user.USERNAME</span><br />
                                                             <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
@@ -554,35 +723,44 @@
                             </div>
                         </div>
                     </div>
-                    <div class="user">
-                        <div style="height:60px; display:flex; align-items:center; margin-left:10px;" class="dropdown">
-                            @{ AnitsukiTVEntities db = new AnitsukiTVEntities(); }
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
-                                string userNameUrl = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "");
+                    @if (!ViewBag.IsCurrentUserProfile)
+                    {
+                        <div class="user">
+                            <div style="height:60px; display:flex; align-items:center; margin-left:10px;" class="dropdown">
+                                @{ AnitsukiTVEntities db = new AnitsukiTVEntities(); }
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    var currentUser = db.TBLUSER.FirstOrDefault(u => u.USERNAME == User.Identity.Name);
+                                    string userNameUrl = User.Identity.Name.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "");
 
-                                <button style="background-color:transparent; border:none; outline:none; color:orange;" class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    @if (currentUser != null && currentUser.PICTURE != null)
-                                    {
-                                        <img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/USERIMG/@currentUser.PICTURE">
-                                    }
-                                    else
-                                    {
-                                        <img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/USERIMG/stockuser.png">
-                                    }
-                                </button>
-                                <ul style="background-color:#313131;" class="dropdown-menu">
-                                    <li><a style="margin:0px; padding:5px 12px; color:white;" class="dropdown-item" href="@Url.RouteUrl("Profil", new { userName = userNameUrl })"><i style="font-size:1.3rem;" class="bi bi-person"></i> Profil</a></li>
-                                    <li><a style="margin:0px; padding: 5px 15px; color: white;" class="dropdown-item" href="/signout"><i style="font-size:1.3rem;" class="bi bi-box-arrow-right"></i> Çıkış Yap</a></li>
-                                </ul>
-                            }
-                            else
-                            {
-                                <a style="margin-left:-15px !important;" href="@Url.RouteUrl("Giriş")"><i class="bi bi-person"></i></a>
-                            }
+                                    <button style="background-color:transparent; border:none; outline:none; color:orange;" class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @if (currentUser != null && currentUser.PICTURE != null)
+                                        {
+                                            <img width="40" height="40" style="border-radius:50%; object-fit:cover;" src="~/USERIMG/@currentUser.PICTURE">
+                                        }
+                                        else
+                                        {
+                                            <img width="40" height="40" style="border-radius: 50%; object-fit: cover;" src="~/USERIMG/stockuser.png">
+                                        }
+                                    </button>
+                                    <ul style="background-color:#313131;" class="dropdown-menu dropdown-menu-end">
+                                        <li><a style="margin:0px; padding:5px 12px; color:white;" class="dropdown-item" href="@Url.RouteUrl("Profil", new { userName = userNameUrl })"><i style="font-size:1.3rem;" class="bi bi-person"></i> Profil</a></li>
+                                        <li><a style="margin:0px; padding: 5px 15px; color: white;" class="dropdown-item" href="/signout"><i style="font-size:1.3rem;" class="bi bi-box-arrow-right"></i> Çıkış Yap</a></li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <a style="margin-left:-15px !important;" href="@Url.RouteUrl("Giriş")"><i class="bi bi-person"></i></a>
+                                }
+                            </div>
                         </div>
-                    </div>
+                    }
+                    @if (ViewBag.IsCurrentUserProfile)
+                    {
+                        <div class="user">
+                            <a href="/signout"><i class="bi bi-box-arrow-right"></i></a>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -874,19 +1052,6 @@
     });
 
     $(document).ready(function () {
-        $("#searchTags11").keyup(function () {
-            var value = $("#searchTags11").val();
-            if (value.length == 0) {
-                $("#menuFull11 li").show();
-            } else {
-                $("#menuFull11 li").hide();
-                $("#menuFull11 li:contains(" + value + ")").show();
-            }
-
-        });
-    });
-
-    $(document).ready(function () {
         $("#searchTags12").keyup(function () {
             var value = $("#searchTags12").val();
             if (value.length == 0) {
@@ -900,21 +1065,19 @@
     });
 
     $(document).ready(function () {
-        $("#searchTags15").on("input", function () { // 'input' olayını kullanarak gerçek zamanlı filtreleme
-            var value = $(this).val(); // Mevcut giriş değerini al
-
-            if (value.length === 0) {
-                $("#menuFull15").hide(); // Eğer giriş boşsa kullanıcıları gizle
+        $("#searchTags11111").keyup(function () {
+            var value = $("#searchTags11111").val();
+            if (value.length == 0) {
+                $("#menuFull11111 li").show();
             } else {
-                $("#menuFull15").show(); // Giriş değeri varsa kullanıcı listesini göster
-                $("#menuFull15 li").hide(); // İlk olarak tüm kullanıcıları gizle
-                $("#menuFull15 li:contains(" + value + ")").show(); // Giriş değerini içeren kullanıcıları göster
+                $("#menuFull11111 li").hide();
+                $("#menuFull11111 li:contains(" + value + ")").show();
             }
-        });
 
-        // Sayfa yüklendiğinde kullanıcı listesini gizle
-        $("#menuFull15").hide(); // Bu satır, sayfa yüklendiğinde kullanıcı listesinin gizlenmesini sağlar.
+        });
     });
+
+
 
     function followUser (followedUserId, element) {
     $.ajax({
@@ -932,6 +1095,63 @@
     });
 }
 </script>
+
+<script>
+    // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
+    jQuery.expr[':'].usernameContains = function (a, i, m) {
+        var username = $(a).find('strong:first-of-type').text().toUpperCase();
+        return username.indexOf(m[3].toUpperCase()) >= 0;
+    };
+
+    $(document).ready(function () {
+        $("#searchTags11").on("input", function () { // 'input' olayını kullanarak gerçek zamanlı filtreleme
+            var value = $(this).val(); // Mevcut giriş değerini al
+
+            if (value.length < 2) {
+                $("#menuFull11").hide(); // Eğer giriş 2 karakterden azsa kullanıcıları gizle
+            } else {
+                $("#menuFull11").show(); // Giriş değeri varsa kullanıcı listesini göster
+                $("#menuFull11 li").hide(); // İlk olarak tüm kullanıcıları gizle
+
+                // Giriş değerini içeren kullanıcı adlarını bul ve hepsini göster
+                var matchingItems = $("#menuFull11 li:usernameContains(" + value + ")");
+                matchingItems.show();
+            }
+        });
+
+        // Sayfa yüklendiğinde kullanıcı listesini gizle
+        $("#menuFull11").hide(); // Bu satır, sayfa yüklendiğinde kullanıcı listesinin gizlenmesini sağlar.
+    });
+</script>
+
+<script>
+    // jQuery kullanarak metin eşleşmesini kontrol eden özel bir seçici
+    jQuery.expr[':'].usernameContains = function (a, i, m) {
+        var username = $(a).find('strong:first-of-type').text().toUpperCase();
+        return username.indexOf(m[3].toUpperCase()) >= 0;
+    };
+
+    $(document).ready(function () {
+        $("#searchTags1111").on("input", function () { // 'input' olayını kullanarak gerçek zamanlı filtreleme
+            var value = $(this).val(); // Mevcut giriş değerini al
+
+            if (value.length < 2) {
+                $("#menuFull1111").hide(); // Eğer giriş boşsa kullanıcıları gizle
+            } else {
+                $("#menuFull1111").show(); // Giriş değeri varsa kullanıcı listesini göster
+                $("#menuFull1111 li").hide(); // İlk olarak tüm kullanıcıları gizle
+
+                // Giriş değerini içeren kullanıcı adlarını bul ve hepsini göster
+                var matchingItems = $("#menuFull1111 li:usernameContains(" + value + ")");
+                matchingItems.show();
+            }
+        });
+
+        // Sayfa yüklendiğinde kullanıcı listesini gizle
+        $("#menuFull1111").hide(); // Bu satır, sayfa yüklendiğinde kullanıcı listesinin gizlenmesini sağlar.
+    });
+</script>
+
 
 @if (ViewBag.IsFeatureActive)
 {
@@ -1047,63 +1267,105 @@
         });
     });
 </script>
+
 <script>
-    function isMobile() {
-        return /Mobi|Android|iPhone/i.test(navigator.userAgent);
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+        function isMobile() {
+            // Kullanıcı ajanı kontrolü ile mobil cihaz olup olmadığını kontrol eder.
+            return /Mobi|Android|iPhone/i.test(navigator.userAgent);
+        }
 
-    const toggleButton = document.getElementById('toggleFriendAdd');
-    const friendAdd = document.querySelector('.friendadd');
-    const toggleButton3 = document.getElementById('friendaddclose');
-    const toggleButton4 = document.getElementById('friendaddclose2');
+        // friendadd2 için tanımlamalar
+        const toggleButton2 = document.getElementById('toggleFriendAdd2');
+        const friendAdd2 = document.querySelector('.friendadd2');
+        const closeButton2 = document.getElementById('friendaddclose2');
 
-    const toggleButton2 = document.getElementById('toggleFriendAdd2');
-    const friendAdd2 = document.querySelector('.friendadd2');
+        // friendadd için tanımlamalar
+        const toggleButton = document.getElementById('toggleFriendAdd');
+        const friendAdd = document.querySelector('.friendadd');
+        const toggleButtonClose = document.getElementById('friendaddclose');
 
-    // Sayfa yüklendiğinde, eğer mobil cihazsa friendAdd'i tam ekran yap
-    window.onload = function () {
+        // Anime için tanımlamalar (eğer varsa)
+        const toggleButtonAnime = document.getElementById('toggleAnime');
+        const friendAddAnime = document.querySelector('.anime');
+        const toggleButtonAnimeClose = document.getElementById('animeclose');
+
+        // Sayfa yüklendiğinde, eğer mobil cihazsa ilgili elemanları tam ekran yap
         if (isMobile()) {
-            friendAdd.classList.add('full-screen'); // Tam ekran sınıfını ekle
-            friendAdd2.classList.add('full-screen'); // Tam ekran sınıfını ekle
-            toggleButton3.classList.add('active'); // Tam ekran sınıfını ekle
-            toggleButton4.classList.add('active'); // Tam ekran sınıfını ekle
+            if (friendAdd2) friendAdd2.classList.add('full-screen');
+            if (friendAdd) friendAdd.classList.add('full-screen');
+            if (friendAddAnime) friendAddAnime.classList.add('full-screen');
+            if (closeButton2) closeButton2.classList.add('active');
+            if (toggleButtonClose) toggleButtonClose.classList.add('active');
+            if (toggleButtonAnimeClose) toggleButtonAnimeClose.classList.add('active');
         }
-    };
 
-    toggleButton.addEventListener('click', function (event) {
-        event.preventDefault(); // Linkin varsayılan davranışını engelle
-        friendAdd.classList.toggle('active'); // active sınıfını ekle veya kaldır
-    });
-
-    toggleButton3.addEventListener('click', function (event) {
-        event.preventDefault(); // Linkin varsayılan davranışını engelle
-        friendAdd.classList.toggle('active'); // active sınıfını ekle veya kaldır
-    });
-
-    // Sayfanın herhangi bir yerine tıklandığında friendadd'ı kapat
-    document.addEventListener('click', function (event) {
-        if (!friendAdd.contains(event.target) && !toggleButton.contains(event.target)) {
-            friendAdd.classList.remove('active'); // active sınıfını kaldır
+        // friendadd2 Toggle
+        if (toggleButton2) {
+            toggleButton2.addEventListener('click', function (event) {
+                event.preventDefault(); // Linkin varsayılan davranışını engelle
+                if (friendAdd2) friendAdd2.classList.toggle('active'); // 'active' sınıfını ekler veya kaldırır
+            });
         }
-    });
 
-    toggleButton2.addEventListener('click', function (event) {
-        event.preventDefault(); // Linkin varsayılan davranışını engelle
-        friendAdd2.classList.toggle('active'); // active sınıfını ekle veya kaldır
-    });
-
-    toggleButton4.addEventListener('click', function (event) {
-        event.preventDefault(); // Linkin varsayılan davranışını engelle
-        friendAdd2.classList.toggle('active'); // active sınıfını ekle veya kaldır
-    });
-
-    // Sayfanın herhangi bir yerine tıklandığında friendadd'ı kapat
-    document.addEventListener('click', function (event) {
-        if (!friendAdd2.contains(event.target) && !toggleButton2.contains(event.target)) {
-            friendAdd2.classList.remove('active'); // active sınıfını kaldır
+        // friendadd2 Kapat
+        if (closeButton2) {
+            closeButton2.addEventListener('click', function (event) {
+                event.preventDefault(); // Linkin varsayılan davranışını engelle
+                if (friendAdd2) friendAdd2.classList.remove('active'); // 'active' sınıfını kaldırır
+            });
         }
+
+        // friendadd Toggle
+        if (toggleButton) {
+            toggleButton.addEventListener('click', function (event) {
+                event.preventDefault(); // Linkin varsayılan davranışını engelle
+                if (friendAdd) friendAdd.classList.toggle('active'); // 'active' sınıfını ekler veya kaldırır
+            });
+        }
+
+        if (toggleButtonClose) {
+            toggleButtonClose.addEventListener('click', function (event) {
+                event.preventDefault(); // Linkin varsayılan davranışını engelle
+                if (friendAdd) friendAdd.classList.remove('active'); // 'active' sınıfını kaldırır
+            });
+        }
+
+        // Anime Toggle (eğer varsa)
+        if (toggleButtonAnime) {
+            toggleButtonAnime.addEventListener('click', function (event) {
+                event.preventDefault(); // Linkin varsayılan davranışını engelle
+                if (friendAddAnime) friendAddAnime.classList.toggle('active'); // 'active' sınıfını ekler veya kaldırır
+            });
+        }
+
+        if (toggleButtonAnimeClose) {
+            toggleButtonAnimeClose.addEventListener('click', function (event) {
+                event.preventDefault(); // Linkin varsayılan davranışını engelle
+                if (friendAddAnime) friendAddAnime.classList.remove('active'); // 'active' sınıfını kaldırır
+            });
+        }
+
+        // Sayfanın herhangi bir yerine tıklandığında ilgili elemanları kapat
+        document.addEventListener('click', function (event) {
+            // friendadd2 kapatma kontrolü
+            if (friendAdd2 && !friendAdd2.contains(event.target) && !toggleButton2.contains(event.target) && friendAdd2.classList.contains('active')) {
+                friendAdd2.classList.remove('active'); // 'active' sınıfını kaldırır
+            }
+
+            // friendadd kapatma kontrolü
+            if (friendAdd && !friendAdd.contains(event.target) && !toggleButton.contains(event.target) && friendAdd.classList.contains('active')) {
+                friendAdd.classList.remove('active'); // 'active' sınıfını kaldırır
+            }
+
+            // Anime kapatma kontrolü (eğer varsa)
+            if (friendAddAnime && !friendAddAnime.contains(event.target) && !toggleButtonAnime.contains(event.target) && friendAddAnime.classList.contains('active')) {
+                friendAddAnime.classList.remove('active'); // 'active' sınıfını kaldırır
+            }
+        });
     });
 </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const followersContentt = document.getElementById('followersContentt');
@@ -1139,6 +1401,40 @@
                 linkFollowers.style.backgroundColor = '';
                 linkFollowers.style.color = '';
             }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const lazyImages = document.querySelectorAll("img[data-src]");
+
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const skeleton = img.previousElementSibling; // Skeleton loader
+
+                    // Resim yüklenirken skeleton göster
+                    skeleton.style.display = "block";
+
+                    // Resim kaynağını ayarla
+                    img.src = img.dataset.src;
+
+                    // Resim yüklendiğinde
+                    img.onload = () => {
+                        skeleton.style.display = "none"; // Skeleton'ı gizle
+                        img.style.display = "block"; // Resmi göster
+                        img.classList.remove("lazy"); // Lazy sınıfını kaldır
+                    };
+
+                    observer.unobserve(img); // Resmi gözlemden kaldır
+                }
+            });
+        });
+
+        lazyImages.forEach(image => {
+            imageObserver.observe(image); // Her resmi gözlemle
         });
     });
 </script>

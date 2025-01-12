@@ -23,8 +23,11 @@ namespace AnitsukiTV.Controllers
         [Route("anime/{animeID}/{animeName}-{seasonNumber}-sezon-izle")]
         public ActionResult Index(int animeID, string animeName, int seasonNumber)
         {
+            ViewBag.AllAnimes = db.TBLANIME.Where(x => x.STATUS == true).ToList();
+            ViewBag.SeasonInfo = db.TBLSEASON.ToList();
             var degerler2 = db.TBLANIME.FirstOrDefault(x => x.ID == animeID);
             ViewBag.anime = degerler2.ANIMENAME;
+            ViewBag.banner = degerler2.BANNER;
             ViewBag.animee = degerler2.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".", "").Replace(",", "");
             ViewBag.AnimeId = degerler2.ID;
 
@@ -214,6 +217,33 @@ namespace AnitsukiTV.Controllers
             return Json(new { likeCount, unlikeCount });
         }
 
+        [HttpGet]
+        public ActionResult CheckFavorite(int animeID)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Json(new { success = false, isActive = false }, JsonRequestBehavior.AllowGet);
+            }
+
+            int userID = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault().ID;
+            var favorite = db.TBLFAVORITES.FirstOrDefault(x => x.USERID == userID && x.ANIMEID == animeID);
+
+            return Json(new { success = true, isActive = favorite != null }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult CheckWatchLater(int animeID)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Json(new { success = false, isActive = false }, JsonRequestBehavior.AllowGet);
+            }
+
+            int userID = db.TBLUSER.Where(x => x.USERNAME == User.Identity.Name).FirstOrDefault().ID;
+            var watchlater = db.TBLWATCHLATER.FirstOrDefault(x => x.USERID == userID && x.ANIMEID == animeID);
+
+            return Json(new { success = true, isActive = watchlater != null }, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public ActionResult AddFavorite(int animeID)
@@ -270,7 +300,9 @@ namespace AnitsukiTV.Controllers
         [Route("{episodeID}/{animeName}-{seasonNumber}-sezon-{episodeNumber}-bolum-izle")]
         public ActionResult Video(int episodeID, string animeName, int seasonNumber, int episodeNumber)
         {
+            veri.Anime = db.TBLANIME.ToList();
             var degerler = db.TBLEPISODE.FirstOrDefault(x => x.ID == episodeID);
+            ViewBag.banner = degerler.TBLANIME.BANNER;
             veri.Episode = db.TBLEPISODE.Where(x => x.ID == episodeID && x.STATUS == true).ToList();
             int animeId = veri.Episode.FirstOrDefault()?.TBLANIME?.ID ?? 0;
             ViewBag.episodeID = degerler.ID;
@@ -335,7 +367,8 @@ namespace AnitsukiTV.Controllers
                     OncekiBolum = veri.OncekiBolum,
                     SonrakiBolum = veri.SonrakiBolum,
                     Notification = veri.Notifications,
-                    Users = veri.Users
+                    Users = veri.Users,
+                    Anime = veri.Anime
                 }
             };
 
