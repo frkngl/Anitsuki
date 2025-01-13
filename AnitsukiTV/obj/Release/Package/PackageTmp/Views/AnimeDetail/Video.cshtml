@@ -644,7 +644,14 @@
         <div class="videoposter">
             @foreach (var vv in Model.VideoInfo.Episode)
             {
-                if (vv.URL != null)
+                if (vv.EP2 != null)
+                {
+                    <div class="poster">
+                        <img src="~/IMG/@vv.TBLSEASON.BANNER" />
+                        <i class="bi bi-play-circle"></i>
+                    </div>
+                }
+                else if (vv.URL != null)
                 {
                     <div style="display: none;" class="poster">
                         <img src="~/IMG/@vv.TBLSEASON.BANNER" />
@@ -684,34 +691,36 @@
             </div>
             @foreach (var ez in Model.VideoInfo.Episode)
             {
-                if (ez.URL != null)
+                if (ez.EP2 != null)
+                {
+                    <video controls id="plyr">
+                        <source src="@ez.EP2" type="video/mp4" />
+                    </video>
+                }
+                else if (ez.URL != null)
                 {
                     <iframe id="myIframe" style="width:100%; height:70vh;" tabindex="0" allowfullscreen></iframe>
                     <script>
                          window.addEventListener('load', function() {
-                         var iframe = document.getElementById('myIframe');
-                         iframe.src = '@ez.URL';
-                         var timeout = setTimeout(function() {
-                         document.querySelector('.warning').style.display = 'flex';
-                         }, 10000);
+                        var iframe = document.getElementById('myIframe');
+                        iframe.src = '@ez.URL';
+                        var timeout = setTimeout(function() {
+                            document.querySelector('.warning').style.display = 'flex';
+                        }, 10000);
 
-                         iframe.onload = function() {
-                         clearTimeout(timeout);
-                         };
+                        iframe.onload = function() {
+                            clearTimeout(timeout);
+                        };
 
-                         document.getElementById('okButton').addEventListener('click', function () {
-                         location.reload();
-                         });
+                        document.getElementById('okButton').addEventListener('click', function () {
+                            location.reload();
+                        });
                     });
                     </script>
                 }
                 else
                 {
                     <video controls id="plyr">
-                        @if (ez.EP2 != null)
-                        {
-                            <source src="~/Videos/@ez.EP2" size="480" type="video/mp4" tabindex="0" />
-                        }
                         @if (ez.EP3 != null)
                         {
                             <source src="~/Videos/@ez.EP3" size="720" type="video/mp4" />
@@ -1067,25 +1076,25 @@
     });
 
 
-    //document.addEventListener('keydown', (event) => {
-    //    const textarea = document.querySelector('textarea[name="COMMENT"]'); // Yorum alanını seçin
+    document.addEventListener('keydown', (event) => {
+        const textarea = document.querySelector('textarea[name="COMMENT"]'); // Yorum alanını seçin
 
-    //    // Eğer textarea üzerinde odak varsa, boşluk tuşunun varsayılan davranışını engellemeyin
-    //    if (document.activeElement === textarea) {
-    //        // Burada boşluk tuşuna basıldığında hiçbir şey yapma
-    //        return; // Yorum alanında boşluk tuşu çalışsın
-    //    }
+        // Eğer textarea üzerinde odak varsa, boşluk tuşunun varsayılan davranışını engellemeyin
+        if (document.activeElement === textarea) {
+            // Burada boşluk tuşuna basıldığında hiçbir şey yapma
+            return; // Yorum alanında boşluk tuşu çalışsın
+        }
 
-    //    // Eğer video oynatıcı aktifse, boşluk tuşunu video kontrolü için kullanın
-    //    if (event.code === 'Space') {
-    //        event.preventDefault(); // Varsayılan boşluk davranışını engelle
-    //        if (player.playing) {
-    //            player.pause(); // Video duraklat
-    //        } else {
-    //            player.play(); // Video oynat
-    //        }
-    //    }
-    //});
+        // Eğer video oynatıcı aktifse, boşluk tuşunu video kontrolü için kullanın
+        if (event.code === 'Space') {
+            event.preventDefault(); // Varsayılan boşluk davranışını engelle
+            if (player.playing) {
+                player.pause(); // Video duraklat
+            } else {
+                player.play(); // Video oynat
+            }
+        }
+    });
 </script>
 
 @if (ViewBag.IsFeatureActive)
@@ -1374,6 +1383,51 @@ else
         });
     });
 </script>
+
+@*<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let devtoolsOpen = false;
+        let threshold = 160;
+        let startHeight = window.outerHeight - window.innerHeight;
+
+        function checkDevTools() {
+            if (window.outerHeight - window.innerHeight > threshold && !devtoolsOpen) {
+                devtoolsOpen = true;
+                redirectUser();
+            } else if (window.outerHeight - window.innerHeight <= threshold && devtoolsOpen) {
+                devtoolsOpen = false;
+            }
+        }
+
+        function redirectUser() {
+            // Sayfa geçmişine yeni bir durum ekleyerek, kullanıcı geri döndüğünde bu kontrolü tekrar yapabilmek için
+            history.pushState({ redirect: true }, '', window.location.href);
+            window.location.href = '/another'; 
+        }
+
+        window.addEventListener('resize', checkDevTools);
+
+        // Sayfa geri yüklendiğinde de kontrol yap:
+        window.addEventListener('popstate', function (event) {
+            if (event.state && event.state.redirect) {
+                checkDevTools();
+            }
+        });
+
+        // DevTools açılışını tespit etmek için başka bir yöntem:
+        let originalConsoleError = console.error;
+        console.error = function () {
+            if (!devtoolsOpen) {
+                devtoolsOpen = true;
+                redirectUser();
+            }
+            originalConsoleError.apply(console, arguments);
+        };
+
+        // İlk kontrol:
+        checkDevTools();
+    });
+</script>*@
 
 
 

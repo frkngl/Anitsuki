@@ -39,10 +39,10 @@
     <div class="loader">
 
     </div>
-    @if (ViewBag.IsFeatureActive)
+    @*@if (ViewBag.IsFeatureActive)
     {
         <div id="snow-container"></div>
-    }
+    }*@
 
     <header>
         <div class="container-xl">
@@ -443,7 +443,7 @@
     </script>
 }
 
-@if (ViewBag.IsFeatureActive)
+@*@if (ViewBag.IsFeatureActive)
 {
     <script>
         // script.js
@@ -472,7 +472,7 @@
         // Kar tanelerini sürekli oluştur
         setInterval(createSnowflake, 500); // Her 100 ms'de bir kar tanesi oluştur
     </script>
-}
+}*@
 
 <script>
     document.getElementById('togglePassword').addEventListener('click', function () {

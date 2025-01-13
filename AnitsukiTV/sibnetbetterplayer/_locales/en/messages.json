@@ -1,0 +1,36 @@
+{
+  "extension_name": {
+    "message": "Sibnet BetterPlayer"
+  },
+  "extension_title": {
+    "message": "Sibnet BetterPlayer"
+  },
+  "extension_descr": {
+    "message": "View Sibnet videos through the native fast and reliable player"
+  },
+  "extension_lang": {
+    "message": "en"
+  },
+
+  "settings_enable": {
+    "message": "On"
+  },
+  "settings_disable": {
+    "message": "Off"
+  },
+
+  "links_reviews": {
+    "message": "Reviews"
+  },
+  "links_support": {
+    "message": "Support"
+  },
+
+  "btn_open": {
+    "message": "Open on Sibnet.ru"
+  },
+  "btn_download": {
+    "message": "Download video"
+  }
+
+}

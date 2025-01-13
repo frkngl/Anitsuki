@@ -787,7 +787,7 @@ namespace AnitsukiTV.Controllers
 
 
         [HttpPost]
-        public ActionResult AddEpisode(TBLEPISODE add, HttpPostedFileBase Video, HttpPostedFileBase Video2, HttpPostedFileBase Video3, HttpPostedFileBase Video4)
+        public ActionResult AddEpisode(TBLEPISODE add, HttpPostedFileBase Video3, HttpPostedFileBase Video4)
         {
             try
             {
@@ -806,13 +806,10 @@ namespace AnitsukiTV.Controllers
                             episode.URL = FormatVideoUrl(add.URL);
                         }
 
-                        // Handle video uploads
-                        if (Video2 != null && Video2.ContentLength > 0)
+                        if (!string.IsNullOrEmpty(add.EP2))
                         {
-                            string yol2 = Path.Combine("~/Videos/" + Video2.FileName);
-                            Video2.SaveAs(Server.MapPath(yol2));
+                            episode.EP2 = add.EP2;
                         }
-                        episode.EP2 = Video2 != null ? Video2.FileName.ToString() : null;
 
                         if (Video3 != null && Video3.ContentLength > 0)
                         {
@@ -875,7 +872,7 @@ namespace AnitsukiTV.Controllers
                 var videoId = url.Split(new[] { "video/" }, StringSplitOptions.None)[1];
                 return "https://ok.ru/videoembed/" + videoId;
             }
-            else if (url.Contains("video.sibnet.ru/video"))
+            else if (url.Contains("video.sibnet.ru/shell.php?videoid="))
             {
                 // Sibnet URL'sini doğrudan kullan
                 return url; // Doğrudan URL'yi döndür
@@ -896,22 +893,28 @@ namespace AnitsukiTV.Controllers
         }
 
         [HttpPost]
-        public ActionResult EpisodeSave(TBLEPISODE update, HttpPostedFileBase Video, HttpPostedFileBase Video2, HttpPostedFileBase Video3, HttpPostedFileBase Video4)
+        public ActionResult EpisodeSave(TBLEPISODE update, HttpPostedFileBase Video3, HttpPostedFileBase Video4)
         {
             try
             {
                 var updateepisode = db.TBLEPISODE.Find(update.ID);
-                if (!string.IsNullOrEmpty(update.URL))
+                if (string.IsNullOrEmpty(update.URL))
+                {
+                    updateepisode.URL = null;
+                }
+                else
                 {
                     updateepisode.URL = FormatVideoUrl(update.URL);
                 }
 
                 // Handle video uploads
-                if (Video2 != null && Video2.ContentLength > 0)
+                if (string.IsNullOrEmpty(update.EP2))
                 {
-                    var videoPath = Request.MapPath("~/Videos/" + Video2.FileName);
-                    Video2.SaveAs(videoPath);
-                    updateepisode.EP2 = Video2.FileName;
+                    updateepisode.EP2 = null;
+                }
+                else
+                {
+                    updateepisode.EP2 = FormatVideoUrl(update.EP2);
                 }
 
                 if (Video3 != null && Video3.ContentLength > 0)

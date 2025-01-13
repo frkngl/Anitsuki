@@ -42,15 +42,15 @@
         <div style="width:100%; height:auto; display:flex;align-items:center; justify-content:space-around;" class="form-group">
             <div>
                 <div style="margin-bottom:10px;">
-                    <label for="videoUrlInput">Video URL</label>
+                    <label for="exampleInputPassword4">Video URL</label>
                     <br />
-                    <iframe id="videoIframe" width="400" height="250" style="border:1px solid #000000; display:block;" frameborder="0" allowfullscreen></iframe>
-                    <video controls id="otherVideo" width="400" height="250" style="border:1px solid #000000; display:none; object-fit:cover;"></video>
+                    <video controls class="Video2" width="400" height="250" style="border:1px solid #000000; object-fit:cover;" id="videoPlayerr"></video>
                     <div class="d-flex">
-                        @Html.TextBoxFor(x => x.URL, new { @class = "form-control", @id = "videoUrlInput", @placeholder = "YouTube veya Google Drive video URL'sini buraya yapıştırın", @style = "width:100%; border:1px solid #000000; padding:3px;" })
-                        <button class="btn btn-primary" type="button" id="previewButton">Önizle</button>
+                        @Html.TextBoxFor(x => x.EP2, new { @class = "form-control", @placeholder = ".MP4 uzantılı linkleri giriniz buraya", @style = "width:100%; border:1px solid #000000; padding:3px;", @id = "videoUrlInputt" })
+                        <button class="btn btn-primary" type="button" id="previewButtonn">Önizle</button>
                     </div>
                 </div>
+
                 <div>
                     <label for="exampleInputPassword4">720</label>
                     <br />
@@ -60,10 +60,14 @@
             </div>
             <div>
                 <div style="margin-bottom:10px;">
-                    <label for="exampleInputPassword4">480</label>
+                    <label for="videoUrlInput">Video IFRAME</label>
                     <br />
-                    <video controls class="Video2" width="400" height="250" style="border:1px solid #000000; object-fit:cover;"></video>
-                    <input class="form-control" id="resim" accept=".mp4" type="file" onchange="$('.Video2')[0].src = window.URL.createObjectURL(this.files[0])" name="Video2" />
+                    <iframe id="videoIframe" width="400" height="250" style="border:1px solid #000000; display:block;" frameborder="0" allowfullscreen></iframe>
+                    <video controls id="otherVideo" width="400" height="250" style="border:1px solid #000000; display:none; object-fit:cover;"></video>
+                    <div class="d-flex">
+                        @Html.TextBoxFor(x => x.URL, new { @class = "form-control", @id = "videoUrlInput", @placeholder = "YouTube veya Google Drive video URL'sini buraya yapıştırın", @style = "width:100%; border:1px solid #000000; padding:3px;" })
+                        <button class="btn btn-primary" type="button" id="previewButton">Önizle</button>
+                    </div>
                 </div>
                 <div>
                     <label for="exampleInputPassword4">1080</label>
@@ -72,7 +76,6 @@
                     <input class="form-control" id="resim" accept=".mp4" type="file" onchange="$('.Video4')[0].src = window.URL.createObjectURL(this.files[0])" name="Video4" />
                 </div>
             </div>
-
         </div>
         <div class="form-group">
             <label for="exampleInputPassword4">Anime Adı</label><br />
@@ -171,7 +174,7 @@
                 otherVideo.style.display = "none";
             }
             // Sibnet URL kontrolü
-            else if (videoUrl.includes('video.sibnet.ru/video')) {
+            else if (videoUrl.includes('video.sibnet.ru/shell.php?videoid=')) {
                 // Sibnet URL'sini doğrudan kullan
                 videoIframe.src = videoUrl; // Doğrudan URL'yi kullan
                 videoIframe.style.display = "block";
@@ -226,5 +229,21 @@
                 }
             }
         });
+    });
+</script>
+
+<script>
+    document.getElementById('previewButtonn').addEventListener('click', function () {
+        var videoUrl = document.getElementById('videoUrlInputt').value;
+        var videoPlayer = document.getElementById('videoPlayerr');
+
+        // Video URL'sini kontrol et ve videoyu yükle
+        if (videoUrl.includes('.mp4')) {
+            // URL içinde .mp4 var mı kontrolü yapıyoruz
+            videoPlayer.src = videoUrl;
+            videoPlayer.load(); // Yeni kaynağı yükle
+        } else {
+            alert('Lütfen geçerli bir MP4 uzantılı link girin.');
+        }
     });
 </script>
