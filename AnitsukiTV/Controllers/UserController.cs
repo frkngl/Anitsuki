@@ -270,7 +270,7 @@ namespace AnitsukiTV.Controllers
                 else
                 {
                     user.MAIL = user.MAIL.Trim();
-                    string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+                    string emailPattern = @"^(?!.*\.{2})(([^<>()[\]\\.,;:\s@\""]+(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$";
                     if (!Regex.IsMatch(user.MAIL, emailPattern))
                     {
                         TempData["error"] = "Lütfen geçerli bir Mail adresi giriniz!";
@@ -285,19 +285,32 @@ namespace AnitsukiTV.Controllers
                     }
                 }
 
-                if (!string.IsNullOrWhiteSpace(user.PASSWORD))
+                if (!string.IsNullOrWhiteSpace(user.PASSWORD) && Regex.IsMatch(user.PASSWORD, @"^[a-zA-Z0-9_\p{P}]+$"))
                 {
-                    if (user.PASSWORD != user.CONFIRMPASS)
+                    if (!string.IsNullOrWhiteSpace(user.CONFIRMPASS) && Regex.IsMatch(user.CONFIRMPASS, @"^[a-zA-Z0-9_\p{P}]+$"))
                     {
-                        TempData["error4"] = "Şifreler aynı değil!";
-                        ModelState.AddModelError("PASSWORD", "Şifreler aynı değil!");
+                        if (user.PASSWORD != user.CONFIRMPASS)
+                        {
+                            TempData["error4"] = "Şifreler aynı değil!";
+                            ModelState.AddModelError("PASSWORD", "Şifreler aynı değil!");
+                        }
+                        else
+                        {
+                            UserUpdate.PASSWORD = user.PASSWORD;
+                            UserUpdate.CONFIRMPASS = user.PASSWORD;
+                            ModelState.Remove("CONFIRMPASS");
+                        }
                     }
                     else
                     {
-                        UserUpdate.PASSWORD = user.PASSWORD;
-                        UserUpdate.CONFIRMPASS = user.PASSWORD;
-                        ModelState.Remove("CONFIRMPASS");
+                        TempData["error8"] = "Şifre doğrulama alanı sadece harf, sayı, _ ve noktalama işaretlerinden oluşmalıdır, boşluk içermemelidir.";
+                        ModelState.AddModelError("CONFIRMPASS", "Şifre doğrulama alanı sadece harf, sayı, _ ve noktalama işaretlerinden oluşmalıdır, boşluk içermemelidir.");
                     }
+                }
+                else
+                {
+                    TempData["error9"] = "Şifre alanı sadece harf, sayı, _ ve noktalama işaretlerinden oluşmalıdır, boşluk içermemelidir.";
+                    ModelState.AddModelError("PASSWORD", "Şifre alanı sadece harf, sayı, _ ve noktalama işaretlerinden oluşmalıdır, boşluk içermemelidir.");
                 }
 
                 UserUpdate.ABOUT = string.IsNullOrWhiteSpace(user.ABOUT) ? null : user.ABOUT;

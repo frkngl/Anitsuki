@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,6 +26,10 @@ namespace AnitsukiTV.Models
         public List<TBLNOTIFICATIONS> Notifications { get; set; }
         public List<TBLANIME> FriendsAnime { get; set; }
         public List<TBL404> Error { get; set; }
+        public List<TBLANIMECOMMENT> AnimeComments { get; set; }
+        public IPagedList<TBLANIMECOMMENT> PagedRootComments { get; set; }
+        public List<TBLEPISODECOMMENT> EpisodeComments { get; set; }
+        public IPagedList<TBLEPISODECOMMENT> PageddRootComments { get; set; }
         public VideoViewModel VideoInfo { get; set; }
     }
 

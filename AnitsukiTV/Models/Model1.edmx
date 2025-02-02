@@ -71,6 +71,7 @@
           <Property Name="DATE" Type="datetime" />
           <Property Name="USTID" Type="int" />
           <Property Name="STATUS" Type="bit" />
+          <Property Name="SPOILER" Type="bit" />
         </EntityType>
         <EntityType Name="TBLANIMECOMMENTLIKE">
           <Key>
@@ -126,6 +127,7 @@
           <Property Name="DATE" Type="datetime" />
           <Property Name="USTID" Type="int" />
           <Property Name="STATUS" Type="bit" />
+          <Property Name="SPOILER" Type="bit" />
         </EntityType>
         <EntityType Name="TBLEPISODECOMMENTLIKE">
           <Key>
@@ -173,6 +175,8 @@
           <Property Name="ISCLEARED" Type="bit" />
           <Property Name="USERNAME" Type="nvarchar" MaxLength="250" />
           <Property Name="PROFILEPICTURE" Type="nvarchar" MaxLength="250" />
+          <Property Name="ANIMEID" Type="int" />
+          <Property Name="EPISODEID" Type="int" />
         </EntityType>
         <EntityType Name="TBLSEASON">
           <Key>
@@ -427,6 +431,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBLNOTIFICATIONS_TBLANIME">
+          <End Role="TBLANIME" Type="Self.TBLANIME" Multiplicity="0..1" />
+          <End Role="TBLNOTIFICATIONS" Type="Self.TBLNOTIFICATIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLANIME">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLNOTIFICATIONS">
+              <PropertyRef Name="ANIMEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLNOTIFICATIONS_TBLEPISODE">
+          <End Role="TBLEPISODE" Type="Self.TBLEPISODE" Multiplicity="0..1" />
+          <End Role="TBLNOTIFICATIONS" Type="Self.TBLNOTIFICATIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLEPISODE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLNOTIFICATIONS">
+              <PropertyRef Name="EPISODEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBLNOTIFICATIONS_TBLUSER">
           <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
           <End Role="TBLNOTIFICATIONS" Type="Self.TBLNOTIFICATIONS" Multiplicity="*" />
@@ -567,6 +595,14 @@
             <End Role="TBLUSER" EntitySet="TBLUSER" />
             <End Role="TBLFOLLOWERS" EntitySet="TBLFOLLOWERS" />
           </AssociationSet>
+          <AssociationSet Name="FK_TBLNOTIFICATIONS_TBLANIME" Association="Self.FK_TBLNOTIFICATIONS_TBLANIME">
+            <End Role="TBLANIME" EntitySet="TBLANIME" />
+            <End Role="TBLNOTIFICATIONS" EntitySet="TBLNOTIFICATIONS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLNOTIFICATIONS_TBLEPISODE" Association="Self.FK_TBLNOTIFICATIONS_TBLEPISODE">
+            <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+            <End Role="TBLNOTIFICATIONS" EntitySet="TBLNOTIFICATIONS" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBLNOTIFICATIONS_TBLUSER" Association="Self.FK_TBLNOTIFICATIONS_TBLUSER">
             <End Role="TBLUSER" EntitySet="TBLUSER" />
             <End Role="TBLNOTIFICATIONS" EntitySet="TBLNOTIFICATIONS" />
@@ -628,6 +664,10 @@
             <End Role="TBLANIME" EntitySet="TBLANIME" />
             <End Role="TBLFAVORITES" EntitySet="TBLFAVORITES" />
           </AssociationSet>
+          <AssociationSet Name="FK_TBLNOTIFICATIONS_TBLANIME" Association="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLANIME">
+            <End Role="TBLANIME" EntitySet="TBLANIME" />
+            <End Role="TBLNOTIFICATIONS" EntitySet="TBLNOTIFICATIONS" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBLSEASON_TBLANIME" Association="AnitsukiTVModel.FK_TBLSEASON_TBLANIME">
             <End Role="TBLANIME" EntitySet="TBLANIME" />
             <End Role="TBLSEASON" EntitySet="TBLSEASON" />
@@ -659,6 +699,10 @@
           <AssociationSet Name="FK_TBLEPISODELIKE_TBLEPISODE" Association="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLEPISODE">
             <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
             <End Role="TBLEPISODELIKE" EntitySet="TBLEPISODELIKE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLNOTIFICATIONS_TBLEPISODE" Association="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLEPISODE">
+            <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+            <End Role="TBLNOTIFICATIONS" EntitySet="TBLNOTIFICATIONS" />
           </AssociationSet>
           <AssociationSet Name="FK_TBLEPISODECOMMENT_TBLUSER" Association="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLUSER">
             <End Role="TBLUSER" EntitySet="TBLUSER" />
@@ -757,6 +801,7 @@
           <NavigationProperty Name="TBLANIMECOMMENT" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLANIME" FromRole="TBLANIME" ToRole="TBLANIMECOMMENT" />
           <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLANIME" FromRole="TBLANIME" ToRole="TBLEPISODE" />
           <NavigationProperty Name="TBLFAVORITES" Relationship="AnitsukiTVModel.FK_TBLFAVORITES_TBLANIME" FromRole="TBLANIME" ToRole="TBLFAVORITES" />
+          <NavigationProperty Name="TBLNOTIFICATIONS" Relationship="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLANIME" FromRole="TBLANIME" ToRole="TBLNOTIFICATIONS" />
           <NavigationProperty Name="TBLSEASON" Relationship="AnitsukiTVModel.FK_TBLSEASON_TBLANIME" FromRole="TBLANIME" ToRole="TBLSEASON" />
           <NavigationProperty Name="TBLWATCHLATER" Relationship="AnitsukiTVModel.FK_TBLWATCHLATER_TBLANIME" FromRole="TBLANIME" ToRole="TBLWATCHLATER" />
         </EntityType>
@@ -771,6 +816,7 @@
           <Property Name="DATE" Type="DateTime" Precision="3" />
           <Property Name="USTID" Type="Int32" />
           <Property Name="STATUS" Type="Boolean" />
+          <Property Name="SPOILER" Type="Boolean" />
           <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLANIME" FromRole="TBLANIMECOMMENT" ToRole="TBLANIME" />
           <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENT_TBLUSER" FromRole="TBLANIMECOMMENT" ToRole="TBLUSER" />
           <NavigationProperty Name="TBLANIMECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLANIMECOMMENTLIKE_TBLANIMECOMMENT" FromRole="TBLANIMECOMMENT" ToRole="TBLANIMECOMMENTLIKE" />
@@ -824,6 +870,7 @@
           <NavigationProperty Name="TBLSEASON" Relationship="AnitsukiTVModel.FK_TBLEPISODE_TBLSEASON" FromRole="TBLEPISODE" ToRole="TBLSEASON" />
           <NavigationProperty Name="TBLEPISODECOMMENT" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLEPISODE" FromRole="TBLEPISODE" ToRole="TBLEPISODECOMMENT" />
           <NavigationProperty Name="TBLEPISODELIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODELIKE_TBLEPISODE" FromRole="TBLEPISODE" ToRole="TBLEPISODELIKE" />
+          <NavigationProperty Name="TBLNOTIFICATIONS" Relationship="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLEPISODE" FromRole="TBLEPISODE" ToRole="TBLNOTIFICATIONS" />
         </EntityType>
         <EntityType Name="TBLEPISODECOMMENT">
           <Key>
@@ -836,6 +883,7 @@
           <Property Name="DATE" Type="DateTime" Precision="3" />
           <Property Name="USTID" Type="Int32" />
           <Property Name="STATUS" Type="Boolean" />
+          <Property Name="SPOILER" Type="Boolean" />
           <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLEPISODE" FromRole="TBLEPISODECOMMENT" ToRole="TBLEPISODE" />
           <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENT_TBLUSER" FromRole="TBLEPISODECOMMENT" ToRole="TBLUSER" />
           <NavigationProperty Name="TBLEPISODECOMMENTLIKE" Relationship="AnitsukiTVModel.FK_TBLEPISODECOMMENTLIKE_TBLEPISODECOMMENT" FromRole="TBLEPISODECOMMENT" ToRole="TBLEPISODECOMMENTLIKE" />
@@ -894,6 +942,10 @@
           <Property Name="ISCLEARED" Type="Boolean" />
           <Property Name="USERNAME" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="PROFILEPICTURE" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ANIMEID" Type="Int32" />
+          <Property Name="EPISODEID" Type="Int32" />
+          <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLANIME" FromRole="TBLNOTIFICATIONS" ToRole="TBLANIME" />
+          <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLEPISODE" FromRole="TBLNOTIFICATIONS" ToRole="TBLEPISODE" />
           <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLUSER" FromRole="TBLNOTIFICATIONS" ToRole="TBLUSER" />
         </EntityType>
         <EntityType Name="TBLSEASON">
@@ -1007,6 +1059,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBLNOTIFICATIONS_TBLANIME">
+          <End Type="AnitsukiTVModel.TBLANIME" Role="TBLANIME" Multiplicity="0..1" />
+          <End Type="AnitsukiTVModel.TBLNOTIFICATIONS" Role="TBLNOTIFICATIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLANIME">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLNOTIFICATIONS">
+              <PropertyRef Name="ANIMEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBLSEASON_TBLANIME">
           <End Type="AnitsukiTVModel.TBLANIME" Role="TBLANIME" Multiplicity="0..1" />
           <End Type="AnitsukiTVModel.TBLSEASON" Role="TBLSEASON" Multiplicity="*" />
@@ -1099,6 +1163,18 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="TBLEPISODELIKE">
+              <PropertyRef Name="EPISODEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLNOTIFICATIONS_TBLEPISODE">
+          <End Type="AnitsukiTVModel.TBLEPISODE" Role="TBLEPISODE" Multiplicity="0..1" />
+          <End Type="AnitsukiTVModel.TBLNOTIFICATIONS" Role="TBLNOTIFICATIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLEPISODE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLNOTIFICATIONS">
               <PropertyRef Name="EPISODEID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1280,6 +1356,7 @@
           <EntitySetMapping Name="TBLANIMECOMMENT">
             <EntityTypeMapping TypeName="AnitsukiTVModel.TBLANIMECOMMENT">
               <MappingFragment StoreEntitySet="TBLANIMECOMMENT">
+                <ScalarProperty Name="SPOILER" ColumnName="SPOILER" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="USTID" ColumnName="USTID" />
                 <ScalarProperty Name="DATE" ColumnName="DATE" />
@@ -1340,6 +1417,7 @@
           <EntitySetMapping Name="TBLEPISODECOMMENT">
             <EntityTypeMapping TypeName="AnitsukiTVModel.TBLEPISODECOMMENT">
               <MappingFragment StoreEntitySet="TBLEPISODECOMMENT">
+                <ScalarProperty Name="SPOILER" ColumnName="SPOILER" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="USTID" ColumnName="USTID" />
                 <ScalarProperty Name="DATE" ColumnName="DATE" />
@@ -1392,6 +1470,8 @@
           <EntitySetMapping Name="TBLNOTIFICATIONS">
             <EntityTypeMapping TypeName="AnitsukiTVModel.TBLNOTIFICATIONS">
               <MappingFragment StoreEntitySet="TBLNOTIFICATIONS">
+                <ScalarProperty Name="EPISODEID" ColumnName="EPISODEID" />
+                <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
                 <ScalarProperty Name="PROFILEPICTURE" ColumnName="PROFILEPICTURE" />
                 <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
                 <ScalarProperty Name="ISCLEARED" ColumnName="ISCLEARED" />

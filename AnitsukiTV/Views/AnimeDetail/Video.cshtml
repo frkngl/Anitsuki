@@ -9,6 +9,15 @@
 <html lang="tr">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z6GHK21HCJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-Z6GHK21HCJ');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -423,7 +432,24 @@
         header #nabermudur ul {
             max-height: 300px;
             overflow-y: auto;
+            width: 300px;
         }
+
+            header #nabermudur ul .dracula {
+                position: relative;
+            }
+
+                header #nabermudur ul .dracula::after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    width: 90%;
+                    height: 1px;
+                    background: #cecece;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    bottom: 0;
+                }
 
         #nabermudur button {
             background-color: transparent;
@@ -435,6 +461,92 @@
 
             #nabermudur button:hover {
                 color: #ffffff;
+            }
+
+        .comments .detail .user .name a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+            .comments .detail .user .name a:hover {
+                color: #FF7F00;
+            }
+
+        .like.active a,
+        .unlike.active a {
+            color: orange;
+        }
+
+        .like a,
+        .unlike a {
+            color: white;
+        }
+
+        input[type="checkbox"] {
+            /* Checkbox'ın görünümünü gizle */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            /* Boyutu büyüt */
+            width: 20px;
+            height: 20px;
+            /* Kenarlık ve arka plan */
+            border: 2px solid #FF7F00;
+            background-color: #000000;
+            /* Yuvarlak köşeler */
+            border-radius: 4px;
+        }
+
+            /* Checkbox işaretlendiğinde */
+            input[type="checkbox"]:checked {
+                /* Checkbox içindeki işaretin görünümünü özelleştir */
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23000000" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>');
+                /* Arka plan rengini beyaz yap, böylece sadece turuncu işaret görünür */
+                background-color: #FF7F00;
+            }
+
+        /* Yazıların seçilemez olması için */
+        label {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .spoiler-blur {
+            transition: filter 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .spoiler-blur::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #151515; /* Dark overlay */
+                z-index: 8;
+                border-radius: 10px;
+                cursor: pointer;
+            }
+
+            .spoiler-blur::after {
+                content: "Bu yorum spoiler içerir okumak için tıklayınız.";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: #ffffff;
+                z-index: 9; /* Ensure text is above the dark overlay */
+                cursor: pointer;
+            }
+
+            .spoiler-blur.active::before,
+            .spoiler-blur.active::after {
+                display: none; /* Hide both overlays when active */
             }
     </style>
 </head>
@@ -474,40 +586,90 @@
                             <button type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i id="notification-icon" style="font-size:1.5rem;" class="bi bi-bell"></i>
                             </button>
-                            <ul id="nabermudurr" style="background-color:#313131;" class="dropdown-menu">
-                                @if (Model.VideoInfo.Notification.Any(n => n.ISCLEARED == false))
-                                {
-                                    foreach (var notification in Model.VideoInfo.Notification.OrderByDescending(x => x.ID))
+                            @if (Model.VideoInfo.Notification.Any(n => n.ISCLEARED == false))
+                            {
+                                <ul id="nabermudurr" style="background-color:#313131;" class="dropdown-menu">
+                                    @foreach (var notification in Model.VideoInfo.Notification.OrderByDescending(x => x.ID))
                                     {
-                                        <li style="display: flex; align-items: center; padding: 5px;">
-                                            <a style="display: flex; position:relative; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
-                                                @if (notification.PROFILEPICTURE != null)
-                                                {
-                                                    <div style="position:absolute;" class="skeleton2"></div>
-                                                    <img data-src="/USERIMG/@notification.PROFILEPICTURE" class="lazy" style="object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
-                                                }
-                                                else
-                                                {
-                                                    <div style="position:absolute;" class="skeleton2"></div>
-                                                    <img data-src="/USERIMG/stockuser.png" class="lazy" style="object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
-                                                }
-                                                <div style="color: #ffffff;">
-                                                    <strong style="font-size:0.9rem;">@notification.USERNAME</strong><br />
-                                                    <span style="font-size: 0.9rem;">@notification.MESSAGE</span><br />
-                                                    <span style="font-size: 0.8rem; color: #cccccc;">@notification.CREATED.Value.ToString("dd.MM.yyyy")</span>
-                                                </div>
-                                            </a>
+                                        <li style="display: flex; align-items: center; padding: 5px;" class="dracula">
+                                            @if (notification.ANIMEID != null && notification.EPISODEID == null)
+                                            {
+                                                <a style="display: flex; position:relative; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Anime Detay", new { animeId = notification.ANIMEID ,animeName = notification.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = notification.TBLANIME.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == notification.ID)?.SEASONNUMBER ?? 0})">
+                                                    @if (notification.PROFILEPICTURE != null)
+                                                    {
+                                                        <div style="position:absolute;" class="skeleton2"></div>
+                                                        <img data-src="/USERIMG/@notification.PROFILEPICTURE" class="lazy" style="object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <div style="position:absolute;" class="skeleton2"></div>
+                                                        <img data-src="/USERIMG/stockuser.png" class="lazy" style="object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    }
+                                                    <div style=" width: 225px; color: #ffffff;">
+                                                        <strong style="font-size: 0.9rem; display: block; margin-bottom:-22px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ">
+                                                            @notification.TBLANIME.ANIMENAME
+                                                        </strong><br />
+                                                        <span style="font-size: 0.9rem; width: 100%; display: inline-block; line-height: 1.2;">@notification.MESSAGE</span><br />
+                                                        <span style="font-size: 0.8rem; color: #cccccc;"> @TimeAgo(notification.CREATED.Value)</span>
+
+                                                    </div>
+                                                </a>
+                                            }
+                                            else if (notification.ANIMEID == null && notification.EPISODEID == null)
+                                            {
+                                                <a style="display: flex; position:relative; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
+                                                    @if (notification.PROFILEPICTURE != null)
+                                                    {
+                                                        <div style="position:absolute;" class="skeleton2"></div>
+                                                        <img data-src="/USERIMG/@notification.PROFILEPICTURE" class="lazy" style="object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <div style="position:absolute;" class="skeleton2"></div>
+                                                        <img data-src="/USERIMG/stockuser.png" class="lazy" style="object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    }
+                                                    <div style=" width: 220px; color: #ffffff;">
+                                                        <strong style="font-size: 0.9rem; display: block; margin-bottom: -25px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ">@notification.USERNAME</strong><br />
+                                                        <span style="font-size: 0.9rem;">@notification.MESSAGE</span><br />
+                                                        <span style="font-size: 0.8rem; color: #cccccc;">@TimeAgo(notification.CREATED.Value)</span>
+                                                    </div>
+                                                </a>
+                                            }
+                                            else if (notification.ANIMEID != null && notification.EPISODEID != null)
+                                            {
+                                                <a style="display: flex; position:relative; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Video", new {episodeID = notification.EPISODEID, animeName = notification.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = notification.TBLANIME.TBLSEASON.FirstOrDefault().SEASONNUMBER, episodeNumber = notification.EPISODEID })">
+                                                    @if (notification.PROFILEPICTURE != null)
+                                                    {
+                                                        <div style="position:absolute;" class="skeleton2"></div>
+                                                        <img data-src="/USERIMG/@notification.PROFILEPICTURE" class="lazy" style="object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <div style="position:absolute;" class="skeleton2"></div>
+                                                        <img data-src="/USERIMG/stockuser.png" class="lazy" style="object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    }
+                                                    <div style=" width: 225px; color: #ffffff;">
+                                                        <strong style="font-size: 0.9rem; display: block; margin-bottom:-22px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ">
+                                                            @notification.TBLANIME.ANIMENAME S@(notification.TBLANIME.TBLSEASON.FirstOrDefault().SEASONNUMBER) B@(notification.TBLEPISODE.EPINUMBER)
+                                                        </strong><br />
+                                                        <span style="font-size: 0.9rem; width: 100%; display: inline-block; line-height: 1.2;">@notification.MESSAGE</span><br />
+                                                        <span style="font-size: 0.8rem; color: #cccccc;">@TimeAgo(notification.CREATED.Value)</span>
+                                                    </div>
+                                                </a>
+                                            }
                                         </li>
                                     }
                                     <li>
                                         <button id="clear-notifications" style="margin: 0px; width: 100%; padding: 5px 12px; color: #ffffff; background: none; border: none;">Temizle</button>
                                     </li>
-                                }
-                                else
-                                {
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul style="background-color:#313131; width:150px;" class="dropdown-menu">
                                     <li style="color:white; text-align:center;">Bildirim Kutusu Boş</li>
-                                }
-                            </ul>
+                                </ul>
+                            }
                         </div>
                     }
                     @if (User.Identity.IsAuthenticated)
@@ -808,9 +970,305 @@
                         <div class="sitelink">Site: <a target="_blank" href="@ö.TBLANIME.TBLSEASON.FirstOrDefault().WEBSITE"><i class="bi bi-globe"></i></a> <a target="_blank" href="@ö.TBLANIME.TBLSEASON.FirstOrDefault().DISCORD"><i class="bi bi-discord"></i></a></div>
                     </div>
                 }
-                @Html.Action("LeaveComment1", "AnimeDetail", new { id = ViewBag.episodeID })
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div style="margin-top:20px !important;" class="commentplace">
+                        <div class="headcomment">
+                            <div class="title">
+                                <i class="bi bi-pencil-square"></i> Düşüncelerinizi Yazın
+                            </div>
+                            @using (Html.BeginForm("LeaveComment1", null, new { animeName = ViewBag.animeName, seasonNumber = ViewBag.seasonNumber, episodeNumber = ViewBag.episodeNumber }, FormMethod.Post, new { style = "width: 100%;" }))
+                            {
+                                <form style="width:100%;">
+                                    <textarea style="width:100%" name="COMMENT" required></textarea>
+                                    <input type="hidden" name="EPISODEID" value="@ViewBag.episode1" />
+                                    <div style="display:flex;">
+                                        <label style="color:#ffffff; display:flex; align-items:center; margin-right:5px;">
+                                            <input style="margin-right:5px;" type="checkbox" name="SPOILER" value="true" /> Spoiler içeriyor
+                                        </label>
+                                        <button><i class="bi bi-send"></i> Gönder</button>
+                                    </div>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div style="display:flex; justify-content:center; margin-top:50px;">
+                        <p style="font-size:1.1rem;color:#ffffff;">Düşüncelerinizi yazmak için</p><a style="text-decoration: none;" href="@Url.RouteUrl("Giriş")"><span style="color: #FF7F00; margin-left:5px; font-size:1.1rem;">Giriş Yapın</span></a>
+                    </div>
+                }
                 <div class="commentboxes">
-                    @Html.Action("Comment1", "AnimeDetail", new { id = ViewBag.episodeID })
+                    <div class="title">
+                        <i class="bi bi-chat"></i> @ViewBag.EpisodeCount Yorum
+                    </div>
+                    <div class="comments">
+                        @if (Model.VideoInfo.PageddRootComments.Any())
+                        {
+                            @helper RenderComment(TBLEPISODECOMMENT comment, int level, List<TBLEPISODECOMMENT> allComments)
+                            {
+                                AnitsukiTVEntities db = new AnitsukiTVEntities();
+                                string isim = "commentModal_" + comment.ID;
+                                var userID = db.TBLUSER.Where(u => u.USERNAME == User.Identity.Name).Select(u => u.ID).FirstOrDefault();
+                                var likeExist = comment.TBLEPISODECOMMENTLIKE.Any(y => y.USERID == userID);
+                                var liked = comment.TBLEPISODECOMMENTLIKE.FirstOrDefault(y => y.USERID == userID)?.STATUS;
+
+                                string commentClass = level == 1 ? "comment1" : "comment2";
+
+                                // Kullanıcıya ait veya kullanıcının cevap verdiği yorumlar için ek stil
+                                if (User.Identity.IsAuthenticated && (comment.USERID == userID || (comment.USTID.HasValue && allComments.Any(c => c.ID == comment.USTID && c.USERID == userID))))
+                                {
+                                    commentClass += " comment-highlight";
+                                }
+
+                                // Spoiler için sınıf ekleme
+                                string spoilerClass = comment.SPOILER == true && comment.USERID != userID ? "spoiler-blur" : "";
+
+                                <div class="@commentClass @spoilerClass" style="margin-left: @(level * 20); background-color:#151515; border-radius:10px; padding:10px 5px 10px 10px;">
+                                    @if (comment.TBLUSER.PICTURE != null)
+                                    {
+                                        <img src="~/USERIMG/@comment.TBLUSER.PICTURE" loading="lazy">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/USERIMG/stockuser.png" loading="lazy" />
+                                    }
+                                    <div class="detail">
+                                        <div style="display:flex; flex-direction:column; align-items:start;" class="user">
+                                            <div class="name">
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    <a href="@Url.RouteUrl("Profil", new { userName = comment.TBLUSER.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">@comment.TBLUSER.USERNAME</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.RouteUrl("Giriş", new { returnUrl = Request.RawUrl })">@comment.TBLUSER.USERNAME</a>
+                                                }
+                                            </div>
+                                            <div style="margin-left:0; margin-top:-10px; color:#ccc;" class="year">
+                                                @TimeAgo(@comment.DATE.Value)
+                                            </div>
+                                        </div>
+                                        <div class="text">
+                                            @{
+                                                var parentComment = allComments.FirstOrDefault(c => c.ID == comment.USTID);
+                                                var parentUsername = parentComment != null ? parentComment.TBLUSER.USERNAME : null;
+                                            }
+                                            @if (comment.USTID.HasValue && parentUsername != null)
+                                            {
+                                                <strong style="color:orange;">@parentUsername</strong>
+                                            }
+                                            @comment.COMMENT
+                                        </div>
+                                        <div class="more">
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                <div class="reply" data-bs-toggle="modal" data-bs-target="#@isim">
+                                                    <i class="bi bi-reply"></i>Cevapla
+                                                </div>
+                                                <!-- Modal form here -->
+                                                <div style="margin-top: 100px;" class="modal fade" id="@isim" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div style="background-color: #000000; box-shadow: 0px 0px 20px #FF7F00" class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 style="color:#ffffff;" class="modal-title fs-5" id="exampleModalLabel">Cevap Yazıyorsunuz</h1>
+                                                                <button style="background-color: #ffffff; color:#ffffff;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                @using (Html.BeginForm("ReplyComment1", null, new { animeName = ViewBag.animeName, seasonNumber = ViewBag.seasonNumber, episodeNumber = ViewBag.episodeNumber }, FormMethod.Post))
+                                                                {
+                                                                    <input hidden type="text" name="animeName" value="@ViewBag.animeName" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
+                                                                    <input hidden type="text" name="USTID" value="@comment.ID" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
+                                                                    <input hidden type="text" name="EPISODEID" value="@ViewBag.episode" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
+                                                                    if (comment.TBLUSER.PICTURE != null)
+                                                                    {
+                                                                        <img hidden src="~/USERIMG/@comment.TBLUSER.PICTURE" alt="Profil Fotoğrafı" loading="lazy" />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <img hidden src="~/USERIMG/stockuser.png" loading="lazy" />
+                                                                    }
+                                                                    if (comment.TBLUSER != null && !string.IsNullOrEmpty(comment.TBLUSER.USERNAME))
+                                                                    {
+                                                                        <span hidden>@comment.TBLUSER.USERNAME</span>
+                                                                        <div style="color:#ffffff;">Cevap yazdığınız kişi</div>
+                                                                        <input type="text" name="USERID" value="@comment.TBLUSER.USERNAME" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input type="text" name="USERID" value="" readonly class="form-control" style="border: none; color:#ffffff; outline: solid #000000; background-color: #313131; " />
+                                                                    }
+                                                                    <br />
+                                                                    <div style="color:#ffffff;">Yorum</div>
+                                                                    <textarea name="COMMENT" class="form-control" style="border: none; color: #ffffff; background-color: #313131; outline: solid #000000; height: 200px;" required></textarea>
+                                                                    <br />
+                                                                    <div style="display:flex; flex-direction:column; width:100%; align-items:center; justify-content:center; margin-top:-25px;">
+                                                                        <label style="color:#ffffff; display:flex; align-items:center; margin-right:5px;">
+                                                                            <input style="margin-right:5px;" type="checkbox" name="SPOILER" value="true" /> Spoiler içeriyor
+                                                                        </label>
+                                                                        <button style="background-color: #FF7F00; width:90px; height:40px; border-radius:20px; border:none; font-size:1rem; margin-top:10px;" type="submit"> Gönder </button>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <a href="@Url.RouteUrl("Giriş")" style="text-decoration: none; color: white;">
+                                                    <i class="bi bi-reply"></i>Cevapla
+                                                </a>
+                                            }
+                                            <div class="likeandunlike">
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    <div class="like @(liked.HasValue && liked.Value ? "active" : "")" data-comment-id="@comment.ID">
+                                                        <a style="text-decoration: none; cursor: pointer;" onclick="handleLikeOrUnlike(this, @comment.ID, @userID, true)">
+                                                            <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
+                                                            <span id="like-count-@comment.ID">@comment.TBLEPISODECOMMENTLIKE.Where(y => y.STATUS == true).Count()</span>
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="unlike @(liked.HasValue && !liked.Value ? "active" : "")" data-comment-id="@comment.ID">
+                                                        <a style="text-decoration: none; cursor: pointer;" onclick="handleLikeOrUnlike(this, @comment.ID, @userID, false)">
+                                                            <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
+                                                            <span id="unlike-count-@comment.ID">@comment.TBLEPISODECOMMENTLIKE.Where(y => y.STATUS == false).Count()</span>
+                                                        </a>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="like" style="margin-right:5px;" data-comment-id="@comment.ID">
+                                                        <a style="text-decoration:none; color:white;" href="@Url.RouteUrl("Giriş")">
+                                                            <i style="margin-right:2px;" class="bi bi-hand-thumbs-up"></i>
+                                                            @comment.TBLEPISODECOMMENTLIKE.Where(y => y.STATUS == true).Count()
+                                                        </a>
+                                                    </div>
+                                                    <div class="unlike" data-comment-id="@comment.ID">
+                                                        <a style="text-decoration:none; color:white;" href="@Url.RouteUrl("Giriş")">
+                                                            <i style="margin-right:2px;" class="bi bi-hand-thumbs-down"></i>
+                                                            @comment.TBLEPISODECOMMENTLIKE.Where(y => y.STATUS == false).Count()
+                                                        </a>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                foreach (var reply in allComments.Where(y => y.USTID == comment.ID))
+                                {
+                                    @RenderComment(reply, level + 1, allComments)
+                                }
+                            }
+
+                            foreach (var rootComment in Model.VideoInfo.PageddRootComments)
+                            {
+                                @RenderComment(rootComment, 1, Model.VideoInfo.EpisodeComment)
+                            }
+
+                            if (ViewBag.PageCount > 1)
+                            {
+                                <div style="width: 100%; margin-top: 25px; display: flex; justify-content: center; align-items: center;">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination custom-pagination">
+                                            @if (ViewBag.CurrentPage > 1)
+                                            {
+                                                <li class="page-item">
+                                                    <a class="page-link" style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
+                                                       href="@Url.RouteUrl("Video", new { episodeID = ViewBag.episode, animeName = ViewBag.animeName, seasonNumber = ViewBag.seasonNumber, episodeNumber = ViewBag.episodeNumber, page = ViewBag.CurrentPage - 1 })" aria-label="Previous">
+                                                        <span aria-hidden="true">«</span>
+                                                    </a>
+                                                </li>
+                                            }
+
+                                            @if (ViewBag.PageCount <= 5)
+                                            {
+                                                for (int i = 1; i <= ViewBag.PageCount; i++)
+                                                {
+                                                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                                        <a class="page-link" style="@(i == ViewBag.CurrentPage ? "background-color: #FF7F00 !important; border: 1px solid #FF7F00 !important; color: #000000;" : "background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;")"
+                                                           href="@Url.RouteUrl("Video", new { episodeID = ViewBag.episode, animeName = ViewBag.animeName, seasonNumber = ViewBag.seasonNumber, episodeNumber = ViewBag.episodeNumber, page = i })">@i</a>
+                                                    </li>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (ViewBag.CurrentPage < 4)
+                                                {
+                                                    for (int i = 1; i <= 3; i++)
+                                                    {
+                                                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                                            <a class="page-link" style="@(i == ViewBag.CurrentPage ? "background-color: #FF7F00 !important; border: 1px solid #FF7F00 !important; color: #000000;" : "background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;")"
+                                                               href="@Url.RouteUrl("Video", new { episodeID = ViewBag.episode, animeName = ViewBag.animeName, seasonNumber = ViewBag.seasonNumber, episodeNumber = ViewBag.episodeNumber, page = i })">@i</a>
+                                                        </li>
+                                                    }
+                                                    <li class="page-item disabled"><span style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;" class="page-link">...</span></li>
+                                                    <li class="page-item">
+                                                        <a class="page-link" style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
+                                                           href="@Url.RouteUrl("Video", new { episodeID = ViewBag.episode, animeName = ViewBag.animeName, seasonNumber = ViewBag.seasonNumber, episodeNumber = ViewBag.episodeNumber, page = ViewBag.PageCount })">@ViewBag.PageCount</a>
+                                                    </li>
+                                                }
+                                                else if (ViewBag.CurrentPage > ViewBag.PageCount - 3)
+                                                {
+                                                    <li class="page-item">
+                                                        <a class="page-link" style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
+                                                           href="@Url.RouteUrl("Video", new { episodeID = ViewBag.episode, animeName = ViewBag.animeName, seasonNumber = ViewBag.seasonNumber, episodeNumber = ViewBag.episodeNumber, page = 1 })">1</a>
+                                                    </li>
+                                                    <li class="page-item disabled"><span style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;" class="page-link">...</span></li>
+                                                    for (int i = ViewBag.PageCount - 2; i <= ViewBag.PageCount; i++)
+                                                    {
+                                                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                                            <a class="page-link" style="@(i == ViewBag.CurrentPage ? "background-color: #FF7F00 !important; border: 1px solid #FF7F00 !important; color: #000000;" : "background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;")"
+                                                               href="@Url.RouteUrl("Video", new { episodeID = ViewBag.episode, animeName = ViewBag.animeName, seasonNumber = ViewBag.seasonNumber, episodeNumber = ViewBag.episodeNumber, page = i })">@i</a>
+                                                        </li>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <li class="page-item">
+                                                        <a class="page-link" style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
+                                                           href="@Url.RouteUrl("Video", new { episodeID = ViewBag.episode, animeName = ViewBag.animeName, seasonNumber = ViewBag.seasonNumber, episodeNumber = ViewBag.episodeNumber, page = 1 })">1</a>
+                                                    </li>
+                                                    <li class="page-item disabled"><span style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;" class="page-link">...</span></li>
+                                                    for (int i = ViewBag.CurrentPage - 1; i <= ViewBag.CurrentPage + 1; i++)
+                                                    {
+                                                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                                            <a class="page-link" style="@(i == ViewBag.CurrentPage ? "background-color: #FF7F00 !important; border: 1px solid #FF7F00 !important; color: #000000;" : "background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;")"
+                                                               href="@Url.RouteUrl("Video", new { episodeID = ViewBag.episode, animeName = ViewBag.animeName, seasonNumber = ViewBag.seasonNumber, episodeNumber = ViewBag.episodeNumber, page = i })">@i</a>
+                                                        </li>
+                                                    }
+                                                    <li class="page-item disabled"><span style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;" class="page-link">...</span></li>
+                                                    <li class="page-item">
+                                                        <a class="page-link" style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
+                                                           href="@Url.RouteUrl("Video", new { episodeID = ViewBag.episode, animeName = ViewBag.animeName, seasonNumber = ViewBag.seasonNumber, episodeNumber = ViewBag.episodeNumber, page = ViewBag.PageCount })">@ViewBag.PageCount</a>
+                                                    </li>
+                                                }
+                                            }
+
+                                            @if (ViewBag.CurrentPage < ViewBag.PageCount)
+                                            {
+                                                <li class="page-item">
+                                                    <a class="page-link" style="background-color: #000000; border: 1px solid #FF7F00; color: #FF7F00;"
+                                                       href="@Url.RouteUrl("Video", new { episodeID = ViewBag.episode, animeName = ViewBag.animeName, seasonNumber = ViewBag.seasonNumber, episodeNumber = ViewBag.episodeNumber, page = ViewBag.CurrentPage + 1 })" aria-label="Next">
+                                                        <span aria-hidden="true">»</span>
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </nav>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div style="width:100%; height:100px; display:flex; align-items:center; justify-content:center;">
+                                <h5 style="color:#ffffff;">Bu bölüme henüz yorum yapılmamıştır</h5>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
             <div class="nextandprevepisode">
@@ -955,12 +1413,6 @@
 
         loader.classList.add("loader-hidden");
     })
-    document.addEventListener('keydown', function (event) {
-        if (event.code === 'Space' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'INPUT') {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    });
 </script>
 <script>
     function handleLikeOrUnlike1(element, commentId, userId, isLike) {
@@ -1075,23 +1527,25 @@
         poster.style.display = "block";
     });
 
-
-    document.addEventListener('keydown', (event) => {
-        const textarea = document.querySelector('textarea[name="COMMENT"]'); // Yorum alanını seçin
-
-        // Eğer textarea üzerinde odak varsa, boşluk tuşunun varsayılan davranışını engellemeyin
-        if (document.activeElement === textarea) {
-            // Burada boşluk tuşuna basıldığında hiçbir şey yapma
-            return; // Yorum alanında boşluk tuşu çalışsın
-        }
-
-        // Eğer video oynatıcı aktifse, boşluk tuşunu video kontrolü için kullanın
+    document.addEventListener('keydown', function (event) {
         if (event.code === 'Space') {
-            event.preventDefault(); // Varsayılan boşluk davranışını engelle
-            if (player.playing) {
-                player.pause(); // Video duraklat
-            } else {
-                player.play(); // Video oynat
+            const textarea = document.querySelector('textarea[name="COMMENT"]');
+
+            // Eğer odak yorum alanındaysa veya hedef bir TEXTAREA ya da INPUT ise, boşluk tuşunu engelleme
+            if (document.activeElement === textarea || event.target.tagName === 'TEXTAREA' || event.target.tagName === 'INPUT') {
+                return; // Boşluk tuşunun varsayılan davranışı çalışsın
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            // Video kontrolü
+            if (player && typeof player.play === 'function' && typeof player.pause === 'function') {
+                if (player.paused) {
+                    player.play(); // Video oynat
+                } else {
+                    player.pause(); // Video duraklat
+                }
             }
         }
     });
@@ -1233,7 +1687,8 @@
                     if (data.success) {
                         $('#nabermudurr').empty();
                         $('#nabermudurr').append('<li style="color:white; text-align:center;">Bildirim Kutusu Boş</li>');
-                        $('#notification-icon').removeClass('bi-bell-fill').addClass('bi-bell'); // İkonu boş yap
+                        $('#nabermudurr').css('width', '150px');
+                        $('#notification-icon').removeClass('bi-bell-fill').addClass('bi-bell');
                         toastr.success(data.message, "Bildirimler Temizlendi");
                     } else {
                         toastr.error(data.message, "Hata");
@@ -1383,51 +1838,299 @@ else
         });
     });
 </script>
+<script>
+    function handleLikeOrUnlike(element, commentId, userId, isLike) {
+        var likeButton, unlikeButton, likeCountSpan, unlikeCountSpan;
 
-@*<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        let devtoolsOpen = false;
-        let threshold = 160;
-        let startHeight = window.outerHeight - window.innerHeight;
-
-        function checkDevTools() {
-            if (window.outerHeight - window.innerHeight > threshold && !devtoolsOpen) {
-                devtoolsOpen = true;
-                redirectUser();
-            } else if (window.outerHeight - window.innerHeight <= threshold && devtoolsOpen) {
-                devtoolsOpen = false;
-            }
+        if (isLike) {
+            likeButton = $(element);
+            unlikeButton = likeButton.parent().siblings(".unlike").find("a");
+            likeCountSpan = likeButton.find("span");
+            unlikeCountSpan = unlikeButton.find("span");
+        } else {
+            unlikeButton = $(element);
+            likeButton = unlikeButton.parent().siblings(".like").find("a");
+            unlikeCountSpan = unlikeButton.find("span");
+            likeCountSpan = likeButton.find("span");
         }
 
-        function redirectUser() {
-            // Sayfa geçmişine yeni bir durum ekleyerek, kullanıcı geri döndüğünde bu kontrolü tekrar yapabilmek için
-            history.pushState({ redirect: true }, '', window.location.href);
-            window.location.href = '/another'; 
-        }
-
-        window.addEventListener('resize', checkDevTools);
-
-        // Sayfa geri yüklendiğinde de kontrol yap:
-        window.addEventListener('popstate', function (event) {
-            if (event.state && event.state.redirect) {
-                checkDevTools();
+        $.ajax({
+            type: "POST",
+            url: "/AnimeDetail/LikeOrUnlikeComment1",
+            data: { id: commentId, userId: userId, isLike: isLike },
+            success: function (data) {
+                likeCountSpan.text(data.likeCount);
+                unlikeCountSpan.text(data.unlikeCount);
+                if (isLike) {
+                    if (data.likeCount > 0) {
+                        likeButton.addClass("active").css('color', '#FF7F00');
+                        unlikeButton.removeClass("active").css('color', '#ffffff')
+                    } else {
+                        likeButton.addClass("active").css('color', '#FF7F00');
+                        unlikeButton.removeClass("active").css('color', '#ffffff');
+                    }
+                } else {
+                    if (data.unlikeCount > 0) {
+                        unlikeButton.addClass("active").css('color', '#FF7F00');
+                        likeButton.removeClass("active").css('color', '#ffffff');
+                    } else {
+                        unlikeButton.addClass("active").css('color', '#FF7F00');
+                        likeButton.removeClass("active").css('color', '#ffffff');
+                    }
+                }
             }
         });
+    }
+</script>
+@*<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let devtoolsOpen = false;
+            let threshold = 160;
+            let startHeight = window.outerHeight - window.innerHeight;
 
-        // DevTools açılışını tespit etmek için başka bir yöntem:
-        let originalConsoleError = console.error;
-        console.error = function () {
-            if (!devtoolsOpen) {
-                devtoolsOpen = true;
-                redirectUser();
+            function checkDevTools() {
+                if (window.outerHeight - window.innerHeight > threshold && !devtoolsOpen) {
+                    devtoolsOpen = true;
+                    redirectUser();
+                } else if (window.outerHeight - window.innerHeight <= threshold && devtoolsOpen) {
+                    devtoolsOpen = false;
+                }
             }
-            originalConsoleError.apply(console, arguments);
-        };
 
-        // İlk kontrol:
-        checkDevTools();
+            function redirectUser() {
+                // Sayfa geçmişine yeni bir durum ekleyerek, kullanıcı geri döndüğünde bu kontrolü tekrar yapabilmek için
+                history.pushState({ redirect: true }, '', window.location.href);
+                window.location.href = '/another';
+            }
+
+            window.addEventListener('resize', checkDevTools);
+
+            // Sayfa geri yüklendiğinde de kontrol yap:
+            window.addEventListener('popstate', function (event) {
+                if (event.state && event.state.redirect) {
+                    checkDevTools();
+                }
+            });
+
+            // DevTools açılışını tespit etmek için başka bir yöntem:
+            let originalConsoleError = console.error;
+            console.error = function () {
+                if (!devtoolsOpen) {
+                    devtoolsOpen = true;
+                    redirectUser();
+                }
+                originalConsoleError.apply(console, arguments);
+            };
+
+            // İlk kontrol:
+            checkDevTools();
+        });
+    </script>*@
+
+@functions {
+    public static string TimeAgo(DateTime dateTime)
+    {
+        TimeSpan timeSpan = DateTime.Now - dateTime;
+
+        if (timeSpan.TotalSeconds < 60)
+        {
+            return "az önce";
+        }
+        else if (timeSpan.TotalMinutes < 60)
+        {
+            int minutes = (int)timeSpan.TotalMinutes;
+            return $"{minutes} dakika önce";
+        }
+        else if (timeSpan.TotalHours < 24)
+        {
+            int hours = (int)timeSpan.TotalHours;
+            return $"{hours} saat önce";
+        }
+        else if (timeSpan.TotalDays < 30)
+        {
+            int days = (int)timeSpan.TotalDays;
+            return $"{days} gün önce";
+        }
+        else if (timeSpan.TotalDays < 365)
+        {
+            int months = (int)(timeSpan.TotalDays / 30);
+            return $"{months} ay önce";
+        }
+        else
+        {
+            int years = (int)(timeSpan.TotalDays / 365);
+            return $"{years} yıl önce";
+        }
+    }
+}
+
+@if (TempData["success"] != null)
+{
+    <script type="text/javascript">
+        toastr["success"]("@TempData["success"]", "İşlem Bilgisi")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["error"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("@TempData["error"]", "İşlem Bilgisi")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["messageerror"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("@TempData["messageerror"]", "İşlem Bilgisi")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+
+<script>
+    function toggleSpoiler(element) {
+        element.classList.add('active');
+    }
+
+    document.querySelectorAll('.spoiler-blur').forEach(item => {
+        item.addEventListener('click', function (e) {
+            if (e.target !== this) return; // Check if click is on the div itself, not children
+            toggleSpoiler(this);
+            // Remove the event listener after first click so the blur doesn't toggle back
+            this.removeEventListener('click', arguments.callee);
+        });
     });
-</script>*@
+</script>
+
+
+
+@if (TempData["success1"] != null)
+{
+    <script type="text/javascript">
+        toastr["success"]("@TempData["success1"]", "İşlem Bilgisi")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["error1"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("@TempData["error1"]", "İşlem Bilgisi")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@if (TempData["messageerror1"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("@TempData["messageerror1"]", "İşlem Bilgisi")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
 
 
 

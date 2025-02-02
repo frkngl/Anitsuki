@@ -27,6 +27,7 @@ namespace AnitsukiTV.Models
         public Nullable<System.DateTime> DATE { get; set; }
         public Nullable<int> USTID { get; set; }
         public Nullable<bool> STATUS { get; set; }
+        public Nullable<bool> SPOILER { get; set; }
     
         public virtual TBLEPISODE TBLEPISODE { get; set; }
         public virtual TBLUSER TBLUSER { get; set; }

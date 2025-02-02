@@ -7,6 +7,15 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z6GHK21HCJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-Z6GHK21HCJ');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -274,7 +283,24 @@
         header #nabermudur ul {
             max-height: 300px;
             overflow-y: auto;
+            width: 300px;
         }
+
+            header #nabermudur ul .dracula {
+                position: relative;
+            }
+
+                header #nabermudur ul .dracula::after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    width: 90%;
+                    height: 1px;
+                    background: #cecece;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    bottom: 0;
+                }
 
         .videoimg {
             position: relative;
@@ -350,40 +376,90 @@
                             <button type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i id="notification-icon" style="font-size:1.5rem;" class="bi bi-bell"></i>
                             </button>
-                            <ul id="nabermudurr" style="background-color:#313131;" class="dropdown-menu">
-                                @if (Model.Notifications.Any(n => n.ISCLEARED == false))
-                                {
-                                    foreach (var notification in Model.Notifications.OrderByDescending(x => x.ID))
+                            @if (Model.Notifications.Any(n => n.ISCLEARED == false))
+                            {
+                                <ul id="nabermudurr" style="background-color:#313131;" class="dropdown-menu">
+                                    @foreach (var notification in Model.Notifications.OrderByDescending(x => x.ID))
                                     {
-                                        <li style="display: flex; align-items: center; padding: 5px;">
-                                            <a style="display: flex; position:relative; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
-                                                @if (notification.PROFILEPICTURE != null)
-                                                {
-                                                    <div style="position:absolute;" class="skeleton2"></div>
-                                                    <img data-src="/USERIMG/@notification.PROFILEPICTURE" class="lazy" style="object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
-                                                }
-                                                else
-                                                {
-                                                    <div style="position:absolute;" class="skeleton2"></div>
-                                                    <img data-src="/USERIMG/stockuser.png" class="lazy" style="object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
-                                                }
-                                                <div style="color: #ffffff;">
-                                                    <strong style="font-size:0.9rem;">@notification.USERNAME</strong><br />
-                                                    <span style="font-size: 0.9rem;">@notification.MESSAGE</span><br />
-                                                    <span style="font-size: 0.8rem; color: #cccccc;">@notification.CREATED.Value.ToString("dd.MM.yyyy")</span>
-                                                </div>
-                                            </a>
+                                        <li style="display: flex; align-items: center; padding: 5px;" class="dracula">
+                                            @if (notification.ANIMEID != null && notification.EPISODEID == null)
+                                            {
+                                                <a style="display: flex; position:relative; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Anime Detay", new { animeId = notification.ANIMEID ,animeName = notification.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = notification.TBLANIME.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == notification.ID)?.SEASONNUMBER ?? 0})">
+                                                    @if (notification.PROFILEPICTURE != null)
+                                                    {
+                                                        <div style="position:absolute;" class="skeleton2"></div>
+                                                        <img data-src="/USERIMG/@notification.PROFILEPICTURE" class="lazy" style="object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <div style="position:absolute;" class="skeleton2"></div>
+                                                        <img data-src="/USERIMG/stockuser.png" class="lazy" style="object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    }
+                                                    <div style=" width: 225px; color: #ffffff;">
+                                                        <strong style="font-size: 0.9rem; display: block; margin-bottom:-22px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ">
+                                                            @notification.TBLANIME.ANIMENAME
+                                                        </strong><br />
+                                                        <span style="font-size: 0.9rem; width: 100%; display: inline-block; line-height: 1.2;">@notification.MESSAGE</span><br />
+                                                        <span style="font-size: 0.8rem; color: #cccccc;"> @TimeAgo(notification.CREATED.Value)</span>
+
+                                                    </div>
+                                                </a>
+                                            }
+                                            else if (notification.ANIMEID == null && notification.EPISODEID == null)
+                                            {
+                                                <a style="display: flex; position:relative; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
+                                                    @if (notification.PROFILEPICTURE != null)
+                                                    {
+                                                        <div style="position:absolute;" class="skeleton2"></div>
+                                                        <img data-src="/USERIMG/@notification.PROFILEPICTURE" class="lazy" style="object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <div style="position:absolute;" class="skeleton2"></div>
+                                                        <img data-src="/USERIMG/stockuser.png" class="lazy" style="object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    }
+                                                    <div style=" width: 220px; color: #ffffff;">
+                                                        <strong style="font-size: 0.9rem; display: block; margin-bottom: -25px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ">@notification.USERNAME</strong><br />
+                                                        <span style="font-size: 0.9rem;">@notification.MESSAGE</span><br />
+                                                        <span style="font-size: 0.8rem; color: #cccccc;">@TimeAgo(notification.CREATED.Value)</span>
+                                                    </div>
+                                                </a>
+                                            }
+                                            else if (notification.ANIMEID != null && notification.EPISODEID != null)
+                                            {
+                                                <a style="display: flex; position:relative; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Video", new {episodeID = notification.EPISODEID, animeName = notification.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = notification.TBLANIME.TBLSEASON.FirstOrDefault().SEASONNUMBER, episodeNumber = notification.EPISODEID })">
+                                                    @if (notification.PROFILEPICTURE != null)
+                                                    {
+                                                        <div style="position:absolute;" class="skeleton2"></div>
+                                                        <img data-src="/USERIMG/@notification.PROFILEPICTURE" class="lazy" style="object-fit:cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <div style="position:absolute;" class="skeleton2"></div>
+                                                        <img data-src="/USERIMG/stockuser.png" class="lazy" style="object-fit: cover; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;" />
+                                                    }
+                                                    <div style=" width: 225px; color: #ffffff;">
+                                                        <strong style="font-size: 0.9rem; display: block; margin-bottom:-22px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ">
+                                                            @notification.TBLANIME.ANIMENAME S@(notification.TBLANIME.TBLSEASON.FirstOrDefault().SEASONNUMBER) B@(notification.TBLEPISODE.EPINUMBER)
+                                                        </strong><br />
+                                                        <span style="font-size: 0.9rem; width: 100%; display: inline-block; line-height: 1.2;">@notification.MESSAGE</span><br />
+                                                        <span style="font-size: 0.8rem; color: #cccccc;">@TimeAgo(notification.CREATED.Value)</span>
+                                                    </div>
+                                                </a>
+                                            }
                                         </li>
                                     }
                                     <li>
                                         <button id="clear-notifications" style="margin: 0px; width: 100%; padding: 5px 12px; color: #ffffff; background: none; border: none;">Temizle</button>
                                     </li>
-                                }
-                                else
-                                {
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul style="background-color:#313131; width:150px;" class="dropdown-menu">
                                     <li style="color:white; text-align:center;">Bildirim Kutusu Boş</li>
-                                }
-                            </ul>
+                                </ul>
+                            }
                         </div>
                     }
                     @if (User.Identity.IsAuthenticated)
@@ -756,7 +832,8 @@
                     if (data.success) {
                         $('#nabermudurr').empty();
                         $('#nabermudurr').append('<li style="color:white; text-align:center;">Bildirim Kutusu Boş</li>');
-                        $('#notification-icon').removeClass('bi-bell-fill').addClass('bi-bell'); // İkonu boş yap
+                        $('#nabermudurr').css('width', '150px');
+                        $('#notification-icon').removeClass('bi-bell-fill').addClass('bi-bell');
                         toastr.success(data.message, "Bildirimler Temizlendi");
                     } else {
                         toastr.error(data.message, "Hata");
@@ -905,3 +982,42 @@ else
         });
     });
 </script>
+
+@functions {
+    public static string TimeAgo(DateTime dateTime)
+    {
+        TimeSpan timeSpan = DateTime.Now - dateTime;
+
+        if (timeSpan.TotalSeconds < 60)
+        {
+            return "az önce";
+        }
+        else if (timeSpan.TotalMinutes < 60)
+        {
+            int minutes = (int)timeSpan.TotalMinutes;
+            return $"{minutes} dakika önce";
+        }
+        else if (timeSpan.TotalHours < 24)
+        {
+            int hours = (int)timeSpan.TotalHours;
+            return $"{hours} saat önce";
+        }
+        else if (timeSpan.TotalDays < 30)
+        {
+            int days = (int)timeSpan.TotalDays;
+            return $"{days} gün önce";
+        }
+        else if (timeSpan.TotalDays < 365)
+        {
+            int months = (int)(timeSpan.TotalDays / 30);
+            return $"{months} ay önce";
+        }
+        else
+        {
+            int years = (int)(timeSpan.TotalDays / 365);
+            return $"{years} yıl önce";
+        }
+    }
+}
+
+

@@ -40,9 +40,9 @@
 
     </div>
     @*@if (ViewBag.IsFeatureActive)
-    {
-        <div id="snow-container"></div>
-    }*@
+        {
+            <div id="snow-container"></div>
+        }*@
 
     <header>
         <div class="container-xl">
@@ -443,50 +443,100 @@
     </script>
 }
 
-@*@if (ViewBag.IsFeatureActive)
+@if (TempData["error8"] != null)
 {
-    <script>
-        // script.js
-        const snowContainer = document.getElementById('snow-container');
+    <script type="text/javascript">
+        toastr["error"]("@TempData["error8"]", "Şifre oluşturma hatası!")
 
-        function createSnowflake() {
-            const snowflake = document.createElement('div');
-            const size = Math.random() * 5 + 2; // Kar tanesi boyutu
-            const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
-            const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
-
-            snowflake.classList.add('snowflake');
-            snowflake.style.width = `${size}px`;
-            snowflake.style.height = `${size}px`;
-            snowflake.style.left = `${leftPosition}px`;
-            snowflake.style.animationDuration = `${animationDuration}s`;
-
-            snowContainer.appendChild(snowflake);
-
-            // Kar tanesinin düşüşü tamamlandığında sil
-            setTimeout(() => {
-                snowflake.remove();
-            }, animationDuration * 1000);
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
         }
-
-        // Kar tanelerini sürekli oluştur
-        setInterval(createSnowflake, 500); // Her 100 ms'de bir kar tanesi oluştur
     </script>
-}*@
+}
+
+@if (TempData["error9"] != null)
+{
+    <script type="text/javascript">
+        toastr["error"]("@TempData["error9"]", "Şifre oluşturma hatası!")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+
+@*@if (ViewBag.IsFeatureActive)
+    {
+        <script>
+            // script.js
+            const snowContainer = document.getElementById('snow-container');
+
+            function createSnowflake() {
+                const snowflake = document.createElement('div');
+                const size = Math.random() * 5 + 2; // Kar tanesi boyutu
+                const leftPosition = Math.random() * window.innerWidth; // Rastgele soldan konum
+                const animationDuration = Math.random() * 3 + 2; // Rastgele animasyon süresi
+
+                snowflake.classList.add('snowflake');
+                snowflake.style.width = `${size}px`;
+                snowflake.style.height = `${size}px`;
+                snowflake.style.left = `${leftPosition}px`;
+                snowflake.style.animationDuration = `${animationDuration}s`;
+
+                snowContainer.appendChild(snowflake);
+
+                // Kar tanesinin düşüşü tamamlandığında sil
+                setTimeout(() => {
+                    snowflake.remove();
+                }, animationDuration * 1000);
+            }
+
+            // Kar tanelerini sürekli oluştur
+            setInterval(createSnowflake, 500); // Her 100 ms'de bir kar tanesi oluştur
+        </script>
+    }*@
 
 <script>
     document.getElementById('togglePassword').addEventListener('click', function () {
         const passwordField = document.getElementById('password');
         const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordField.setAttribute('type', type);
-        this.innerHTML = type === 'password' ? '<i style="font-size:1.1rem;" class="bi bi-eye-fill"></i>' : '<i style="font-size:1.1rem;" class="bi bi-eye-slash-fill"></i>'; 
+        this.innerHTML = type === 'password' ? '<i style="font-size:1.1rem;" class="bi bi-eye-fill"></i>' : '<i style="font-size:1.1rem;" class="bi bi-eye-slash-fill"></i>';
     });
 
     document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
         const confirmPasswordField = document.getElementById('confirmPassword');
         const type = confirmPasswordField.getAttribute('type') === 'password' ? 'text' : 'password';
         confirmPasswordField.setAttribute('type', type);
-        this.innerHTML = type === 'password' ? '<i style="font-size:1.1rem;" class="bi bi-eye-fill"></i>' : '<i style="font-size:1.1rem;" class="bi bi-eye-slash-fill"></i>'; 
+        this.innerHTML = type === 'password' ? '<i style="font-size:1.1rem;" class="bi bi-eye-fill"></i>' : '<i style="font-size:1.1rem;" class="bi bi-eye-slash-fill"></i>';
     });
 </script>
 

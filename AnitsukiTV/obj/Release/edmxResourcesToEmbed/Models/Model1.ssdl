@@ -66,6 +66,7 @@
     <Property Name="DATE" Type="datetime" />
     <Property Name="USTID" Type="int" />
     <Property Name="STATUS" Type="bit" />
+    <Property Name="SPOILER" Type="bit" />
   </EntityType>
   <EntityType Name="TBLANIMECOMMENTLIKE">
     <Key>
@@ -121,6 +122,7 @@
     <Property Name="DATE" Type="datetime" />
     <Property Name="USTID" Type="int" />
     <Property Name="STATUS" Type="bit" />
+    <Property Name="SPOILER" Type="bit" />
   </EntityType>
   <EntityType Name="TBLEPISODECOMMENTLIKE">
     <Key>
@@ -168,6 +170,8 @@
     <Property Name="ISCLEARED" Type="bit" />
     <Property Name="USERNAME" Type="nvarchar" MaxLength="250" />
     <Property Name="PROFILEPICTURE" Type="nvarchar" MaxLength="250" />
+    <Property Name="ANIMEID" Type="int" />
+    <Property Name="EPISODEID" Type="int" />
   </EntityType>
   <EntityType Name="TBLSEASON">
     <Key>
@@ -422,6 +426,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_TBLNOTIFICATIONS_TBLANIME">
+    <End Role="TBLANIME" Type="Self.TBLANIME" Multiplicity="0..1" />
+    <End Role="TBLNOTIFICATIONS" Type="Self.TBLNOTIFICATIONS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLANIME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLNOTIFICATIONS">
+        <PropertyRef Name="ANIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLNOTIFICATIONS_TBLEPISODE">
+    <End Role="TBLEPISODE" Type="Self.TBLEPISODE" Multiplicity="0..1" />
+    <End Role="TBLNOTIFICATIONS" Type="Self.TBLNOTIFICATIONS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLEPISODE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLNOTIFICATIONS">
+        <PropertyRef Name="EPISODEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_TBLNOTIFICATIONS_TBLUSER">
     <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="0..1" />
     <End Role="TBLNOTIFICATIONS" Type="Self.TBLNOTIFICATIONS" Multiplicity="*" />
@@ -561,6 +589,14 @@
     <AssociationSet Name="FK_TBLFOLLOWERS_TBLUSER1" Association="Self.FK_TBLFOLLOWERS_TBLUSER1">
       <End Role="TBLUSER" EntitySet="TBLUSER" />
       <End Role="TBLFOLLOWERS" EntitySet="TBLFOLLOWERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLNOTIFICATIONS_TBLANIME" Association="Self.FK_TBLNOTIFICATIONS_TBLANIME">
+      <End Role="TBLANIME" EntitySet="TBLANIME" />
+      <End Role="TBLNOTIFICATIONS" EntitySet="TBLNOTIFICATIONS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLNOTIFICATIONS_TBLEPISODE" Association="Self.FK_TBLNOTIFICATIONS_TBLEPISODE">
+      <End Role="TBLEPISODE" EntitySet="TBLEPISODE" />
+      <End Role="TBLNOTIFICATIONS" EntitySet="TBLNOTIFICATIONS" />
     </AssociationSet>
     <AssociationSet Name="FK_TBLNOTIFICATIONS_TBLUSER" Association="Self.FK_TBLNOTIFICATIONS_TBLUSER">
       <End Role="TBLUSER" EntitySet="TBLUSER" />

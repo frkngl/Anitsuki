@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,5 +17,7 @@ namespace AnitsukiTV.Models
         public List<TBLEPISODE> OncekiBolum { get; set; }
         public List<TBLEPISODE> SonrakiBolum { get; set; }
         public List<TBLANIME> Anime { get; set; }
+        public List<TBLEPISODECOMMENT> EpisodeComment { get; set; }
+        public IPagedList<TBLEPISODECOMMENT> PageddRootComments { get; set; }
     }
 }

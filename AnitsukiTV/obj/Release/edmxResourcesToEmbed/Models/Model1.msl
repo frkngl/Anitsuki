@@ -64,6 +64,7 @@
     <EntitySetMapping Name="TBLANIMECOMMENT">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLANIMECOMMENT">
         <MappingFragment StoreEntitySet="TBLANIMECOMMENT">
+          <ScalarProperty Name="SPOILER" ColumnName="SPOILER" />
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
           <ScalarProperty Name="USTID" ColumnName="USTID" />
           <ScalarProperty Name="DATE" ColumnName="DATE" />
@@ -124,6 +125,7 @@
     <EntitySetMapping Name="TBLEPISODECOMMENT">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLEPISODECOMMENT">
         <MappingFragment StoreEntitySet="TBLEPISODECOMMENT">
+          <ScalarProperty Name="SPOILER" ColumnName="SPOILER" />
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
           <ScalarProperty Name="USTID" ColumnName="USTID" />
           <ScalarProperty Name="DATE" ColumnName="DATE" />
@@ -176,6 +178,8 @@
     <EntitySetMapping Name="TBLNOTIFICATIONS">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLNOTIFICATIONS">
         <MappingFragment StoreEntitySet="TBLNOTIFICATIONS">
+          <ScalarProperty Name="EPISODEID" ColumnName="EPISODEID" />
+          <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
           <ScalarProperty Name="PROFILEPICTURE" ColumnName="PROFILEPICTURE" />
           <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
           <ScalarProperty Name="ISCLEARED" ColumnName="ISCLEARED" />

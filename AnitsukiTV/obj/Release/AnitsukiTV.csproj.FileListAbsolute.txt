@@ -89,3 +89,5 @@ C:\Users\frkng\Desktop\GitHub\AnitsukiTV\bin\System.Text.Encodings.Web.xml
 C:\Users\frkng\Desktop\GitHub\AnitsukiTV\bin\System.Text.Json.xml
 C:\Users\frkng\Desktop\GitHub\AnitsukiTV\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\frkng\Desktop\GitHub\AnitsukiTV\bin\System.ValueTuple.xml
+C:\Users\frkng\Desktop\GitHub\AnitsukiTV\bin\System.IO.Pipelines.dll
+C:\Users\frkng\Desktop\GitHub\AnitsukiTV\bin\System.IO.Pipelines.xml

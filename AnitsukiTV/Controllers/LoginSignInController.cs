@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -38,9 +39,36 @@ namespace AnitsukiTV.Controllers
                 user.PASSWORD = useradd.PASSWORD.Trim();
                 user.CONFIRMPASS = useradd.CONFIRMPASS.Trim();
                 user.STATUS = true;
-                user.DATE = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                user.DATE = DateTime.Now;
 
-            
+                // Kullanıcı adı kontrolü
+                if (!Regex.IsMatch(user.USERNAME, @"^[a-zA-Z0-9_]+$"))
+                {
+                    TempData["error5"] = "Kullanıcı adı sadece harf, sayı ve _ karakterlerinden oluşmalıdır.";
+                    return View(useradd);
+                }
+
+                // E-posta kontrolü - E-posta için daha esnek bir regex kullanıyoruz, bu kısım değişmiyor
+                if (!Regex.IsMatch(user.MAIL, @"^(?!.*\.{2})(([^<>()[\]\\.,;:\s@\""]+(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"))
+                {
+                    TempData["error6"] = "Geçerli bir e-posta adresi giriniz.";
+                    return View(useradd);
+                }
+
+                // Şifre kontrolü
+                if (!Regex.IsMatch(user.PASSWORD, @"^[a-zA-Z0-9_\p{P}]+$"))
+                {
+                    TempData["error7"] = "Şifre sadece harf, sayı, _ ve noktalama işaretlerinden oluşmalıdır, boşluk içermemelidir.";
+                    return View(useradd);
+                }
+
+                // Şifre doğrulama kontrolü
+                if (!Regex.IsMatch(user.CONFIRMPASS, @"^[a-zA-Z0-9_\p{P}]+$"))
+                {
+                    TempData["error7"] = "Şifre sadece harf, sayı, _ ve noktalama işaretlerinden oluşmalıdır, boşluk içermemelidir.";
+                    return View(useradd);
+                }
+
                 var UserName = db.TBLUSER.FirstOrDefault(u => u.USERNAME == user.USERNAME);
                 if (UserName != null)
                 {
