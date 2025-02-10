@@ -20,7 +20,24 @@
                         </div>
                     </div>
                 </nav>
-                <h4 class="card-title"><a class="btn btn-primary" href="/LanetlerKralıAdmin/AddAnime">Anime Ekle</a></h4>
+                <div style="display:flex;">
+                    <h4 class="card-title" style="margin-right:10px;"><a class="btn btn-primary" href="/LanetlerKralıAdmin/AddAnime">Anime Ekle</a></h4>
+                    <h4 class="card-title" style="margin-right:10px;"><a class="btn btn-warning" href="/LanetlerKralıAdmin/AnimeStatus">Anime Pasif</a></h4>
+                    @{ AnitsukiTVEntities db = new AnitsukiTVEntities();}
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        var username = User.Identity.Name;
+                        var admin = db.TBLADMIN.Where(x => x.USERNAME == username).FirstOrDefault();
+                        if (admin != null)
+                        {
+                            if (admin.ADMINROLEID == 1)
+                            {
+                               <h4 class="card-title"><a class="btn btn-success" href="/LanetlerKralıAdmin/AnimeAdminStatus">Anime Slider Aktif</a></h4>
+                            }
+                        }
+                    }
+                </div>
+               
                 <p class="card-description">
                     Animeler
                 </p>
@@ -33,7 +50,6 @@
                             <th>TARIH</th>
                             <th>Güncelle</th>
                             <th>Durum</th>
-                            @{ AnitsukiTVEntities db = new AnitsukiTVEntities();}
 
                             @if (User.Identity.IsAuthenticated)
                             {
@@ -54,7 +70,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var x in Model)
+                        @foreach (var x in Model.Select(x => new { x.ID, x.BANNER, x.ANIMENAME, x.DATE, x.STATUS, x.ADMINSTATUS }))
                         {
                             <tr>
                                 <td>@x.ID</td>

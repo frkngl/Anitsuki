@@ -5609,6 +5609,17 @@
     <Content Include="Views\LanetlerKralıAdmin\ErrorDetail.cshtml" />
     <Content Include="Views\WatchTogether\Index.cshtml" />
     <Content Include="WEBIMG\footer.avif" />
+    <Content Include="Views\LanetlerKralıAdmin\Status.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\CategoryStatus.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\AnimeStatus.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\AnimeAdminStatus.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\SeasonStatus.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\EpisodeStatus.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\UserStatus.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\AnimeCommentStatus.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\EpisodeCommentStatus.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\DonateStatus.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\ErrorStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

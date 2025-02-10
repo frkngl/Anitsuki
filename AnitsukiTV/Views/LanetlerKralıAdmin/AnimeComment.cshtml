@@ -19,6 +19,9 @@
                         </div>
                     </div>
                 </nav>
+                <div style="display:flex;">
+                    <h4 class="card-title"><a class="btn btn-warning" href="/LanetlerKralıAdmin/AnimeCommentStatus">Anime Yorum Pasif</a></h4>
+                </div>
                 <p class="card-description">
                     Anime Yorumları
                 </p>
@@ -48,12 +51,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var x in Model.OrderByDescending(x => x.ID))
+                        @foreach (var x in Model.Select(x => new { x.ID, x.TBLUSER.USERNAME, x.TBLANIME.ANIMENAME, x.COMMENT, x.STATUS }).OrderByDescending(x => x.ID))
                         {
                             <tr>
                                 <td><div style="width: 75px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.ID</div></td>
-                                <td><div style="width: 100px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.TBLUSER.USERNAME</div></td>
-                                <td><div style="width: 250px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.TBLANIME.ANIMENAME</div></td>
+                                <td><div style="width: 100px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.USERNAME</div></td>
+                                <td><div style="width: 250px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.ANIMENAME</div></td>
                                 <td><div style="width: 250px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.COMMENT</div></td>
                                 <td><a class="btn btn-warning" href="/LanetlerKralıAdmin/UpdateComment/@x.ID">Güncelle</a></td>
                                 <td>

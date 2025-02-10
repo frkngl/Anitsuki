@@ -576,7 +576,7 @@
                         <li><a href="@Url.RouteUrl("Anasayfa")" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
                         <li><a href="@Url.RouteUrl("Animeler")"><i class="fa-solid fa-list"></i> Animeler</a></li>
                         <li><a href="@Url.RouteUrl("Bağış")"><i class="bi bi-cash-stack"></i> Bağış</a></li>
-                        <li><a href="@Url.RouteUrl("Watch Together")"><i class="bi bi-tv"></i> WT Yakında</a></li>
+                        <li><a target="_blank" href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
                     </ul>
                 </nav>
                 <div class="box col-2">
@@ -694,11 +694,11 @@
                                 <input type="text" autocomplete="off" name="searchTags1111" id="searchTags1111" placeholder="Anime Ara..." />
                             </div>
                             <ul id="menuFull1111" style="display: none; overflow-y: auto;">
-                                @foreach (var anime in Model.VideoInfo.Anime.Where(x => x.STATUS == true))
+                                @foreach (var anime in Model.VideoInfo.Anime.Where(x => x.STATUS == true).Select(a => new{ a.ID,a.ANIMENAME,a.BANNER,a.DETAIL,SEASONNUMBER = a.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == a.ID)?.SEASONNUMBER ?? 0}))
                                 {
                                     <li style="margin:10px 0px;width:100%; display:flex; justify-content:space-between; align-items:center;">
                                         <div style="width:100%;">
-                                            <a style="display:flex;position:relative;" href="@Url.RouteUrl("Anime Detay", new { animeID = anime.ID, animeName = anime.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = anime.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == anime.ID)?.SEASONNUMBER ?? 0})">
+                                            <a style="display:flex;position:relative;" href="@Url.RouteUrl("Anime Detay", new { animeID = anime.ID, animeName = anime.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = anime.SEASONNUMBER })">
                                                 <div style="position:absolute;" class="skeleton3"></div>
                                                 <img data-src="/IMG/@anime.BANNER" class="lazy" style="width:25%; height:120px; object-fit:cover; margin-right:7px; border-radius:5px;" />
                                                 <div style="overflow-wrap: break-word; overflow: auto; white-space: normal; width:75%; line-height:1;">
@@ -721,15 +721,10 @@
                                 <input type="text" autocomplete="off" name="searchTags11" id="searchTags11" placeholder="Arkadaş Ara..." />
                             </div>
                             <ul id="menuFull11" style="display: none; overflow-y: auto;">
-                                @foreach (var user in Model.VideoInfo.Users.Where(x => x.STATUS == true))
+                                @foreach (var user in Model.VideoInfo.Users.Where(x => x.STATUS == true).Select(u => new {u.ID,u.USERNAME, u.PICTURE,FollowersCount = new AnitsukiTVEntities().TBLFOLLOWERS.Where(f => f.FOLLOWEDID == u.ID).Select(f => f.TBLUSER).Count(x => x.STATUS == true)}))
                                 {
                                     <li style="margin:10px 0px;width:100%; display:flex; justify-content:space-between; align-items:center;">
                                         <div>
-                                            @{
-                                                AnitsukiTVEntities y = new AnitsukiTVEntities();
-                                                var Followers = y.TBLFOLLOWERS.Where(f => f.FOLLOWEDID == user.ID).Select(f => f.TBLUSER).ToList();
-                                                ViewBag.FollowersCountt = Followers.Count(x => x.STATUS == true);
-                                            }
                                             <a style="display:flex;position:relative;" href="@Url.RouteUrl("Profil", new { userName = user.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                 @if (user.PICTURE != null)
                                                 {
@@ -737,7 +732,7 @@
                                                     <img data-src="/USERIMG/@user.PICTURE" class="lazy" style="width:50px; height:50px; object-fit:cover; margin-right:7px; border-radius:50%;" />
                                                     <div>
                                                         <strong style="font-size:0.9rem;">@user.USERNAME</strong><br />
-                                                        <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
+                                                        <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@user.FollowersCount</span>
                                                     </div>
                                                 }
                                                 else
@@ -746,13 +741,13 @@
                                                     <img data-src="/USERIMG/stockuser.png" class="lazy" style="width: 50px; height: 50px; object-fit: cover; margin-right: 7px; border-radius: 50%;" />
                                                     <div>
                                                         <strong style="font-size:0.9rem;">@user.USERNAME</strong><br />
-                                                        <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@ViewBag.FollowersCountt</span>
+                                                        <span style="font-size: 0.8rem; color: #cccccc;">Takipçi:@user.FollowersCount</span>
                                                     </div>
                                                 }
                                             </a>
                                         </div>
                                         <div style="color:white;">
-                                            <button onclick="followUser  (@user.ID, this)" style="background-color: transparent; border: none; color: #FF7F00;">
+                                            <button onclick="followUser(@user.ID, this)" style="background-color: transparent; border: none; color: #FF7F00;">
                                                 @if (ViewBag.FollowedUserIds.Contains(user.ID))
                                                 {
                                                     <i style="font-size:2.5rem;" class="bi bi-person-fill-dash"></i> <!-- Takipten çıkma simgesi -->
@@ -809,7 +804,8 @@
                 if (vv.EP2 != null)
                 {
                     <div class="poster">
-                        <img src="~/IMG/@vv.TBLSEASON.BANNER" />
+                        <img src="~/IMG/@vv.TBLSEASON.BANNER" class="desktop-only">
+                        <img src="~/WEBIMG/postermobil.png" class="mobile-only" alt="türkçe altyazılı anime izle, anitsuki">
                         <i class="bi bi-play-circle"></i>
                     </div>
                 }
@@ -825,7 +821,8 @@
                     if (vv.TBLSEASON.BANNER != null)
                     {
                         <div class="poster">
-                            <img src="~/IMG/@vv.TBLSEASON.BANNER" />
+                            <img src="~/IMG/@vv.TBLSEASON.BANNER" class="desktop-only">
+                            <img src="~/WEBIMG/postermobil.png" class="mobile-only" alt="türkçe altyazılı anime izle, anitsuki">
                             <i class="bi bi-play-circle"></i>
                         </div>
                     }
@@ -1365,6 +1362,7 @@
                 <ul>
                     <li><a href="@Url.RouteUrl("Hakkımızda")">Hakkımızda</a></li>
                     <li><a href="@Url.RouteUrl("Gizlilik Politikası")">Gizlilik Politikası</a></li>
+                    <li><a href="@Url.RouteUrl("Watch Together")">WT Yakında</a></li>
                 </ul>
             </div>
             <div class="social">
@@ -1376,6 +1374,7 @@
                     @*<li><a href="#"><i class="fa-brands fa-x-twitter fa-l"></i> Twitter-X</a></li>*@
                     <li><a target="_blank" href="https://www.instagram.com/anitsukitv/"><i class="fa-brands fa-instagram fa-l"></i> Instagram</a></li>
                     <li><a target="_blank" href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
+                    <li><a target="_blank" href="https://github.com/Anitsuki-Anime"><i class="bi bi-github"></i> GitHub</a></li>
                 </ul>
             </div>
             <div class="contact">

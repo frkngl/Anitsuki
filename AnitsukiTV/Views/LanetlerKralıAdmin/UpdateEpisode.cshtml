@@ -1,7 +1,7 @@
 ﻿@model AnitsukiTV.Models.TBLEPISODE
 @{
     ViewBag.Title = "UpdateEpisode";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "";
 }
 
 <script src="~/Scripts/jquery-3.7.0.slim.min.js"></script>
@@ -39,89 +39,119 @@
 
 
 
-@using (Html.BeginForm("EpisodeSave", "LanetlerKralıAdmin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EpisodeSave", "LanetlerKralıAdmin", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "episodeForm" }))
 {
-    <div class="form-group">
-        <label for="exampleInputName1">ID</label>
-        @Html.TextBoxFor(x => x.ID, new { @style = "width:100%; border:1px solid #000000;", @readonly = "readonly" })
-    </div>
-    <div style="width:100%; height:auto; display:flex; align-items:center;justify-content:space-around;" class="form-group">
-        <div>
-            <div style="margin-bottom:10px;">
-                <label for="exampleInputPassword4">Video URL</label>
-                <br />
-                <video controls class="Video2" width="400" height="250" style="border:1px solid #000000; object-fit:cover;" id="videoPlayerr"></video>
-                <div class="d-flex">
-                    @Html.TextBoxFor(x => x.EP2, new { @class = "form-control", @placeholder = ".MP4 uzantılı linkleri giriniz buraya", @style = "width:100%; border:1px solid #000000; padding:3px;", @id = "videoUrlInputt" })
-                    <button class="btn btn-primary" type="button" id="previewButtonn">Önizle</button>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="exampleInputName1">ID</label>
+            @Html.TextBoxFor(x => x.ID, new { @style = "width:100%; border:1px solid #000000;", @readonly = "readonly" })
+        </div>
+        <div style="width:100%; height:auto; display:flex; align-items:center;justify-content:space-around;" class="form-group">
+            <div>
+                <div style="margin-bottom:10px;">
+                    <label for="exampleInputPassword4">Video URL</label>
+                    <br />
+                    <video controls class="Video2" width="400" height="250" style="border:1px solid #000000; object-fit:cover;" id="videoPlayerr"></video>
+                    <div class="d-flex">
+                        @Html.TextBoxFor(x => x.EP2, new { @class = "form-control", @placeholder = ".MP4 uzantılı linkleri giriniz buraya", @style = "width:100%; border:1px solid #000000; padding:3px;", @id = "videoUrlInputt" })
+                        <button class="btn btn-primary" type="button" id="previewButtonn">Önizle</button>
+                    </div>
+                </div>
+                <div>
+                    <label for="exampleInputPassword4">720</label><br />
+                    <video width="400" height="250" style="object-fit:cover;" controls class="video2" src="~/Videos/@Model.EP3"></video>
+                    <input type="file" id="resim" accept=".mp4" class=" form-control" onchange="$('.video2')[0].src = window.URL.createObjectURL(this.files[0])" name="Video3" />
                 </div>
             </div>
             <div>
-                <label for="exampleInputPassword4">720</label><br />
-                <video width="400" height="250" style="object-fit:cover;" controls class="video2" src="~/Videos/@Model.EP3"></video>
-                <input type="file" id="resim" accept=".mp4" class=" form-control" onchange="$('.video2')[0].src = window.URL.createObjectURL(this.files[0])" name="Video2" />
-            </div>
-        </div>
-        <div>
-            <div style="margin-bottom:10px;">
-                <label for="videoUrlInput">Video IFRAME</label><br />
-                <iframe id="videoIframe" width="400" height="250" style="border:1px solid #000000; display:block;" frameborder="0" allowfullscreen></iframe>
-                <video controls id="otherVideo" width="400" height="250" style="border:1px solid #000000; display:none; object-fit:cover;"></video>
-                <div class="d-flex">
-                    @Html.TextBoxFor(x => x.URL, new { @class = "form-control", @id = "videoUrlInput", @placeholder = "YouTube veya Google Drive video URL'sini buraya yapıştırın", @style = "width:100%; border:1px solid #000000; padding:3px;" })
-                    <button class="btn btn-primary" type="button" id="previewButton">Önizle</button>
+                <div style="margin-bottom:10px;">
+                    <label for="videoUrlInput">Video IFRAME</label><br />
+                    <iframe id="videoIframe" width="400" height="250" style="border:1px solid #000000; display:block;" frameborder="0" allowfullscreen></iframe>
+                    <video controls id="otherVideo" width="400" height="250" style="border:1px solid #000000; display:none; object-fit:cover;"></video>
+                    <div class="d-flex">
+                        @Html.TextBoxFor(x => x.URL, new { @class = "form-control", @id = "videoUrlInput", @placeholder = "YouTube veya Google Drive video URL'sini buraya yapıştırın", @style = "width:100%; border:1px solid #000000; padding:3px;" })
+                        <button class="btn btn-primary" type="button" id="previewButton">Önizle</button>
+                    </div>
+                </div>
+                <div>
+                    <label for="exampleInputPassword4">1080</label><br />
+                    <video width="400" height="250" style="object-fit:cover;" controls class="video4" src="~/Videos/@Model.EP4"></video>
+                    <input type="file" id="resim" accept=".mp4" class=" form-control" onchange="$('.video4')[0].src = window.URL.createObjectURL(this.files[0])" name="Video4" />
                 </div>
             </div>
-            <div>
-                <label for="exampleInputPassword4">1080</label><br />
-                <video width="400" height="250" style="object-fit:cover;" controls class="video4" src="~/Videos/@Model.EP4"></video>
-                <input type="file" id="resim" accept=".mp4" class=" form-control" onchange="$('.video4')[0].src = window.URL.createObjectURL(this.files[0])" name="Video4" />
-            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword4">Anime Adı</label><br />
+            <input type="text" id="anime-search" placeholder="Anime Ara">
+            <select id="anime-dropdown" name="ANIMEID" required>
+                @foreach (var anime in ViewBag.Anime)
+                {
+                    if (anime.ID == ViewBag.SelectedAnimeId)
+                    {
+                        <option value="@anime.ID" selected>@anime.ANIMENAME</option>
+                    }
+                    else
+                    {
+                        <option value="@anime.ID">@anime.ANIMENAME</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword4">Sezon ID</label><br />
+            <select id="season-dropdown" name="SEASONID" required>
+                <option value="">Sezon Seçin</option>
+                @if (!string.IsNullOrEmpty(ViewBag.SelectedSeasonName))
+                {
+                    <option value="@Model.TBLSEASON.ID" selected>@ViewBag.SelectedSeasonName</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">Bölüm Sayısı</label><br />
+            @Html.TextBoxFor(x => x.EPINUMBER, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">Bölüm İsmi</label><br />
+            @Html.TextBoxFor(x => x.EPISODENAME, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail3">Süre</label><br />
+            @Html.TextBoxFor(x => x.TIME, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
         </div>
     </div>
-    <div class="form-group">
-        <label for="exampleInputPassword4">Anime Adı</label><br />
-        <input type="text" id="anime-search" placeholder="Anime Ara">
-        <select id="anime-dropdown" name="ANIMEID" required>
-            @foreach (var anime in ViewBag.Anime)
-            {
-                if (anime.ID == ViewBag.SelectedAnimeId)
-                {
-                    <option value="@anime.ID" selected>@anime.ANIMENAME</option>
-                }
-                else
-                {
-                    <option value="@anime.ID">@anime.ANIMENAME</option>
-                }
-            }
-        </select>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+        <button type="button" class="btn btn-primary" id="saveChanges">Değişiklikleri Kaydet</button>
     </div>
-    <div class="form-group">
-        <label for="exampleInputPassword4">Sezon ID</label><br />
-        <select id="season-dropdown" name="SEASONID" required>
-            <option value="">Sezon Seçin</option>
-            @if (!string.IsNullOrEmpty(ViewBag.SelectedSeasonName))
-            {
-                <option value="@Model.TBLSEASON.ID" selected>@ViewBag.SelectedSeasonName</option>
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputName1">Bölüm Sayısı</label><br />
-        @Html.TextBoxFor(x => x.EPINUMBER, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
-    </div>
-    <div class="form-group">
-        <label for="exampleInputName1">Bölüm İsmi</label><br />
-        @Html.TextBoxFor(x => x.EPISODENAME, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
-    </div>
-    <div class="form-group">
-        <label for="exampleInputEmail3">Süre</label><br />
-        @Html.TextBoxFor(x => x.TIME, new { @style = "width:100%; border:1px solid #000000;padding:3px;" })
-    </div>
-    <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
-    <a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/Episode">Vazgeç</a>
 }
 
+
+<script>
+    document.getElementById('saveChanges').addEventListener('click', function (e) {
+        e.preventDefault();
+        var form = document.getElementById('episodeForm');
+        var formData = new FormData(form);
+
+        fetch(form.action, {
+            method: form.method,
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Bölüm başarıyla güncellendi.');
+                    $('#exampleModal').modal('hide');
+                } else {
+                    alert('Bölüm güncellenirken bir hata oluştu: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Hata:', error);
+                alert('İşlem sırasında bir hata oluştu.');
+            });
+    });
+</script>
 
 
 <script>

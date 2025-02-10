@@ -39,6 +39,12 @@ namespace AnitsukiTV.Controllers
             return View(degerler);
         }
 
+        public ActionResult Status()
+        {
+            var degerler = db.TBLADMIN.Where(x => x.STATUS == false).OrderByDescending(x => x.ID).ToList();
+            return View(degerler);
+        }
+
         [HttpGet]
         public ActionResult AddAdmin()
         {
@@ -192,6 +198,12 @@ namespace AnitsukiTV.Controllers
             return View(degerler);
         }
 
+        public ActionResult CategoryStatus()
+        {
+            var degerler = db.TBLCATEGORY.Where(x => x.STATUS == false).OrderByDescending(x=>x.ID).ToList();
+            return View(degerler);
+        }
+
 
         [HttpGet]
         public ActionResult AddCategory()
@@ -274,6 +286,17 @@ namespace AnitsukiTV.Controllers
             return View(pagedList);
         }
 
+        public ActionResult AnimeStatus()
+        {
+            var degerler = db.TBLANIME.Where(x => x.STATUS == false).OrderByDescending(x=>x.ID).ToList();
+            return View(degerler);
+        }
+
+        public ActionResult AnimeAdminStatus()
+        {
+            var degerler = db.TBLANIME.Where(x => x.ADMINSTATUS == true).OrderByDescending(x => x.ID).ToList();
+            return View(degerler);
+        }
 
         [HttpGet]
         public ActionResult AddAnime()
@@ -583,6 +606,11 @@ namespace AnitsukiTV.Controllers
             ViewBag.Anime = anime;
             return View(pagedList);
         }
+        public ActionResult SeasonStatus()
+        {
+            var degerler = db.TBLSEASON.Where(x => x.STATUS == false).OrderByDescending(x=>x.ID).ToList();
+            return View(degerler);
+        }
 
         [HttpGet]
         public ActionResult AddSeason()
@@ -777,6 +805,11 @@ namespace AnitsukiTV.Controllers
             return View(pagedList);
         }
 
+        public ActionResult EpisodeStatus()
+        {
+            var degerler = db.TBLEPISODE.Where(x => x.STATUS == false).OrderByDescending(x => x.ID).ToList();
+            return View(degerler);
+        }
 
         [HttpGet]
         public ActionResult AddEpisode()
@@ -939,13 +972,11 @@ namespace AnitsukiTV.Controllers
                 updateepisode.TIME = update.TIME;
 
                 db.SaveChanges();
-                TempData["success1"] = "Bölüm başarıyla güncellendi.";
-                return RedirectToAction("Episode");
+                return Json(new { success = true, message = "Bölüm başarıyla güncellendi." });
             }
             catch (Exception ex)
             {
-                TempData["error1"] = "Bölüm güncellenirken bir hata oluştu: " + ex.Message;
-                return RedirectToAction("Episode");
+                return Json(new { success = false, error = "Bölüm güncellenirken bir hata oluştu: " + ex.Message });
             }
         }
 
@@ -999,6 +1030,12 @@ namespace AnitsukiTV.Controllers
             ViewBag.CurrentPage = p;
             ViewBag.User = user;
             return View(pagedList);
+        }
+
+        public ActionResult UserStatus()
+        {
+            var degerler = db.TBLUSER.Where(x => x.STATUS == false).OrderByDescending(x => x.ID).ToList();
+            return View(degerler);
         }
 
         public ActionResult UpdateUser(int id)
@@ -1077,6 +1114,12 @@ namespace AnitsukiTV.Controllers
             return View(pagedList);
         }
 
+        public ActionResult AnimeCommentStatus()
+        {
+            var degerler = db.TBLANIMECOMMENT.Where(x => x.STATUS == false).OrderByDescending(x => x.ID).ToList();
+            return View(degerler);
+        }
+
         public ActionResult UpdateComment(int id)
         {
             var FindComment = db.TBLANIMECOMMENT.Find(id);
@@ -1151,6 +1194,12 @@ namespace AnitsukiTV.Controllers
             ViewBag.CurrentPage = p;
             ViewBag.Comment = Comment;
             return View(pagedList);
+        }
+
+        public ActionResult EpisodeCommentStatus()
+        {
+            var degerler = db.TBLEPISODECOMMENT.Where(x => x.STATUS == false).OrderByDescending(x => x.ID).ToList();
+            return View(degerler);
         }
 
         public ActionResult UpdateEpisodeComment(int id)
@@ -1228,6 +1277,12 @@ namespace AnitsukiTV.Controllers
             ViewBag.CurrentPage = p;
             ViewBag.Donate = Donate;
             return View(pagedList);
+        }
+
+        public ActionResult DonateStatus()
+        {
+            var degerler = db.TBLDONATE.Where(x => x.STATUS == false).OrderByDescending(x => x.ID).ToList();
+            return View(degerler);
         }
 
 
@@ -1318,6 +1373,12 @@ namespace AnitsukiTV.Controllers
         public ActionResult Error()
         {
             var degerler = db.TBL404.ToList();
+            return View(degerler);
+        }
+
+        public ActionResult ErrorStatus()
+        {
+            var degerler = db.TBL404.Where(x => x.STATUS == false).OrderByDescending(x => x.ID).ToList();
             return View(degerler);
         }
 

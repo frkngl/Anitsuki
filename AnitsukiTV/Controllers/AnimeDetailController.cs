@@ -161,7 +161,7 @@ namespace AnitsukiTV.Controllers
             var rootComments = allComments.Where(x => x.USTID == null).ToList();
 
             // Sayfalandırma işlemi, her sayfada 1 ana yorum gösterecek şekilde
-            var pagedRootComments = rootComments.ToPagedList(page, 20);
+            var pagedRootComments = rootComments.ToPagedList(page, 15);
 
             ViewBag.AnimeCount = allComments.Count; // Tüm yorumların sayısını ViewBag'e atıyoruz
             ViewBag.anime = animeID; // Anime ID'sini ViewBag'e atıyoruz

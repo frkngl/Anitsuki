@@ -19,6 +19,9 @@
                         </div>
                     </div>
                 </nav>
+                <div style="display:flex;">
+                    <h4 class="card-title"><a class="btn btn-warning" href="/LanetlerKralıAdmin/UserStatus">Pasif Kullanıcı</a></h4>
+                </div>
                 <p class="card-description">
                     Kullanıcılar
                 </p>
@@ -48,7 +51,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var x in Model.OrderByDescending(x => x.ID))
+                        @foreach (var x in Model.Select(x => new { x.ID, x.PICTURE, x.USERNAME, x.DATE, x.STATUS }).OrderByDescending(x => x.ID))
                         {
                             <tr>
                                 <td>@x.ID</td>

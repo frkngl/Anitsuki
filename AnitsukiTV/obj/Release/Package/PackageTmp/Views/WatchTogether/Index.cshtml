@@ -366,7 +366,7 @@
                         <li><a href="@Url.RouteUrl("Anasayfa")" class="active"><i class="fa-solid fa-house"></i> Anasayfa</a></li>
                         <li><a href="@Url.RouteUrl("Animeler")"><i class="fa-solid fa-list"></i> Animeler</a></li>
                         <li><a href="@Url.RouteUrl("Bağış")"><i class="bi bi-cash-stack"></i> Bağış</a></li>
-                        <li><a href="@Url.RouteUrl("Watch Together")"><i class="bi bi-tv"></i> WT Yakında</a></li>
+                        <li><a target="_blank" href="https://discord.gg/emkmqardFF"><i class="bi bi-discord"></i> Discord</a></li>
                     </ul>
                 </nav>
                 <div class="box col-2">
@@ -484,11 +484,11 @@
                                 <input type="text" autocomplete="off" name="searchTags1111" id="searchTags1111" placeholder="Anime Ara..." />
                             </div>
                             <ul id="menuFull1111" style="display: none; overflow-y: auto;">
-                                @foreach (var anime in Model.Anime.Where(x => x.STATUS == true))
+                                @foreach (var anime in Model.Anime.Where(x => x.STATUS == true).Select(x => new { x.ID, x.ANIMENAME, SEASONNUMBER = x.TBLSEASON?.FirstOrDefault(s => s.ANIMEID == x.ID)?.SEASONNUMBER ?? 0, x.BANNER, x.DETAIL, x.STATUS }))
                                 {
                                     <li style="margin:10px 0px;width:100%; display:flex; justify-content:space-between; align-items:center;">
                                         <div style="width:100%;">
-                                            <a style="display:flex;position:relative;" href="@Url.RouteUrl("Anime Detay", new { animeID = anime.ID, animeName = anime.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = anime.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == anime.ID)?.SEASONNUMBER ?? 0})">
+                                            <a style="display:flex;position:relative;" href="@Url.RouteUrl("Anime Detay", new { animeID = anime.ID, animeName = anime.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = anime.SEASONNUMBER })">
                                                 <div style="position:absolute;" class="skeleton3"></div>
                                                 <img data-src="/IMG/@anime.BANNER" class="lazy" style="width:25%; height:120px; object-fit:cover; margin-right:7px; border-radius:5px;" />
                                                 <div style="overflow-wrap: break-word; overflow: auto; white-space: normal; width:75%; line-height:1;">
@@ -511,7 +511,7 @@
                                 <input type="text" autocomplete="off" name="searchTags11" id="searchTags11" placeholder="Arkadaş Ara..." />
                             </div>
                             <ul id="menuFull11" style="display: none; overflow-y: auto;">
-                                @foreach (var user in Model.Users.Where(x => x.STATUS == true))
+                                @foreach (var user in Model.Users.Where(x => x.STATUS == true).Select(x => new { x.USERNAME, x.PICTURE, x.STATUS, x.ID }))
                                 {
                                     <li style="margin:10px 0px;width:100%; display:flex; justify-content:space-between; align-items:center;">
                                         <div>

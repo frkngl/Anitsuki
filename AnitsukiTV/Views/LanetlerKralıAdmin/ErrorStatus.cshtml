@@ -1,0 +1,73 @@
+﻿@using AnitsukiTV.Models
+@model List<TBL404>
+@{
+    ViewBag.Title = "ErrorStatus";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-description">
+                    Video Pasif
+                </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Video Adı</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model.Select(x => new { x.ID, x.TEXT, x.STATUS }))
+                        {
+                            <tr>
+                                <td>@x.ID</td>
+                                <td>@x.TEXT</td>
+                                <td>
+                                    @if (x.STATUS == true)
+                                    {
+                                        <button class="btn btn-success btn-sm toggle-status" data-id="@x.ID">Aktif</button>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-warning btn-sm toggle-status" data-id="@x.ID">Pasif</button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <a style="color:#000000;" href="/LanetlerKralıAdmin/Error" class="btn btn bg-light">Geri Gel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+
+<script>
+    $(document).on('click', '.toggle-status', function () {
+        var id = $(this).data('id');
+        var button = $(this);
+
+        $.ajax({
+            url: '/LanetlerKralıAdmin/ActivePassive10/' + id,
+            type: 'POST',
+            success: function (result) {
+                // Durum değiştiyse butonu güncelle
+                if (result.status) {
+                    button.removeClass('btn-warning').addClass('btn-success').text('Aktif');
+                } else {
+                    button.removeClass('btn-success').addClass('btn-warning').text('Pasif');
+                }
+            },
+            error: function () {
+                alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+            }
+        });
+    });
+</script>
+

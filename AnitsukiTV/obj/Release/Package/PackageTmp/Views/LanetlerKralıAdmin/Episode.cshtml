@@ -20,7 +20,10 @@
                         </div>
                     </div>
                 </nav>
-                <h4 class="card-title"><a class="btn btn-primary" href="/LanetlerKralıAdmin/AddEpisode">Bölüm Ekle</a></h4>
+                <div style="display:flex;">
+                    <h4 class="card-title" style="margin-right:10px;"><a class="btn btn-primary" href="/LanetlerKralıAdmin/AddEpisode">Bölüm Ekle</a></h4>
+                    <h4 class="card-title"><a class="btn btn-warning" href="/LanetlerKralıAdmin/EpisodeStatus">Bölüm Pasif</a></h4>
+                </div>
                 <p class="card-description">
                     Bölümler
                 </p>
@@ -52,23 +55,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var x in Model.OrderByDescending(x => x.ID))
+                        @foreach (var x in Model.Select(x=> new { x.ID, x.TBLANIME.ANIMENAME, x.TBLSEASON.BANNER, x.TBLSEASON.SEASONNAME, x.TBLSEASON.SEASONNUMBER, x.EPINUMBER, x.EPISODENAME, x.STATUS}).OrderByDescending(x => x.ID))
                         {
                             <tr>
                                 <td>@x.ID</td>
-                                <td><img style="width:150px; height:100px; object-fit:cover; border-radius:0%;" src="~/IMG/@x.TBLSEASON.BANNER" /></td>
-                                <td><div style="width: 200px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.TBLANIME.ANIMENAME</div></td>
+                                <td><img style="width:150px; height:100px; object-fit:cover; border-radius:0%;" src="~/IMG/@x.BANNER" /></td>
+                                <td><div style="width: 200px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.ANIMENAME</div></td>
                                 <td>
-                                    @if (x.TBLSEASON.SEASONNAME != null)
+                                    @if (x.SEASONNAME != null)
                                     {
                                         <div style="width: 150px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">
-                                            @x.TBLSEASON.SEASONNAME
+                                            @x.SEASONNAME
                                         </div>
                                     }
                                     else
                                     {
                                         <div style="width: 150px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">
-                                            @x.TBLSEASON.SEASONNUMBER
+                                            @x.SEASONNUMBER
                                         </div>
                                     }
                                 </td>
@@ -80,7 +83,11 @@
                                 <td>
                                     <div style="width: 300px; height: 100px; overflow-wrap: break-word; overflow:auto; white-space: normal; line-height: 1; font-size: 1rem; ">@x.EPISODENAME</div>
                                 </td>
-                                <td><a class="btn btn-warning" href="/LanetlerKralıAdmin/UpdateEpisode/@x.ID">Güncelle</a></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="loadUpdateForm(@x.ID)">
+                                        Güncelle
+                                    </button>
+                                </td>
                                 <td>
                                     @if (x.STATUS == true)
                                     {
@@ -108,6 +115,21 @@
                         }
                     </tbody>
                 </table>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div style="position:relative;">
+                        <div style="position:absolute; left:50%; transform:translateX(-100%);" class="modal-dialog">
+                            <div style="width:1000px; height: 90vh;" class="modal-content">
+                                <div style="height:50px; display:flex; align-items:center;" class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Bölüm Güncelle</h5>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                                </div>
+                                <div style="overflow:auto;" id="modalBodyContent">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -197,6 +219,122 @@
 
 <script src="~/Scripts/jquery-3.7.1.min.js"></script>
 <script src="~/Scripts/toastr.min.js"></script>
+<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+<script>
+    function loadUpdateForm(id) {
+        // AJAX ile veri çekme ve modal içeriğini güncelleme
+        fetch('/LanetlerKralıAdmin/UpdateEpisode/' + id)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('modalBodyContent').innerHTML = data;
+                setupEventListeners(); // Modal içeriği yüklendikten sonra event listener'ları bağla
+            });
+    }
+
+    function setupEventListeners() {
+        // Video IFRAME önizleme event listener
+        const previewButton = document.getElementById('previewButton');
+        if (previewButton) {
+            previewButton.addEventListener('click', function () {
+                const videoUrl = document.getElementById('videoUrlInput').value;
+                const videoIframe = document.getElementById('videoIframe');
+                const otherVideo = document.getElementById('otherVideo');
+
+                if (videoUrl) {
+                    // YouTube URL kontrolü
+                    if (videoUrl.includes('youtube.com/watch?v=')) {
+                        let videoId = videoUrl.split('v=')[1];
+                        if (videoId) {
+                            const ampersandPosition = videoId.indexOf('&');
+                            if (ampersandPosition !== -1) {
+                                videoId = videoId.substring(0, ampersandPosition);
+                            }
+                            videoIframe.src = "https://www.youtube.com/embed/" + videoId;
+                            videoIframe.style.display = "block";
+                            otherVideo.style.display = "none";
+                        }
+                    }
+                    // Google Drive URL kontrolü
+                    else if (videoUrl.includes('drive.google.com/file/d/')) {
+                        const fileId = videoUrl.split('/d/')[1].split('/')[0];
+                        videoIframe.src = "https://drive.google.com/file/d/" + fileId + "/preview";
+                        videoIframe.style.display = "block";
+                        otherVideo.style.display = "none";
+                    }
+                    // Mail.ru URL kontrolü
+                    else if (videoUrl.includes('mail.ru/video/embed/')) {
+                        videoIframe.src = videoUrl;
+                        videoIframe.style.display = "block";
+                        otherVideo.style.display = "none";
+                    }
+                    // Ok.ru URL kontrolü
+                    else if (videoUrl.includes('ok.ru/video/')) {
+                        const videoId = videoUrl.split('video/')[1];
+                        videoIframe.src = "https://ok.ru/videoembed/" + videoId;
+                        videoIframe.style.display = "block";
+                        otherVideo.style.display = "none";
+                    }
+                    // Sibnet URL kontrolü
+                    else if (videoUrl.includes('video.sibnet.ru/shell.php?videoid=')) {
+                        videoIframe.src = videoUrl;
+                        videoIframe.style.display = "block";
+                        otherVideo.style.display = "none";
+                    }
+                    else {
+                        alert('Lütfen geçerli bir video URL\'si girin.');
+                    }
+                } else {
+                    alert('Lütfen geçerli bir video URL\'si girin.');
+                }
+            });
+        }
+
+        // MP4 video önizleme event listener
+        const previewButtonn = document.getElementById('previewButtonn');
+        if (previewButtonn) {
+            previewButtonn.addEventListener('click', function () {
+                const videoUrl = document.getElementById('videoUrlInputt').value;
+                const videoPlayer = document.getElementById('videoPlayerr');
+
+                if (videoUrl.includes('.mp4')) {
+                    videoPlayer.src = videoUrl;
+                    videoPlayer.load();
+                } else {
+                    alert('Lütfen geçerli bir MP4 uzantılı link girin.');
+                }
+            });
+        }
+
+        // Bölüm güncelleme event listener
+        document.getElementById('saveChanges').addEventListener('click', function (e) {
+            e.preventDefault();
+            var form = document.getElementById('episodeForm');
+            var formData = new FormData(form);
+
+            fetch(form.action, {
+                method: form.method,
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        toastr.success('Bölüm başarıyla güncellendi.', 'Başarılı!');
+                        $('#exampleModal').modal('hide');
+                    } else {
+                        toastr.error('Bölüm güncellenirken bir hata oluştu: ' + data.error, 'Hata!');
+                    }
+                })
+                .catch(error => {
+                    console.error('Hata:', error);
+                    toastr.error('İşlem sırasında bir hata oluştu.', 'Hata!');
+                });
+        });
+
+    }
+
+    // Sayfa yüklendiğinde setupEventListeners fonksiyonunu çalıştırabilirsiniz,
+    // ancak bu örnekte modal açıldığında çalıştırılıyor.
+</script>
 
 <script>
     $(document).on('click', '.toggle-status', function () {
@@ -395,6 +533,10 @@
         }
     </script>
 }
+
+
+
+
 
 
 
