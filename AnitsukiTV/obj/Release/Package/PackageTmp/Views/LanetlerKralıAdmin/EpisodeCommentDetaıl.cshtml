@@ -13,11 +13,11 @@
         <br />
         @if (x.TBLUSER.PICTURE != null)
         {
-            <img width="300" height="300" ; style=" border-radius:50%;  object-fit:cover;" src="~/IMG/@x.TBLUSER.PICTURE" />
+            <img width="300" height="300" ; style=" border-radius:50%;  object-fit:cover;" src="~/USERIMG/@x.TBLUSER.PICTURE" />
         }
         else
         {
-            <img width="300" height="300" ; style=" border-radius:50%;  object-fit:cover;" src="~/IMG/stockuser.png" />
+            <img width="300" height="300" ; style=" border-radius:50%;  object-fit:cover;" src="~/USERIMG/stockuser.png" />
         }
 
     </div>
@@ -46,6 +46,6 @@
         <textarea style="width:100%; height:300px;" readonly>@x.COMMENT</textarea>
     </div>
 }
-<a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/AnimeComment">Geri Dön</a>
+<a style="color:#ffffff;" class="btn btn-light" href="/LanetlerKralıAdmin/EpisodeComment">Geri Dön</a>
 
 

@@ -177,6 +177,7 @@
           <Property Name="PROFILEPICTURE" Type="nvarchar" MaxLength="250" />
           <Property Name="ANIMEID" Type="int" />
           <Property Name="EPISODEID" Type="int" />
+          <Property Name="ADMINSTATUS" Type="bit" />
         </EntityType>
         <EntityType Name="TBLSEASON">
           <Key>
@@ -944,6 +945,7 @@
           <Property Name="PROFILEPICTURE" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ANIMEID" Type="Int32" />
           <Property Name="EPISODEID" Type="Int32" />
+          <Property Name="ADMINSTATUS" Type="Boolean" />
           <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLANIME" FromRole="TBLNOTIFICATIONS" ToRole="TBLANIME" />
           <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLEPISODE" FromRole="TBLNOTIFICATIONS" ToRole="TBLEPISODE" />
           <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLUSER" FromRole="TBLNOTIFICATIONS" ToRole="TBLUSER" />
@@ -1470,6 +1472,7 @@
           <EntitySetMapping Name="TBLNOTIFICATIONS">
             <EntityTypeMapping TypeName="AnitsukiTVModel.TBLNOTIFICATIONS">
               <MappingFragment StoreEntitySet="TBLNOTIFICATIONS">
+                <ScalarProperty Name="ADMINSTATUS" ColumnName="ADMINSTATUS" />
                 <ScalarProperty Name="EPISODEID" ColumnName="EPISODEID" />
                 <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
                 <ScalarProperty Name="PROFILEPICTURE" ColumnName="PROFILEPICTURE" />

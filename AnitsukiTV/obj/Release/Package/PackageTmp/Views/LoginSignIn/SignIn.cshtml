@@ -253,7 +253,7 @@
 @if (TempData["error5"] != null)
 {
     <script type="text/javascript">
-        toastr["error"]("Kullanıcı adı sadece harf, sayı ve _ karakterlerinden oluşmalıdır.", "Kullanıcı Adı hatası")
+        toastr["error"]("Kullanıcı adı en az 3 karakterden oluşmalı, en az bir harf içermeli ve sadece harf, sayı ve _ karakterlerinden oluşmalıdır.", "Kullanıcı Adı hatası")
 
         toastr.options = {
             "closeButton": false,

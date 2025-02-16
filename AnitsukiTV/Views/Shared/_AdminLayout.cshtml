@@ -18,7 +18,7 @@
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="~/Admin/assets/vendors/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="~/Admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
-    <!-- End plugin css for this page -->
+    <link rel="stylesheet" href="~/Content/toastr.min.css" />    <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
@@ -28,7 +28,6 @@
 </head>
 <body>
     <div class="container-scroller">
-        <!-- partial:partials/_navbar.html -->
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                 <a class="navbar-brand brand-logo" href="/LanetlerKralıAdmin/Index"><img style="object-fit:contain; height:50px;" src="~/WEBIMG/logo.png" alt="logo" /></a>
@@ -50,9 +49,8 @@
                             </div>
                         </a>
                         <div class="dropdown-menu navbar-dropdown dropdown-menu-right p-0 border-0 font-size-sm" aria-labelledby="profileDropdown" data-x-placement="bottom-end">
-                            
+
                             <div class="p-2">
-                                <div role="separator" class="dropdown-divider"></div>
                                 <h5 class="dropdown-header text-uppercase  pl-2 text-dark mt-2">İşlemler</h5>
                                 <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="/lockout">
                                     <span>Hesabı Kilitle</span>
@@ -65,9 +63,177 @@
                             </div>
                         </div>
                     </li>
-
-
+                    @{
+                        AnitsukiTV.Models.AnitsukiTVEntities xx = new AnitsukiTV.Models.AnitsukiTVEntities();
+                        var degerler = xx.TBLNOTIFICATIONS.Where(x => x.ADMINSTATUS == true).OrderByDescending(x => x.ID).ToList();
+                        ViewBag.notifiaction = degerler;
+                        ViewBag.notificationcount = degerler.Count();
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        var username = User.Identity.Name;
+                        var admin = xx.TBLADMIN.Where(x => x.USERNAME == username).FirstOrDefault();
+                        if (admin != null)
+                        {
+                            if (admin.ADMINROLEID == 1)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link count dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="mdi mdi-email-outline"></i>
+                                        <span class="count-symbol bg-success"></span>
+                                    </a>
+                                    <div style="width:400px; height:auto;" class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                                        <h6 style="height:25px; display:flex; justify-content:center; align-items:center;" class="p-3 mb-0 bg-primary text-white py-4">Mesajlar</h6>
+                                        <div style="overflow:auto; max-height:340px;">
+                                            @foreach (var x in @ViewBag.notifiaction)
+                                            {
+                                                <div class="dropdown-divider"></div>
+                                                <div class="dropdown-item preview-item">
+                                                    <div class="preview-thumbnail">
+                                                        @if (x.PROFILEPICTURE == null)
+                                                        {
+                                                            <img style="object-fit:cover;" src="~/USERIMG/stockuser.png" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img style="object-fit:cover;" src="~/USERIMG/@x.PROFILEPICTURE">
+                                                        }
+                                                    </div>
+                                                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                                        <h6 class="preview-subject font-weight-normal">@x.USERNAME</h6>
+                                                        <h6 style="word-wrap: break-word; /* Metni kır ve yeni satıra taşı */ white-space: normal;" class="preview-subject font-weight-normal">@x.MESSAGE</h6>
+                                                        <p class="text-gray mb-0">@TimeAgo(x.CREATED) </p>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+                                        <div style="display:flex; justify-content:space-around; align-items:center; height:50px;width:100%; background:#ccc;">
+                                            <div style="margin:0px; padding:0px;">@ViewBag.notificationcount tane bildirim var</div>
+                                            <a class="btn btn-primary" href="/LanetlerKralıAdmin/Message">Hepsini Gör</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            else if (admin.ADMINROLEID == 3)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link count dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="mdi mdi-email-outline"></i>
+                                        <span class="count-symbol bg-success"></span>
+                                    </a>
+                                    <div style="width:400px; height:auto;" class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                                        <h6 style="height:25px; display:flex; justify-content:center; align-items:center;" class="p-3 mb-0 bg-primary text-white py-4">Mesajlar</h6>
+                                        <div style="overflow:auto; max-height:340px;">
+                                            @foreach (var x in @ViewBag.notifiaction)
+                                            {
+                                                <div class="dropdown-divider"></div>
+                                                <div class="dropdown-item preview-item">
+                                                    <div class="preview-thumbnail">
+                                                        @if (x.PROFILEPICTURE == null)
+                                                        {
+                                                            <img style="object-fit:cover;" src="~/USERIMG/stockuser.png" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img style="object-fit:cover;" src="~/USERIMG/@x.PROFILEPICTURE">
+                                                        }
+                                                    </div>
+                                                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                                        <h6 class="preview-subject font-weight-normal">@x.USERNAME</h6>
+                                                        <h6 style="word-wrap: break-word; /* Metni kır ve yeni satıra taşı */ white-space: normal;" class="preview-subject font-weight-normal">@x.MESSAGE</h6>
+                                                        <p class="text-gray mb-0">@TimeAgo(x.CREATED) </p>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+                                        <div style="display:flex; justify-content:space-around; align-items:center; height:50px;width:100%; background:#ccc;">
+                                            <div style="margin:0px; padding:0px;">@ViewBag.notificationcount tane bildirim var</div>
+                                            <a class="btn btn-primary" href="/LanetlerKralıAdmin/Message">Hepsini Gör</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            else if (admin.ADMINROLEID == 4)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link count dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="mdi mdi-email-outline"></i>
+                                        <span class="count-symbol bg-success"></span>
+                                    </a>
+                                    <div style="width:400px; height:auto;" class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                                        <h6 style="height:25px; display:flex; justify-content:center; align-items:center;" class="p-3 mb-0 bg-primary text-white py-4">Mesajlar</h6>
+                                        <div style="overflow:auto; max-height:340px;">
+                                            @foreach (var x in @ViewBag.notifiaction)
+                                            {
+                                                <div class="dropdown-divider"></div>
+                                                <div class="dropdown-item preview-item">
+                                                    <div class="preview-thumbnail">
+                                                        @if (x.PROFILEPICTURE == null)
+                                                        {
+                                                            <img style="object-fit:cover;" src="~/USERIMG/stockuser.png" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img style="object-fit:cover;" src="~/USERIMG/@x.PROFILEPICTURE">
+                                                        }
+                                                    </div>
+                                                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                                        <h6 class="preview-subject font-weight-normal">@x.USERNAME</h6>
+                                                        <h6 style="word-wrap: break-word; /* Metni kır ve yeni satıra taşı */ white-space: normal;" class="preview-subject font-weight-normal">@x.MESSAGE</h6>
+                                                        <p class="text-gray mb-0">@TimeAgo(x.CREATED) </p>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+                                        <div style="display:flex; justify-content:space-around; align-items:center; height:50px;width:100%; background:#ccc;">
+                                            <div style="margin:0px; padding:0px;">@ViewBag.notificationcount tane bildirim var</div>
+                                            <a class="btn btn-primary" href="/LanetlerKralıAdmin/Message">Hepsini Gör</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    }
                 </ul>
+                @functions {
+                    public static string TimeAgo(DateTime dateTime)
+                    {
+                        TimeSpan timeSpan = DateTime.Now - dateTime;
+
+                        if (timeSpan.TotalSeconds < 60)
+                        {
+                            return "az önce";
+                        }
+                        else if (timeSpan.TotalMinutes < 60)
+                        {
+                            int minutes = (int)timeSpan.TotalMinutes;
+                            return $"{minutes} dakika önce";
+                        }
+                        else if (timeSpan.TotalHours < 24)
+                        {
+                            int hours = (int)timeSpan.TotalHours;
+                            return $"{hours} saat önce";
+                        }
+                        else if (timeSpan.TotalDays < 30)
+                        {
+                            int days = (int)timeSpan.TotalDays;
+                            return $"{days} gün önce";
+                        }
+                        else if (timeSpan.TotalDays < 365)
+                        {
+                            int months = (int)(timeSpan.TotalDays / 30);
+                            return $"{months} ay önce";
+                        }
+                        else
+                        {
+                            int years = (int)(timeSpan.TotalDays / 365);
+                            return $"{years} yıl önce";
+                        }
+                    }
+                }
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
                     <span class="mdi mdi-menu"></span>
                 </button>
@@ -85,11 +251,10 @@
                             <span class="menu-title">Anasayfa</span>
                         </a>
                     </li>
-                    @{ AnitsukiTV.Models.AnitsukiTVEntities db = new AnitsukiTV.Models.AnitsukiTVEntities();}
                     @if (User.Identity.IsAuthenticated)
                     {
                         var username = User.Identity.Name;
-                        var admin = db.TBLADMIN.Where(x => x.USERNAME == username).FirstOrDefault();
+                        var admin = xx.TBLADMIN.Where(x => x.USERNAME == username).FirstOrDefault();
                         if (admin != null)
                         {
                             if (admin.ADMINROLEID == 1)
@@ -270,8 +435,9 @@
     <script src="~/Admin/assets/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
+    <script src="~/Scripts/jquery-3.7.1.min.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
     <script src="~/Admin/assets/vendors/chart.js/Chart.min.js"></script>
-    <script src="~/Admin/assets/vendors/jquery-circle-progress/js/circle-progress.min.js"></script>
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="~/Admin/assets/js/off-canvas.js"></script>

@@ -25,5 +25,34 @@ namespace AnitsukiTV.Controllers
 
             return View(degerler);
         }
+
+        public ActionResult InternalServerError()
+        {
+            return View();
+        }
+        public ActionResult Forbidden()
+        {
+            return View();
+        }
+        public ActionResult BadRequest()
+        {
+            return View();
+        }
+        public ActionResult Unauthorized()
+        {
+            return View();
+        }
+        public ActionResult NotImplemented()
+        {
+            return View();
+        }
+        public ActionResult BadGateway()
+        {
+            return View();
+        }
+        public ActionResult ServiceUnavailable()
+        {
+            return View();
+        }
     }
 }

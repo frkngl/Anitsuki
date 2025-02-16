@@ -3129,6 +3129,7 @@
     <Content Include="css\AnimeDetail.css" />
     <Content Include="css\Category.css" />
     <Content Include="css\Donate.css" />
+    <Content Include="css\errorcss.css" />
     <Content Include="css\Home.css" />
     <Content Include="css\plyr.css" />
     <Content Include="css\PrivacyandPolitic.css" />
@@ -5240,11 +5241,11 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="USERIMG\stockuser.png" />
-    <Content Include="WEBIMG\AnitsukiQR.png" />
     <Content Include="WEBIMG\aylogo.png" />
     <Content Include="WEBIMG\aylogotitle.png" />
     <Content Include="WEBIMG\LoginBackground.png" />
     <Content Include="WEBIMG\logo.png" />
+    <Content Include="WEBIMG\patreon.png" />
     <Content Include="WEBIMG\poster.png" />
     <Content Include="WEBIMG\postermobil.png" />
     <Content Include="bootstrap-icons\font\bootstrap-icons.json" />
@@ -5620,6 +5621,14 @@
     <Content Include="Views\LanetlerKralıAdmin\EpisodeCommentStatus.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\DonateStatus.cshtml" />
     <Content Include="Views\LanetlerKralıAdmin\ErrorStatus.cshtml" />
+    <Content Include="Views\LanetlerKralıAdmin\Message.cshtml" />
+    <Content Include="Views\Error\InternalServerError.cshtml" />
+    <Content Include="Views\Error\Forbidden.cshtml" />
+    <Content Include="Views\Error\BadRequest.cshtml" />
+    <Content Include="Views\Error\Unauthorized.cshtml" />
+    <Content Include="Views\Error\NotImplemented.cshtml" />
+    <Content Include="Views\Error\BadGateway.cshtml" />
+    <Content Include="Views\Error\ServiceUnavailable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -254,7 +254,8 @@ namespace AnitsukiTV.Controllers
                         CREATED = DateTime.Now,
                         ISCLEARED = false,
                         ANIMEID = animeID,
-                        EPISODEID = null
+                        EPISODEID = null,
+                        ADMINSTATUS = false
                     };
 
                     db.TBLNOTIFICATIONS.Add(notification);
@@ -588,6 +589,53 @@ namespace AnitsukiTV.Controllers
         }
 
         [HttpPost]
+        public ActionResult ReportEpisode(int episodeID, string animeName, int seasonNumber, int episodeNumber)
+        {
+            string username = HttpContext.User.Identity.Name;
+            TBLUSER user;
+            bool isGuest = false;
+            if (string.IsNullOrEmpty(username))
+            {
+                user = new TBLUSER { USERNAME = "Misafir Kullanıcı", PICTURE = null };
+                isGuest = true;
+            }
+            else
+            {
+                user = db.TBLUSER.Where(x => x.USERNAME == username).FirstOrDefault();
+            }
+            try
+            {
+                var episode = db.TBLEPISODE.FirstOrDefault(x => x.ID == episodeID);
+                if (episode != null)
+                {
+                    var notification = new TBLNOTIFICATIONS
+                    {
+                        MESSAGE = $"Videoda sorun var: {animeName.Replace("-", " ")} {seasonNumber}. sezon {episodeNumber}. bölüm",
+                        USERID = isGuest ? (int?)null : user.ID,
+                        USERNAME = isGuest ? "Misafir Kullanıcı" : user.USERNAME,
+                        PROFILEPICTURE = isGuest ? null : user.PICTURE,
+                        CREATED = DateTime.Now,
+                        ISCLEARED = false,
+                        ANIMEID = episode.ANIMEID,
+                        EPISODEID = episodeID,
+                        ADMINSTATUS = true
+                    };
+                    db.TBLNOTIFICATIONS.Add(notification);
+                    db.SaveChanges();
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Episode not found" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpPost]
         public ActionResult LeaveComment1(int episodeID, string animeName, int seasonNumber, int episodeNumber, TBLEPISODECOMMENT y)
         {
             string username = HttpContext.User.Identity.Name;
@@ -657,7 +705,8 @@ namespace AnitsukiTV.Controllers
                         CREATED = DateTime.Now,
                         ISCLEARED = false,
                         ANIMEID = animeID,
-                        EPISODEID = episodeID
+                        EPISODEID = episodeID,
+                        ADMINSTATUS = false
                     };
 
                     db.TBLNOTIFICATIONS.Add(notification);

@@ -178,6 +178,7 @@
     <EntitySetMapping Name="TBLNOTIFICATIONS">
       <EntityTypeMapping TypeName="AnitsukiTVModel.TBLNOTIFICATIONS">
         <MappingFragment StoreEntitySet="TBLNOTIFICATIONS">
+          <ScalarProperty Name="ADMINSTATUS" ColumnName="ADMINSTATUS" />
           <ScalarProperty Name="EPISODEID" ColumnName="EPISODEID" />
           <ScalarProperty Name="ANIMEID" ColumnName="ANIMEID" />
           <ScalarProperty Name="PROFILEPICTURE" ColumnName="PROFILEPICTURE" />

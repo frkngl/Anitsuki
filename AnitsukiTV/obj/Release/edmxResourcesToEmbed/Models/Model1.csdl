@@ -320,6 +320,7 @@
     <Property Name="PROFILEPICTURE" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="ANIMEID" Type="Int32" />
     <Property Name="EPISODEID" Type="Int32" />
+    <Property Name="ADMINSTATUS" Type="Boolean" />
     <NavigationProperty Name="TBLANIME" Relationship="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLANIME" FromRole="TBLNOTIFICATIONS" ToRole="TBLANIME" />
     <NavigationProperty Name="TBLEPISODE" Relationship="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLEPISODE" FromRole="TBLNOTIFICATIONS" ToRole="TBLEPISODE" />
     <NavigationProperty Name="TBLUSER" Relationship="AnitsukiTVModel.FK_TBLNOTIFICATIONS_TBLUSER" FromRole="TBLNOTIFICATIONS" ToRole="TBLUSER" />

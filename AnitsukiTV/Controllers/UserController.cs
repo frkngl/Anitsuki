@@ -141,7 +141,10 @@ namespace AnitsukiTV.Controllers
                         USERNAME = followerUsername, // Takip eden kullanıcının ismini ayrı bir alanda sakla
                         PROFILEPICTURE = followerProfileImage, // Takip eden kullanıcının profil resmini sakla
                         CREATED = DateTime.Now,
-                        ISCLEARED = false
+                        ISCLEARED = false,
+                        EPISODEID = null,
+                        ANIMEID = null,
+                        ADMINSTATUS = false
                     };
 
                     db.TBLNOTIFICATIONS.Add(notification);
@@ -177,7 +180,7 @@ namespace AnitsukiTV.Controllers
             try
             {
                 // Kullanıcının tüm bildirimlerini temizle
-                var notifications = db.TBLNOTIFICATIONS.Where(n => n.USERID == currentUserId && n.ISCLEARED == false).ToList();
+                var notifications = db.TBLNOTIFICATIONS.Where(n => n.USERID == currentUserId && n.ISCLEARED == false && n.ADMINSTATUS == false).ToList();
                 if (notifications.Count == 0)
                 {
                     return Json(new { success = false, message = "Temizlenecek bildirim yok." });

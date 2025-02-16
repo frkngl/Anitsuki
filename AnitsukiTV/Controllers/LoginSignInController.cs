@@ -40,55 +40,47 @@ namespace AnitsukiTV.Controllers
                 user.CONFIRMPASS = useradd.CONFIRMPASS.Trim();
                 user.STATUS = true;
                 user.DATE = DateTime.Now;
-
                 // Kullanıcı adı kontrolü
-                if (!Regex.IsMatch(user.USERNAME, @"^[a-zA-Z0-9_]+$"))
+                if (user.USERNAME.Length < 3 || !Regex.IsMatch(user.USERNAME, @"^(?=.*[a-zA-Z])[a-zA-Z0-9_]+$"))
                 {
-                    TempData["error5"] = "Kullanıcı adı sadece harf, sayı ve _ karakterlerinden oluşmalıdır.";
+                    TempData["error5"] = "Kullanıcı adı en az 3 karakterden oluşmalı, en az bir harf içermeli ve sadece harf, sayı ve _ karakterlerinden oluşmalıdır.";
                     return View(useradd);
                 }
-
                 // E-posta kontrolü - E-posta için daha esnek bir regex kullanıyoruz, bu kısım değişmiyor
                 if (!Regex.IsMatch(user.MAIL, @"^(?!.*\.{2})(([^<>()[\]\\.,;:\s@\""]+(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"))
                 {
                     TempData["error6"] = "Geçerli bir e-posta adresi giriniz.";
                     return View(useradd);
                 }
-
                 // Şifre kontrolü
                 if (!Regex.IsMatch(user.PASSWORD, @"^[a-zA-Z0-9_\p{P}]+$"))
                 {
                     TempData["error7"] = "Şifre sadece harf, sayı, _ ve noktalama işaretlerinden oluşmalıdır, boşluk içermemelidir.";
                     return View(useradd);
                 }
-
                 // Şifre doğrulama kontrolü
                 if (!Regex.IsMatch(user.CONFIRMPASS, @"^[a-zA-Z0-9_\p{P}]+$"))
                 {
                     TempData["error7"] = "Şifre sadece harf, sayı, _ ve noktalama işaretlerinden oluşmalıdır, boşluk içermemelidir.";
                     return View(useradd);
                 }
-
                 var UserName = db.TBLUSER.FirstOrDefault(u => u.USERNAME == user.USERNAME);
                 if (UserName != null)
                 {
                     TempData["error"] = "Kullanıcı Adı kullanımda";
                     return View(useradd);
                 }
-
                 var UserMail = db.TBLUSER.FirstOrDefault(u => u.MAIL == user.MAIL);
                 if (UserMail != null)
                 {
                     TempData["error2"] = "Mail adresi kullanımda";
                     return View(useradd);
                 }
-
                 if (user.PASSWORD != user.CONFIRMPASS)
                 {
                     TempData["error3"] = "Şifreler aynı değil";
                     return View(useradd);
                 }
-
                 db.TBLUSER.Add(user);
                 db.SaveChanges();
                 TempData["add"] = "Kayıt işlemi başarılı, giriş sayfasından giriş yapabilirsiniz";

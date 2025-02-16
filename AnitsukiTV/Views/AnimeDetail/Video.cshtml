@@ -586,10 +586,10 @@
                             <button type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i id="notification-icon" style="font-size:1.5rem;" class="bi bi-bell"></i>
                             </button>
-                            @if (Model.VideoInfo.Notification.Any(n => n.ISCLEARED == false))
+                            @if (Model.VideoInfo.Notification.Any(n => n.ISCLEARED == false && n.ADMINSTATUS == false))
                             {
                                 <ul id="nabermudurr" style="background-color:#313131;" class="dropdown-menu">
-                                    @foreach (var notification in Model.VideoInfo.Notification.OrderByDescending(x => x.ID))
+                                    @foreach (var notification in Model.VideoInfo.Notification.Where(x=>x.ADMINSTATUS == false).OrderByDescending(x => x.ID))
                                     {
                                         <li style="display: flex; align-items: center; padding: 5px;" class="dracula">
                                             @if (notification.ANIMEID != null && notification.EPISODEID == null)
@@ -892,8 +892,34 @@
                 }
             }
         </div>
-        <div style="margin-top:25px !important;" class="head">
-            <div class="episodeandcomment">
+        <div style="margin:20px 0px 10px 0px;" class="moshi">
+            <button>
+                <i class="bi bi-exclamation-triangle"></i> Videoda sorun varsa raporlayınız
+            </button>
+        </div>
+        <div class="warning babayoga" style="display: none;">
+            <div class="modal-warning-box" style="height:auto;">
+                <div class="text">
+                    <div class="title">
+                        <div class="title1">
+                            <i class="bi bi-exclamation-triangle-fill"></i> Rapor Mesajı
+                        </div>
+                        <div class="title2">
+                            <img src="~/WEBIMG/aylogo.png" />
+                        </div>
+                    </div>
+                    <div class="des" style="height:auto !important;">
+                        @Model.VideoInfo.AnimeTitle @Model.VideoInfo.SeasonNumber. Sezon @Model.VideoInfo.EpisodeNumber. Bölümü raporlayacaksınız, onaylıyor musun?
+                    </div>
+                </div>
+                <div style="margin-top:10px;" class="okbtn">
+                    <button style="margin-right:10px;" id="escButton">Vazgeç</button>
+                    <button id="confirmButton">Onaylıyorum</button>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top:0px !important;" class="head">
+            <div style="margin-top:-40px;" class="episodeandcomment">
                 <div style="padding-right: 1rem; width: 100%;" class="episodetail">
                     @foreach (var y in Model.VideoInfo.Episode)
                     {
@@ -1668,7 +1694,7 @@
 <script>
     $(document).ready(function () {
         // Eğer yeni bildirim varsa ikon dolu olacak
-        var hasNewNotification = @Model.VideoInfo.Notification.Any(n => n.ISCLEARED == false).ToString().ToLower();
+        var hasNewNotification = @Model.VideoInfo.Notification.Any(n => n.ISCLEARED == false && n.ADMINSTATUS == false).ToString().ToLower();
         if (hasNewNotification) {
             $('#notification-icon').removeClass('bi-bell').addClass('bi-bell-fill');
         }
@@ -2130,6 +2156,37 @@ else
         }
     </script>
 }
+
+<script>
+    document.querySelector('.moshi button').addEventListener('click', function () {
+        document.querySelector('.babayoga').style.display = 'flex';
+    });
+    document.querySelector('#escButton').addEventListener('click', function () {
+        document.querySelector('.babayoga').style.display = 'none';
+    });
+    document.querySelector('#confirmButton').addEventListener('click', function () {
+        var episodeID = @ViewBag.episodeID;
+        var animeName = '@ViewBag.animeName';
+        var seasonNumber = @ViewBag.seasonNumber;
+        var episodeNumber = @ViewBag.episodeNumber;
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("ReportEpisode", "AnimeDetail")",
+            data: { episodeID: episodeID, animeName: animeName, seasonNumber: seasonNumber, episodeNumber: episodeNumber },
+            success: function (data) {
+                if (data.success) {
+                    toastr.success('Bölüm Raporu başarılı bir şekilde iletilmiştir');
+                } else {
+                    toastr.error(data.message || 'Bir hata oluştu.');
+                }
+                document.querySelector('.babayoga').style.display = 'none';
+            },
+            error: function (error) {
+                toastr.error('Bildirim gönderilirken bir hata oluştu.');
+            }
+        });
+    });
+</script>
 
 
 

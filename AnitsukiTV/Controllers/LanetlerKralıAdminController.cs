@@ -12,6 +12,7 @@ using PagedList;
 using PagedList.Mvc;
 using System.Web.UI.WebControls;
 using System.Web.Services.Description;
+using System.Data.Entity;
 
 namespace AnitsukiTV.Controllers
 {
@@ -32,7 +33,25 @@ namespace AnitsukiTV.Controllers
             ViewBag.usercountfalse = db.TBLUSER.Count(x => x.STATUS == false);
             return View(veri);
         }
-        
+        public ActionResult Message()
+        {
+            var degerler = db.TBLNOTIFICATIONS.Where(x => x.ADMINSTATUS == true).OrderByDescending(x => x.ID).ToList();
+            return View(degerler);
+        }
+
+        [HttpPost]
+        public JsonResult ClearAllNotifications()
+        {
+            var messages = db.TBLNOTIFICATIONS.Where(n => n.ADMINSTATUS == true).ToList();
+            foreach (var message in messages)
+            {
+                message.ADMINSTATUS = false;
+                message.ISCLEARED = true;
+            }
+            db.SaveChanges();
+            return Json(new { success = true, message = "Tüm bildirimler temizlendi." });
+        }
+
         public ActionResult Admin()
         {
             var degerler = db.TBLADMIN.ToList();

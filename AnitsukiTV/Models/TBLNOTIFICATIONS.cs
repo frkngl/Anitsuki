@@ -23,6 +23,7 @@ namespace AnitsukiTV.Models
         public string PROFILEPICTURE { get; set; }
         public Nullable<int> ANIMEID { get; set; }
         public Nullable<int> EPISODEID { get; set; }
+        public Nullable<bool> ADMINSTATUS { get; set; }
     
         public virtual TBLANIME TBLANIME { get; set; }
         public virtual TBLEPISODE TBLEPISODE { get; set; }

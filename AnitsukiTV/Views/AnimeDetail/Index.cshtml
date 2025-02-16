@@ -491,13 +491,13 @@
                             <button type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i id="notification-icon" style="font-size:1.5rem;" class="bi bi-bell"></i>
                             </button>
-                            @if (Model.Notifications.Any(n => n.ISCLEARED == false))
+                            @if (Model.Notifications.Any(n => n.ISCLEARED == false && n.ADMINSTATUS == false))
                             {
                                 <ul id="nabermudurr" style="background-color:#313131;" class="dropdown-menu">
-                                    @foreach (var notification in Model.Notifications.OrderByDescending(x => x.ID))
+                                    @foreach (var notification in Model.Notifications.Where(x=>x.ADMINSTATUS == false).OrderByDescending(x => x.ID))
                                     {
                                         <li style="display: flex; align-items: center; padding: 5px;" class="dracula">
-                                            @if (notification.ANIMEID != null && notification.EPISODEID == null)
+                                            @if (notification.ANIMEID != null && notification.EPISODEID == null && notification.ADMINSTATUS == null)
                                             {
                                                 <a style="display: flex; position:relative; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Anime Detay", new { animeId = notification.ANIMEID ,animeName = notification.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = notification.TBLANIME.TBLSEASON?.FirstOrDefault(x => x.ANIMEID == notification.ID)?.SEASONNUMBER ?? 0})">
                                                     @if (notification.PROFILEPICTURE != null)
@@ -520,7 +520,7 @@
                                                     </div>
                                                 </a>
                                             }
-                                            else if (notification.ANIMEID == null && notification.EPISODEID == null)
+                                            else if (notification.ANIMEID == null && notification.EPISODEID == null && notification.ADMINSTATUS == null)
                                             {
                                                 <a style="display: flex; position:relative; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Profil", new { userName = notification.USERNAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",","") })">
                                                     @if (notification.PROFILEPICTURE != null)
@@ -540,7 +540,7 @@
                                                     </div>
                                                 </a>
                                             }
-                                            else if (notification.ANIMEID != null && notification.EPISODEID != null)
+                                            else if (notification.ANIMEID != null && notification.EPISODEID != null && notification.ADMINSTATUS == null)
                                             {
                                                 <a style="display: flex; position:relative; align-items: center; padding: 5px; text-decoration:none;" href="@Url.RouteUrl("Video", new {episodeID = notification.EPISODEID, animeName = notification.TBLANIME.ANIMENAME.ToLower().Replace("ı", "i").Replace("ç", "c").Replace("ö", "o").Replace("ü", "u").Replace("ğ", "g").Replace("ş", "s").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(">", "").Replace("<", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("@", "").Replace(":", "").Replace(";", "").Replace("/", "").Replace("\\", "").Replace(".","").Replace(",",""), seasonNumber = notification.TBLANIME.TBLSEASON.FirstOrDefault().SEASONNUMBER, episodeNumber = notification.EPISODEID })">
                                                     @if (notification.PROFILEPICTURE != null)
@@ -561,6 +561,10 @@
                                                         <span style="font-size: 0.8rem; color: #cccccc;">@TimeAgo(notification.CREATED.Value)</span>
                                                     </div>
                                                 </a>
+                                            }
+                                            else
+                                            {
+                                                continue;
                                             }
                                         </li>
                                     }
@@ -1405,7 +1409,7 @@
 <script>
     $(document).ready(function () {
         // Eğer yeni bildirim varsa ikon dolu olacak
-        var hasNewNotification = @Model.Notifications.Any(n => n.ISCLEARED == false).ToString().ToLower();
+        var hasNewNotification = @Model.Notifications.Any(n => n.ISCLEARED == false && n.ADMINSTATUS == false).ToString().ToLower();
         if (hasNewNotification) {
             $('#notification-icon').removeClass('bi-bell').addClass('bi-bell-fill');
         }
